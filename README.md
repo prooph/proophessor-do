@@ -38,28 +38,32 @@ on *nix or `./vendor/bin/doctrine-module.bat migrations:migrate` on windows from
 
 Navigate to `http://localhost/proophessor-sample-app/pubic/index/` or similar depending on how you've installed the application.
 
-## Exercises
+## Learning by doing!
 
 When you play around with the application you will notice missing functionality. This has a simple reason. You explore
 a learning application and what is the best way to learn? Right! Learning by doing! So if you want to learn something about
-CQRS and Event Sourcing pick up one of the open tasks listed below. Get us a note in the corresponding ticket that you want
-to work on the feature and we will provide you with any help you need to accomplish the task.
+CQRS and Event Sourcing:
+
+1. Pick up an open task listed below
+2. Get us a note in the corresponding issue that you accept the challenge
+3. Ask if you need help
+4. Have fun and learn
 
 
 Note: Some tasks depend on others and some can be split into sub tasks. Let's discuss this in the issues. And of course you
-can also work together on the same task.
+can also work together. Sharing work doubles knowledge!
 
 ### A successfully merged pull request will add you to the HALL OF FAME!
 
 ## Features
 
-- [ ] [Mark a todo as done](https://github.com/prooph/proophessor-todo-sample/issues/1) - done by <your name here>
-- [ ] [Reopen a todo](https://github.com/prooph/proophessor-todo-sample/issues/2) - done by <your name here>
-- [ ] Add deadline to todo - done by <your name here>
-- [ ] Add reminder for assignee - done by <your name here>
-- [ ] Mark a todo as expired - done by <your name here>
-- [ ] Notify assignee when todo deadline is expired - done by <your name here>
-- [ ] Notify assignee when reminder time is reached - done by <your name here>
+- [ ] [Mark a todo as done](https://github.com/prooph/proophessor-todo-sample/issues/1) - done by [your name here]
+- [ ] [Reopen a todo](https://github.com/prooph/proophessor-todo-sample/issues/2) - done by [your name here]
+- [ ] Add deadline to todo - done by [your name here]
+- [ ] Add reminder for assignee - done by [your name here]
+- [ ] Mark a todo as expired - done by [your name here]
+- [ ] Notify assignee when todo deadline is expired - done by [your name here]
+- [ ] Notify assignee when reminder time is reached - done by [your name here]
 - more features will follow ...
 
 
