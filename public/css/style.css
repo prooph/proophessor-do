@@ -1,0 +1,97 @@
+body {
+    padding-top: 80px;
+    padding-bottom: 40px;
+}
+
+.text-btn-align {padding: 6px; vertical-align: middle;}
+
+.btn-h3 {margin-top: 16px}
+
+.form-control-with-desc {margin-top: 20px}
+
+.form-control-separator {
+    font-size: 30px;
+}
+
+.form-inline .form-control-inline-2 {
+    width: 50px;
+    max-width: 50px;
+}
+
+.form-inline .form-control-inline-2 {
+    width: 100px;
+    max-width: 100px;
+}
+
+.form-inline .form-control-inline-3 {
+    width: 150px;
+    max-width: 150px;
+}
+
+.form-inline .form-control-inline-4 {
+    width: 200px;
+    max-width: 200px;
+}
+
+.form-inline .form-control-inline-5 {
+    width: 250px;
+    max-width: 250px;
+}
+
+.form-inline .form-control-inline-6 {
+    width: 300px;
+    max-width: 300px;
+}
+
+.form-inline .form-control-inline-10 {
+    width: 500px;
+    max-width: 600px;
+}
+
+.form-inline .form-control-inline-12 {
+    width: 600px;
+    max-width: 600px;
+}
+
+
+/* Sidebar Styles */
+
+#sidebar-left {
+    margin-top: 40px;
+}
+
+#sidebar-left.affix {
+    top : 60px;
+    margin-top: 0px;
+}
+
+.sidebar-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 40px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a.active {
+    text-decoration: underline;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #269abc;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}

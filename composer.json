@@ -1,0 +1,20 @@
+{
+    "name": "prooph/todo",
+    "description": "CQRS + ES sample app for proophessor",
+    "license": "BSD-3-Clause",
+    "keywords": [
+        "example",
+        "proophessor",
+        "zf2"
+    ],
+    "homepage": "https://github.com/prooph/proophessor",
+    "require": {
+        "php": ">=5.5",
+        "zendframework/zendframework": "~2.4",
+        "prooph/proophessor" : "dev-master",
+        "doctrine/doctrine-orm-module": "~0.8.0",
+        "doctrine/migrations": "v1.0-ALPHA1",
+        "nicolopignatelli/valueobjects": "~2.0"
+    },
+    "bin-dir" : "./bin"
+}

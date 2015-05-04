@@ -1,0 +1,20 @@
+<?php if ($this->invalidUser) : ?>
+    <h1>Something went wrong! We can't find the user who should be responsible for the new Todo.</h1>
+    <p class="alert alert-warning">
+        <strong>Please try again by selecting a user from the <a href="<?php echo $this->url('user_list') ?>">user list</a>!</strong>
+    </p>
+<?php else : ?>
+    <h1>Add a new Todo</h1>
+    <form method="post" enctype="multipart/form-data" action="">
+        <div class="form-group <?php echo ($this->invalidTodo)? 'has-error' : '' ?>">
+            <input class="form-control" type="text" name="todo" value="<?php echo $this->escapeHtmlAttr($this->todo) ?>" placeholder="Describe the Todo with a one liner and press Enter">
+            <?php if ($this->invalidTodo) : ?>
+                <p class="help-block">Oops, that didn't make it. Typed to fast? The Todo should be at least 3 characters long. Please try again!</p>
+            <?php else : ?>
+                <p class="help-block">The Todo will be assigned to <?php echo $this->escapeHtml($this->user->name) ?></p>
+            <?php endif; ?>
+        </div>
+        <input type="hidden" name="user_id" value="<?php echo $this->user->id ?>">
+    </form>
+<?php endif; ?>
+

@@ -1,0 +1,49 @@
+<?php if (! $this->user) : ?>
+    <h1>User cannot be found!</h1>
+    <p class="alert alert-info">
+        If you're coming from the registration process you can try to refresh the page. Maybe the operation took a bit longer
+        than normal. If your data still isn't available please contact the support.
+    </p>
+<?php else : ?>
+    <h1>Todos assigned to <?php echo $this->escapeHtml($this->user->name) ?></h1>
+    <div class="row">
+        <div class="col-md-12">
+            <?php if (empty($this->todos)) : ?>
+                <p class="alert alert-warning">
+                    <strong>The Todo list looks empty. Do you want to create a <a href="<?php echo $this->url('user_todo_post', ['user_id' => $this->user->id])?>">new Todo</a>?</strong>
+                </p>
+            <?php else : ?>
+                <div class="row">
+                    <div class="col-md-12 text-right">
+                        <a href="<?php echo $this->url('user_todo_post', ['user_id' => $this->user->id])?>" class="btn btn-success">new Todo</a>
+                    </div>
+                </div>
+                <p></p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="list-group">
+                            <?php foreach ($this->todos as $todo) : ?>
+                                <div class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <strong><?php echo $this->escapeHtml($todo->text) ?></strong>
+                                        </div>
+                                        <div class="col-md-3">
+                                            add deadline
+                                        </div>
+                                        <div class="col-md-3">
+                                            add reminder
+                                        </div>
+                                        <div class="col-md-1 text-right">
+                                            <span class="glyphicon glyphicon-<?php echo ($todo->status == "done")? "checked text-success" : ($todo->status == "expired")? "warning-sign text-danger" : "unchecked" ?>"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
