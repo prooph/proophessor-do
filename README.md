@@ -1,4 +1,4 @@
-# proophessorDO
+# proophessor-do
 including exercises!
 
 ## What's going on here?
@@ -22,7 +22,7 @@ time has passed.
 
 ## Installation
 
-ProophessorDO is based on a Zend Framework 2 Skeleton Application. Follow the [installation guide](https://github.com/zendframework/ZendSkeletonApplication#installation)
+Proophessor-do is based on a Zend Framework 2 Skeleton Application. Follow the [installation guide](https://github.com/zendframework/ZendSkeletonApplication#installation)
 that can be found on the appropriate github repository.
 
 ## Database Set Up
