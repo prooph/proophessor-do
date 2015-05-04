@@ -36,7 +36,7 @@ on *nix or `./vendor/bin/doctrine-module.bat migrations:migrate` on windows from
 
 ## Open In Browser
 
-Navigate to `http://localhost/proophessor-sample-app/pubic/index/` or similar depending on how you've installed the application.
+Navigate to `http://localhost/proophessor-do/pubic/index/` or similar depending on how you've installed the application.
 
 ## Learning by doing!
 
