@@ -1,4 +1,4 @@
-# proophessor example application
+# proophessorDO
 including exercises!
 
 ## What's going on here?
@@ -6,7 +6,7 @@ including exercises!
 Proophessor is a CQRS + ES module for Zend Framework 2. You can learn more about it by reading the [official documentation](http://prooph.github.io/proophessor/).
 
 
-This repository contains an example implementation of a small domain served by a PHP web application. 
+This repository contains an example implementation of a small domain model served by a PHP web application. 
 [Proophessor](https://github.com/prooph/proophessor) powers the M part and [ZF2](https://github.com/zendframework/zf2) the V and C part of the
 MVC stack. Database connection is managed with the help of [doctrine](https://github.com/doctrine) seamlessly integrated through
 the [prooph/event-store-doctrine-adapter](https://github.com/prooph/event-store-doctrine-adapter) on the write side and the
@@ -22,7 +22,7 @@ time has passed.
 
 ## Installation
 
-The application is based on a Zend Framework 2 Skeleton Application. Follow the [installation guide](https://github.com/zendframework/ZendSkeletonApplication#installation)
+ProophessorDO is based on a Zend Framework 2 Skeleton Application. Follow the [installation guide](https://github.com/zendframework/ZendSkeletonApplication#installation)
 that can be found on the appropriate github repository.
 
 ## Database Set Up
@@ -57,8 +57,8 @@ can also work together. Sharing work doubles knowledge!
 
 ## Features
 
-- [ ] [Mark a todo as done](https://github.com/prooph/proophessor-todo-sample/issues/1) - done by [your name here]
-- [ ] [Reopen a todo](https://github.com/prooph/proophessor-todo-sample/issues/2) - done by [your name here]
+- [ ] [Mark a todo as done](https://github.com/prooph/proophessor-do/issues/1) - done by [your name here]
+- [ ] [Reopen a todo](https://github.com/prooph/proophessor-do/issues/2) - done by [your name here]
 - [ ] Add deadline to todo - done by [your name here]
 - [ ] Add reminder for assignee - done by [your name here]
 - [ ] Mark a todo as expired - done by [your name here]
