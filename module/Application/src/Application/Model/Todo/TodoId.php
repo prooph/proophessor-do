@@ -9,6 +9,7 @@
  * Date: 5/2/15 - 5:23 PM
  */
 namespace Application\Model\Todo;
+
 use Rhumsaa\Uuid\Uuid;
 
 /**
