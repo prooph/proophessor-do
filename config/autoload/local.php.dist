@@ -18,4 +18,23 @@ return [
             ],
         ],
     ],
+    'proophessor' => [
+        'event_store' => [
+// uncomment one adapter
+//            'adapter' => [
+//                'type' => 'Prooph\\EventStore\\Adapter\\MongoDb\\MongoDbEventStoreAdapter',
+//                'options' => [
+//                    'serializer_adapter' => 'json',
+//                    'db_name'            => 'todo'
+//               ],
+//            ],
+//            'adapter' => [
+//                'type' => 'Prooph\\EventStore\\Adapter\\Doctrine\\DoctrineEventStoreAdapter',
+//                'options' => [
+//                    'doctrine_connection_alias' => 'orm_default',
+//                    'serializer_adapter' => 'json',
+//                ],
+//            ],
+        ]
+    ]
 ];
