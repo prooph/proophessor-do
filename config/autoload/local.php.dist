@@ -24,7 +24,6 @@ return [
 //            'adapter' => [
 //                'type' => 'Prooph\\EventStore\\Adapter\\MongoDb\\MongoDbEventStoreAdapter',
 //                'options' => [
-//                    'serializer_adapter' => 'json',
 //                    'db_name'            => 'todo'
 //               ],
 //            ],
