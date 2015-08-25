@@ -7,6 +7,17 @@
         "proophessor",
         "zf2"
     ],
+    "authors": [
+        {
+            "name": "Alexander Miertsch",
+            "email": "contact@prooph.de",
+            "homepage": "http://www.prooph.de"
+        },
+        {
+            "name": "Sascha-Oliver Prolic",
+            "email": "saschaprolic@googlemail.com"
+        }
+    ],
     "homepage": "https://github.com/prooph/proophessor",
     "require": {
         "php": ">=5.5",
