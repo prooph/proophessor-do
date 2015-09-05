@@ -78,8 +78,7 @@
         "zendframework/zendxml": "^1.0.1",
         "doctrine/doctrine-orm-module": "~0.9",
         "doctrine/migrations": "^1.0",
-        "nicolopignatelli/valueobjects": "~3.0",
-        "prooph/event-store-doctrine-adapter": "dev-master"
+        "nicolopignatelli/valueobjects": "~3.0"
     },
     "require-dev" : {
         "fabpot/php-cs-fixer": "1.7.*"
