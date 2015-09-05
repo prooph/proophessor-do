@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/4/15 - 5:22 PM
  */
 namespace Application\Model\Todo;
@@ -31,4 +31,4 @@ final class TodoAlreadyDone extends \RuntimeException
             $status->toString()
         ));
     }
-} 
+}

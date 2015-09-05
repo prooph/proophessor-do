@@ -5,12 +5,14 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/4/15 - 4:09 PM
  */
 namespace Application\Controller\Factory;
+
 use Application\Controller\TodoController;
 use Application\Projection\User\UserFinder;
+use Prooph\ServiceBus\CommandBus;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -31,7 +33,7 @@ final class TodoControllerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $controllerLoader)
     {
         return new TodoController(
-            $controllerLoader->getServiceLocator()->get('proophessor.command_bus'),
+            $controllerLoader->getServiceLocator()->get(CommandBus::class),
             $controllerLoader->getServiceLocator()->get(UserFinder::class)
         );
     }

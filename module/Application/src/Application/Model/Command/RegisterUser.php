@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 6:01 PM
  */
 namespace Application\Model\Command;
@@ -13,6 +13,8 @@ namespace Application\Model\Command;
 use Application\Model\User\EmailAddress;
 use Application\Model\User\UserId;
 use Prooph\Common\Messaging\Command;
+use Prooph\Common\Messaging\PayloadConstructable;
+use Prooph\Common\Messaging\PayloadTrait;
 
 /**
  * Class RegisterUser
@@ -20,8 +22,10 @@ use Prooph\Common\Messaging\Command;
  * @package Application\Model\Command
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class RegisterUser extends Command
+final class RegisterUser extends Command implements PayloadConstructable
 {
+    use PayloadTrait;
+
     /**
      * @param string $userId
      * @param string $name
@@ -30,7 +34,7 @@ final class RegisterUser extends Command
      */
     public static function withData($userId, $name, $email)
     {
-        return new self(__CLASS__, [
+        return new self([
             'user_id' => (string)$userId,
             'name' => (string)$name,
             'email' => (string)$email
@@ -60,4 +64,4 @@ final class RegisterUser extends Command
     {
         return EmailAddress::fromString($this->payload['email']);
     }
-} 
+}

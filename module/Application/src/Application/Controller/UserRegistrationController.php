@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/3/15 - 10:10 PM
  */
 namespace Application\Controller;
@@ -37,7 +37,6 @@ final class UserRegistrationController extends AbstractActionController
     public function registerAction()
     {
         if ($this->getRequest()->isPost()) {
-
             $viewModel = $this->getRegisterViewModel();
 
             $invalid = false;
@@ -96,4 +95,4 @@ final class UserRegistrationController extends AbstractActionController
 
         return $viewModel;
     }
-} 
+}

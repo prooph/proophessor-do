@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 12:24 AM
  */
 namespace Application\Model\User;
@@ -20,7 +20,7 @@ use Rhumsaa\Uuid\Uuid;
  * @package Application\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class UserId 
+final class UserId
 {
     /**
      * @var Uuid

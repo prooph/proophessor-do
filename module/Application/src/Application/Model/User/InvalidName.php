@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 6:56 PM
  */
 namespace Application\Model\User;
@@ -26,4 +26,4 @@ final class InvalidName extends \InvalidArgumentException
     {
         return new self('Invalid user name because ' . (string)$msg);
     }
-} 
+}

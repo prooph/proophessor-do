@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 5:23 PM
  */
 namespace Application\Model\Todo;
@@ -18,7 +18,7 @@ use Rhumsaa\Uuid\Uuid;
  * @package Application\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class TodoId 
+final class TodoId
 {
     /**
      * @var Uuid
@@ -66,4 +66,4 @@ final class TodoId
     {
         return $this->toString() === $other->toString();
     }
-} 
+}

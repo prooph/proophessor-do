@@ -4,7 +4,6 @@ return array(
     'modules' => array(
         'DoctrineModule',
         'DoctrineORMModule',
-        'Prooph\Proophessor',
         'Application',
     ),
 

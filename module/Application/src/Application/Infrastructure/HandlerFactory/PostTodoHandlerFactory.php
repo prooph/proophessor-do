@@ -5,12 +5,14 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/4/15 - 6:10 PM
  */
 namespace Application\Infrastructure\HandlerFactory;
 
 use Application\Model\Todo\PostTodoHandler;
+use Application\Model\Todo\TodoList;
+use Application\Model\User\UserCollection;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -31,8 +33,8 @@ final class PostTodoHandlerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         return new PostTodoHandler(
-            $serviceLocator->get('application.model.user_collection'),
-            $serviceLocator->get('application.model.todo_list')
+            $serviceLocator->get(UserCollection::class),
+            $serviceLocator->get(TodoList::class)
         );
     }
 }

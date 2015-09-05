@@ -5,10 +5,11 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 6:39 PM
  */
 namespace Application\Infrastructure\Repository;
+
 use Application\Model\User\User;
 use Application\Model\User\UserCollection;
 use Application\Model\User\UserId;

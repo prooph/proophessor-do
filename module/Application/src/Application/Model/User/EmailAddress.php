@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 12:27 AM
  */
 namespace Application\Model\User;
@@ -20,7 +20,7 @@ use ValueObjects\Web\EmailAddress as VOEMailAddress;
  * @package Application\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class EmailAddress 
+final class EmailAddress
 {
     /**
      * @var VOEMailAddress
@@ -60,4 +60,4 @@ final class EmailAddress
     {
         return $this->toString() === $other->toString();
     }
-} 
+}

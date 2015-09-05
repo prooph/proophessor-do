@@ -5,11 +5,13 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/3/15 - 11:27 PM
  */
 namespace Application\Controller\Factory;
+
 use Application\Controller\UserRegistrationController;
+use Prooph\ServiceBus\CommandBus;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -29,6 +31,6 @@ final class UserRegistrationControllerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $controllerLoader)
     {
-        return new UserRegistrationController($controllerLoader->getServiceLocator()->get('proophessor.command_bus'));
+        return new UserRegistrationController($controllerLoader->getServiceLocator()->get(CommandBus::class));
     }
 }
