@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 5:58 PM
  */
 namespace Application\Model\Todo;
@@ -46,7 +46,7 @@ final class PostTodoHandler
      * @param PostTodo $command
      * @throws \Application\Model\User\UserNotFound
      */
-    public function handle(PostTodo $command)
+    public function __invoke(PostTodo $command)
     {
         $user = $this->userCollection->get($command->assigneeId());
 
@@ -58,4 +58,4 @@ final class PostTodoHandler
 
         $this->todoList->add($todo);
     }
-} 
+}

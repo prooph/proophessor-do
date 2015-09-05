@@ -5,14 +5,13 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 6:46 PM
  */
 namespace Application\Model\User;
 
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateChanged;
-use Prooph\Proophessor\EventStore\IsProcessedAsync;
 
 /**
  * Class UserWasRegistered
@@ -83,4 +82,4 @@ final class UserWasRegistered extends AggregateChanged
         }
         return $this->emailAddress;
     }
-} 
+}

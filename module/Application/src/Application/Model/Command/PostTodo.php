@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 5:50 PM
  */
 namespace Application\Model\Command;
@@ -13,6 +13,8 @@ namespace Application\Model\Command;
 use Application\Model\Todo\TodoId;
 use Application\Model\User\UserId;
 use Prooph\Common\Messaging\Command;
+use Prooph\Common\Messaging\PayloadConstructable;
+use Prooph\Common\Messaging\PayloadTrait;
 
 /**
  * Class PostTodo
@@ -20,8 +22,9 @@ use Prooph\Common\Messaging\Command;
  * @package Application\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class PostTodo extends Command
+final class PostTodo extends Command implements PayloadConstructable
 {
+    use PayloadTrait;
     /**
      * @param string $assigneeId
      * @param string $text
@@ -30,7 +33,7 @@ final class PostTodo extends Command
      */
     public static function forUser($assigneeId, $text, $todoId)
     {
-        return new self(__CLASS__, [
+        return new self([
             'assignee_id' => (string)$assigneeId,
             'todo_id' => (string)$todoId,
             'text' => (string)$text
@@ -60,4 +63,4 @@ final class PostTodo extends Command
     {
         return $this->payload['text'];
     }
-} 
+}

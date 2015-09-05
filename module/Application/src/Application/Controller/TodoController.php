@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/4/15 - 4:08 PM
  */
 namespace Application\Controller;
@@ -94,4 +94,4 @@ final class TodoController extends AbstractActionController
 
         return $view;
     }
-} 
+}

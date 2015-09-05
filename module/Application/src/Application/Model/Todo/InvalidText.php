@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/4/15 - 5:06 PM
  */
 namespace Application\Model\Todo;
@@ -26,4 +26,4 @@ final class InvalidText extends \InvalidArgumentException
     {
         return new self('The todo text is invalid: ' . $msg);
     }
-} 
+}

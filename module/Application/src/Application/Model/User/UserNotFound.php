@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/4/15 - 4:52 PM
  */
 namespace Application\Model\User;
@@ -26,4 +26,4 @@ final class UserNotFound extends \InvalidArgumentException
     {
         return new self(sprintf('User with id %s cannot be found.', $userId->toString()));
     }
-} 
+}

@@ -18,22 +18,30 @@ return [
             ],
         ],
     ],
-    'proophessor' => [
+    'service_manager' => [
+        'factories' => [
+            'mongo_client' => function () {
+                //Change set up of the mongo client, if you need to configure connection settings
+                return new \MongoClient();
+            },
+        ],
+    ],
+    'prooph' => [
         'event_store' => [
 // uncomment one adapter
 //            'adapter' => [
 //                'type' => 'Prooph\\EventStore\\Adapter\\MongoDb\\MongoDbEventStoreAdapter',
 //                'options' => [
-//                    'db_name'            => 'todo'
+//                    'db_name'            => 'todo',
+//                    'mongo_connection_alias' => 'mongo_client',
 //               ],
 //            ],
 //            'adapter' => [
 //                'type' => 'Prooph\\EventStore\\Adapter\\Doctrine\\DoctrineEventStoreAdapter',
 //                'options' => [
-//                    'doctrine_connection_alias' => 'orm_default',
-//                    'serializer_adapter' => 'json',
+//                    'connection_alias' => 'doctrine.connection.orm_default',
 //                ],
 //            ],
         ]
-    ]
+    ],
 ];

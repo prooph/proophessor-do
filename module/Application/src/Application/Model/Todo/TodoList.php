@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 5:19 PM
  */
 
@@ -17,7 +17,7 @@ namespace Application\Model\Todo;
  * @package Application\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-interface TodoList 
+interface TodoList
 {
     /**
      * @param Todo $todo
@@ -30,4 +30,4 @@ interface TodoList
      * @return Todo
      */
     public function get(TodoId $todoId);
-} 
+}

@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/4/15 - 8:47 PM
  */
 namespace Application\Projection\Todo;
@@ -19,7 +19,7 @@ use Doctrine\DBAL\Connection;
  * @package Application\Projection\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class TodoFinder 
+final class TodoFinder
 {
     /**
      * @var Connection
@@ -65,4 +65,4 @@ final class TodoFinder
         $stmt->execute();
         return $stmt->fetch();
     }
-} 
+}

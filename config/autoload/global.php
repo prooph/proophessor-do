@@ -15,7 +15,42 @@ return [
     'service_manager' => [
         'invokables' => [
             'Doctrine\\ORM\\Mapping\\UnderscoreNamingStrategy' => 'Doctrine\\ORM\\Mapping\\UnderscoreNamingStrategy',
+            \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class => \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class,
         ],
+        'factories' => [
+            //prooph/event-store set up
+            'prooph.event_store' => \Prooph\EventStore\Container\EventStoreFactory::class,
+            //Default factories for the event store adapters, depending on the installed adapter the event store factory
+            //will use the configured adapter type to get an adapter instance from the service manager
+            //to ease system set up we register both factories here so that the user doesn't need to worry about it
+            'Prooph\\EventStore\\Adapter\\MongoDb\\MongoDbEventStoreAdapter' => 'Prooph\\EventStore\\Adapter\\MongoDb\\Container\\MongoDbEventStoreAdapterFactory',
+            'Prooph\\EventStore\\Adapter\\Doctrine\\DoctrineEventStoreAdapter' => 'Prooph\\EventStore\\Adapter\\Doctrine\\Container\\DoctrineEventStoreAdapterFactory',
+            //prooph/service-bus set up
+            \Prooph\ServiceBus\CommandBus::class => \Prooph\ServiceBus\Container\CommandBusFactory::class,
+            \Prooph\ServiceBus\EventBus::class => \Prooph\ServiceBus\Container\EventBusFactory::class,
+            //prooph/event-store-bus-bridge set up
+            \Prooph\EventStoreBusBridge\TransactionManager::class => \Prooph\EventStoreBusBridge\Container\TransactionManagerFactory::class,
+            \Prooph\EventStoreBusBridge\EventPublisher::class => \Prooph\EventStoreBusBridge\Container\EventPublisherFactory::class,
+        ],
+    ],
+    'prooph' => [
+        'event_store' => [
+            'plugins' => [
+                \Prooph\EventStoreBusBridge\EventPublisher::class,
+            ]
+        ],
+        'service_bus' => [
+            'command_bus' => [
+                'plugins' => [
+                    \Prooph\EventStoreBusBridge\TransactionManager::class,
+                ]
+            ],
+            'event_bus' => [
+                'plugins' => [
+                    \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class
+                ]
+            ]
+        ]
     ],
     'doctrine' => [
         'configuration' => [

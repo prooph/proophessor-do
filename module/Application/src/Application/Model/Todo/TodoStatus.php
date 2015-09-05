@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/4/15 - 5:16 PM
  */
 namespace Application\Model\Todo;
@@ -18,7 +18,7 @@ use Assert\Assertion;
  * @package Application\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class TodoStatus 
+final class TodoStatus
 {
     const OPEN = "open";
     const DONE = "done";
@@ -99,4 +99,4 @@ final class TodoStatus
     {
         return $this->status;
     }
-} 
+}

@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 6:38 PM
  */
 
@@ -17,7 +17,7 @@ namespace Application\Model\User;
  * @package Application\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-interface UserCollection 
+interface UserCollection
 {
     /**
      * @param User $user
@@ -30,4 +30,4 @@ interface UserCollection
      * @return User
      */
     public function get(UserId $userId);
-} 
+}

@@ -3,15 +3,15 @@ including exercises!
 
 ## What's going on here?
 
-Proophessor is a CQRS + ES module for Zend Framework 2. You can learn more about it by reading the [official documentation](http://prooph.github.io/proophessor/).
+Prooph is an organisation developing and supporting CQRS and Event-Sourcing infrastructure for PHP environments.
+You can learn more about it by reading the [official documentation](http://prooph.github.io/proophessor/).
 
+This repository contains an example implementation of a small domain model served by a PHP web application.
 
-This repository contains an example implementation of a small domain model served by a PHP web application. 
-[Proophessor](https://github.com/prooph/proophessor) powers the M part and [ZF2](https://github.com/zendframework/zf2) the V and C part of the
-MVC stack. Database connection is managed with the help of [doctrine](https://github.com/doctrine) seamlessly integrated through
-the [prooph/event-store-doctrine-adapter](https://github.com/prooph/event-store-doctrine-adapter) on the write side and the
-[DoctrineORMModule](https://github.com/doctrine/DoctrineORMModule) on the read side.
-
+- The application layer is built as a [ZF2](https://github.com/zendframework/zf2) module.
+- Read model persistence is managed with the help of [doctrine](https://github.com/doctrine).
+- Write model persistence is managed either with the [doctrine adapter](https://github.com/prooph/event-store-doctrine-adapter)
+or [mongo db adapter](https://github.com/prooph/event-store-mongodb-adapter) for [prooph/event-store](https://github.com/prooph/event-store).
 
 ## Business Domain
 
@@ -22,21 +22,8 @@ time has passed.
 
 ## Installation
 
-Proophessor-do is based on a Zend Framework 2 Skeleton Application. Follow the [installation guide](https://github.com/zendframework/ZendSkeletonApplication#installation)
-that can be found on the appropriate github repository.
+Please refer to the [installation instructions](docs/installation.md).
 
-## Database Set Up
-
-Before you can get started you have to configure your database connection. We've prepared a template for you. Just rename the
-[config/autoload/local.php.dist](config/autoload/local.php.dist) to `local.php` and adjust the doctrine connection params.
-
-Now you should be able to perform the [migrations](data/migrations/) by running `./vendor/bin/doctrine-module migrations:migrate`
-on *nix or `./vendor/bin/doctrine-module.bat migrations:migrate` on windows from the root directory of the application.
-
-
-## Open In Browser
-
-Navigate to `http://localhost/proophessor-do/pubic/index/` or similar depending on how you've installed the application.
 
 ## Learning by doing!
 
@@ -53,9 +40,11 @@ CQRS and Event Sourcing:
 Note: Some tasks depend on others and some can be split into sub tasks. Let's discuss this in the issues. And of course you
 can also work together. Sharing work doubles knowledge!
 
-### A successfully merged pull request will add you to the HALL OF FAME!
+## HALL OF FAME
 
-## Features
+A successfully merged pull request will add you to the HALL OF FAME!
+
+### Features
 
 - [ ] [Mark a todo as done](https://github.com/prooph/proophessor-do/issues/1) - done by [your name here]
 - [ ] [Reopen a todo](https://github.com/prooph/proophessor-do/issues/2) - done by [your name here]
@@ -65,6 +54,13 @@ can also work together. Sharing work doubles knowledge!
 - [ ] Notify assignee when todo deadline is expired - done by [your name here]
 - [ ] Notify assignee when reminder time is reached - done by [your name here]
 - more features will follow ...
+
+# Support
+
+- Ask questions on [prooph-users](https://groups.google.com/forum/?hl=de#!forum/prooph) mailing list.
+- File issues at [https://github.com/prooph/proophessor-do/issues](https://github.com/prooph/proophessor-do/issues).
+- Say hello in the [prooph gitter](https://gitter.im/prooph/improoph) chat.
+
 
 
 Happy messaging!

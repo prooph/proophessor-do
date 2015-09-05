@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/3/15 - 10:47 PM
  */
 namespace Application\Controller;
@@ -51,4 +51,4 @@ final class UserViewController extends AbstractActionController
         $view->setTemplate('application/user-view/show');
         return $view;
     }
-} 
+}

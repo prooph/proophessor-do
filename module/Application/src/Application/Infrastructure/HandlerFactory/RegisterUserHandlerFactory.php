@@ -5,11 +5,13 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 5/2/15 - 8:33 PM
  */
 namespace Application\Infrastructure\HandlerFactory;
+
 use Application\Model\User\RegisterUserHandler;
+use Application\Model\User\UserCollection;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -29,6 +31,6 @@ final class RegisterUserHandlerFactory implements FactoryInterface
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
-        return new RegisterUserHandler($serviceLocator->get('application.model.user_collection'));
+        return new RegisterUserHandler($serviceLocator->get(UserCollection::class));
     }
 }
