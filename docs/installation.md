@@ -27,7 +27,7 @@ One is responsible for persisting the **write model**. This task is taken by pro
 And the other one is responsible for persisting the **read model** aka **projections**.
 
 We've prepared a template for you. Just rename the
-[config/autoload/local.php.dist](config/autoload/local.php.dist) to `local.php` and adjust configuration accordingly.
+[config/autoload/local.php.dist](../config/autoload/local.php.dist) to `local.php` and adjust configuration accordingly.
 Read on for more details.
 
 ### Adapter Configuration
