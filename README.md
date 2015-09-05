@@ -1,6 +1,9 @@
 # proophessor-do
 including exercises!
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/prooph/improoph)
+
+
 ## What's going on here?
 
 Prooph is an organisation developing and supporting CQRS and Event-Sourcing infrastructure for PHP environments.
