@@ -1,0 +1,55 @@
+<form method="post" action="#" enctype="multipart/form-data">
+    <div class="{form-group: true, has-error: !nameIsValid}">
+        <label class="control-label" for="name">Username</label>
+        <input name="username" type="text" class="form-control">
+            <p if="{!nameIsValid}" class="help-block">Username should not be empty!</p>
+    </div>
+    <div class="{form-group: true, has-error: !emailIsValid}">
+        <label class="control-label" for="email">Email</label>
+        <input name="email" type="email" class="form-control">
+            <p if="{!emailIsValid}" class="help-block">This is not a valid email address</p>
+            <p class="help-block">The email is used to send you reminders for your Todos.</p>
+    </div>
+    <div class="btn-group pull-right">
+        <input type="submit" class="btn btn-success" name="ok" value="register user" onclick="{onSubmit}">
+        <a href="<?php echo $this->url('page::user-list') ?>" class="btn btn-default">cancel</a>
+    </div>
+</form>
+<script type="text/javascript">
+    function (context) {
+        var self = this,
+            _checkValidName = function () {
+                self.nameIsValid = _.isEmpty(validate.single(self.username.value, {presence : true, length : {minimum : 1}}))
+            },
+            _checkValidEmail = function () {
+                self.emailIsValid = _.isEmpty(validate.single(self.email.value, {presence: true, email: true}))
+            };
+
+        self.nameIsValid = true;
+        self.emailIsValid = true;
+
+        self.onSubmit = function (e) {
+            e.preventDefault();
+
+            _checkValidName();
+            _checkValidEmail();
+
+            var userId = UUID();
+
+            if (self.nameIsValid && self.emailIsValid) {
+                $.postJSON('<?php echo $this->url('command::register-user') ?>', {
+                    user_id : userId,
+                    name : self.username.value,
+                    email : self.email.value
+                }).then(
+                    function () {
+                        window.location.href =
+                            '<?php echo $this->url('page::user-todo-list', ['user_id' => '00000000-0000-0000-0000-000000000000']) ?>'
+                                .replace('00000000-0000-0000-0000-000000000000', userId);
+                    },
+                    $.failNotify
+                );
+            }
+        }
+    }
+</script>

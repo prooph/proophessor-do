@@ -1,0 +1,27 @@
+<div class="jumbotron">
+    <h1 class="text-center">Welcome to proophessor-do</h1>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h2>Powered by zend expressive and prooph components</h2>
+        <p>
+            This is a simple Todo application showing you the integration of <a href="http://prooph.github.io/proophessor/">prooph components</a> into a web application.
+        </p>
+        <h3>Database is ready?</h3>
+        <p>Make sure you've configured the database connection and triggered the migrations!</p>
+        <h3>About The Domain</h3>
+        <p>
+            The domain of our Todo example application is very small. Two aggregates are responsible for handing the business logic:
+        </p>
+        <ul>
+            <li>The first one is the User aggregate. Its task is to post new Todos of the user on a todo list.</li>
+            <li>The second one is the Todo aggregate which manages the state of a Todo.</li>
+            <li>A Todo is just a line of text describing an open task for the user who owns the Todo.</li>
+            <li>A Todo can be marked as done</li>
+            <li>A Todo can be reopened</li>
+            <li>A Todo can have a Deadline</li>
+            <li>A User can add Reminders to get notified about the open Todo.</li>
+            <li>A User gets notified via email.</li>
+        </ul>
+    </div>
+</div>
