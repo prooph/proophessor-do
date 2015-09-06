@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 7/5/15 - 7:31 PM
  */
 namespace Prooph\Proophessor\App\Commanding;
@@ -76,21 +76,21 @@ final class API
             return $this->populateError($response, $e);
         }
     }
-    
+
     /**
      * Get request payload from request object.
-     * 
+     *
      * @todo check $request->getHeaderLine('content-type') ??
-     * 
+     *
      * @param RequestInterface $request
      * @return array
-     * 
+     *
      * @throws \Exception
      */
     private function getPayloadFromRequest(RequestInterface $request)
     {
         $payload = json_decode($request->getBody(), true);
-        
+
         switch (json_last_error()) {
             case JSON_ERROR_DEPTH:
                 throw new \Exception('Invalid JSON, maximum stack depth exceeded.', 400);
@@ -101,7 +101,7 @@ final class API
             case JSON_ERROR_STATE_MISMATCH:
                 throw new \Exception('Invalid JSON.', 400);
         }
-        
+
         return is_null($payload) ? [] : $payload;
     }
 
@@ -116,11 +116,11 @@ final class API
         if (!$code) {
             return 500;
         }
-        
+
         if ($code >= 400 || $code < 500) {
             return $code;
         }
-        
+
         return 500;
     }
 
@@ -135,4 +135,4 @@ final class API
         $response->getBody()->write(json_encode(['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]));
         return $response;
     }
-} 
+}

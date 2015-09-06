@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 3:02 PM
  */
 namespace Prooph\Proophessor\Container\App\Action;
@@ -19,7 +19,7 @@ use Zend\Expressive\Template\TemplateInterface;
  *
  * @package Prooph\Proophessor\Container\App\Action
  */
-final class UserRegistrationFactory 
+final class UserRegistrationFactory
 {
     /**
      * @param ContainerInterface $container
@@ -30,4 +30,3 @@ final class UserRegistrationFactory
         return new UserRegistration($container->get(TemplateInterface::class));
     }
 }
- 

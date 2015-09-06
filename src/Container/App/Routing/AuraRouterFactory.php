@@ -5,12 +5,11 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 11:33 AM
  */
 namespace Prooph\Proophessor\Container\App\Routing;
 
-use Aura\Router\Router;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\AuraRouter;
 
@@ -19,7 +18,7 @@ use Zend\Expressive\Router\AuraRouter;
  *
  * @package Prooph\Proophessor\App\Routing
  */
-final class AuraRouterFactory 
+final class AuraRouterFactory
 {
     /**
      * @param ContainerInterface $container
@@ -30,4 +29,3 @@ final class AuraRouterFactory
         return new AuraRouter();
     }
 }
- 

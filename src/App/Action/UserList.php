@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 1:15 PM
  */
 namespace Prooph\Proophessor\App\Action;
@@ -21,7 +21,7 @@ use Zend\Expressive\Template\TemplateInterface;
  *
  * @package Prooph\Proophessor\App\Action
  */
-final class UserList 
+final class UserList
 {
     /**
      * @var TemplateInterface
@@ -58,4 +58,3 @@ final class UserList
         );
     }
 }
- 

@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 1:19 PM
  */
 namespace Prooph\Proophessor\Container\App\Action;
@@ -20,7 +20,7 @@ use Zend\Expressive\Template\TemplateInterface;
  *
  * @package Prooph\Proophessor\Container\App\Action
  */
-final class UserListFactory 
+final class UserListFactory
 {
     /**
      * @param ContainerInterface $container
@@ -31,4 +31,3 @@ final class UserListFactory
         return new UserList($container->get(TemplateInterface::class), $container->get(UserFinder::class));
     }
 }
- 

@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 11:45 AM
  */
 namespace Prooph\Proophessor\Container\App\Action;
@@ -30,4 +30,3 @@ final class HomeFactory
         return new Home($container->get(TemplateInterface::class));
     }
 }
- 

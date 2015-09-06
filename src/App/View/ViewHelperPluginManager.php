@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 12:41 PM
  */
 namespace Prooph\Proophessor\App\View;
@@ -64,4 +64,3 @@ final class ViewHelperPluginManager extends HelperPluginManager
         return self::HELPER_NAMESPACE . '\\' . ucfirst($helperName);
     }
 }
- 

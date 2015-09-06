@@ -5,10 +5,11 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 7:04 PM
  */
 namespace Prooph\Proophessor\App\Action;
+
 use Prooph\Proophessor\Projection\Todo\TodoFinder;
 use Prooph\Proophessor\Projection\User\UserFinder;
 use Psr\Http\Message\ResponseInterface;
@@ -21,7 +22,7 @@ use Zend\Expressive\Template\TemplateInterface;
  *
  * @package Prooph\Proophessor\App\Action
  */
-final class UserTodoList 
+final class UserTodoList
 {
     /**
      * @var TemplateInterface
@@ -70,4 +71,3 @@ final class UserTodoList
         );
     }
 }
- 

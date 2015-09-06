@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 3:13 PM
  */
 namespace Prooph\Proophessor\Container\App\View;
@@ -20,7 +20,7 @@ use Zend\View\Resolver;
  *
  * @package Prooph\Proophessor\Container\App\View
  */
-final class PhpRendererFactory 
+final class PhpRendererFactory
 {
     /**
      * @param ContainerInterface $container
@@ -50,4 +50,3 @@ final class PhpRendererFactory
         return $renderer;
     }
 }
- 

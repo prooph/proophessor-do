@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 1:22 PM
  */
 namespace Prooph\Proophessor\App\Action;
@@ -48,4 +48,3 @@ final class UserRegistration
         );
     }
 }
- 

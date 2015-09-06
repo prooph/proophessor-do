@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 7/5/15 - 8:23 PM
  */
 namespace Prooph\Proophessor\Container\App\Commanding;

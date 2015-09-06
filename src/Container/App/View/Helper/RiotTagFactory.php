@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 1:42 PM
  */
 namespace Prooph\Proophessor\Container\App\View\Helper;
@@ -19,7 +19,7 @@ use Zend\View\Renderer\PhpRenderer;
  *
  * @package Prooph\Proophessor\Container\App\View\Helper
  */
-final class RiotTagFactory 
+final class RiotTagFactory
 {
     /**
      * @param ContainerInterface $container
@@ -30,4 +30,3 @@ final class RiotTagFactory
         return new RiotTag($container->get(PhpRenderer::class));
     }
 }
- 

@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 12:19 PM
  */
 namespace Prooph\Proophessor\Container\App\View;
@@ -20,7 +20,7 @@ use Zend\View\Renderer\PhpRenderer;
  *
  * @package Prooph\Proophessor\Container\App\View
  */
-final class ZendViewFactory 
+final class ZendViewFactory
 {
     /**
      * @param ContainerInterface $container
@@ -31,4 +31,3 @@ final class ZendViewFactory
         return new ZendView($container->get(PhpRenderer::class), 'app::layout');
     }
 }
- 

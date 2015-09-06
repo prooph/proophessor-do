@@ -9,6 +9,7 @@
  * Date: 5/4/15 - 8:53 PM
  */
 namespace Prooph\Proophessor\Container\Projection\Todo;
+
 use Interop\Container\ContainerInterface;
 use Prooph\Proophessor\Projection\Todo\TodoFinder;
 

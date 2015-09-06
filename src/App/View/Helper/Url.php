@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 12:59 PM
  */
 namespace Prooph\Proophessor\App\View\Helper;
@@ -17,7 +17,7 @@ use Zend\Expressive\Router\RouterInterface;
  *
  * @package Prooph\Proophessor\App\View\Helper
  */
-final class Url 
+final class Url
 {
     /**
      * @var RouterInterface
@@ -42,4 +42,3 @@ final class Url
         return $this->router->generateUri($routeName, $options);
     }
 }
- 

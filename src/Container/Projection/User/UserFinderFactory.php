@@ -9,6 +9,7 @@
  * Date: 5/3/15 - 10:52 PM
  */
 namespace Prooph\Proophessor\Container\Projection\User;
+
 use Interop\Container\ContainerInterface;
 use Prooph\Proophessor\Projection\User\UserFinder;
 

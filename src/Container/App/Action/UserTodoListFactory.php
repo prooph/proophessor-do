@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/6/15 - 7:07 PM
  */
 namespace Prooph\Proophessor\Container\App\Action;
@@ -21,7 +21,7 @@ use Zend\Expressive\Template\TemplateInterface;
  *
  * @package Prooph\Proophessor\Container\App\Action
  */
-final class UserTodoListFactory 
+final class UserTodoListFactory
 {
     /**
      * @param ContainerInterface $container
@@ -36,4 +36,3 @@ final class UserTodoListFactory
         );
     }
 }
- 
