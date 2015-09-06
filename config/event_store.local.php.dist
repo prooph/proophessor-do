@@ -1,0 +1,30 @@
+<?php
+/*
+ * This file is part of prooph/proophessor.
+ * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ * 
+ * Date: 9/6/15 - 5:54 PM
+ */
+ return [
+    'prooph' => [
+        'event_store' => [
+// uncomment one adapter
+//            'adapter' => [
+//                'type' => 'Prooph\\EventStore\\Adapter\\MongoDb\\MongoDbEventStoreAdapter',
+//                'options' => [
+//                    'db_name' => 'todo',
+//                    'mongo_connection_alias' => 'mongo_client',
+//               ],
+//            ],
+//            'adapter' => [
+//                'type' => 'Prooph\\EventStore\\Adapter\\Doctrine\\DoctrineEventStoreAdapter',
+//                'options' => [
+//                    'connection_alias' => 'doctrine.connection.default',
+//                ],
+//            ],
+        ]
+    ],
+ ];

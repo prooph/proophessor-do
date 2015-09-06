@@ -1,0 +1,19 @@
+<?php if ($this->invalidUser) : ?>
+    <h1>Something went wrong! We can't find the user who should be responsible for the new Todo.</h1>
+    <p class="alert alert-warning">
+        <strong>Please try again by selecting a user from the <a href="<?php echo $this->url('page::user-list') ?>">user list</a>!</strong>
+    </p>
+<?php else : ?>
+    <h1>Add a new Todo</h1>
+    <user-todo-form></user-todo-form>
+    <script type="text/javascript">
+        <?php echo $this->riotTag('riot::user-todo-form') ?>
+
+        var UserTodoForm = ProophRiot.App.create();
+
+        $(function () {
+            UserTodoForm.bootstrap("user-todo-form").ready();
+        });
+    </script>
+<?php endif; ?>
+

@@ -50,6 +50,10 @@ Projections are persisted in SQL tables using doctrine DBAL. The projections are
 so you must set up a RDBMS (we suggest MySql) and adjust the `doctrine.connection.orm_default` configuration
 which you can find in the `local.php.dist` file.
 
+#### Create An Empty Database
+Before you can run the migrations you have to make sure that the database `todo` exists. You can of course use another
+name for the database but please align the `doctrine.connection.orm_default` configuration accordingly.
+
 #### Run Doctrine Migrations
 
 To create the needed projection tables (and the event_stream if doctrine es adapter is installed)

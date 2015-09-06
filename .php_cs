@@ -1,7 +1,9 @@
 <?php
 $finder = Symfony\CS\Finder\DefaultFinder::create()
-    ->in('module')
-    ->in('data/migrations');
+    ->in('src')
+    ->in('config')
+    ->in('view')
+    ->in('migrations');
 $config = Symfony\CS\Config\Config::create();
 $config->level(null);
 $config->fixers(
