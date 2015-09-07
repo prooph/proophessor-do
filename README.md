@@ -1,5 +1,5 @@
 # Proophessor Do
-zend expressive meets prooph
+**zend expressive** *meets* **prooph**
 
 You're viewing an example application showing you how well PSR-7 middleware can play together with CQRS and EventSourcing.
 
