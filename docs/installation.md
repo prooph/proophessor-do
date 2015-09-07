@@ -3,12 +3,10 @@
 ## Step 1 - Install application
 
 `git clone https://github.com/prooph/proophessor-do.git` into the document root of a local web server.
-Proophessor-do is based on a Zend Framework 2 Skeleton Application. Follow the [installation guide](https://github.com/zendframework/ZendSkeletonApplication#installation)
-that can be found on the appropriate github repository.
 
 ## Step 2 - Install event store adapter
 
-prooph offers two database adapters for `prooph/event-store` at the moment.
+prooph offers two database adapters for `prooph/event-store` (at the moment).
 Pick the one you want to play with and install it via composer.
 
 ### Doctrine DBAL Adapter
@@ -27,12 +25,13 @@ One is responsible for persisting the **write model**. This task is taken by pro
 And the other one is responsible for persisting the **read model** aka **projections**.
 
 We've prepared a template for you. Just rename the
-[config/autoload/local.php.dist](../config/autoload/local.php.dist) to `local.php` and adjust configuration accordingly.
+[config/dbal_connection.local.php.dist](../config/dbal_connection.local.php.dist) to `dbal_connection.local.php` and adjust configuration accordingly.
 Read on for more details.
 
 ### Adapter Configuration
 
-Tell the event store which adapter to use. You'll find a hint in the `local.php.dist` file.
+Tell the event store which adapter to use. To do so rename [config/event_store.local.php.dist](../config/event_store.local.php.dist) to `config/event_store.local.php`
+and uncomment the adapter that you have installed in **Step 2**.
 
 #### Doctrine DBAL Adapter
 
@@ -43,23 +42,23 @@ the projection tables too. Please see projection configuration for details.
 #### MongoDB Adapter
 
 If you uncomment the mongo db adapter it will use a `\MongoClient` with default connection settings.
-If you need to configure other connection params you can adjust the mongo client set up included in the `local.php.dist` file.
+If you need to configure other connection params you can adjust the mongo client set up included in the `event_store.local.php.dist` file.
 
 ### Projection Configuration
-Projections are persisted in SQL tables using doctrine DBAL. The projections are independent from the event store adapter
-so you must set up a RDBMS (we suggest MySql) and adjust the `doctrine.connection.orm_default` configuration
-which you can find in the `local.php.dist` file.
+Projections are persisted in SQL tables using Doctrine DBAL. The projections are independent from the event store adapter
+so you must set up a RDBMS (we suggest MySql) and adjust the `doctrine.connection.default` configuration
+which you can find in the `dbal_connection.local.php.dist` file.
 
 #### Create An Empty Database
 Before you can run the migrations you have to make sure that the database `todo` exists. You can of course use another
-name for the database but please align the `doctrine.connection.orm_default` configuration accordingly.
+name for the database but please align the `doctrine.connection.default` configuration accordingly.
 
 #### Run Doctrine Migrations
 
-To create the needed projection tables (and the event_stream if doctrine es adapter is installed)
-you should perform the [migrations](../data/migrations/) by running `./vendor/bin/doctrine-module migrations:migrate`
-on *nix or `./vendor/bin/doctrine-module.bat migrations:migrate` on windows from the root directory of the application.
+To create the needed projection tables (and the `event_stream` if the doctrine event store adapter is installed)
+you should perform the [migrations](../migrations/) by running `php bin/migrations.php migrations:migrate` from the project root.
 
-## Step 4 - Open In Browser
+## Step 4 - View It
 
-Navigate to `http://localhost/proophessor-do/pubic/` or similar depending on how you've installed the application.
+Open a terminal and navigate to the project root. Then start the PHP built-in web server with `php -S 0.0.0.0:8080 -t public`
+and open `http://localhost:8080/proophessor-do` in a browser.
