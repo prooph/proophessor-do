@@ -74,6 +74,7 @@ A successfully merged pull request will add you to the HALL OF FAME!
 
 ### Features
 
+- [x] Project set up, register user, post todo - done by [people at prooph](https://github.com/orgs/prooph/people)
 - [ ] [Mark a todo as done](https://github.com/prooph/proophessor-do/issues/1) - done by [your name here]
 - [ ] [Reopen a todo](https://github.com/prooph/proophessor-do/issues/2) - done by [your name here]
 - [ ] Add deadline to todo - done by [your name here]
