@@ -27,12 +27,4 @@
 //            ],
         ]
     ],
-    'service_manager' => [
-        'factories' => [
-            'mongo_client' => function () {
-                //Change set up of the mongo client, if you need to configure connection settings
-                return new \MongoClient();
-            },
-        ],
-    ],
  ];
