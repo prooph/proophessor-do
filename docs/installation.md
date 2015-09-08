@@ -58,6 +58,8 @@ name for the database but please align the `doctrine.connection.default` configu
 To create the needed projection tables (and the `event_stream` if the doctrine event store adapter is installed)
 you should perform the [migrations](../migrations/) by running `php bin/migrations.php migrations:migrate` from the project root.
 
+*Note: We use a custom migrations script instead of the doctrine version because we're injecting the dbal connection provided by our IoC container.*
+
 ## Step 4 - View It
 
 Open a terminal and navigate to the project root. Then start the PHP built-in web server with `php -S 0.0.0.0:8080 -t public`
