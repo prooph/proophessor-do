@@ -10,7 +10,7 @@
  */
 namespace Prooph\Proophessor\Projection\Todo;
 
-use Prooph\Proophessor\Model\Todo\TodoWasPosted;
+use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
 use Prooph\Proophessor\Projection\Table;
 use Doctrine\DBAL\Connection;
 

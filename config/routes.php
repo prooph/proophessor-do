@@ -58,7 +58,7 @@ return [
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
-                    'command' => \Prooph\Proophessor\Model\User\RegisterUser::class,
+                    'command' => \Prooph\Proophessor\Model\User\Command\RegisterUser::class,
                 ]
             ]
         ],
@@ -69,7 +69,7 @@ return [
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
-                    'command' => \Prooph\Proophessor\Model\Todo\PostTodo::class,
+                    'command' => \Prooph\Proophessor\Model\Todo\Command\PostTodo::class,
                 ]
             ]
         ],

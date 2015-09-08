@@ -8,15 +8,17 @@
  *
  * Date: 5/4/15 - 5:02 PM
  */
-namespace Prooph\Proophessor\Model\Todo;
+namespace Prooph\Proophessor\Model\Todo\Event;
 
 use Prooph\Proophessor\Model\User\UserId;
 use Prooph\EventSourcing\AggregateChanged;
+use Prooph\Proophessor\Model\Todo\TodoId;
+use Prooph\Proophessor\Model\Todo\TodoStatus;
 
 /**
  * Class TodoWasPosted
  *
- * @package Prooph\Proophessor\Model\Todo
+ * @package Prooph\Proophessor\Model\Todo\Event
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class TodoWasPosted extends AggregateChanged

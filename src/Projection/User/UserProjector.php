@@ -10,8 +10,8 @@
  */
 namespace Prooph\Proophessor\Projection\User;
 
-use Prooph\Proophessor\Model\Todo\TodoWasPosted;
-use Prooph\Proophessor\Model\User\UserWasRegistered;
+use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
+use Prooph\Proophessor\Model\User\Event\UserWasRegistered;
 use Prooph\Proophessor\Projection\Table;
 use Doctrine\DBAL\Connection;
 

@@ -8,10 +8,12 @@
  *
  * Date: 5/2/15 - 5:58 PM
  */
-namespace Prooph\Proophessor\Model\Todo;
+namespace Prooph\Proophessor\Model\Todo\Handler;
 
 use Prooph\Proophessor\Model\User\UserCollection;
-use Prooph\Proophessor\Model\User\UserNotFound;
+use Prooph\Proophessor\Model\User\Exception\UserNotFound;
+use Prooph\Proophessor\Model\Todo\Command\PostTodo;
+use Prooph\Proophessor\Model\Todo\TodoList;
 
 /**
  * Class PostTodoHandler
@@ -43,7 +45,7 @@ final class PostTodoHandler
 
     /**
      * @param PostTodo $command
-     * @throws \Prooph\Proophessor\Model\User\UserNotFound
+     * @throws \Prooph\Proophessor\Model\User\Exception\UserNotFound
      */
     public function __invoke(PostTodo $command)
     {
