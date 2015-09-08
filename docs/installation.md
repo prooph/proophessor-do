@@ -65,3 +65,6 @@ you should perform the [migrations](../migrations/) by running `php bin/migratio
 
 Open a terminal and navigate to the project root. Then start the PHP built-in web server with `php -S 0.0.0.0:8080 -t public`
 and open `http://localhost:8080/proophessor-do` in a browser.
+
+*Note: You can also set the environmental variable `PROOPH_ENV` to `development`. That will forward exception messages to the client in case of an error.
+When using the built-in web server you can set the variable like so: `PROOPH_ENV=development php -S 0.0.0.0:8080 -t public`*

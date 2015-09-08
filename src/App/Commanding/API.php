@@ -113,33 +113,18 @@ final class API
     }
 
     /**
-     * @param \Exception $e
-     * @return int
-     */
-    private function getStatusErrorCodeFromException(\Exception $e)
-    {
-        $code = $e->getCode();
-
-        if (!$code) {
-            return 500;
-        }
-
-        if ($code >= 400 || $code < 500) {
-            return $code;
-        }
-
-        return 500;
-    }
-
-    /**
      * @param ResponseInterface $response
      * @param \Exception $e
      * @return ResponseInterface
      */
     private function populateError(ResponseInterface $response, \Exception $e)
     {
-        $response = $response->withStatus($this->getStatusErrorCodeFromException($e));
-        $response->getBody()->write(json_encode(['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]));
+        $response = $response->withStatus(500);
+        if (getenv('PROOPH_ENV') === 'development') {
+            $response->getBody()->write(json_encode(['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]));
+        } else {
+            $response->getBody()->write(json_encode(['message' => 'Server Error']));
+        }
         return $response;
     }
 }
