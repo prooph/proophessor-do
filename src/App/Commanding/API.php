@@ -89,14 +89,11 @@ final class API
      */
     private function getPayloadFromRequest(RequestInterface $request)
     {
-        /* @var \Zend\Http\Request $request */
+        $contentType = $request->getHeader('Content-Type');
+        $expected    = 'application/json; charset=UTF-8';
 
-        $contentType = $request->getHeader('ContentType');
-
-        if (!$contentType instanceof ContentType
-            || $contentType->getMediaType() != 'application/json'
-        ) {
-            throw new \Exception('Expected ContentType: application/json');
+        if (empty($contentType) || $expected != $contentType[0]) {
+            throw new \Exception('Expected Content-Type: ' . $expected);
         }
 
         $payload = json_decode($request->getBody(), true);
