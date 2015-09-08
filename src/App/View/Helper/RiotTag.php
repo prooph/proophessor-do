@@ -11,7 +11,9 @@
 
 namespace Prooph\Proophessor\App\View\Helper;
 
+use Zend\View\Helper\HelperInterface;
 use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Renderer\RendererInterface as Renderer;
 
 /**
  * Class RiotTag
@@ -19,7 +21,7 @@ use Zend\View\Renderer\PhpRenderer;
  * @package Application\View\Helper
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class RiotTag
+final class RiotTag implements HelperInterface
 {
     /**
      * @var PhpRenderer
@@ -29,14 +31,6 @@ final class RiotTag
     private $search = ['"', "\n"];
 
     private $replace = ['\"', ""];
-
-    /**
-     * @param PhpRenderer $view
-     */
-    public function __construct(PhpRenderer $view)
-    {
-        $this->view = $view;
-    }
 
     public function __invoke($tagName, $template = null, $jsFunction = null)
     {
@@ -48,7 +42,7 @@ final class RiotTag
         $this->assertTagName($tagName);
         $this->assertTemplate($template);
 
-        $template = $this->view->partial($template);
+        $template = $this->getView()->partial($template);
 
         if (is_null($jsFunction)) {
             $jsFunction = $this->extractJsFunction($template, $tagName);
@@ -101,5 +95,26 @@ final class RiotTag
         }
 
         return $template;
+    }
+
+    /**
+     * Set the View object
+     *
+     * @param  Renderer $view
+     * @return HelperInterface
+     */
+    public function setView(Renderer $view)
+    {
+        $this->view = $view;
+    }
+
+    /**
+     * Get the View object
+     *
+     * @return Renderer
+     */
+    public function getView()
+    {
+        return $this->view;
     }
 }

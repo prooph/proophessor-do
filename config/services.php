@@ -47,9 +47,10 @@ $servicesConfig = [
         //View
         \Zend\Expressive\Template\TemplateInterface::class          => \Prooph\Proophessor\Container\App\View\ZendViewFactory::class,
         \Zend\View\Renderer\PhpRenderer::class                      => \Prooph\Proophessor\Container\App\View\PhpRendererFactory::class,
-        \Prooph\Proophessor\App\View\ViewHelperPluginManager::class => \Prooph\Proophessor\Container\App\View\ViewHelperPluginManagerFactory::class,
-        \Prooph\Proophessor\App\View\Helper\Url::class              => \Prooph\Proophessor\Container\App\View\Helper\UrlFactory::class,
-        \Prooph\Proophessor\App\View\Helper\RiotTag::class          => \Prooph\Proophessor\Container\App\View\Helper\RiotTagFactory::class,
+        \Zend\View\HelperPluginManager::class                       => \Prooph\Proophessor\Container\App\View\ViewHelperPluginManagerFactory::class,
+        //view plugins
+        'url'                                                       => \Prooph\Proophessor\Container\App\View\Helper\UrlFactory::class,
+        'riotTag'                                                   => \Prooph\Proophessor\Container\App\View\Helper\RiotTagFactory::class,
         //Model
         \Prooph\Proophessor\Model\User\Handler\RegisterUserHandler::class => \Prooph\Proophessor\Container\Model\User\RegisterUserHandlerFactory::class,
         \Prooph\Proophessor\Model\User\UserCollection::class      => \Prooph\Proophessor\Container\Infrastructure\Repository\EventStoreUserCollectionFactory::class,

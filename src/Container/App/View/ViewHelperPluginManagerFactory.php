@@ -11,7 +11,8 @@
 namespace Prooph\Proophessor\Container\App\View;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\App\View\ViewHelperPluginManager;
+use Zend\ServiceManager\ServiceManager;
+use Zend\View\HelperPluginManager;
 
 /**
  * Class ViewHelperPluginManagerFactory
@@ -22,10 +23,21 @@ final class ViewHelperPluginManagerFactory
 {
     /**
      * @param ContainerInterface $container
-     * @return ViewHelperPluginManager
+     * @throws \RuntimeException
+     * @return HelperPluginManager
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new ViewHelperPluginManager($container);
+        $helperPluginManager = new HelperPluginManager();
+
+        $helperPluginManager->setRetrieveFromPeeringManagerFirst();
+
+        if (! $container instanceof ServiceManager) {
+            throw new \RuntimeException(__CLASS__ . ' can only be used when Zend\ServiceManager\ServiceManager is used as container');
+        }
+
+        $helperPluginManager->addPeeringServiceManager($container);
+
+        return $helperPluginManager;
     }
 }

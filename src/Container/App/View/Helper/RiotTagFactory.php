@@ -27,6 +27,8 @@ final class RiotTagFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new RiotTag($container->get(PhpRenderer::class));
+        $riotTag = new RiotTag();
+        $riotTag->setView($container->get(PhpRenderer::class));
+        return $riotTag;
     }
 }
