@@ -82,5 +82,12 @@ $appConfig = \Zend\Config\Factory::fromFiles([
 
 $servicesConfig['services']['config'] = $appConfig;
 
+$mongoClientFactoryConfigFile = __DIR__ . '/mongo_client.local.php';
+
+if (file_exists($mongoClientFactoryConfigFile)) {
+    $mongoClientFactoryConfig = include $mongoClientFactoryConfigFile;
+    $servicesConfig['factories']['mongo_client'] = $mongoClientFactoryConfig['mongo_client'];
+}
+
 //Finally we return the ready to use service manager
 return new \Zend\ServiceManager\ServiceManager(new \Zend\ServiceManager\Config($servicesConfig));

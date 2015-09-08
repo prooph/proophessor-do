@@ -41,8 +41,9 @@ the projection tables too. Please see projection configuration for details.
 
 #### MongoDB Adapter
 
-If you uncomment the mongo db adapter it will use a `\MongoClient` with default connection settings.
-If you need to configure other connection params you can adjust the mongo client set up included in the `event_store.local.php.dist` file.
+If you uncomment the mongo db adapter you also need to rename [config/mongo_client.local.php.dist](../config/mongo_client.local.php.dist) to `config/mongo_client.local.php`.
+The MongoDB adapter will use a `\MongoClient` with default connection settings.
+But you can adjust the mongo client set up in the config file linked above.
 
 ### Projection Configuration
 Projections are persisted in SQL tables using Doctrine DBAL. The projections are independent from the event store adapter
