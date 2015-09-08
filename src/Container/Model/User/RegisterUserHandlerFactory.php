@@ -11,7 +11,7 @@
 namespace Prooph\Proophessor\Container\Model\User;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\Model\User\RegisterUserHandler;
+use Prooph\Proophessor\Model\User\Handler\RegisterUserHandler;
 use Prooph\Proophessor\Model\User\UserCollection;
 
 /**

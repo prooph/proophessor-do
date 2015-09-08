@@ -8,12 +8,15 @@
  *
  * Date: 5/4/15 - 5:22 PM
  */
-namespace Prooph\Proophessor\Model\Todo;
+namespace Prooph\Proophessor\Model\Todo\Exception;
+
+use Prooph\Proophessor\Model\Todo\Todo;
+use Prooph\Proophessor\Model\Todo\TodoStatus;
 
 /**
  * Class TodoAlreadyDone
  *
- * @package Prooph\Proophessor\Model\Todo
+ * @package Prooph\Proophessor\Model\Todo\Exception
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class TodoAlreadyDone extends \RuntimeException

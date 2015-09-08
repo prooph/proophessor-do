@@ -14,6 +14,7 @@ use Prooph\Proophessor\Model\Todo\Todo;
 use Prooph\Proophessor\Model\Todo\TodoId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
+use Prooph\Proophessor\Model\User\Event\UserWasRegistered;
 
 /**
  * Class User
@@ -111,7 +112,7 @@ final class User extends AggregateRoot
 
     /**
      * @param string $name
-     * @throws InvalidName
+     * @throws Exception\InvalidName
      */
     private function assertName($name)
     {
@@ -119,7 +120,7 @@ final class User extends AggregateRoot
             Assertion::string($name);
             Assertion::notEmpty($name);
         } catch (\Exception $e) {
-            throw InvalidName::reason($e->getMessage());
+            throw Exception\InvalidName::reason($e->getMessage());
         }
     }
 }

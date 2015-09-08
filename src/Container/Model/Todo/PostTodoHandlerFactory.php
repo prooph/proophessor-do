@@ -11,7 +11,7 @@
 namespace Prooph\Proophessor\Container\Model\Todo;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\Model\Todo\PostTodoHandler;
+use Prooph\Proophessor\Model\Todo\Handler\PostTodoHandler;
 use Prooph\Proophessor\Model\Todo\TodoList;
 use Prooph\Proophessor\Model\User\UserCollection;
 

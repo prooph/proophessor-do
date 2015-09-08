@@ -8,7 +8,9 @@
  *
  * Date: 5/4/15 - 4:52 PM
  */
-namespace Prooph\Proophessor\Model\User;
+namespace Prooph\Proophessor\Model\User\Exception;
+
+use Prooph\Proophessor\Model\User\UserId;
 
 /**
  * Class UserNotFound

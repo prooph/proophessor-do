@@ -22,8 +22,8 @@ return [
                 ],
                 'router' => [
                     'routes' => [
-                        \Prooph\Proophessor\Model\User\RegisterUser::class => \Prooph\Proophessor\Model\User\RegisterUserHandler::class,
-                        \Prooph\Proophessor\Model\Todo\PostTodo::class     => \Prooph\Proophessor\Model\Todo\PostTodoHandler::class,
+                        \Prooph\Proophessor\Model\User\Command\RegisterUser::class => \Prooph\Proophessor\Model\User\Handler\RegisterUserHandler::class,
+                        \Prooph\Proophessor\Model\Todo\Command\PostTodo::class     => \Prooph\Proophessor\Model\Todo\Handler\PostTodoHandler::class,
                     ]
                 ]
             ],
@@ -33,10 +33,10 @@ return [
                 ],
                 'router' => [
                     'routes' => [
-                        \Prooph\Proophessor\Model\User\UserWasRegistered::class => [
+                        \Prooph\Proophessor\Model\User\Event\UserWasRegistered::class => [
                             \Prooph\Proophessor\Projection\User\UserProjector::class,
                         ],
-                        \Prooph\Proophessor\Model\Todo\TodoWasPosted::class => [
+                        \Prooph\Proophessor\Model\Todo\Event\TodoWasPosted::class => [
                             \Prooph\Proophessor\Projection\Todo\TodoProjector::class,
                             \Prooph\Proophessor\Projection\User\UserProjector::class,
                         ]

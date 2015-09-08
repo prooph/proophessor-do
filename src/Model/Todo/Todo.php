@@ -13,6 +13,7 @@ namespace Prooph\Proophessor\Model\Todo;
 use Prooph\Proophessor\Model\User\UserId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
+use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
 
 /**
  * Class Todo
@@ -102,7 +103,7 @@ final class Todo extends AggregateRoot
 
     /**
      * @param string $text
-     * @throws InvalidText
+     * @throws Exception\InvalidText
      */
     private function assertText($text)
     {
@@ -110,7 +111,7 @@ final class Todo extends AggregateRoot
             Assertion::string($text);
             Assertion::minLength($text, 3);
         } catch (\Exception $e) {
-            throw InvalidText::reason($e->getMessage());
+            throw Exception\InvalidText::reason($e->getMessage());
         }
     }
 }

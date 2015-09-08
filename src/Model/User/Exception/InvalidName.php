@@ -6,24 +6,24 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Date: 5/4/15 - 5:06 PM
+ * Date: 5/2/15 - 6:56 PM
  */
-namespace Prooph\Proophessor\Model\Todo;
+namespace Prooph\Proophessor\Model\User\Exception;
 
 /**
- * Class InvalidText
+ * Class InvalidName
  *
- * @package Prooph\Proophessor\Model\Todo
+ * @package Prooph\Proophessor\Model\User\Exception
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class InvalidText extends \InvalidArgumentException
+final class InvalidName extends \InvalidArgumentException
 {
     /**
      * @param string $msg
-     * @return InvalidText
+     * @return InvalidName
      */
     public static function reason($msg)
     {
-        return new self('The todo text is invalid: ' . $msg);
+        return new self('Invalid user name because ' . (string)$msg);
     }
 }
