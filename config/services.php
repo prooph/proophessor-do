@@ -66,7 +66,11 @@ $servicesConfig = [
 /**
  * The application config is merged from several files
  * and then registered as a service with the name "config"
- * int the service manager
+ * in the service manager
+ *
+ * Note: Config merge (recursive array merge) can become an expensive task.
+ *       In a production system you should cache the merged config.
+ *       We don't cache it in this demo to keep the system set up as simple as possible.
  */
 $appConfig = \Zend\Config\Factory::fromFiles([
     __DIR__ . '/prooph.php',
