@@ -11,13 +11,14 @@
 namespace Prooph\Proophessor\App\View\Helper;
 
 use Zend\Expressive\Router\RouterInterface;
+use Zend\View\Helper\AbstractHelper;
 
 /**
  * Class Url
  *
  * @package Prooph\Proophessor\App\View\Helper
  */
-final class Url
+final class Url extends AbstractHelper
 {
     /**
      * @var RouterInterface

@@ -11,7 +11,7 @@
 namespace Prooph\Proophessor\Container\App\View;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\App\View\ViewHelperPluginManager;
+use Zend\View\HelperPluginManager;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Resolver;
 
@@ -30,7 +30,7 @@ final class PhpRendererFactory
     {
         $config = $container->get('config');
 
-        $viewHelperPluginManager = $container->get(ViewHelperPluginManager::class);
+        $viewHelperPluginManager = $container->get(HelperPluginManager::class);
 
         // Create the engine instance:
         $renderer = new PhpRenderer();
