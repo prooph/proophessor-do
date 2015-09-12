@@ -17,6 +17,8 @@
 $servicesConfig = [
     'invokables' => [
         \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class => \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class,
+        //Custom view plugins
+        \Prooph\Proophessor\App\View\Helper\RiotTag::class              => \Prooph\Proophessor\App\View\Helper\RiotTag::class,
     ],
     'factories' => [
         //Application
@@ -45,12 +47,8 @@ $servicesConfig = [
         \Prooph\Proophessor\App\Action\UserTodoList::class     => \Prooph\Proophessor\Container\App\Action\UserTodoListFactory::class,
         \Prooph\Proophessor\App\Action\UserTodoForm::class     => \Prooph\Proophessor\Container\App\Action\UserTodoFormFactory::class,
         //View
-        \Zend\Expressive\Template\TemplateInterface::class          => \Prooph\Proophessor\Container\App\View\ZendViewFactory::class,
-        \Zend\View\Renderer\PhpRenderer::class                      => \Prooph\Proophessor\Container\App\View\PhpRendererFactory::class,
+        \Zend\Expressive\Template\TemplateInterface::class          => \Zend\Expressive\Container\Template\ZendViewFactory::class,
         \Zend\View\HelperPluginManager::class                       => \Prooph\Proophessor\Container\App\View\ViewHelperPluginManagerFactory::class,
-        //view plugins
-        'url'                                                       => \Prooph\Proophessor\Container\App\View\Helper\UrlFactory::class,
-        'riotTag'                                                   => \Prooph\Proophessor\Container\App\View\Helper\RiotTagFactory::class,
         //Model
         \Prooph\Proophessor\Model\User\Handler\RegisterUserHandler::class => \Prooph\Proophessor\Container\Model\User\RegisterUserHandlerFactory::class,
         \Prooph\Proophessor\Model\User\UserCollection::class      => \Prooph\Proophessor\Container\Infrastructure\Repository\EventStoreUserCollectionFactory::class,
