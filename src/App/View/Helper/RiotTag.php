@@ -11,9 +11,7 @@
 
 namespace Prooph\Proophessor\App\View\Helper;
 
-use Zend\View\Helper\HelperInterface;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Renderer\RendererInterface as Renderer;
+use Zend\View\Helper\AbstractHelper;
 
 /**
  * Class RiotTag
@@ -21,13 +19,8 @@ use Zend\View\Renderer\RendererInterface as Renderer;
  * @package Application\View\Helper
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class RiotTag implements HelperInterface
+final class RiotTag extends AbstractHelper
 {
-    /**
-     * @var PhpRenderer
-     */
-    private $view;
-
     private $search = ['"', "\n"];
 
     private $replace = ['\"', ""];
@@ -95,26 +88,5 @@ final class RiotTag implements HelperInterface
         }
 
         return $template;
-    }
-
-    /**
-     * Set the View object
-     *
-     * @param  Renderer $view
-     * @return HelperInterface
-     */
-    public function setView(Renderer $view)
-    {
-        $this->view = $view;
-    }
-
-    /**
-     * Get the View object
-     *
-     * @return Renderer
-     */
-    public function getView()
-    {
-        return $this->view;
     }
 }

@@ -11,7 +11,6 @@
 namespace Prooph\Proophessor\Container\App\View;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\ServiceManager;
 use Zend\View\HelperPluginManager;
 
 /**
@@ -30,13 +29,15 @@ final class ViewHelperPluginManagerFactory
     {
         $helperPluginManager = new HelperPluginManager();
 
-        $helperPluginManager->setRetrieveFromPeeringManagerFirst();
+        $config = $container->has('config')? $container->get('config') : [];
 
-        if (! $container instanceof ServiceManager) {
-            throw new \RuntimeException(__CLASS__ . ' can only be used when Zend\ServiceManager\ServiceManager is used as container');
+        if (isset($config['templates']['plugins'])) {
+            foreach ($config['templates']['plugins'] as $pluginName => $serviceName) {
+                $helperPluginManager->setFactory($pluginName, function () use ($container, $serviceName) {
+                    return $container->get($serviceName);
+                });
+            }
         }
-
-        $helperPluginManager->addPeeringServiceManager($container);
 
         return $helperPluginManager;
     }

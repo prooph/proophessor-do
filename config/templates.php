@@ -10,15 +10,21 @@
  */
 return [
     'templates' => [
-        //html templates
-        'app::layout' => 'view/layout/layout.phtml',
-        'page::home' => 'view/action/home.phtml',
-        'page::user-list' => 'view/action/user-list.phtml',
-        'page::user-registration' => 'view/action/user-registration-form.phtml',
-        'page::user-todo-list' => 'view/action/user-todo-list.phtml',
-        'page::user-todo-form' => 'view/action/user-todo-form.phtml',
-        //riot tags
-        'riot::user-form' => 'view/riot/user-form.phtml',
-        'riot::user-todo-form' => 'view/riot/user-todo-form.phtml',
+        'layout' => 'app::layout',
+        'map' => [
+            //html templates
+            'app::layout' => 'view/layout/layout.phtml',
+            'page::home' => 'view/action/home.phtml',
+            'page::user-list' => 'view/action/user-list.phtml',
+            'page::user-registration' => 'view/action/user-registration-form.phtml',
+            'page::user-todo-list' => 'view/action/user-todo-list.phtml',
+            'page::user-todo-form' => 'view/action/user-todo-form.phtml',
+            //riot tags
+            'riot::user-form' => 'view/riot/user-form.phtml',
+            'riot::user-todo-form' => 'view/riot/user-todo-form.phtml',
+        ],
+        'plugins' => [
+            'riotTag' => \Prooph\Proophessor\App\View\Helper\RiotTag::class,
+        ]
     ]
 ];

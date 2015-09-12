@@ -25,7 +25,7 @@
         "prooph/event-sourcing" : "^3.0",
         "prooph/service-bus" : "^4.2",
         "prooph/event-store-bus-bridge" : "^1.0",
-        "zendframework/zend-expressive" : "^0.2",
+        "zendframework/zend-expressive" : "^0.3",
         "zendframework/zend-servicemanager" : "~2.6",
         "zendframework/zend-config": "^2.5",
         "zendframework/zend-view": "^2.5",
