@@ -1,6 +1,8 @@
 # Proophessor Do
 **zend expressive** *meets* **prooph**
 
+[![Build Status](https://travis-ci.org/prooph/proophessor-do.svg)](https://travis-ci.org/prooph/proophessor-do)
+
 You're viewing an example application showing you how well PSR-7 middleware can play together with CQRS and EventSourcing.
 
 And you're ask to try it yourself. **Proophessor Do** includes exercises! So read on and **pick up a task!**
