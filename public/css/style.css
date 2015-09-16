@@ -95,3 +95,7 @@ body {
 .sidebar-nav li a:focus {
     text-decoration: none;
 }
+
+.glyphicon-unchecked {
+    cursor: pointer;
+}
