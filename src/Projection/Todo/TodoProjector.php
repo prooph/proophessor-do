@@ -54,11 +54,13 @@ final class TodoProjector
      */
     public function onTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
     {
-        $this->connection->update(Table::TODO, [
-            'status' => $event->newStatus()->toString()
-        ],
-        [
-            'id' => $event->todoId()->toString()
-        ]);
+        $this->connection->update(Table::TODO,
+            [
+                'status' => $event->newStatus()->toString()
+            ],
+            [
+                'id' => $event->todoId()->toString()
+            ]
+        );
     }
 }

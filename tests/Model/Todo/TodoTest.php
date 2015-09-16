@@ -11,6 +11,7 @@
 namespace ProophTest\Proophessor\Model\Todo;
 
 use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
+use Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\Proophessor\Model\Todo\Todo;
 use Prooph\Proophessor\Model\Todo\TodoId;
 use Prooph\Proophessor\Model\User\UserId;
@@ -48,5 +49,42 @@ final class TodoTest extends TestCase
         ];
 
         $this->assertEquals($expectedPayload, $events[0]->payload());
+    }
+
+    /**
+     * @test
+     */
+    public function it_marks_an_open_todo_as_done()
+    {
+        $todoId = TodoId::generate();
+        $todo = Todo::post('This is an unit test todo', UserId::generate(), $todoId);
+        $todo->markAsDone();
+
+        $this->assertTrue($todo->status()->isDone());
+
+        $events = $this->popRecordedEvent($todo);
+
+        $this->assertEquals(2, count($events));
+
+        $this->assertInstanceOf(TodoWasMarkedAsDone::class, $events[1]);
+
+        $expectedPayload = [
+            'old_status' => 'open',
+            'new_status' => 'done'
+        ];
+
+        $this->assertEquals($expectedPayload, $events[1]->payload());
+
+        return $todo;
+    }
+
+    /**
+     * @test
+     * @depends it_marks_an_open_todo_as_done
+     * @expectedException \Prooph\Proophessor\Model\Todo\Exception\TodoNotOpen
+     */
+    public function it_throws_an_exception_when_marking_a_todo_already_done_as_done(Todo $todo)
+    {
+        $todo->markAsDone();
     }
 }

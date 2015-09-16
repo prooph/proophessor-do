@@ -12,7 +12,6 @@ namespace Prooph\Proophessor\Model\Todo\Handler;
 
 use Prooph\Proophessor\Model\Todo\Command\MarkTodoAsDone;
 use Prooph\Proophessor\Model\Todo\TodoList;
-use Prooph\Proophessor\Model\Todo\TodoStatus;
 
 /**
  * Class MarkTodoAsDoneHandler
@@ -43,6 +42,6 @@ final class MarkTodoAsDoneHandler
     {
         $todo = $this->todoList->get($command->todoId());
 
-        $todo->markAsDone(TodoStatus::fromString('done'));
+        $todo->markAsDone();
     }
 }

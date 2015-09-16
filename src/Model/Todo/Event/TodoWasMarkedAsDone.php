@@ -29,13 +29,12 @@ final class TodoWasMarkedAsDone extends AggregateChanged
     private $newStatus;
 
     /**
-     *
-     * @param TodoStatus $oldStatus
      * @param TodoId $todoId
+     * @param TodoStatus $oldStatus
      * @param TodoStatus $newStatus
      * @return TodoWasMarkedAsDone
      */
-    public static function fromStatus(TodoStatus $oldStatus, TodoId $todoId, TodoStatus $newStatus)
+    public static function fromStatus(TodoId $todoId, TodoStatus $oldStatus, TodoStatus $newStatus)
     {
         $event = self::occur($todoId->toString(), [
             'old_status' => $oldStatus->toString(),

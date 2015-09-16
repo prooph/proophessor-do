@@ -58,12 +58,16 @@ final class Todo extends AggregateRoot
         return $self;
     }
 
-    public function markAsDone(TodoStatus $status)
+    /**
+     * @throws Exception\TodoNotOpen
+     */
+    public function markAsDone()
     {
-        if ($this->status->toString() !== TodoStatus::OPEN) {
+        $status = TodoStatus::fromString('done');
+        if (!$this->status->isOpen()) {
             throw Exception\TodoNotOpen::triedStatus($status, $this);
         }
-        $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->status, $this->todoId, $status));
+        $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->todoId, $this->status, $status));
     }
 
     /**
@@ -90,6 +94,11 @@ final class Todo extends AggregateRoot
         return $this->assigneeId;
     }
 
+    public function status()
+    {
+        return $this->status;
+    }
+
     /**
      * @param TodoWasPosted $event
      */
@@ -101,6 +110,9 @@ final class Todo extends AggregateRoot
         $this->status = $event->todoStatus();
     }
 
+    /**
+     * @param TodoWasMarkedAsDone $event
+     */
     protected function whenTodoWasMarkedAsDone(Event\TodoWasMarkedAsDone $event)
     {
         $this->status = $event->newStatus();

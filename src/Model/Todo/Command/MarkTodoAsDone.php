@@ -43,6 +43,4 @@ final class MarkTodoAsDone extends Command implements PayloadConstructable
     {
         return TodoId::fromString($this->payload['todo_id']);
     }
-
-
 }
