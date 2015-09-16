@@ -35,7 +35,7 @@
                                             add reminder
                                         </div>
                                         <div class="col-md-1 text-right">
-                                            <span class="glyphicon glyphicon-<?php echo ($todo->status == "done")? "checked text-success" : ($todo->status == "expired")? "warning-sign text-danger" : "unchecked" ?>"></span>
+                                            <span class="glyphicon glyphicon-<?php echo ($todo->status == "done")? "checked text-success" : (($todo->status == "expired")? "warning-sign text-danger" : "unchecked") ?>" data-id="<?php echo $todo->id; ?>"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -47,3 +47,24 @@
         </div>
     </div>
 <?php endif; ?>
+
+<script type="text/javascript">
+    $(function () {
+        $('body').on('click', '.glyphicon-unchecked', function()
+        {
+            var elem = $(this);
+            $.postJSON(
+                '<?php echo $this->url('command::mark-todo-as-done') ?>',
+                {
+                    todo_id : $(this).data('id'),
+                    status : "done"
+                }
+            ).then(
+                function () {
+                    elem.toggleClass('glyphicon-unchecked').toggleClass('glyphicon-checked');
+                },
+                $.failNotify
+            );
+        });
+    });
+</script>

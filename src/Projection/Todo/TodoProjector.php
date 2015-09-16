@@ -11,6 +11,7 @@
 namespace Prooph\Proophessor\Projection\Todo;
 
 use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
+use Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\Proophessor\Projection\Table;
 use Doctrine\DBAL\Connection;
 
@@ -45,6 +46,19 @@ final class TodoProjector
             'assignee_id' => $event->assigneeId()->toString(),
             'text' => $event->text(),
             'status' => $event->todoStatus()->toString()
+        ]);
+    }
+
+    /**
+     * @param TodoWasMarkedAsDone $event
+     */
+    public function onTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
+    {
+        $this->connection->update(Table::TODO, [
+            'status' => $event->newStatus()->toString()
+        ],
+        [
+            'id' => $event->todoId()->toString()
         ]);
     }
 }

@@ -73,5 +73,16 @@ return [
                 ]
             ]
         ],
+        [
+            'name' => 'command::mark-todo-as-done',
+            'path' => '/api/commands/mark-todo-as-done',
+            'middleware' => \Prooph\Proophessor\App\Commanding\API::class,
+            'allowed_methods' => ['POST'],
+            'options' => [
+                'values' => [
+                    'command' => \Prooph\Proophessor\Model\Todo\Command\MarkTodoAsDone::class,
+                ]
+            ]
+        ],
     ]
 ];

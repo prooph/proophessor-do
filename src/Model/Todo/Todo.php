@@ -14,6 +14,7 @@ use Prooph\Proophessor\Model\User\UserId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
+use Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone;
 
 /**
  * Class Todo
@@ -57,6 +58,14 @@ final class Todo extends AggregateRoot
         return $self;
     }
 
+    public function markAsDone(TodoStatus $status)
+    {
+        if ($this->status->toString() !== TodoStatus::OPEN) {
+            throw Exception\TodoNotOpen::triedStatus($status, $this);
+        }
+        $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->status, $this->todoId, $status));
+    }
+
     /**
      * @return TodoId
      */
@@ -92,6 +101,10 @@ final class Todo extends AggregateRoot
         $this->status = $event->todoStatus();
     }
 
+    protected function whenTodoWasMarkedAsDone(Event\TodoWasMarkedAsDone $event)
+    {
+        $this->status = $event->newStatus();
+    }
 
     /**
      * @return string representation of the unique identifier of the aggregate root
