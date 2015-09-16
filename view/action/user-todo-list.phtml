@@ -35,7 +35,7 @@
                                             add reminder
                                         </div>
                                         <div class="col-md-1 text-right">
-                                            <span class="glyphicon glyphicon-<?php echo ($todo->status == "done")? "checked text-success" : (($todo->status == "expired")? "warning-sign text-danger" : "unchecked") ?>" data-id="<?php echo $todo->id; ?>"></span>
+                                            <span class="glyphicon glyphicon-<?php echo ($todo->status == "done")? "check text-success" : (($todo->status == "expired")? "warning-sign text-danger" : "unchecked") ?>" data-id="<?php echo $todo->id; ?>"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +61,7 @@
                 }
             ).then(
                 function () {
-                    elem.toggleClass('glyphicon-unchecked').toggleClass('glyphicon-checked');
+                    elem.toggleClass('glyphicon-unchecked').toggleClass('glyphicon-check text-success');
                 },
                 $.failNotify
             );
