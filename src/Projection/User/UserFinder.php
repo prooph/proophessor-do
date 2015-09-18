@@ -51,4 +51,20 @@ final class UserFinder
         $stmt->execute();
         return $stmt->fetch();
     }
+
+    /**
+     * @param $todoId
+     * @return null|\stdClass containing userData
+     */
+    public function findUserOfTodo($todoId)
+    {
+        $stmt = $this->connection->prepare(sprintf(
+            "SELECT u.* FROM %s as u JOIN %s as t ON u.id = t.assignee_id  where t.id = :todo_id",
+            Table::USER,
+            Table::TODO
+        ));
+        $stmt->bindValue('todo_id', $todoId);
+        $stmt->execute();
+        return $stmt->fetch();
+    }
 }
