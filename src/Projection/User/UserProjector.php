@@ -70,6 +70,10 @@ final class UserProjector
         $stmt->execute();
     }
 
+    /**
+     * @param TodoWasMarkedAsDone $event
+     * @throws \RuntimeException if data of the the assigned user can not be found
+     */
     public function onTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
