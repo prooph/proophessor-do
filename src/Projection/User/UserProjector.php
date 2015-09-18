@@ -10,6 +10,7 @@
  */
 namespace Prooph\Proophessor\Projection\User;
 
+use Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
 use Prooph\Proophessor\Model\User\Event\UserWasRegistered;
 use Prooph\Proophessor\Projection\Table;
@@ -29,11 +30,18 @@ final class UserProjector
     private $connection;
 
     /**
-     * @param Connection $connection
+     * @var UserFinder
      */
-    public function __construct(Connection $connection)
+    private $userFinder;
+
+    /**
+     * @param Connection $connection
+     * @param UserFinder $userFinder
+     */
+    public function __construct(Connection $connection, UserFinder $userFinder)
     {
         $this->connection = $connection;
+        $this->userFinder = $userFinder;
     }
 
     /**
@@ -58,6 +66,26 @@ final class UserProjector
         $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos + 1 WHERE id = :assignee_id', Table::USER));
 
         $stmt->bindValue('assignee_id', $event->assigneeId()->toString());
+
+        $stmt->execute();
+    }
+
+    public function onTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
+    {
+        $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
+
+        if (! $user) {
+            throw new \RuntimeException(
+                sprintf(
+                    "Data of the assigned user of the todo %s cannot be found",
+                    $event->todoId()->toString()
+                )
+            );
+        }
+
+        $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos - 1, done_todos = done_todos + 1 WHERE id = :assignee_id', Table::USER));
+
+        $stmt->bindValue('assignee_id', $user->id);
 
         $stmt->execute();
     }

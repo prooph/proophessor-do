@@ -11,6 +11,7 @@
 namespace Prooph\Proophessor\Container\Projection\User;
 
 use Interop\Container\ContainerInterface;
+use Prooph\Proophessor\Projection\User\UserFinder;
 use Prooph\Proophessor\Projection\User\UserProjector;
 
 /**
@@ -27,6 +28,9 @@ final class UserProjectorFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new UserProjector($container->get('doctrine.connection.default'));
+        return new UserProjector(
+            $container->get('doctrine.connection.default'),
+            $container->get(UserFinder::class)
+        );
     }
 }

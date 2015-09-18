@@ -43,6 +43,7 @@ return [
                         ],
                         \Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone::class => [
                             \Prooph\Proophessor\Projection\Todo\TodoProjector::class,
+                            \Prooph\Proophessor\Projection\User\UserProjector::class,
                         ],
                     ]
                 ]
