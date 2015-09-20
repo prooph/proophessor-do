@@ -48,11 +48,11 @@ final class DoctrineDbalConnectionFactory implements HasMandatoryOptions, HasCon
     }
 
     /**
-     * Returns the component name
+     * Returns the package name
      *
      * @return string
      */
-    public function componentName()
+    public function packageName()
     {
         return 'connection';
     }
