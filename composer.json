@@ -54,6 +54,5 @@
         "psr-4" : {
             "ProophTest\\Proophessor\\": "tests/"
         }
-    },
-    "bin-dir" : "./bin"
+    }
 }
