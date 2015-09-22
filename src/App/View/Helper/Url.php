@@ -8,7 +8,7 @@
  *
  * Date: 9/6/15 - 12:59 PM
  */
-namespace Prooph\Proophessor\App\View\Helper;
+namespace Prooph\ProophessorDo\App\View\Helper;
 
 use Zend\Expressive\Router\RouterInterface;
 use Zend\View\Helper\AbstractHelper;
@@ -16,7 +16,7 @@ use Zend\View\Helper\AbstractHelper;
 /**
  * Class Url
  *
- * @package Prooph\Proophessor\App\View\Helper
+ * @package Prooph\ProophessorDo\App\View\Helper
  */
 final class Url extends AbstractHelper
 {

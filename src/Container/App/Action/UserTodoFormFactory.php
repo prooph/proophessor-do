@@ -8,17 +8,17 @@
  *
  * Date: 9/6/15 - 7:52 PM
  */
-namespace Prooph\Proophessor\Container\App\Action;
+namespace Prooph\ProophessorDo\Container\App\Action;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\App\Action\UserTodoForm;
-use Prooph\Proophessor\Projection\User\UserFinder;
+use Prooph\ProophessorDo\App\Action\UserTodoForm;
+use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Zend\Expressive\Template\TemplateInterface;
 
 /**
  * Class UserTodoFormFactory
  *
- * @package Prooph\Proophessor\Container\App\Action
+ * @package Prooph\ProophessorDo\Container\App\Action
  */
 final class UserTodoFormFactory
 {

@@ -8,12 +8,12 @@
  *
  * Date: 5/4/15 - 6:10 PM
  */
-namespace Prooph\Proophessor\Container\Model\Todo;
+namespace Prooph\ProophessorDo\Container\Model\Todo;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\Model\Todo\Handler\PostTodoHandler;
-use Prooph\Proophessor\Model\Todo\TodoList;
-use Prooph\Proophessor\Model\User\UserCollection;
+use Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler;
+use Prooph\ProophessorDo\Model\Todo\TodoList;
+use Prooph\ProophessorDo\Model\User\UserCollection;
 
 /**
  * Class PostTodoHandlerFactory

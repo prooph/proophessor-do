@@ -9,7 +9,7 @@
  * Date: 9/6/15 - 12:59 PM
  */
 
-namespace Prooph\Proophessor\App\View\Helper;
+namespace Prooph\ProophessorDo\App\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 

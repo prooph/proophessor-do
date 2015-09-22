@@ -8,14 +8,14 @@
  *
  * Date: 5/2/15 - 5:23 PM
  */
-namespace Prooph\Proophessor\Model\Todo;
+namespace Prooph\ProophessorDo\Model\Todo;
 
 use Rhumsaa\Uuid\Uuid;
 
 /**
  * Class TodoId
  *
- * @package Prooph\Proophessor\Model\Todo
+ * @package Prooph\ProophessorDo\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class TodoId

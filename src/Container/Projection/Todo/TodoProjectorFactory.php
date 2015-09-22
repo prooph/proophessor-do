@@ -8,15 +8,15 @@
  *
  * Date: 5/4/15 - 5:45 PM
  */
-namespace Prooph\Proophessor\Container\Projection\Todo;
+namespace Prooph\ProophessorDo\Container\Projection\Todo;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\Projection\Todo\TodoProjector;
+use Prooph\ProophessorDo\Projection\Todo\TodoProjector;
 
 /**
  * Class TodoProjectorFactory
  *
- * @package Prooph\Proophessor\Projection\Todo
+ * @package Prooph\ProophessorDo\Projection\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class TodoProjectorFactory

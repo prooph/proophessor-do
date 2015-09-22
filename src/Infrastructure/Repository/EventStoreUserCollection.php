@@ -8,12 +8,12 @@
  *
  * Date: 5/2/15 - 6:39 PM
  */
-namespace Prooph\Proophessor\Infrastructure\Repository;
+namespace Prooph\ProophessorDo\Infrastructure\Repository;
 
 use Prooph\EventStore\Aggregate\AggregateRepository;
-use Prooph\Proophessor\Model\User\User;
-use Prooph\Proophessor\Model\User\UserCollection;
-use Prooph\Proophessor\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\User;
+use Prooph\ProophessorDo\Model\User\UserCollection;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class EventStoreUserCollection

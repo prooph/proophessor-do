@@ -8,11 +8,11 @@
  *
  * Date: 9/15/15 - 20:30 PM
  */
-namespace Prooph\Proophessor\Container\Model\Todo;
+namespace Prooph\ProophessorDo\Container\Model\Todo;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\Model\Todo\Handler\MarkTodoAsDoneHandler;
-use Prooph\Proophessor\Model\Todo\TodoList;
+use Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler;
+use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 /**
  * Class PostTodoHandlerFactory

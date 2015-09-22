@@ -8,14 +8,14 @@
  *
  * Date: 5/4/15 - 5:16 PM
  */
-namespace Prooph\Proophessor\Model\Todo;
+namespace Prooph\ProophessorDo\Model\Todo;
 
 use Assert\Assertion;
 
 /**
  * Class TodoStatus
  *
- * @package Prooph\Proophessor\Model\Todo
+ * @package Prooph\ProophessorDo\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class TodoStatus

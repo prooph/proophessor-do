@@ -8,7 +8,7 @@
  *
  * Date: 9/15/15 - 8:47 PM
  */
-namespace ProophTest\Proophessor;
+namespace ProophTest\ProophessorDo;
 
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
@@ -17,7 +17,7 @@ use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 /**
  * Class TestCase
  *
- * @package ProophTest\Proophessor\tests
+ * @package ProophTest\ProophessorDo\tests
  */
 class TestCase extends \PHPUnit_Framework_TestCase
 {

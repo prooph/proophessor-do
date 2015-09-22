@@ -8,12 +8,12 @@
  *
  * Date: 5/2/15 - 11:48 PM
  */
-namespace Prooph\Proophessor\Projection;
+namespace Prooph\ProophessorDo\Projection;
 
 /**
  * Class Table
  *
- * @package Prooph\Proophessor\Projection
+ * @package Prooph\ProophessorDo\Projection
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class Table

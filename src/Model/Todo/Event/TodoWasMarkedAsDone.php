@@ -8,16 +8,16 @@
  *
  * Date: 9/15/15 - 21:20 PM
  */
-namespace Prooph\Proophessor\Model\Todo\Event;
+namespace Prooph\ProophessorDo\Model\Todo\Event;
 
 use Prooph\EventSourcing\AggregateChanged;
-use Prooph\Proophessor\Model\Todo\TodoId;
-use Prooph\Proophessor\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 
 /**
  * Class TodoWasMarkedAsDone
  *
- * @package Prooph\Proophessor\Model\Todo\Event
+ * @package Prooph\ProophessorDo\Model\Todo\Event
  * @author Danny van der Sluijs <danny.vandersluijs@icloud.com>
  */
 final class TodoWasMarkedAsDone extends AggregateChanged

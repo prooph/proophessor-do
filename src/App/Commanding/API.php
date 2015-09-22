@@ -8,7 +8,7 @@
  *
  * Date: 7/5/15 - 7:31 PM
  */
-namespace Prooph\Proophessor\App\Commanding;
+namespace Prooph\ProophessorDo\App\Commanding;
 
 use Prooph\Common\Messaging\MessageFactory;
 use Prooph\ServiceBus\CommandBus;
@@ -20,7 +20,7 @@ use Psr\Http\Message\ServerRequestInterface;
 /**
  * Class API
  *
- * @package Prooph\Proophessor\App\Commanding
+ * @package Prooph\ProophessorDo\App\Commanding
  */
 final class API
 {

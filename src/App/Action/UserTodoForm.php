@@ -8,9 +8,9 @@
  *
  * Date: 9/6/15 - 7:41 PM
  */
-namespace Prooph\Proophessor\App\Action;
+namespace Prooph\ProophessorDo\App\Action;
 
-use Prooph\Proophessor\Projection\User\UserFinder;
+use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -19,7 +19,7 @@ use Zend\Expressive\Template\TemplateInterface;
 /**
  * Class UserTodoForm
  *
- * @package Prooph\Proophessor\App\Action
+ * @package Prooph\ProophessorDo\App\Action
  */
 final class UserTodoForm
 {

@@ -8,12 +8,12 @@
  *
  * Date: 5/4/15 - 5:06 PM
  */
-namespace Prooph\Proophessor\Model\Todo\Exception;
+namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
 /**
  * Class InvalidText
  *
- * @package Prooph\Proophessor\Model\Todo\Exception
+ * @package Prooph\ProophessorDo\Model\Todo\Exception
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class InvalidText extends \InvalidArgumentException

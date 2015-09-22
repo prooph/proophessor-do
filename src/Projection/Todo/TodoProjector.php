@@ -8,17 +8,17 @@
  *
  * Date: 5/4/15 - 5:44 PM
  */
-namespace Prooph\Proophessor\Projection\Todo;
+namespace Prooph\ProophessorDo\Projection\Todo;
 
-use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
-use Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone;
-use Prooph\Proophessor\Projection\Table;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
 
 /**
  * Class TodoProjector
  *
- * @package Prooph\Proophessor\Projection\Todo
+ * @package Prooph\ProophessorDo\Projection\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class TodoProjector

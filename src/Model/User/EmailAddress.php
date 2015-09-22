@@ -8,7 +8,7 @@
  *
  * Date: 5/2/15 - 12:27 AM
  */
-namespace Prooph\Proophessor\Model\User;
+namespace Prooph\ProophessorDo\Model\User;
 
 use ValueObjects\Web\EmailAddress as VOEMailAddress;
 
@@ -17,7 +17,7 @@ use ValueObjects\Web\EmailAddress as VOEMailAddress;
  *
  * Email address of a User.
  *
- * @package Prooph\Proophessor\Model\User
+ * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class EmailAddress

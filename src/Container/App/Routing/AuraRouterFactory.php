@@ -8,7 +8,7 @@
  *
  * Date: 9/6/15 - 11:33 AM
  */
-namespace Prooph\Proophessor\Container\App\Routing;
+namespace Prooph\ProophessorDo\Container\App\Routing;
 
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Router\AuraRouter;
@@ -16,7 +16,7 @@ use Zend\Expressive\Router\AuraRouter;
 /**
  * Class AuraRouterFactory
  *
- * @package Prooph\Proophessor\App\Routing
+ * @package Prooph\ProophessorDo\App\Routing
  */
 final class AuraRouterFactory
 {

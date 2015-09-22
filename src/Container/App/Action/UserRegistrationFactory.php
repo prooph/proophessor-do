@@ -8,16 +8,16 @@
  *
  * Date: 9/6/15 - 3:02 PM
  */
-namespace Prooph\Proophessor\Container\App\Action;
+namespace Prooph\ProophessorDo\Container\App\Action;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\App\Action\UserRegistration;
+use Prooph\ProophessorDo\App\Action\UserRegistration;
 use Zend\Expressive\Template\TemplateInterface;
 
 /**
  * Class UserRegistrationFactory
  *
- * @package Prooph\Proophessor\Container\App\Action
+ * @package Prooph\ProophessorDo\Container\App\Action
  */
 final class UserRegistrationFactory
 {
