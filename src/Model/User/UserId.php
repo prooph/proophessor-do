@@ -8,7 +8,7 @@
  *
  * Date: 5/2/15 - 12:24 AM
  */
-namespace Prooph\Proophessor\Model\User;
+namespace Prooph\ProophessorDo\Model\User;
 
 use Rhumsaa\Uuid\Uuid;
 
@@ -17,7 +17,7 @@ use Rhumsaa\Uuid\Uuid;
  *
  * The UserId identifies a User.
  *
- * @package Prooph\Proophessor\Model\User
+ * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class UserId

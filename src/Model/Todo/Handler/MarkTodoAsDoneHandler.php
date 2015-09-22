@@ -8,15 +8,15 @@
  *
  * Date: 9/15/15 - 20:45 PM
  */
-namespace Prooph\Proophessor\Model\Todo\Handler;
+namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
-use Prooph\Proophessor\Model\Todo\Command\MarkTodoAsDone;
-use Prooph\Proophessor\Model\Todo\TodoList;
+use Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone;
+use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 /**
  * Class MarkTodoAsDoneHandler
  *
- * @package Prooph\Proophessor\Model\Todo
+ * @package Prooph\ProophessorDo\Model\Todo
  * @author Danny van der Sluijs <danny.vandersluijs@icloud.com>
  */
 final class MarkTodoAsDoneHandler

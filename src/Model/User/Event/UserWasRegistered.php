@@ -8,17 +8,17 @@
  *
  * Date: 5/2/15 - 6:46 PM
  */
-namespace Prooph\Proophessor\Model\User\Event;
+namespace Prooph\ProophessorDo\Model\User\Event;
 
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateChanged;
-use Prooph\Proophessor\Model\User\EmailAddress;
-use Prooph\Proophessor\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\EmailAddress;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class UserWasRegistered
  *
- * @package Prooph\Proophessor\Model\User\Event
+ * @package Prooph\ProophessorDo\Model\User\Event
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class UserWasRegistered extends AggregateChanged

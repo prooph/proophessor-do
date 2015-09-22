@@ -9,12 +9,12 @@
  * Date: 5/2/15 - 6:38 PM
  */
 
-namespace Prooph\Proophessor\Model\User;
+namespace Prooph\ProophessorDo\Model\User;
 
 /**
  * Interface UserCollection
  *
- * @package Prooph\Proophessor\Model\User
+ * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 interface UserCollection

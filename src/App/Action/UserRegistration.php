@@ -8,7 +8,7 @@
  *
  * Date: 9/6/15 - 1:22 PM
  */
-namespace Prooph\Proophessor\App\Action;
+namespace Prooph\ProophessorDo\App\Action;
 
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -18,7 +18,7 @@ use Zend\Expressive\Template\TemplateInterface;
 /**
  * Class UserRegistration
  *
- * @package Prooph\Proophessor\App\Action
+ * @package Prooph\ProophessorDo\App\Action
  */
 final class UserRegistration
 {

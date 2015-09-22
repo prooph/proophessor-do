@@ -22,9 +22,9 @@ return [
                 ],
                 'router' => [
                     'routes' => [
-                        \Prooph\Proophessor\Model\User\Command\RegisterUser::class => \Prooph\Proophessor\Model\User\Handler\RegisterUserHandler::class,
-                        \Prooph\Proophessor\Model\Todo\Command\PostTodo::class     => \Prooph\Proophessor\Model\Todo\Handler\PostTodoHandler::class,
-                        \Prooph\Proophessor\Model\Todo\Command\MarkTodoAsDone::class     => \Prooph\Proophessor\Model\Todo\Handler\MarkTodoAsDoneHandler::class,
+                        \Prooph\ProophessorDo\Model\User\Command\RegisterUser::class => \Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler::class,
+                        \Prooph\ProophessorDo\Model\Todo\Command\PostTodo::class     => \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class,
+                        \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone::class     => \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class,
                     ]
                 ]
             ],
@@ -34,16 +34,16 @@ return [
                 ],
                 'router' => [
                     'routes' => [
-                        \Prooph\Proophessor\Model\User\Event\UserWasRegistered::class => [
-                            \Prooph\Proophessor\Projection\User\UserProjector::class,
+                        \Prooph\ProophessorDo\Model\User\Event\UserWasRegistered::class => [
+                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
                         ],
-                        \Prooph\Proophessor\Model\Todo\Event\TodoWasPosted::class => [
-                            \Prooph\Proophessor\Projection\Todo\TodoProjector::class,
-                            \Prooph\Proophessor\Projection\User\UserProjector::class,
+                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted::class => [
+                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
+                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
                         ],
-                        \Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone::class => [
-                            \Prooph\Proophessor\Projection\Todo\TodoProjector::class,
-                            \Prooph\Proophessor\Projection\User\UserProjector::class,
+                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone::class => [
+                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
+                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
                         ],
                     ]
                 ]

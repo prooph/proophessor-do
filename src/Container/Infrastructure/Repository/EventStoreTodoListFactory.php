@@ -8,13 +8,13 @@
  *
  * Date: 5/2/15 - 5:27 PM
  */
-namespace Prooph\Proophessor\Container\Infrastructure\Repository;
+namespace Prooph\ProophessorDo\Container\Infrastructure\Repository;
 
 use Interop\Container\ContainerInterface;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 use Prooph\EventStore\Aggregate\AggregateType;
-use Prooph\Proophessor\Infrastructure\Repository\EventStoreTodoList;
-use Prooph\Proophessor\Model\Todo\Todo;
+use Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList;
+use Prooph\ProophessorDo\Model\Todo\Todo;
 
 /**
  * Class EventStoreTodoListFactory

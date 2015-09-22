@@ -8,7 +8,7 @@
  *
  * Date: 9/6/15 - 12:49 PM
  */
-namespace Prooph\Proophessor\Container\App\View;
+namespace Prooph\ProophessorDo\Container\App\View;
 
 use Interop\Container\ContainerInterface;
 use Zend\View\HelperPluginManager;
@@ -16,7 +16,7 @@ use Zend\View\HelperPluginManager;
 /**
  * Class ViewHelperPluginManagerFactory
  *
- * @package Prooph\Proophessor\Container\App\View
+ * @package Prooph\ProophessorDo\Container\App\View
  */
 final class ViewHelperPluginManagerFactory
 {

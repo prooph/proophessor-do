@@ -6,7 +6,7 @@
 
     <name>Proophessor Do Migrations</name>
 
-    <migrations-namespace>Prooph\Proophessor\Migrations</migrations-namespace>
+    <migrations-namespace>Prooph\ProophessorDo\Migrations</migrations-namespace>
 
     <table name="migrations" />
 

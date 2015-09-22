@@ -8,18 +8,18 @@
  *
  * Date: 5/2/15 - 11:44 PM
  */
-namespace Prooph\Proophessor\Projection\User;
+namespace Prooph\ProophessorDo\Projection\User;
 
-use Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone;
-use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
-use Prooph\Proophessor\Model\User\Event\UserWasRegistered;
-use Prooph\Proophessor\Projection\Table;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
+use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
 
 /**
  * Class UserProjector
  *
- * @package Prooph\Proophessor\Projection\User
+ * @package Prooph\ProophessorDo\Projection\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class UserProjector

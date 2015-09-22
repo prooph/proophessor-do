@@ -8,20 +8,20 @@
  *
  * Date: 5/2/15 - 12:10 AM
  */
-namespace Prooph\Proophessor\Model\User;
+namespace Prooph\ProophessorDo\Model\User;
 
-use Prooph\Proophessor\Model\Todo\Todo;
-use Prooph\Proophessor\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\Todo;
+use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
-use Prooph\Proophessor\Model\User\Event\UserWasRegistered;
+use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 
 /**
  * Class User
  *
  * A user manages Todos on his or her TodoList. Each user is identified by her user id, has a name and an email address.
  *
- * @package Prooph\Proophessor\Model\User
+ * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class User extends AggregateRoot

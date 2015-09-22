@@ -8,11 +8,11 @@
  *
  * Date: 5/2/15 - 8:33 PM
  */
-namespace Prooph\Proophessor\Container\Model\User;
+namespace Prooph\ProophessorDo\Container\Model\User;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\Model\User\Handler\RegisterUserHandler;
-use Prooph\Proophessor\Model\User\UserCollection;
+use Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler;
+use Prooph\ProophessorDo\Model\User\UserCollection;
 
 /**
  * Class RegisterUserHandlerFactory

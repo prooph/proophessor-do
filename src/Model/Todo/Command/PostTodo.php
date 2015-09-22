@@ -8,18 +8,18 @@
  *
  * Date: 5/2/15 - 5:50 PM
  */
-namespace Prooph\Proophessor\Model\Todo\Command;
+namespace Prooph\ProophessorDo\Model\Todo\Command;
 
-use Prooph\Proophessor\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
-use Prooph\Proophessor\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\TodoId;
 
 /**
  * Class PostTodo
  *
- * @package Prooph\Proophessor\Model\Todo
+ * @package Prooph\ProophessorDo\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class PostTodo extends Command implements PayloadConstructable

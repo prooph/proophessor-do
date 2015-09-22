@@ -8,17 +8,17 @@
  *
  * Date: 7/5/15 - 8:23 PM
  */
-namespace Prooph\Proophessor\Container\App\Commanding;
+namespace Prooph\ProophessorDo\Container\App\Commanding;
 
 use Interop\Container\ContainerInterface;
 use Prooph\Common\Messaging\FQCNMessageFactory;
-use Prooph\Proophessor\App\Commanding\API;
+use Prooph\ProophessorDo\App\Commanding\API;
 use Prooph\ServiceBus\CommandBus;
 
 /**
  * Class APIFactory
  *
- * @package Prooph\Proophessor\App\Container\Commanding
+ * @package Prooph\ProophessorDo\App\Container\Commanding
  */
 final class APIFactory
 {

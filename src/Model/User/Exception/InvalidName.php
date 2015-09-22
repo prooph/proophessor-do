@@ -8,12 +8,12 @@
  *
  * Date: 5/2/15 - 6:56 PM
  */
-namespace Prooph\Proophessor\Model\User\Exception;
+namespace Prooph\ProophessorDo\Model\User\Exception;
 
 /**
  * Class InvalidName
  *
- * @package Prooph\Proophessor\Model\User\Exception
+ * @package Prooph\ProophessorDo\Model\User\Exception
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class InvalidName extends \InvalidArgumentException

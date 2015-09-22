@@ -1,8 +1,8 @@
 <?php
 
-namespace Prooph\Proophessor\Migrations;
+namespace Prooph\ProophessorDo\Migrations;
 
-use Prooph\Proophessor\Projection\Table;
+use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 

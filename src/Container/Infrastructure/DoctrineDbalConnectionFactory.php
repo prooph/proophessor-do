@@ -8,7 +8,7 @@
  *
  * Date: 9/5/15 - 9:48 PM
  */
-namespace Prooph\Proophessor\Container\Infrastructure;
+namespace Prooph\ProophessorDo\Container\Infrastructure;
 
 use Doctrine\DBAL\DriverManager;
 use Interop\Config\ConfigurationTrait;
