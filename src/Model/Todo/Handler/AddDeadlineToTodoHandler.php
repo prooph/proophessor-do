@@ -40,6 +40,6 @@ class AddDeadlineToTodoHandler
             throw new \Exception('Only assigned user can change the todo deadline');
         }
 
-        $todo->addDeadline(new \DateTime($command->deadline()));
+        $todo->addDeadline(new \DateTimeImmutable($command->deadline()));
     }
 }

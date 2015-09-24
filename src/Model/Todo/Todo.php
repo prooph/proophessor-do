@@ -46,7 +46,7 @@ final class Todo extends AggregateRoot
     private $status;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     private $deadline;
 
@@ -77,17 +77,17 @@ final class Todo extends AggregateRoot
     }
 
     /**
-     * @param \DateTime $deadline
+     * @param \DateTimeImmutable $deadline
      * @return void
      * @throws \Exception
      */
-    public function addDeadline(\DateTime $deadline)
+    public function addDeadline(\DateTimeImmutable $deadline)
     {
         $this->recordThat(DeadlineWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $deadline));
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
     public function deadline()
     {

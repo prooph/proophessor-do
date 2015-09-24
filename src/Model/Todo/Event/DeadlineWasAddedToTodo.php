@@ -24,17 +24,17 @@ class DeadlineWasAddedToTodo extends AggregateChanged
     private $userId;
 
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     private $deadline;
 
     /**
      * @param TodoId $todoId
      * @param UserId $userId
-     * @param \DateTime $deadline
+     * @param \DateTimeImmutable $deadline
      * @return DeadlineWasAddedToTodo
      */
-    public static function byUserToDate(TodoId $todoId, UserId $userId, \DateTime $deadline)
+    public static function byUserToDate(TodoId $todoId, UserId $userId, \DateTimeImmutable $deadline)
     {
         $event = self::occur($todoId->toString(), [
             'todo_id' => $todoId->toString(),
@@ -74,12 +74,12 @@ class DeadlineWasAddedToTodo extends AggregateChanged
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
     public function deadline()
     {
         if (!$this->deadline) {
-            $this->deadline = new \DateTime($this->payload['deadline']);
+            $this->deadline = new \DateTimeImmutable($this->payload['deadline']);
         }
 
         return $this->deadline;

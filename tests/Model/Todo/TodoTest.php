@@ -96,7 +96,7 @@ final class TodoTest extends TestCase
     {
         $todoId = TodoId::generate();
         $userId = UserId::generate();
-        $deadline = new \DateTime('2050-12-31 12:00:00');
+        $deadline = new \DateTimeImmutable('2050-12-31 12:00:00');
         $todo = Todo::post('Do something tomorrow', $userId, $todoId);
 
         $this->assertNull($todo->deadline());
@@ -126,7 +126,7 @@ final class TodoTest extends TestCase
      */
     public function it_can_add_another_deadline_if_desired(Todo $todo)
     {
-        $todo->addDeadline(new \DateTime);
+        $todo->addDeadline(new \DateTimeImmutable);
         $events = $this->popRecordedEvent($todo);
 
         $this->assertEquals(1, count($events));
