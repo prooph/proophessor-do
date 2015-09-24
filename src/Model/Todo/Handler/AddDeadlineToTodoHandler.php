@@ -3,7 +3,7 @@
 namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
 use Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo;
-use Prooph\ProophessorDo\Model\Todo\TodoId;
+
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 /**
@@ -34,12 +34,12 @@ class AddDeadlineToTodoHandler
      */
     public function __invoke(AddDeadlineToTodo $command)
     {
-        $todo = $this->todoList->get(TodoId::fromString($command->todoId()));
+        $todo = $this->todoList->get($command->todoId());
 
-        if ($todo->assigneeId()->toString() !== $command->userId()) {
+        if ($todo->assigneeId()->toString() !== $command->userId()->toString()) {
             throw new \Exception('Only assigned user can change the todo deadline');
         }
 
-        $todo->addDeadline(new \DateTimeImmutable($command->deadline()));
+        $todo->addDeadline($command->deadline());
     }
 }

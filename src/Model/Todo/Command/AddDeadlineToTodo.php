@@ -3,6 +3,8 @@
 namespace Prooph\ProophessorDo\Model\Todo\Command;
 
 use Prooph\Common\Messaging;
+use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class AddDeadlineToTodo
@@ -15,26 +17,26 @@ class AddDeadlineToTodo extends Messaging\Command implements Messaging\PayloadCo
     use Messaging\PayloadTrait;
 
     /**
-     * @return string
+     * @return UserId
      */
     public function userId()
     {
-        return $this->payload['user_id'];
+        return UserId::fromString($this->payload['user_id']);
     }
 
     /**
-     * @return string
+     * @return TodoId
      */
     public function todoId()
     {
-        return $this->payload['todo_id'];
+        return TodoId::fromString($this->payload['todo_id']);
     }
 
     /**
-     * @return string
+     * @return \DateTimeImmutable
      */
     public function deadline()
     {
-        return $this->payload['deadline'];
+        return new \DateTimeImmutable($this->payload['deadline']);
     }
 }
