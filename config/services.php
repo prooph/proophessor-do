@@ -18,14 +18,14 @@ $servicesConfig = [
     'invokables' => [
         \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class => \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class,
         //Custom view plugins
-        \Prooph\Proophessor\App\View\Helper\RiotTag::class              => \Prooph\Proophessor\App\View\Helper\RiotTag::class,
+        \Prooph\ProophessorDo\App\View\Helper\RiotTag::class              => \Prooph\ProophessorDo\App\View\Helper\RiotTag::class,
     ],
     'factories' => [
         //Application
         \Zend\Expressive\Application::class           => \Zend\Expressive\Container\ApplicationFactory::class,
-        \Prooph\Proophessor\App\Commanding\API::class => \Prooph\Proophessor\Container\App\Commanding\APIFactory::class,
+        \Prooph\ProophessorDo\App\Commanding\API::class => \Prooph\ProophessorDo\Container\App\Commanding\APIFactory::class,
         //Infrastructure
-        'doctrine.connection.default' => Prooph\Proophessor\Container\Infrastructure\DoctrineDbalConnectionFactory::class,
+        'doctrine.connection.default' => Prooph\ProophessorDo\Container\Infrastructure\DoctrineDbalConnectionFactory::class,
         'prooph.event_store'          => \Prooph\EventStore\Container\EventStoreFactory::class,
         //Default factories for the event store adapters, depending on the installed adapter the event store factory
         //will use the configured adapter type to get an adapter instance from the service manager
@@ -39,28 +39,28 @@ $servicesConfig = [
         \Prooph\EventStoreBusBridge\TransactionManager::class => \Prooph\EventStoreBusBridge\Container\TransactionManagerFactory::class,
         \Prooph\EventStoreBusBridge\EventPublisher::class     => \Prooph\EventStoreBusBridge\Container\EventPublisherFactory::class,
         //Routing
-        \Zend\Expressive\Router\RouterInterface::class => \Prooph\Proophessor\Container\App\Routing\AuraRouterFactory::class,
+        \Zend\Expressive\Router\RouterInterface::class => \Prooph\ProophessorDo\Container\App\Routing\AuraRouterFactory::class,
         //Action middleware
-        \Prooph\Proophessor\App\Action\Home::class             => \Prooph\Proophessor\Container\App\Action\HomeFactory::class,
-        \Prooph\Proophessor\App\Action\UserList::class         => \Prooph\Proophessor\Container\App\Action\UserListFactory::class,
-        \Prooph\Proophessor\App\Action\UserRegistration::class => \Prooph\Proophessor\Container\App\Action\UserRegistrationFactory::class,
-        \Prooph\Proophessor\App\Action\UserTodoList::class     => \Prooph\Proophessor\Container\App\Action\UserTodoListFactory::class,
-        \Prooph\Proophessor\App\Action\UserTodoForm::class     => \Prooph\Proophessor\Container\App\Action\UserTodoFormFactory::class,
+        \Prooph\ProophessorDo\App\Action\Home::class             => \Prooph\ProophessorDo\Container\App\Action\HomeFactory::class,
+        \Prooph\ProophessorDo\App\Action\UserList::class         => \Prooph\ProophessorDo\Container\App\Action\UserListFactory::class,
+        \Prooph\ProophessorDo\App\Action\UserRegistration::class => \Prooph\ProophessorDo\Container\App\Action\UserRegistrationFactory::class,
+        \Prooph\ProophessorDo\App\Action\UserTodoList::class     => \Prooph\ProophessorDo\Container\App\Action\UserTodoListFactory::class,
+        \Prooph\ProophessorDo\App\Action\UserTodoForm::class     => \Prooph\ProophessorDo\Container\App\Action\UserTodoFormFactory::class,
         //View
         \Zend\Expressive\Template\TemplateInterface::class          => \Zend\Expressive\Container\Template\ZendViewFactory::class,
-        \Zend\View\HelperPluginManager::class                       => \Prooph\Proophessor\Container\App\View\ViewHelperPluginManagerFactory::class,
+        \Zend\View\HelperPluginManager::class                       => \Prooph\ProophessorDo\Container\App\View\ViewHelperPluginManagerFactory::class,
         //Model
-        \Prooph\Proophessor\Model\User\Handler\RegisterUserHandler::class => \Prooph\Proophessor\Container\Model\User\RegisterUserHandlerFactory::class,
-        \Prooph\Proophessor\Model\User\UserCollection::class      => \Prooph\Proophessor\Container\Infrastructure\Repository\EventStoreUserCollectionFactory::class,
-        \Prooph\Proophessor\Model\Todo\Handler\PostTodoHandler::class     => \Prooph\Proophessor\Container\Model\Todo\PostTodoHandlerFactory::class,
-        \Prooph\Proophessor\Model\Todo\Handler\MarkTodoAsDoneHandler::class     => \Prooph\Proophessor\Container\Model\Todo\MarkTodoAsDoneHandlerFactory::class,
-        \Prooph\Proophessor\Model\Todo\Handler\AddDeadlineToTodoHandler::class => \Prooph\Proophessor\Container\Model\Todo\AddDeadlineToTodoHandlerFactory::class,
-        \Prooph\Proophessor\Model\Todo\TodoList::class            => \Prooph\Proophessor\Container\Infrastructure\Repository\EventStoreTodoListFactory::class,
+        \Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler::class => \Prooph\ProophessorDo\Container\Model\User\RegisterUserHandlerFactory::class,
+        \Prooph\ProophessorDo\Model\User\UserCollection::class      => \Prooph\ProophessorDo\Container\Infrastructure\Repository\EventStoreUserCollectionFactory::class,
+        \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class     => \Prooph\ProophessorDo\Container\Model\Todo\PostTodoHandlerFactory::class,
+        \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class     => \Prooph\ProophessorDo\Container\Model\Todo\MarkTodoAsDoneHandlerFactory::class,
+        \Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\AddDeadlineToTodoHandlerFactory::class,
+        \Prooph\ProophessorDo\Model\Todo\TodoList::class            => \Prooph\ProophessorDo\Container\Infrastructure\Repository\EventStoreTodoListFactory::class,
         //Projections
-        \Prooph\Proophessor\Projection\User\UserProjector::class => \Prooph\Proophessor\Container\Projection\User\UserProjectorFactory::class,
-        \Prooph\Proophessor\Projection\User\UserFinder::class    => \Prooph\Proophessor\Container\Projection\User\UserFinderFactory::class,
-        \Prooph\Proophessor\Projection\Todo\TodoProjector::class => \Prooph\Proophessor\Container\Projection\Todo\TodoProjectorFactory::class,
-        \Prooph\Proophessor\Projection\Todo\TodoFinder::class    => \Prooph\Proophessor\Container\Projection\Todo\TodoFinderFactory::class,
+        \Prooph\ProophessorDo\Projection\User\UserProjector::class => \Prooph\ProophessorDo\Container\Projection\User\UserProjectorFactory::class,
+        \Prooph\ProophessorDo\Projection\User\UserFinder::class    => \Prooph\ProophessorDo\Container\Projection\User\UserFinderFactory::class,
+        \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoProjectorFactory::class,
+        \Prooph\ProophessorDo\Projection\Todo\TodoFinder::class    => \Prooph\ProophessorDo\Container\Projection\Todo\TodoFinderFactory::class,
     ]
 ];
 

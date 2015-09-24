@@ -8,15 +8,15 @@
  *
  * Date: 9/19/15 - 21:32 PM
  */
-namespace Prooph\Proophessor\Model\Todo\Exception;
+namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
-use Prooph\Proophessor\Model\Todo\Todo;
-use Prooph\Proophessor\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\Model\Todo\Todo;
+use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 
 /**
  * Class TodoNotOpen
  *
- * @package Prooph\Proophessor\Model\Todo\Exception
+ * @package Prooph\ProophessorDo\Model\Todo\Exception
  * @author Danny van der Sluijs <danny.vandersluijs@icloud.com>
  */
 final class TodoNotOpen extends \RuntimeException

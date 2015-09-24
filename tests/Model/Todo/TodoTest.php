@@ -8,20 +8,20 @@
  *
  * Date: 9/15/15 - 8:48 PM
  */
-namespace ProophTest\Proophessor\Model\Todo;
+namespace ProophTest\ProophessorDo\Model\Todo;
 
-use Prooph\Proophessor\Model\Todo\Event\DeadlineWasAddedToTodo;
-use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
-use Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone;
-use Prooph\Proophessor\Model\Todo\Todo;
-use Prooph\Proophessor\Model\Todo\TodoId;
-use Prooph\Proophessor\Model\User\UserId;
-use ProophTest\Proophessor\TestCase;
+use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Todo;
+use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\User\UserId;
+use ProophTest\ProophessorDo\TestCase;
 
 /**
  * Class TodoTest
  *
- * @package ProophTest\Proophessor\Model\Todo
+ * @package ProophTest\ProophessorDo\Model\Todo
  */
 final class TodoTest extends TestCase
 {
@@ -82,7 +82,7 @@ final class TodoTest extends TestCase
     /**
      * @test
      * @depends it_marks_an_open_todo_as_done
-     * @expectedException \Prooph\Proophessor\Model\Todo\Exception\TodoNotOpen
+     * @expectedException \Prooph\ProophessorDo\Model\Todo\Exception\TodoNotOpen
      */
     public function it_throws_an_exception_when_marking_a_todo_already_done_as_done(Todo $todo)
     {

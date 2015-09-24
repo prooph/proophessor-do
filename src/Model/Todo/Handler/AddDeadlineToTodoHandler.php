@@ -1,15 +1,15 @@
 <?php
 
-namespace Prooph\Proophessor\Model\Todo\Handler;
+namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
-use Prooph\Proophessor\Model\Todo\Command\AddDeadlineToTodo;
-use Prooph\Proophessor\Model\Todo\TodoId;
-use Prooph\Proophessor\Model\Todo\TodoList;
+use Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo;
+use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 /**
  * Class AddDeadlineToTodoHandler
  *
- * @package Prooph\Proophessor\Model\Todo\Handler
+ * @package Prooph\ProophessorDo\Model\Todo\Handler
  * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
  */
 class AddDeadlineToTodoHandler

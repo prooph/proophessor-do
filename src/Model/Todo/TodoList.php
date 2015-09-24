@@ -9,12 +9,12 @@
  * Date: 5/2/15 - 5:19 PM
  */
 
-namespace Prooph\Proophessor\Model\Todo;
+namespace Prooph\ProophessorDo\Model\Todo;
 
 /**
  * Interface TodoList
  *
- * @package Prooph\Proophessor\Model\Todo
+ * @package Prooph\ProophessorDo\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 interface TodoList

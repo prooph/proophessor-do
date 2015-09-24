@@ -8,16 +8,16 @@
  *
  * Date: 5/2/15 - 6:42 PM
  */
-namespace Prooph\Proophessor\Model\User\Handler;
+namespace Prooph\ProophessorDo\Model\User\Handler;
 
-use Prooph\Proophessor\Model\User\Command\RegisterUser;
-use Prooph\Proophessor\Model\User\User;
-use Prooph\Proophessor\Model\User\UserCollection;
+use Prooph\ProophessorDo\Model\User\Command\RegisterUser;
+use Prooph\ProophessorDo\Model\User\User;
+use Prooph\ProophessorDo\Model\User\UserCollection;
 
 /**
  * Class RegisterUserHandler
  *
- * @package Prooph\Proophessor\Model\User\Handler
+ * @package Prooph\ProophessorDo\Model\User\Handler
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class RegisterUserHandler

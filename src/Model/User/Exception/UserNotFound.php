@@ -8,14 +8,14 @@
  *
  * Date: 5/4/15 - 4:52 PM
  */
-namespace Prooph\Proophessor\Model\User\Exception;
+namespace Prooph\ProophessorDo\Model\User\Exception;
 
-use Prooph\Proophessor\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class UserNotFound
  *
- * @package Prooph\Proophessor\Model\User
+ * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class UserNotFound extends \InvalidArgumentException

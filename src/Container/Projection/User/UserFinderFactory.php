@@ -8,15 +8,15 @@
  *
  * Date: 5/3/15 - 10:52 PM
  */
-namespace Prooph\Proophessor\Container\Projection\User;
+namespace Prooph\ProophessorDo\Container\Projection\User;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\Projection\User\UserFinder;
+use Prooph\ProophessorDo\Projection\User\UserFinder;
 
 /**
  * Class UserFinderFactory
  *
- * @package Prooph\Proophessor\Projection\User
+ * @package Prooph\ProophessorDo\Projection\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class UserFinderFactory

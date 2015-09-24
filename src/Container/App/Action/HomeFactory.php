@@ -8,16 +8,16 @@
  *
  * Date: 9/6/15 - 11:45 AM
  */
-namespace Prooph\Proophessor\Container\App\Action;
+namespace Prooph\ProophessorDo\Container\App\Action;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\App\Action\Home;
+use Prooph\ProophessorDo\App\Action\Home;
 use Zend\Expressive\Template\TemplateInterface;
 
 /**
  * Class HomeFactory
  *
- * @package Prooph\Proophessor\Container\App\Action
+ * @package Prooph\ProophessorDo\Container\App\Action
  */
 final class HomeFactory
 {

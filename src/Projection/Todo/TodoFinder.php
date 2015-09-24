@@ -8,15 +8,15 @@
  *
  * Date: 5/4/15 - 8:47 PM
  */
-namespace Prooph\Proophessor\Projection\Todo;
+namespace Prooph\ProophessorDo\Projection\Todo;
 
-use Prooph\Proophessor\Projection\Table;
+use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
 
 /**
  * Class TodoFinder
  *
- * @package Prooph\Proophessor\Projection\Todo
+ * @package Prooph\ProophessorDo\Projection\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class TodoFinder

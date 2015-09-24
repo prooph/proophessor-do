@@ -1,13 +1,13 @@
 <?php
 
-namespace Prooph\Proophessor\Model\Todo\Command;
+namespace Prooph\ProophessorDo\Model\Todo\Command;
 
 use Prooph\Common\Messaging;
 
 /**
  * Class AddDeadlineToTodo
  *
- * @package Prooph\Proophessor\Model\Todo\Command
+ * @package Prooph\ProophessorDo\Model\Todo\Command
  * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
  */
 class AddDeadlineToTodo extends Messaging\Command implements Messaging\PayloadConstructable

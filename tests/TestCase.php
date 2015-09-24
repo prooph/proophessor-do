@@ -8,16 +8,17 @@
  *
  * Date: 9/15/15 - 8:47 PM
  */
-namespace ProophTest\Proophessor;
+namespace ProophTest\ProophessorDo;
 
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
+use Prooph\EventStore\Aggregate\AggregateType;
 
 /**
  * Class TestCase
  *
- * @package ProophTest\Proophessor\tests
+ * @package ProophTest\ProophessorDo\tests
  */
 class TestCase extends \PHPUnit_Framework_TestCase
 {
@@ -33,6 +34,19 @@ class TestCase extends \PHPUnit_Framework_TestCase
     protected function popRecordedEvent(AggregateRoot $aggregateRoot)
     {
         return $this->getAggregateTranslator()->extractPendingStreamEvents($aggregateRoot);
+    }
+
+    /**
+     * @param string $aggregateRootClass
+     * @param array $events
+     * @return object
+     */
+    protected function reconstituteAggregateFromHistory($aggregateRootClass, array $events)
+    {
+        return $this->getAggregateTranslator()->reconstituteAggregateFromHistory(
+            AggregateType::fromAggregateRootClass($aggregateRootClass),
+            $events
+        );
     }
 
     /**

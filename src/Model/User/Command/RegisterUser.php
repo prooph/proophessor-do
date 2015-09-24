@@ -8,18 +8,18 @@
  *
  * Date: 5/2/15 - 6:01 PM
  */
-namespace Prooph\Proophessor\Model\User\Command;
+namespace Prooph\ProophessorDo\Model\User\Command;
 
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
-use Prooph\Proophessor\Model\User\UserId;
-use Prooph\Proophessor\Model\User\EmailAddress;
+use Prooph\ProophessorDo\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\EmailAddress;
 
 /**
  * Class RegisterUser
  *
- * @package Prooph\Proophessor\Model\User\Command
+ * @package Prooph\ProophessorDo\Model\User\Command
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class RegisterUser extends Command implements PayloadConstructable

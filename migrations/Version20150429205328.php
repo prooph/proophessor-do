@@ -1,6 +1,6 @@
 <?php
 
-namespace Prooph\Proophessor\Migrations;
+namespace Prooph\ProophessorDo\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;

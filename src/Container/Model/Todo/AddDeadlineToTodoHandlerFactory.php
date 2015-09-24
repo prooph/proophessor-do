@@ -1,15 +1,15 @@
 <?php
 
-namespace Prooph\Proophessor\Container\Model\Todo;
+namespace Prooph\ProophessorDo\Container\Model\Todo;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\Model\Todo\Handler\AddDeadlineToTodoHandler;
-use Prooph\Proophessor\Model\Todo\TodoList;
+use Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler;
+use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 /**
  * Class AddDeadlineToTodoHandlerFactory
  *
- * @package Prooph\Proophessor\Container\Model\Todo
+ * @package Prooph\ProophessorDo\Container\Model\Todo
  * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
  */
 class AddDeadlineToTodoHandlerFactory

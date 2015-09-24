@@ -24,7 +24,7 @@ return [
             'riot::user-todo-form' => 'view/riot/user-todo-form.phtml',
         ],
         'plugins' => [
-            'riotTag' => \Prooph\Proophessor\App\View\Helper\RiotTag::class,
+            'riotTag' => \Prooph\ProophessorDo\App\View\Helper\RiotTag::class,
         ]
     ]
 ];

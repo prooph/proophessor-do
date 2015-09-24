@@ -8,18 +8,18 @@
  *
  * Date: 9/6/15 - 7:07 PM
  */
-namespace Prooph\Proophessor\Container\App\Action;
+namespace Prooph\ProophessorDo\Container\App\Action;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Proophessor\App\Action\UserTodoList;
-use Prooph\Proophessor\Projection\Todo\TodoFinder;
-use Prooph\Proophessor\Projection\User\UserFinder;
+use Prooph\ProophessorDo\App\Action\UserTodoList;
+use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
+use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Zend\Expressive\Template\TemplateInterface;
 
 /**
  * Class UserTodoListFactory
  *
- * @package Prooph\Proophessor\Container\App\Action
+ * @package Prooph\ProophessorDo\Container\App\Action
  */
 final class UserTodoListFactory
 {

@@ -8,19 +8,19 @@
  *
  * Date: 5/2/15 - 5:20 PM
  */
-namespace Prooph\Proophessor\Model\Todo;
+namespace Prooph\ProophessorDo\Model\Todo;
 
-use Prooph\Proophessor\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\UserId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
-use Prooph\Proophessor\Model\Todo\Event\DeadlineWasAddedToTodo;
-use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
-use Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 
 /**
  * Class Todo
  *
- * @package Prooph\Proophessor\Model\Todo
+ * @package Prooph\ProophessorDo\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class Todo extends AggregateRoot

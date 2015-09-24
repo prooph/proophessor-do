@@ -1,14 +1,14 @@
 <?php
 
-namespace Prooph\Proophessor\Model\Todo\Event;
+namespace Prooph\ProophessorDo\Model\Todo\Event;
 
 use Prooph\EventSourcing\AggregateChanged;
-use Prooph\Proophessor\Model\Todo\TodoId;
-use Prooph\Proophessor\Model\User\UserId;
+use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class DeadlineWasAddedToTodo
- * @package Prooph\Proophessor\Model\Todo\Event
+ * @package Prooph\ProophessorDo\Model\Todo\Event
  * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
  */
 class DeadlineWasAddedToTodo extends AggregateChanged

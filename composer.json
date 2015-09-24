@@ -34,7 +34,7 @@
         "doctrine/dbal": "^2.5",
         "doctrine/migrations": "^1.0",
         "nicolopignatelli/valueobjects": "~3.0",
-        "sandrokeil/interop-config": "^0.1"
+        "sandrokeil/interop-config": "^0.2"
     },
     "require-dev" : {
         "fabpot/php-cs-fixer": "1.7.*",
@@ -46,14 +46,13 @@
     },
     "autoload" : {
         "psr-4" : {
-            "Prooph\\Proophessor\\" : "src",
-            "Prooph\\Proophessor\\Migrations\\" : "migrations"
+            "Prooph\\ProophessorDo\\" : "src",
+            "Prooph\\ProophessorDo\\Migrations\\" : "migrations"
         }
     },
     "autoload-dev" : {
         "psr-4" : {
-            "ProophTest\\Proophessor\\": "tests/"
+            "ProophTest\\ProophessorDo\\": "tests/"
         }
-    },
-    "bin-dir" : "./bin"
+    }
 }

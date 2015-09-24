@@ -8,12 +8,12 @@
  *
  * Date: 5/2/15 - 5:27 PM
  */
-namespace Prooph\Proophessor\Infrastructure\Repository;
+namespace Prooph\ProophessorDo\Infrastructure\Repository;
 
 use Prooph\EventStore\Aggregate\AggregateRepository;
-use Prooph\Proophessor\Model\Todo\Todo;
-use Prooph\Proophessor\Model\Todo\TodoId;
-use Prooph\Proophessor\Model\Todo\TodoList;
+use Prooph\ProophessorDo\Model\Todo\Todo;
+use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 /**
  * Class EventStoreTodoListRepository

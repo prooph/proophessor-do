@@ -8,15 +8,15 @@
  *
  * Date: 5/3/15 - 10:48 PM
  */
-namespace Prooph\Proophessor\Projection\User;
+namespace Prooph\ProophessorDo\Projection\User;
 
-use Prooph\Proophessor\Projection\Table;
+use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
 
 /**
  * Class UserFinder
  *
- * @package Prooph\Proophessor\Projection\User
+ * @package Prooph\ProophessorDo\Projection\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class UserFinder

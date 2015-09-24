@@ -13,25 +13,25 @@ return [
         [
             'name' => 'page::home',
             'path' => '/',
-            'middleware' => \Prooph\Proophessor\App\Action\Home::class,
+            'middleware' => \Prooph\ProophessorDo\App\Action\Home::class,
             'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'page::user-list',
             'path' => '/user-list',
-            'middleware' => \Prooph\Proophessor\App\Action\UserList::class,
+            'middleware' => \Prooph\ProophessorDo\App\Action\UserList::class,
             'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'page::user-registration-form',
             'path' => '/user-registration',
-            'middleware' => \Prooph\Proophessor\App\Action\UserRegistration::class,
+            'middleware' => \Prooph\ProophessorDo\App\Action\UserRegistration::class,
             'allowed_methods' => ['GET'],
         ],
         [
             'name' => 'page::user-todo-list',
             'path' => '/user-todo-list/{user_id}',
-            'middleware' => \Prooph\Proophessor\App\Action\UserTodoList::class,
+            'middleware' => \Prooph\ProophessorDo\App\Action\UserTodoList::class,
             'allowed_methods' => ['GET'],
             'options' => [
                 'tokens' => [
@@ -42,7 +42,7 @@ return [
         [
             'name' => 'page::user-todo-form',
             'path' => '/user-todo-list/{user_id}/new-todo',
-            'middleware' => \Prooph\Proophessor\App\Action\UserTodoForm::class,
+            'middleware' => \Prooph\ProophessorDo\App\Action\UserTodoForm::class,
             'allowed_methods' => ['GET'],
             'options' => [
                 'tokens' => [
@@ -54,33 +54,33 @@ return [
         [
             'name' => 'command::register-user',
             'path' => '/api/commands/register-user',
-            'middleware' => \Prooph\Proophessor\App\Commanding\API::class,
+            'middleware' => \Prooph\ProophessorDo\App\Commanding\API::class,
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
-                    'command' => \Prooph\Proophessor\Model\User\Command\RegisterUser::class,
+                    'command' => \Prooph\ProophessorDo\Model\User\Command\RegisterUser::class,
                 ]
             ]
         ],
         [
             'name' => 'command::post-todo',
             'path' => '/api/commands/post-todo',
-            'middleware' => \Prooph\Proophessor\App\Commanding\API::class,
+            'middleware' => \Prooph\ProophessorDo\App\Commanding\API::class,
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
-                    'command' => \Prooph\Proophessor\Model\Todo\Command\PostTodo::class,
+                    'command' => \Prooph\ProophessorDo\Model\Todo\Command\PostTodo::class,
                 ]
             ]
         ],
         [
             'name' => 'command::mark-todo-as-done',
             'path' => '/api/commands/mark-todo-as-done',
-            'middleware' => \Prooph\Proophessor\App\Commanding\API::class,
+            'middleware' => \Prooph\ProophessorDo\App\Commanding\API::class,
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
-                    'command' => \Prooph\Proophessor\Model\Todo\Command\MarkTodoAsDone::class,
+                    'command' => \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone::class,
                 ]
             ]
         ],
