@@ -13,6 +13,7 @@ namespace Prooph\Proophessor\Model\Todo;
 use Prooph\Proophessor\Model\User\UserId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
+use Prooph\Proophessor\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
 use Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone;
 
@@ -45,6 +46,11 @@ final class Todo extends AggregateRoot
     private $status;
 
     /**
+     * @var \DateTime
+     */
+    private $deadline;
+
+    /**
      * @param string $text
      * @param UserId $assigneeId
      * @param TodoId $todoId
@@ -68,6 +74,24 @@ final class Todo extends AggregateRoot
             throw Exception\TodoNotOpen::triedStatus($status, $this);
         }
         $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->todoId, $this->status, $status));
+    }
+
+    /**
+     * @param \DateTime $deadline
+     * @return void
+     * @throws \Exception
+     */
+    public function addDeadline(\DateTime $deadline)
+    {
+        $this->recordThat(DeadlineWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $deadline));
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function deadline()
+    {
+        return $this->deadline;
     }
 
     /**
@@ -116,6 +140,15 @@ final class Todo extends AggregateRoot
     protected function whenTodoWasMarkedAsDone(Event\TodoWasMarkedAsDone $event)
     {
         $this->status = $event->newStatus();
+    }
+
+    /**
+     * @param DeadlineWasAddedToTodo $event
+     * @return void
+     */
+    protected function whenDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event)
+    {
+        $this->deadline = $event->deadline();
     }
 
     /**

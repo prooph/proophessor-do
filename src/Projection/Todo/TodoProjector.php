@@ -10,6 +10,7 @@
  */
 namespace Prooph\Proophessor\Projection\Todo;
 
+use Prooph\Proophessor\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\Proophessor\Model\Todo\Event\TodoWasPosted;
 use Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\Proophessor\Projection\Table;
@@ -60,6 +61,25 @@ final class TodoProjector
             ],
             [
                 'id' => $event->todoId()->toString()
+            ]
+        );
+    }
+
+    /**
+     * @param DeadlineWasAddedToTodo $event
+     * @return void
+     */
+    public function onDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event)
+    {
+        echo $event->todoId()->toString();
+
+        $this->connection->update(
+            Table::TODO,
+            [
+                'deadline' => $event->deadline()->format('Y-m-d H:i:s'),
+            ],
+            [
+                'id' => $event->todoId()->toString(),
             ]
         );
     }

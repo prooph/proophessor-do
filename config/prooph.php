@@ -25,6 +25,7 @@ return [
                         \Prooph\Proophessor\Model\User\Command\RegisterUser::class => \Prooph\Proophessor\Model\User\Handler\RegisterUserHandler::class,
                         \Prooph\Proophessor\Model\Todo\Command\PostTodo::class     => \Prooph\Proophessor\Model\Todo\Handler\PostTodoHandler::class,
                         \Prooph\Proophessor\Model\Todo\Command\MarkTodoAsDone::class     => \Prooph\Proophessor\Model\Todo\Handler\MarkTodoAsDoneHandler::class,
+                        \Prooph\Proophessor\Model\Todo\Command\AddDeadlineToTodo::class => \Prooph\Proophessor\Model\Todo\Handler\AddDeadlineToTodoHandler::class,
                     ]
                 ]
             ],
@@ -44,6 +45,9 @@ return [
                         \Prooph\Proophessor\Model\Todo\Event\TodoWasMarkedAsDone::class => [
                             \Prooph\Proophessor\Projection\Todo\TodoProjector::class,
                             \Prooph\Proophessor\Projection\User\UserProjector::class,
+                        ],
+                        \Prooph\Proophessor\Model\Todo\Event\DeadlineWasAddedToTodo::class => [
+                            \Prooph\Proophessor\Projection\Todo\TodoProjector::class,
                         ],
                     ]
                 ]

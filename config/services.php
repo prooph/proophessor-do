@@ -54,6 +54,7 @@ $servicesConfig = [
         \Prooph\Proophessor\Model\User\UserCollection::class      => \Prooph\Proophessor\Container\Infrastructure\Repository\EventStoreUserCollectionFactory::class,
         \Prooph\Proophessor\Model\Todo\Handler\PostTodoHandler::class     => \Prooph\Proophessor\Container\Model\Todo\PostTodoHandlerFactory::class,
         \Prooph\Proophessor\Model\Todo\Handler\MarkTodoAsDoneHandler::class     => \Prooph\Proophessor\Container\Model\Todo\MarkTodoAsDoneHandlerFactory::class,
+        \Prooph\Proophessor\Model\Todo\Handler\AddDeadlineToTodoHandler::class => \Prooph\Proophessor\Container\Model\Todo\AddDeadlineToTodoHandlerFactory::class,
         \Prooph\Proophessor\Model\Todo\TodoList::class            => \Prooph\Proophessor\Container\Infrastructure\Repository\EventStoreTodoListFactory::class,
         //Projections
         \Prooph\Proophessor\Projection\User\UserProjector::class => \Prooph\Proophessor\Container\Projection\User\UserProjectorFactory::class,
