@@ -3,7 +3,6 @@
 namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
 use Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo;
-
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 /**
@@ -12,7 +11,7 @@ use Prooph\ProophessorDo\Model\Todo\TodoList;
  * @package Prooph\ProophessorDo\Model\Todo\Handler
  * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
  */
-class AddDeadlineToTodoHandler
+final class AddDeadlineToTodoHandler
 {
     /**
      * @var TodoList

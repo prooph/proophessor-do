@@ -11,7 +11,7 @@ use Prooph\ProophessorDo\Model\User\UserId;
  * @package Prooph\ProophessorDo\Model\Todo\Event
  * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
  */
-class DeadlineWasAddedToTodo extends AggregateChanged
+final class DeadlineWasAddedToTodo extends AggregateChanged
 {
     /**
      * @var TodoId
