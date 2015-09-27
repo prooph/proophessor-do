@@ -3,6 +3,7 @@
 namespace Prooph\ProophessorDo\Model\Todo\Command;
 
 use Prooph\Common\Messaging;
+use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\User\UserId;
 
@@ -33,10 +34,10 @@ class AddDeadlineToTodo extends Messaging\Command implements Messaging\PayloadCo
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return TodoDeadline
      */
     public function deadline()
     {
-        return new \DateTimeImmutable($this->payload['deadline']);
+        return TodoDeadline::fromString($this->payload['deadline'], $this->payload['created_on']);
     }
 }

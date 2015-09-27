@@ -29,16 +29,10 @@ final class AddDeadlineToTodoHandler
     /**
      * @param AddDeadlineToTodo $command
      * @return void
-     * @throws \Exception
      */
     public function __invoke(AddDeadlineToTodo $command)
     {
         $todo = $this->todoList->get($command->todoId());
-
-        if ($todo->assigneeId()->toString() !== $command->userId()->toString()) {
-            throw new \Exception('Only assigned user can change the todo deadline');
-        }
-
-        $todo->addDeadline($command->deadline());
+        $todo->addDeadline($command->userId(), $command->deadline());
     }
 }

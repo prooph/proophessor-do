@@ -77,12 +77,21 @@ final class Todo extends AggregateRoot
     }
 
     /**
-     * @param \DateTimeImmutable $deadline
+     * @param UserId $userId
+     * @param TodoDeadline $deadline
      * @return void
      * @throws \Exception
      */
-    public function addDeadline(\DateTimeImmutable $deadline)
+    public function addDeadline(UserId $userId, TodoDeadline $deadline)
     {
+        if (!$this->assigneeId()->sameValueAs($userId)) {
+            throw Exception\InvalidDeadline::userIsNotAssignee($userId, $this->assigneeId());
+        }
+
+        if ($deadline->isInThePast()) {
+            throw Exception\InvalidDeadline::deadlineInThePast($deadline);
+        }
+
         $this->recordThat(DeadlineWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $deadline));
     }
 
