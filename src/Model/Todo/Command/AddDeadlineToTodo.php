@@ -38,6 +38,6 @@ class AddDeadlineToTodo extends Messaging\Command implements Messaging\PayloadCo
      */
     public function deadline()
     {
-        return TodoDeadline::fromString($this->payload['deadline'], $this->payload['created_on']);
+        return TodoDeadline::fromString($this->payload['deadline']);
     }
 }

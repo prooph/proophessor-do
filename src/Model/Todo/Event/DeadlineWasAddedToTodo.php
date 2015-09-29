@@ -42,7 +42,6 @@ final class DeadlineWasAddedToTodo extends AggregateChanged
             'todo_id' => $todoId->toString(),
             'user_id' => $userId->toString(),
             'deadline' => $deadline->toString(),
-            'created_on' => $deadline->createdOn()
         ]);
 
         $event->todoId = $todoId;
@@ -82,7 +81,7 @@ final class DeadlineWasAddedToTodo extends AggregateChanged
     public function deadline()
     {
         if (!$this->deadline) {
-            $this->deadline = TodoDeadline::fromString($this->payload['deadline'], $this->payload['created_on']);
+            $this->deadline = TodoDeadline::fromString($this->payload['deadline']);
         }
 
         return $this->deadline;

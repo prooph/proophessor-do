@@ -51,25 +51,6 @@
 
 <script type="text/javascript">
     $(function () {
-        function getZero(datePart) {
-            if (datePart < 10) {
-                return '0';
-            }
-
-            return '';
-        }
-
-        Date.prototype.currentDate = function () {
-            var day = getZero(this.getDate()) + this.getDate();
-            var month = getZero(this.getMonth() + 1) + (this.getMonth() + 1);
-            var year = this.getFullYear();
-            var hour = getZero(this.getHours()) + this.getHours();
-            var minute = getZero(this.getMinutes()) + this.getMinutes();
-            var second = getZero(this.getSeconds()) + this.getSeconds();
-
-            return [year, month, day].join('-') + ' ' + [hour, minute, second].join(':');
-        };
-
         $('body').on('click', '.glyphicon-unchecked', function()
         {
             var elem = $(this);
@@ -96,8 +77,7 @@
                 {
                     todo_id: el.data('todo-id'),
                     user_id: el.data('user-id'),
-                    deadline: el.val(),
-                    created_on: Date.currentDate()
+                    deadline: el.val()
                 }
             );
         });

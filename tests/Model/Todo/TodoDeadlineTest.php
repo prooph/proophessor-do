@@ -16,9 +16,9 @@ final class TodoDeadlineTest extends TestCase
      * @test
      * @dataProvider getDeadlines
      */
-    public function it_correctly_validates_the_deadline($deadline, $createdOn, $inThePast)
+    public function it_correctly_validates_the_deadline($deadline, $inThePast)
     {
-        $deadline = TodoDeadline::fromString($deadline, $createdOn);
+        $deadline = TodoDeadline::fromString($deadline);
         $deadlineInThePast = $deadline->isInThePast();
 
         if ($inThePast) {
@@ -32,19 +32,12 @@ final class TodoDeadlineTest extends TestCase
     {
         return [
             [
-                '2015-02-01 10:00:00',
-                '2015-01-01 10:00:00',
+                '2047-02-01 10:00:00',
                 false
             ],
             [
-                '2015-01-01 10:00:00',
-                '2015-02-01 10:00:00',
+                '1947-01-01 10:00:00',
                 true
-            ],
-            [
-                '2015-02-01 10:00:00',
-                '2015-02-01 10:00:00',
-                false
             ],
         ];
     }

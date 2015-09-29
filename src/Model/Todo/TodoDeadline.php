@@ -24,22 +24,20 @@ final class TodoDeadline
 
     /**
      * @param string $deadline
-     * @param string $createdOn
      * @return TodoDeadline
      */
-    public static function fromString($deadline, $createdOn)
+    public static function fromString($deadline)
     {
-        return new self($deadline, $createdOn);
+        return new self($deadline);
     }
 
     /**
      * @param string $deadline
-     * @param string $createdOn
      */
-    private function __construct($deadline, $createdOn)
+    private function __construct($deadline)
     {
         $this->deadline = new \DateTimeImmutable($deadline);
-        $this->createdOn = new \DateTimeImmutable($createdOn);
+        $this->createdOn = new \DateTimeImmutable;
     }
 
     /**

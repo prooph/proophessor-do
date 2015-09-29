@@ -113,7 +113,6 @@ final class TodoTest extends TestCase
             'todo_id' => $todoId->toString(),
             'user_id' => $userId->toString(),
             'deadline' => $deadline->toString(),
-            'created_on' => $deadline->createdOn(),
         ];
 
         $this->assertEquals($expectedPayload, $events[1]->payload());
@@ -131,7 +130,7 @@ final class TodoTest extends TestCase
     {
         $todo->addDeadline(
             $todo->assigneeId(),
-            TodoDeadline::fromString('2047-12-11 12:00:00', '2047-12-01 12:00:00')
+            TodoDeadline::fromString('2047-12-11 12:00:00')
         );
         $events = $this->popRecordedEvent($todo);
 
@@ -150,7 +149,7 @@ final class TodoTest extends TestCase
     {
         $todo->addDeadline(
             $todo->assigneeId(),
-            TodoDeadline::fromString('2047-12-11 12:00:00', '2048-12-01 12:00:00')
+            TodoDeadline::fromString('1980-12-11 12:00:00')
         );
     }
 
@@ -163,7 +162,7 @@ final class TodoTest extends TestCase
     {
         $todo->addDeadline(
             UserId::generate(),
-            TodoDeadline::fromString('2047-12-11 12:00:00', '2048-12-01 12:00:00')
+            TodoDeadline::fromString('2047-12-11 12:00:00')
         );
     }
 }
