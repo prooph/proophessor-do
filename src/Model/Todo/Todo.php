@@ -113,7 +113,7 @@ final class Todo extends AggregateRoot
     /**
      * @param TodoWasMarkedAsDone $event
      */
-    protected function whenTodoWasMarkedAsDone(Event\TodoWasMarkedAsDone $event)
+    protected function whenTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
     {
         $this->status = $event->newStatus();
     }
