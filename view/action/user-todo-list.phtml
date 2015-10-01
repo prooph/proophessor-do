@@ -29,7 +29,8 @@
                                             <strong><?php echo $this->escapeHtml($todo->text) ?></strong>
                                         </div>
                                         <div class="col-md-3">
-                                            add deadline
+                                            <input type="text" name="deadline" placeholder="deadline (e.g. 2015-12-31 12:00:00)" data-user-id="<?php echo $this->user->id; ?>" data-todo-id="<?php echo $todo->id; ?>" value="<?php echo $todo->deadline; ?>">
+                                            <input type="submit" value="add" class="add-deadline">
                                         </div>
                                         <div class="col-md-3">
                                             add reminder
@@ -64,6 +65,20 @@
                     elem.toggleClass('glyphicon-unchecked').toggleClass('glyphicon-check text-success');
                 },
                 $.failNotify
+            );
+        });
+
+        $('body').on('click', '.add-deadline', function(e) {
+            var el = $(this).prev();
+
+            e.preventDefault();
+            $.postJSON(
+                '<?php echo $this->url('command::add-deadline-to-todo') ?>',
+                {
+                    todo_id: el.data('todo-id'),
+                    user_id: el.data('user-id'),
+                    deadline: el.val()
+                }
             );
         });
     });

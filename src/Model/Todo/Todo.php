@@ -13,6 +13,7 @@ namespace Prooph\ProophessorDo\Model\Todo;
 use Prooph\ProophessorDo\Model\User\UserId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
+use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 
@@ -45,6 +46,11 @@ final class Todo extends AggregateRoot
     private $status;
 
     /**
+     * @var \DateTimeImmutable
+     */
+    private $deadline;
+
+    /**
      * @param string $text
      * @param UserId $assigneeId
      * @param TodoId $todoId
@@ -68,6 +74,33 @@ final class Todo extends AggregateRoot
             throw Exception\TodoNotOpen::triedStatus($status, $this);
         }
         $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->todoId, $this->status, $status));
+    }
+
+    /**
+     * @param UserId $userId
+     * @param TodoDeadline $deadline
+     * @return void
+     * @throws \Exception
+     */
+    public function addDeadline(UserId $userId, TodoDeadline $deadline)
+    {
+        if (!$this->assigneeId()->sameValueAs($userId)) {
+            throw Exception\InvalidDeadline::userIsNotAssignee($userId, $this->assigneeId());
+        }
+
+        if ($deadline->isInThePast()) {
+            throw Exception\InvalidDeadline::deadlineInThePast($deadline);
+        }
+
+        $this->recordThat(DeadlineWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $deadline));
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function deadline()
+    {
+        return $this->deadline;
     }
 
     /**
@@ -116,6 +149,15 @@ final class Todo extends AggregateRoot
     protected function whenTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
     {
         $this->status = $event->newStatus();
+    }
+
+    /**
+     * @param DeadlineWasAddedToTodo $event
+     * @return void
+     */
+    protected function whenDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event)
+    {
+        $this->deadline = $event->deadline();
     }
 
     /**
