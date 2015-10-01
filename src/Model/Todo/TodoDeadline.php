@@ -10,8 +10,6 @@ namespace Prooph\ProophessorDo\Model\Todo;
  */
 final class TodoDeadline
 {
-    const DATE_FORMAT = 'c';
-
     /**
      * @var \DateTimeImmutable
      */
@@ -53,7 +51,7 @@ final class TodoDeadline
      */
     public function toString()
     {
-        return $this->deadline->format(self::DATE_FORMAT);
+        return $this->deadline->format(\DateTime::ATOM);
     }
 
     /**
@@ -61,6 +59,6 @@ final class TodoDeadline
      */
     public function createdOn()
     {
-        return $this->createdOn->format(self::DATE_FORMAT);
+        return $this->createdOn->format(\DateTime::ATOM);
     }
 }

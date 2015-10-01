@@ -14,7 +14,7 @@ class Version20150924204612 extends AbstractMigration
     public function up(Schema $schema)
     {
         $todo = $schema->getTable(Table::TODO);
-        $todo->addColumn('deadline', 'datetime', ['default' => null, 'notnull' => false]);
+        $todo->addColumn('deadline', 'string', ['default' => null, 'notnull' => false, 'length' => 30]);
     }
 
     public function down(Schema $schema)
