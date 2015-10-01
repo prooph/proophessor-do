@@ -26,7 +26,8 @@
 </div>
 <script type="text/javascript">
     function (context) {
-        var self = this;
+        var self = this,
+            _selectedDate = null;
 
         self.changeTodoStatus = function () {
 
@@ -55,6 +56,7 @@
 
         self.isExpired = function () {
             if (! self.deadline) return false;
+            if (self.status == 'done') return false;
 
             return moment().isAfter(moment(self.deadline));
         }
@@ -68,23 +70,24 @@
         }
 
         self.saveDeadline = function (e) {
-            if (!e.date && self.deadline) {
+            console.log(_selectedDate);
+            if (!_selectedDate && self.deadline) {
                 $.appErrorNotify('Removing a deadline is not yet possible. Want to implement it? See https://github.com/prooph/proophessor-do')
                 $(e.target).data("DateTimePicker").date(moment(self.deadline));
 
                 return;
             }
 
-            if (!e.date) {
+            if (!_selectedDate) {
                 return;
             }
 
-            if (! moment().add(1, "minutes").isBefore(e.date)) {
+            if (! moment().add(5, "minutes").isBefore(e.date)) {
                 $.appErrorNotify("Ooops. Your deadline is a way to short. Please try again.");
                 return;
             }
 
-            var newDeadline = e.date.format();
+            var newDeadline = _selectedDate;
 
             $.postJSON(
                 '<?php echo $this->url('command::add-deadline-to-todo') ?>',
@@ -109,7 +112,11 @@
                 showClear : true,
                 useCurrent : false,
                 defaultDate : defaultDate
-            }).on("dp.change", self.saveDeadline);
+            })
+            .on("dp.change", function (e) {
+                _selectedDate = e.date;
+            })
+            .on("dp.hide", self.saveDeadline);
         });
     }
 </script>
