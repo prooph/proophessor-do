@@ -71,12 +71,10 @@ final class TodoProjector
      */
     public function onDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event)
     {
-        echo $event->todoId()->toString();
-
         $this->connection->update(
             Table::TODO,
             [
-                'deadline' => $event->deadline()->format('Y-m-d H:i:s'),
+                'deadline' => $event->deadline()->toString(),
             ],
             [
                 'id' => $event->todoId()->toString(),
