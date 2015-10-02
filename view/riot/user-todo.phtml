@@ -70,7 +70,6 @@
         }
 
         self.saveDeadline = function (e) {
-            console.log(_selectedDate);
             if (!_selectedDate && self.deadline) {
                 $.appErrorNotify('Removing a deadline is not yet possible. Want to implement it? See https://github.com/prooph/proophessor-do')
                 $(e.target).data("DateTimePicker").date(moment(self.deadline));
