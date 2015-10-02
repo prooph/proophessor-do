@@ -7,79 +7,23 @@
 <?php else : ?>
     <h1>Todos assigned to <?php echo $this->escapeHtml($this->user->name) ?></h1>
     <div class="row">
-        <div class="col-md-12">
-            <?php if (empty($this->todos)) : ?>
-                <p class="alert alert-warning">
-                    <strong>The Todo list looks empty. Do you want to create a <a href="<?php echo $this->url('page::user-todo-form', ['user_id' => $this->user->id])?>">new Todo</a>?</strong>
-                </p>
-            <?php else : ?>
-                <div class="row">
-                    <div class="col-md-12 text-right">
-                        <a href="<?php echo $this->url('page::user-todo-form', ['user_id' => $this->user->id])?>" class="btn btn-success">new Todo</a>
-                    </div>
-                </div>
-                <p></p>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="list-group">
-                            <?php foreach ($this->todos as $todo) : ?>
-                                <div class="list-group-item">
-                                    <div class="row">
-                                        <div class="col-md-5">
-                                            <strong><?php echo $this->escapeHtml($todo->text) ?></strong>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <input type="text" name="deadline" placeholder="deadline (e.g. 2015-12-31 12:00:00)" data-user-id="<?php echo $this->user->id; ?>" data-todo-id="<?php echo $todo->id; ?>" value="<?php echo $todo->deadline; ?>">
-                                            <input type="submit" value="add" class="add-deadline">
-                                        </div>
-                                        <div class="col-md-3">
-                                            add reminder
-                                        </div>
-                                        <div class="col-md-1 text-right">
-                                            <span class="glyphicon glyphicon-<?php echo ($todo->status == "done")? "check text-success" : (($todo->status == "expired")? "warning-sign text-danger" : "unchecked") ?>" data-id="<?php echo $todo->id; ?>"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                </div>
-            <?php endif; ?>
-        </div>
+        <user-todo-list></user-todo-list>
     </div>
+    <script type="text/javascript">
+        <?php echo $this->riotTag('riot::user-todo-list') ?>
+        <?php echo $this->riotTag('riot::user-todo') ?>
+
+        var UserTodoList = ProophRiot.App.create({
+            userId : '<?php echo $this->user->id;  ?>',
+            TodoStore : {
+                getAll : function () {
+                    return JSON.parse('<?php echo json_encode($this->todos) ?>');
+                }
+            }
+        });
+
+        $(function () {
+            UserTodoList.bootstrap("user-todo-list").ready();
+        });
+    </script>
 <?php endif; ?>
-
-<script type="text/javascript">
-    $(function () {
-        $('body').on('click', '.glyphicon-unchecked', function()
-        {
-            var elem = $(this);
-            $.postJSON(
-                '<?php echo $this->url('command::mark-todo-as-done') ?>',
-                {
-                    todo_id : $(this).data('id'),
-                    status : "done"
-                }
-            ).then(
-                function () {
-                    elem.toggleClass('glyphicon-unchecked').toggleClass('glyphicon-check text-success');
-                },
-                $.failNotify
-            );
-        });
-
-        $('body').on('click', '.add-deadline', function(e) {
-            var el = $(this).prev();
-
-            e.preventDefault();
-            $.postJSON(
-                '<?php echo $this->url('command::add-deadline-to-todo') ?>',
-                {
-                    todo_id: el.data('todo-id'),
-                    user_id: el.data('user-id'),
-                    deadline: el.val()
-                }
-            );
-        });
-    });
-</script>

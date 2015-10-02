@@ -1,0 +1,121 @@
+<div class="list-group-item">
+    <div class="row">
+        <div class="col-md-5">
+            <strong class="{ text-danger: isExpired(), text-warning: hasNotMuchTime() }">{ text }</strong>
+            <p if="{ isExpired() }" class="text-danger">The deadline is over</p>
+            <p if="{ hasNotMuchTime() }" class="text-warning">Hurry up! The deadline will be over soon.</p>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="input-group input-group-sm date" id="{ 'deadline_datetimepicker_' + id}">
+                    <input type="text" name="deadline_el" class="form-control" placeholder="Deadline" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <a href="#" class="btn btn-sm" onclick="{ addReminder }">add reminder</a>
+        </div>
+        <div class="col-md-1 text-right">
+            <span class="{glyphicon: true, glyphicon-check: status == 'done', text-success: status == 'done', glyphicon-warning-sign: status == 'expired', glyphicon-unchecked: status == 'open'}"
+                  onclick="{ changeTodoStatus }"></span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function (context) {
+        var self = this,
+            _selectedDate = null;
+
+        self.changeTodoStatus = function () {
+
+            if (self.status == 'open') {
+                $.postJSON(
+                    '<?php echo $this->url('command::mark-todo-as-done') ?>',
+                    {
+                        todo_id : self.id,
+                        status : "done"
+                    }
+                ).then(
+                    function () {
+                        self.status = 'done';
+                        self.update();
+                    },
+                    $.failNotify
+                );
+            } else {
+                $.appErrorNotify('Reopen a Todo is not yet possible. Want to implement it? See https://github.com/prooph/proophessor-do');
+            }
+        }
+
+        self.addReminder = function () {
+            $.appErrorNotify('Add a reminder to Todo is not yet possible. Want to implement it? See https://github.com/prooph/proophessor-do')
+        }
+
+        self.isExpired = function () {
+            if (! self.deadline) return false;
+            if (self.status == 'done') return false;
+
+            return moment().isAfter(moment(self.deadline));
+        }
+
+        self.hasNotMuchTime = function () {
+            if (! self.deadline) return false;
+            if (self.status == 'done') return false;
+            if (self.isExpired()) return false;
+
+            return moment().add(1, "hours").isAfter(moment(self.deadline));
+        }
+
+        self.saveDeadline = function (e) {
+            if (!_selectedDate && self.deadline) {
+                $.appErrorNotify('Removing a deadline is not yet possible. Want to implement it? See https://github.com/prooph/proophessor-do')
+                $(e.target).data("DateTimePicker").date(moment(self.deadline));
+
+                return;
+            }
+
+            if (!_selectedDate) {
+                return;
+            }
+
+            if (! moment().add(5, "minutes").isBefore(e.date)) {
+                $.appErrorNotify("Ooops. Your deadline is a way to short. Please try again.");
+                return;
+            }
+
+            var newDeadline = _selectedDate;
+
+            $.postJSON(
+                '<?php echo $this->url('command::add-deadline-to-todo') ?>',
+                {
+                    todo_id: self.id,
+                    user_id: context.app.userId,
+                    deadline: newDeadline
+                }
+            ).then(function () {
+                self.deadline = newDeadline;
+                self.update();
+                },
+                $.failNotify
+            );
+        }
+
+        self.on("mount", function () {
+
+            var defaultDate = self.deadline? moment(self.deadline) : false;
+
+            $("#deadline_datetimepicker_" + self.id).datetimepicker({
+                showClear : true,
+                useCurrent : false,
+                defaultDate : defaultDate
+            })
+            .on("dp.change", function (e) {
+                _selectedDate = e.date;
+            })
+            .on("dp.hide", self.saveDeadline);
+        });
+    }
+</script>
