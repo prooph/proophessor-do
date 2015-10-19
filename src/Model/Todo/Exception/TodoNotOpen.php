@@ -11,6 +11,7 @@
 namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
 use Prooph\ProophessorDo\Model\Todo\Todo;
+use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 
 /**
@@ -31,6 +32,20 @@ final class TodoNotOpen extends \RuntimeException
         return new self(sprintf(
             'Tried to change status of Todo %s to %s. But Todo is not marked as open!',
             $todo->todoId()->toString(),
+            $status->toString()
+        ));
+    }
+
+    /**
+     * @param TodoDeadline $deadline
+     * @param TodoStatus $status
+     * @return TodoNotOpen
+     */
+    public static function triedToAddDeadline(TodoDeadline $deadline, TodoStatus $status)
+    {
+        return new self(sprintf(
+            'Tried to deadline %s to a todo with status %s.',
+            $deadline->toString(),
             $status->toString()
         ));
     }

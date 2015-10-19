@@ -165,4 +165,18 @@ final class TodoTest extends TestCase
             TodoDeadline::fromString('2047-12-11 12:00:00')
         );
     }
+
+    /**
+     * @test
+     * @expectedException \Prooph\ProophessorDo\Model\Todo\Exception\TodoNotOpen
+     * @depends it_adds_a_deadline_to_todo
+     */
+    public function it_throws_an_exception_if_todo_is_closed(Todo $todo)
+    {
+        $todo->markAsDone();
+        $todo->addDeadline(
+            $todo->assigneeId(),
+            TodoDeadline::fromString('2047-12-11 12:00:00')
+        );
+    }
 }

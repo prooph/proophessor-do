@@ -80,7 +80,8 @@ final class Todo extends AggregateRoot
      * @param UserId $userId
      * @param TodoDeadline $deadline
      * @return void
-     * @throws \Exception
+     * @throws Exception\InvalidDeadline
+     * @throws Exception\TodoNotOpen
      */
     public function addDeadline(UserId $userId, TodoDeadline $deadline)
     {
@@ -90,6 +91,10 @@ final class Todo extends AggregateRoot
 
         if ($deadline->isInThePast()) {
             throw Exception\InvalidDeadline::deadlineInThePast($deadline);
+        }
+
+        if ($this->status->isDone()) {
+            throw Exception\TodoNotOpen::triedToAddDeadline($deadline, $this->status);
         }
 
         $this->recordThat(DeadlineWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $deadline));
@@ -127,6 +132,9 @@ final class Todo extends AggregateRoot
         return $this->assigneeId;
     }
 
+    /**
+     * @return TodoStatus
+     */
     public function status()
     {
         return $this->status;
