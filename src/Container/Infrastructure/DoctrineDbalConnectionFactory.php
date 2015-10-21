@@ -12,8 +12,8 @@ namespace Prooph\ProophessorDo\Container\Infrastructure;
 
 use Doctrine\DBAL\DriverManager;
 use Interop\Config\ConfigurationTrait;
-use Interop\Config\HasContainerId;
-use Interop\Config\HasMandatoryOptions;
+use Interop\Config\RequiresContainerId;
+use Interop\Config\RequiresMandatoryOptions;
 use Interop\Container\ContainerInterface;
 
 /**
@@ -21,7 +21,7 @@ use Interop\Container\ContainerInterface;
  *
  * @package src\Infrastructure\Container
  */
-final class DoctrineDbalConnectionFactory implements HasMandatoryOptions, HasContainerId
+final class DoctrineDbalConnectionFactory implements RequiresContainerId, RequiresMandatoryOptions
 {
     use ConfigurationTrait;
 
