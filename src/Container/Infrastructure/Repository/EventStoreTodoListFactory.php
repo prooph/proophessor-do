@@ -13,6 +13,7 @@ namespace Prooph\ProophessorDo\Container\Infrastructure\Repository;
 use Interop\Container\ContainerInterface;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 use Prooph\EventStore\Aggregate\AggregateType;
+use Prooph\EventStore\EventStore;
 use Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 
@@ -30,7 +31,7 @@ final class EventStoreTodoListFactory
     public function __invoke(ContainerInterface $container)
     {
         return new EventStoreTodoList(
-            $container->get('prooph.event_store'),
+            $container->get(EventStore::class),
             AggregateType::fromAggregateRootClass(Todo::class),
             new AggregateTranslator()
         );

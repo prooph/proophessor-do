@@ -13,6 +13,7 @@ namespace Prooph\ProophessorDo\Container\Infrastructure\Repository;
 use Interop\Container\ContainerInterface;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 use Prooph\EventStore\Aggregate\AggregateType;
+use Prooph\EventStore\EventStore;
 use Prooph\ProophessorDo\Infrastructure\Repository\EventStoreUserCollection;
 use Prooph\ProophessorDo\Model\User\User;
 
@@ -30,7 +31,7 @@ final class EventStoreUserCollectionFactory
     public function __invoke(ContainerInterface $container)
     {
         return new EventStoreUserCollection(
-            $container->get('prooph.event_store'),
+            $container->get(EventStore::class),
             AggregateType::fromAggregateRootClass(User::class),
             new AggregateTranslator()
         );

@@ -24,7 +24,7 @@
         "prooph/event-store" : "6.0-beta.1",
         "prooph/event-sourcing" : "4.0-beta.1",
         "prooph/service-bus" : "^4.6",
-        "prooph/event-store-bus-bridge" : "2.0-beta.1",
+        "prooph/event-store-bus-bridge" : "2.0-beta.2",
         "zendframework/zend-expressive" : "^0.3",
         "zendframework/zend-servicemanager" : "~2.6",
         "zendframework/zend-config": "^2.5",
@@ -38,7 +38,8 @@
     },
     "require-dev" : {
         "fabpot/php-cs-fixer": "1.7.*",
-        "phpunit/phpunit": "^4.7"
+        "phpunit/phpunit": "^4.7",
+        "symfony/stopwatch": "^2.7"
     },
     "suggest" : {
         "prooph/event-store-doctrine-adapter" : "^2.0 Use doctrine dbal event store adapter",
