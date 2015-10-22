@@ -17,6 +17,7 @@
 </form>
 <script type="text/javascript">
     function (context) {
+
         var self = this,
             _checkValidName = function () {
                 self.nameIsValid = _.isEmpty(validate.single(self.username.value, {presence : true, length : {minimum : 1}}))

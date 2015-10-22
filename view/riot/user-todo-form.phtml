@@ -8,6 +8,7 @@
 </form>
 <script type="text/javascript">
     function (context) {
+
         var self = this,
             _checkValidTodo = function () {
                 self.todoIsValid = _.isEmpty(validate.single(self.todo.value, {presence: true, length: {minimum: 3}}))
