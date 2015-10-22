@@ -13,6 +13,7 @@ namespace Prooph\ProophessorDo\Model\Todo;
 use Prooph\ProophessorDo\Model\User\UserId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
+use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 
@@ -45,6 +46,11 @@ final class Todo extends AggregateRoot
     private $status;
 
     /**
+     * @var \DateTimeImmutable
+     */
+    private $deadline;
+
+    /**
      * @param string $text
      * @param UserId $assigneeId
      * @param TodoId $todoId
@@ -71,6 +77,38 @@ final class Todo extends AggregateRoot
     }
 
     /**
+     * @param UserId $userId
+     * @param TodoDeadline $deadline
+     * @return void
+     * @throws Exception\InvalidDeadline
+     * @throws Exception\TodoNotOpen
+     */
+    public function addDeadline(UserId $userId, TodoDeadline $deadline)
+    {
+        if (!$this->assigneeId()->sameValueAs($userId)) {
+            throw Exception\InvalidDeadline::userIsNotAssignee($userId, $this->assigneeId());
+        }
+
+        if ($deadline->isInThePast()) {
+            throw Exception\InvalidDeadline::deadlineInThePast($deadline);
+        }
+
+        if ($this->status->isDone()) {
+            throw Exception\TodoNotOpen::triedToAddDeadline($deadline, $this->status);
+        }
+
+        $this->recordThat(DeadlineWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $deadline));
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function deadline()
+    {
+        return $this->deadline;
+    }
+
+    /**
      * @return TodoId
      */
     public function todoId()
@@ -94,6 +132,9 @@ final class Todo extends AggregateRoot
         return $this->assigneeId;
     }
 
+    /**
+     * @return TodoStatus
+     */
     public function status()
     {
         return $this->status;
@@ -113,9 +154,18 @@ final class Todo extends AggregateRoot
     /**
      * @param TodoWasMarkedAsDone $event
      */
-    protected function whenTodoWasMarkedAsDone(Event\TodoWasMarkedAsDone $event)
+    protected function whenTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
     {
         $this->status = $event->newStatus();
+    }
+
+    /**
+     * @param DeadlineWasAddedToTodo $event
+     * @return void
+     */
+    protected function whenDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event)
+    {
+        $this->deadline = $event->deadline();
     }
 
     /**

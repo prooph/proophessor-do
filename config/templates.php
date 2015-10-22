@@ -22,6 +22,8 @@ return [
             //riot tags
             'riot::user-form' => 'view/riot/user-form.phtml',
             'riot::user-todo-form' => 'view/riot/user-todo-form.phtml',
+            'riot::user-todo-list' => 'view/riot/user-todo-list.phtml',
+            'riot::user-todo' => 'view/riot/user-todo.phtml',
         ],
         'plugins' => [
             'riotTag' => \Prooph\ProophessorDo\App\View\Helper\RiotTag::class,

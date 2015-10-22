@@ -84,5 +84,16 @@ return [
                 ]
             ]
         ],
+        [
+            'name' => 'command::add-deadline-to-todo',
+            'path' => '/api/commands/add-deadline-to-todo',
+            'middleware' => \Prooph\ProophessorDo\App\Commanding\API::class,
+            'allowed_methods' => ['POST'],
+            'options' => [
+                'values' => [
+                    'command' => \Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo::class,
+                ]
+            ]
+        ],
     ]
 ];

@@ -42,6 +42,8 @@ to keep the **UI** and the **Backend** focused on what they can best.
 - User input is validated with [validate.js](http://rickharrison.github.io/validate.js/)
 - Commands are sent to the server using [jQuery.ajax](https://jquery.com/)
 - Server messages are presented by [notify.js](http://notifyjs.com/)
+- Datetime objects are handled with [moment.js](http://momentjs.com/)
+- Datetime picker support provided by [bootstrap-datetimepicker](http://eonasdan.github.io/bootstrap-datetimepicker/)
 - JavaScript UUID generator taken from [https://gist.github.com/duzun/d1bfb5406a362e06eccd](https://gist.github.com/duzun/d1bfb5406a362e06eccd)
 - Little helpers: [lodash.js](https://lodash.com/) and [undersocre.string.js](http://gabceb.github.io/underscore.string.site/)
 

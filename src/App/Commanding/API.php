@@ -44,7 +44,6 @@ final class API
         $this->commandFactory = $commandFactory;
     }
 
-
     /**
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
@@ -58,7 +57,6 @@ final class API
         if (!$commandName) {
             return $next($request, $response);
         }
-
 
         try {
             $payload = $this->getPayloadFromRequest($request);
@@ -120,11 +118,13 @@ final class API
     private function populateError(ResponseInterface $response, \Exception $e)
     {
         $response = $response->withStatus(500);
+
         if (getenv('PROOPH_ENV') === 'development') {
             $response->getBody()->write(json_encode(['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]));
         } else {
             $response->getBody()->write(json_encode(['message' => 'Server Error']));
         }
+
         return $response;
     }
 }

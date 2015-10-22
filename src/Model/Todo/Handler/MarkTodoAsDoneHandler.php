@@ -27,7 +27,6 @@ final class MarkTodoAsDoneHandler
     private $todoList;
 
     /**
-     * @param UserCollection $userCollection
      * @param TodoList $todoList
      */
     public function __construct(TodoList $todoList)

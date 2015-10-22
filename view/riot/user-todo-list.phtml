@@ -1,0 +1,27 @@
+<div class="col-md-12">
+    <p if={_.isEmpty(todos)} class="alert alert-warning">
+        <strong>The Todo list looks empty. Do you want to create a <a href="<?php echo $this->url('page::user-todo-form', ['user_id' => $this->user->id])?>">new Todo</a>?</strong>
+    </p>
+    <div if={ !_.isEmpty(todos)} class="row">
+        <div class="col-md-12 text-right">
+            <a href="<?php echo $this->url('page::user-todo-form', ['user_id' => $this->user->id])?>" class="btn btn-success">new Todo</a>
+        </div>
+    </div>
+    <p></p>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="list-group">
+                <user-todo each="{ todos }" app="{ context.app }"></user-todo>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function (context) {
+
+        var self = this;
+
+        self.context = context;
+        self.todos = context.app.TodoStore.getAll();
+    }
+</script>
