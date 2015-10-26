@@ -27,11 +27,14 @@ $servicesConfig = [
         //Infrastructure
         'doctrine.connection.default' => Prooph\ProophessorDo\Container\Infrastructure\DoctrineDbalConnectionFactory::class,
         Prooph\EventStore\EventStore::class => \Prooph\EventStore\Container\EventStoreFactory::class,
-        //Default factories for the event store adapters, depending on the installed adapter the event store factory
+        //Default factories for the event store and snapshot adapters, depending on the installed adapter the event store factory
         //will use the configured adapter type to get an adapter instance from the service manager
         //to ease system set up we register both factories here so that the user doesn't need to worry about it
         'Prooph\\EventStore\\Adapter\\MongoDb\\MongoDbEventStoreAdapter'   => 'Prooph\\EventStore\\Adapter\\MongoDb\\Container\\MongoDbEventStoreAdapterFactory',
         'Prooph\\EventStore\\Adapter\\Doctrine\\DoctrineEventStoreAdapter' => 'Prooph\\EventStore\\Adapter\\Doctrine\\Container\\DoctrineEventStoreAdapterFactory',
+        'Prooph\\EventStore\\Snapshot\\Adapter\\Doctrine\\DoctrineSnapshotAdapter' => 'Prooph\\EventStore\\Snapshot\\Adapter\\Doctrine\\Container\\DoctrineSnapshotAdapterFactory',
+        'Prooph\\EventStore\\Snapshot\\Adapter\\MongoDb\\MongoDbSnapshotAdapter' => 'Prooph\\EventStore\\Snapshot\\Adapter\\MongoDb\\Container\\MongoDbSnapshotAdapterFactory',
+        'Prooph\\EventStore\\Snapshot\\Adapter\\Memcached\\MemcachedSnapshotAdapter' => 'Prooph\\EventStore\\Snapshot\\Adapter\\Memcached\\Container\\MemcachedSnapshotAdapterFactory',
         //prooph/service-bus set up
         \Prooph\ServiceBus\CommandBus::class => \Prooph\ServiceBus\Container\CommandBusFactory::class,
         \Prooph\ServiceBus\EventBus::class   => \Prooph\ServiceBus\Container\EventBusFactory::class,
