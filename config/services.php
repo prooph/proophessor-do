@@ -26,7 +26,8 @@ $servicesConfig = [
         \Prooph\ProophessorDo\App\Commanding\API::class => \Prooph\ProophessorDo\Container\App\Commanding\APIFactory::class,
         //Infrastructure
         'doctrine.connection.default' => Prooph\ProophessorDo\Container\Infrastructure\DoctrineDbalConnectionFactory::class,
-        Prooph\EventStore\EventStore::class => \Prooph\EventStore\Container\EventStoreFactory::class,
+        \Prooph\EventStore\EventStore::class => \Prooph\EventStore\Container\EventStoreFactory::class,
+        \Prooph\EventStore\Snapshot\SnapshotStore::class => \Prooph\EventStore\Container\Snapshot\SnapshotStoreFactory::class,
         //Default factories for the event store and snapshot adapters, depending on the installed adapter the event store factory
         //will use the configured adapter type to get an adapter instance from the service manager
         //to ease system set up we register both factories here so that the user doesn't need to worry about it
