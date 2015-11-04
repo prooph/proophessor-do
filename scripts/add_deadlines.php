@@ -15,6 +15,8 @@ namespace {
     use Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo;
     use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 
+    define('NUMBER_OF_DEADLINES', 10);
+
     chdir(dirname(__DIR__));
 
     // Setup autoloading
@@ -34,7 +36,7 @@ namespace {
         exit(1);
     }
 
-    $randomIndex = rand(0, $numOfTodos);
+    $randomIndex = rand(0, --$numOfTodos);
 
     $todo = $allTodos[$randomIndex];
 
@@ -45,7 +47,7 @@ namespace {
     $nextDay = new \DateTimeImmutable();
     $oneDate = new \DateInterval('P1D');
 
-    for($i=0;$i<500;$i++) {
+    for($i=0;$i<NUMBER_OF_DEADLINES;$i++) {
         $nextDay = $nextDay->add($oneDate);
 
         $addDeadline = new AddDeadlineToTodo([

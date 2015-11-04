@@ -21,8 +21,8 @@
     "homepage": "https://github.com/prooph/proophessor",
     "require": {
         "php": ">=5.5",
-        "prooph/event-store" : "6.0-beta.1",
-        "prooph/event-sourcing" : "4.0-beta.1",
+        "prooph/event-store" : "dev-develop as 6.0-beta.1",
+        "prooph/event-sourcing" : "dev-develop as 4.0-beta.1",
         "prooph/service-bus" : "^4.6",
         "prooph/event-store-bus-bridge" : "2.0-beta.2",
         "zendframework/zend-expressive" : "^0.3",
@@ -34,7 +34,11 @@
         "doctrine/dbal": "^2.5",
         "doctrine/migrations": "^1.0",
         "nicolopignatelli/valueobjects": "~3.0",
-        "sandrokeil/interop-config": "^0.3.1"
+        "sandrokeil/interop-config": "^0.3.1",
+        "prooph/event-store-doctrine-adapter": "dev-develop",
+        "prooph/snapshot-doctrine-adapter": "dev-master",
+        "prooph/snapshotter": "dev-master",
+        "prooph/psb-zeromq-producer": "^0.2"
     },
     "require-dev" : {
         "fabpot/php-cs-fixer": "1.7.*",
