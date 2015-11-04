@@ -18,7 +18,7 @@
             "email": "saschaprolic@googlemail.com"
         }
     ],
-    "homepage": "https://github.com/prooph/proophessor",
+    "homepage": "http://getprooph.org/",
     "require": {
         "php": ">=5.5",
         "prooph/event-store" : "^5.0",
