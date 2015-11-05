@@ -20,7 +20,7 @@
     ],
     "homepage": "http://getprooph.org/",
     "require": {
-        "php": ">=5.5",
+        "php": "~5.5|~7.0",
         "prooph/event-store" : "^5.0",
         "prooph/event-sourcing" : "^3.0",
         "prooph/service-bus" : "^4.2",
