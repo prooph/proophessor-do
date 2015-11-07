@@ -51,6 +51,7 @@ A successfully merged pull request will add you to the HALL OF FAME!
 
 ## Tutorials
 
+- [Replay History](docs/tutorials/replay_history.md)
 - [Take Snapshots](docs/tutorials/take_snapshots.md)
 
 ## Technology Stack
