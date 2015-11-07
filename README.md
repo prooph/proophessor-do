@@ -1,21 +1,12 @@
 # Proophessor Do
-**zend expressive** *meets* **prooph**
+**prooph components in action**
 
 [![Build Status](https://travis-ci.org/prooph/proophessor-do.svg)](https://travis-ci.org/prooph/proophessor-do)
-
-You're viewing an example application showing you how well PSR-7 middleware can play together with CQRS and EventSourcing.
-
-And you're ask to try it yourself. **Proophessor Do** includes exercises! So read on and **pick up a task!**
-
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/prooph/improoph)
 
-## What's going on here?
 
-[prooph](https://github.com/prooph) is an organisation developing and supporting CQRS and Event-Sourcing infrastructure for PHP environments.
-You can learn more about it by reading the [official prooph guide](http://prooph.github.io/proophessor/).
-
-This repository contains an example implementation of a small domain model served by a PHP web application flavoured with client side JavaScript
-to keep the **UI** and the **Backend** focused on what they can best.
+Proophessor Do (short *Do*) demonstrates the power of prooph components in conjunction with zend expressive.
+And you're ask to try it yourself. **Do** includes exercises! So read on and **pick up a task!**
 
 ## Business Domain
 
@@ -30,7 +21,7 @@ Please refer to the [installation instructions](docs/installation.md).
 ## Learning by doing!
 
 When you play around with the application you will notice missing functionality. This has a simple reason. You explore
-a learning application and what is the best way to learn? Right! Learning by doing! So if you want to learn something about
+a learning application and what is the best way to learn? Right! **Learning by doing!** So if you want to learn something about
 CQRS and Event Sourcing:
 
 1. Pick up an open task listed below

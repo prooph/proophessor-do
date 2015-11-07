@@ -6,7 +6,7 @@ and without snapshots. Furthermore, you will learn how snapshotting can be autom
 so that your command handling process stays incredibly fast.
 
 ## Many Events
-First let's see why you will never live without snapshots again.
+First let's see why you never want to live without snapshots again.
 
 We've prepared a script that adds 100 deadline events to an open todo. Please make sure your proophessor-do app
 has at least one open todo! Then simply run `php scripts/add_deadlines.php` in a terminal.
