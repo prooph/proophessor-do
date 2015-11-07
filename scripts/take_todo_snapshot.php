@@ -75,7 +75,7 @@ namespace {
         new \DateTimeImmutable("now", new \DateTimeZone('UTC'))
     );
 
-    $snapshotStore->add($snapshot);
+    $snapshotStore->save($snapshot);
 
     echo "Snapshot was taken!\n";
 }

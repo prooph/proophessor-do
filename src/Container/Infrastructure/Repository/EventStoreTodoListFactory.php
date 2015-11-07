@@ -13,7 +13,9 @@ namespace Prooph\ProophessorDo\Container\Infrastructure\Repository;
 use Interop\Container\ContainerInterface;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 use Prooph\EventStore\Aggregate\AggregateType;
+use Prooph\EventStore\Container\Aggregate\AbstractAggregateRepositoryFactory;
 use Prooph\EventStore\EventStore;
+use Prooph\EventStore\Snapshot\SnapshotStore;
 use Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 
@@ -22,18 +24,15 @@ use Prooph\ProophessorDo\Model\Todo\Todo;
  *
  * @package Application\Infrastructure\Repository\Factory
  */
-final class EventStoreTodoListFactory
+final class EventStoreTodoListFactory extends AbstractAggregateRepositoryFactory
 {
     /**
-     * @param ContainerInterface $container
-     * @return EventStoreTodoList
+     * Returns the container identifier
+     *
+     * @return string
      */
-    public function __invoke(ContainerInterface $container)
+    public function containerId()
     {
-        return new EventStoreTodoList(
-            $container->get(EventStore::class),
-            AggregateType::fromAggregateRootClass(Todo::class),
-            new AggregateTranslator()
-        );
+        return 'todo_list';
     }
 }

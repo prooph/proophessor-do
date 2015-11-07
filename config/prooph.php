@@ -13,28 +13,19 @@ return [
         'event_store' => [
             'plugins' => [
                 \Prooph\EventStoreBusBridge\EventPublisher::class,
-                \Prooph\Snapshotter\SnapshotPlugin::class,
                 \Prooph\EventStoreBusBridge\TransactionManager::class,
             ],
-        ],
-        'snapshot_store' => [
-            'adapter' => [
-                'type' => \Prooph\EventStore\Snapshot\Adapter\Doctrine\DoctrineSnapshotAdapter::class,
-                'options' => [
-                    'connection_alias' => 'doctrine.connection.default',
-                    'snapshot_table_map' => [
-                        \Prooph\ProophessorDo\Model\Todo\Todo::class => 'snapshot',
-                    ]
-                ]
-            ]
-        ],
-        'snapshotter' => [
-            'version_step' => 5,
-        ],
-        'zeromq_producer' => [
-            'dsn' => 'tcp://127.0.0.1:5555', // ZMQ Server Address.
-            'persistent_id' => 'example', // ZMQ Persistent ID to keep connections alive between requests.
-            'rpc' => false, // Use as Query Bus.
+            //Repository configuration for EventStoreTodoList
+            'todo_list' => [
+                'repository_class' => \Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList::class,
+                'aggregate_type' => \Prooph\ProophessorDo\Model\Todo\Todo::class,
+                'aggregate_translator' => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class,
+            ],
+            'user_collection' => [
+                'repository_class' => \Prooph\ProophessorDo\Infrastructure\Repository\EventStoreUserCollection::class,
+                'aggregate_type' => \Prooph\ProophessorDo\Model\User\User::class,
+                'aggregate_translator' => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class
+            ],
         ],
         'service_bus' => [
             'command_bus' => [
@@ -44,7 +35,6 @@ return [
                         \Prooph\ProophessorDo\Model\Todo\Command\PostTodo::class     => \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone::class     => \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler::class,
-                        \Prooph\Snapshotter\TakeSnapshot::class => 'zeromq_producer',
                     ]
                 ]
             ],

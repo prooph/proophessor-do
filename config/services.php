@@ -19,6 +19,8 @@ $servicesConfig = [
         \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class => \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class,
         //Custom view plugins
         \Prooph\ProophessorDo\App\View\Helper\RiotTag::class              => \Prooph\ProophessorDo\App\View\Helper\RiotTag::class,
+        //Aggregate Translator
+        \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class,
     ],
     'factories' => [
         //Application
@@ -65,8 +67,6 @@ $servicesConfig = [
         \Prooph\ProophessorDo\Projection\User\UserFinder::class    => \Prooph\ProophessorDo\Container\Projection\User\UserFinderFactory::class,
         \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoProjectorFactory::class,
         \Prooph\ProophessorDo\Projection\Todo\TodoFinder::class    => \Prooph\ProophessorDo\Container\Projection\Todo\TodoFinderFactory::class,
-        'zeromq_producer' => \Prooph\ServiceBus\Message\ZeroMQ\Container\ZeroMQMessageProducerFactory::class,
-        \Prooph\Snapshotter\SnapshotPlugin::class => \Prooph\Snapshotter\Container\SnapshotPluginFactory::class,
     ]
 ];
 

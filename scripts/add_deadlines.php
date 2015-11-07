@@ -15,7 +15,7 @@ namespace {
     use Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo;
     use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 
-    define('NUMBER_OF_DEADLINES', 10);
+    define('NUMBER_OF_DEADLINES', 100);
 
     chdir(dirname(__DIR__));
 
@@ -41,7 +41,7 @@ namespace {
     $todo = $allTodos[$randomIndex];
 
     echo "Randomly selected todo: " . $todo['id'] . "\n";
-    echo "Going to add 500 deadline events now\n";
+    echo "Going to add ".NUMBER_OF_DEADLINES." deadline events now\n";
     $commandBus = $container->get(\Prooph\ServiceBus\CommandBus::class);
 
     $nextDay = new \DateTimeImmutable();

@@ -53,7 +53,6 @@ namespace {
         $eventStore,
         AggregateType::fromAggregateRootClass(Todo::class),
         new AggregateTranslator(),
-        null,
         $container->get(SnapshotStore::class)
     );
 
