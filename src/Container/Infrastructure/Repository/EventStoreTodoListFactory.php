@@ -10,14 +10,7 @@
  */
 namespace Prooph\ProophessorDo\Container\Infrastructure\Repository;
 
-use Interop\Container\ContainerInterface;
-use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
-use Prooph\EventStore\Aggregate\AggregateType;
 use Prooph\EventStore\Container\Aggregate\AbstractAggregateRepositoryFactory;
-use Prooph\EventStore\EventStore;
-use Prooph\EventStore\Snapshot\SnapshotStore;
-use Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList;
-use Prooph\ProophessorDo\Model\Todo\Todo;
 
 /**
  * Class EventStoreTodoListFactory

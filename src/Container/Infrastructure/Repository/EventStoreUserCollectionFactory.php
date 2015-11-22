@@ -10,13 +10,7 @@
  */
 namespace Prooph\ProophessorDo\Container\Infrastructure\Repository;
 
-use Interop\Container\ContainerInterface;
-use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
-use Prooph\EventStore\Aggregate\AggregateType;
 use Prooph\EventStore\Container\Aggregate\AbstractAggregateRepositoryFactory;
-use Prooph\EventStore\EventStore;
-use Prooph\ProophessorDo\Infrastructure\Repository\EventStoreUserCollection;
-use Prooph\ProophessorDo\Model\User\User;
 
 /**
  * Class EventStoreUserCollectionFactory
