@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 10/26/15 - 8:12 PM
  */
 /**
@@ -47,7 +47,7 @@ namespace {
     $nextDay = new \DateTimeImmutable();
     $oneDate = new \DateInterval('P1D');
 
-    for($i=0;$i<NUMBER_OF_DEADLINES;$i++) {
+    for ($i=0;$i<NUMBER_OF_DEADLINES;$i++) {
         $nextDay = $nextDay->add($oneDate);
 
         $addDeadline = new AddDeadlineToTodo([

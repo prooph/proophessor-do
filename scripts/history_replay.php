@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 10/22/15 - 10:39 PM
  */
 
@@ -45,7 +45,7 @@ namespace {
     /** @var $eventBus EventBus */
     $eventBus = $container->get(EventBus::class);
 
-    $retry = function(array $failedEvents, $retryCount, \Exception $lastException, callable $retryCb) use ($eventBus) {
+    $retry = function (array $failedEvents, $retryCount, \Exception $lastException, callable $retryCb) use ($eventBus) {
         if ($retryCount > 3) {
             echo "\033[1;31mAborting retry... Something unexpected happen.\033[0m\n\n";
             if ($lastException instanceof MessageDispatchException) {
@@ -54,7 +54,7 @@ namespace {
         }
 
         $newFailedEvents = [];
-        foreach($failedEvents as $failedEvent) {
+        foreach ($failedEvents as $failedEvent) {
             try {
                 $eventBus->dispatch($failedEvent);
             } catch (\Exception $ex) {
@@ -75,7 +75,7 @@ namespace {
     $replayStream = $eventStore->replay([new StreamName('event_stream')]);
 
     $failedEvents = [];
-    foreach($replayStream as $recordedEvent) {
+    foreach ($replayStream as $recordedEvent) {
         try {
             $eventBus->dispatch($recordedEvent);
         } catch (\Exception $ex) {

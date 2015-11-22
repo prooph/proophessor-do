@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 10/22/15 - 5:50 PM
  */
 
@@ -30,7 +30,8 @@ namespace {
     require 'vendor/autoload.php';
 
 
-    function getUserName($pos) {
+    function getUserName($pos)
+    {
         //top 10 taken from: http://www.beliebte-vornamen.de/jahrgang/j2013/top500-2013
         static $names = [
             'Mia','Ben','Emma','Luca','Hannah','Paul','Sofia','Jonas','Anna','Finn','Lea','Leon','Emilia',
@@ -52,7 +53,8 @@ namespace {
         return $factor > 0? $names[$index].($factor+1) : $names[$index];
     }
 
-    function randTodoText() {
+    function randTodoText()
+    {
         static $texts = [
             'Start reading a new book','Contribute to prooph','Shutdown PC and go out','Try prooph/event-store',
             'Learn more about DDD','Work on a proophessor-do exercise','Say hello in prooph chat',
@@ -70,7 +72,8 @@ namespace {
         return $texts[$randIndex];
     }
 
-    function calcCommandAverage($duration) {
+    function calcCommandAverage($duration)
+    {
         $commandCount = NUMBER_OF_USERS * NUMBER_OF_TODO_PER_USER /*Open todo*/ + NUMBER_OF_USERS /*Create User*/;
 
         return $duration / $commandCount;
@@ -86,14 +89,14 @@ namespace {
 
     $stopWatch->start('generate_model');
 
-    for($i=1;$i<=NUMBER_OF_USERS;$i++) {
+    for ($i=1;$i<=NUMBER_OF_USERS;$i++) {
         $userId = UserId::generate();
         $username = getUserName($i);
         $email = $username . '@acme.com';
 
         $commandBus->dispatch(RegisterUser::withData($userId->toString(), $username, $email));
 
-        for($j=0;$j<NUMBER_OF_TODO_PER_USER;$j++) {
+        for ($j=0;$j<NUMBER_OF_TODO_PER_USER;$j++) {
             $todoId = TodoId::generate();
 
             $commandBus->dispatch(PostTodo::forUser($userId->toString(), randTodoText(), $todoId->toString()));
@@ -110,8 +113,8 @@ namespace {
     echo "Command execution average: " . calcCommandAverage($generatedEvent->getDuration()) . " ms\n";
     echo "\nGoing to close todo randomly now\n";
 
-    foreach($openTodos as $openTodoId) {
-        $close = rand(0,1);
+    foreach ($openTodos as $openTodoId) {
+        $close = rand(0, 1);
 
         if ($close) {
             $commandBus->dispatch(MarkTodoAsDone::forTodo($openTodoId));

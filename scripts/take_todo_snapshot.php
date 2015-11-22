@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 10/26/15 - 8:32 PM
  */
 /**
@@ -29,7 +29,8 @@ namespace {
      * @param Todo $todo
      * @return int
      */
-    function get_todo_version(Todo $todo) {
+    function get_todo_version(Todo $todo)
+    {
         $todoReflected = new \ReflectionClass($todo);
         $versionProp = $todoReflected->getProperty('version');
         $versionProp->setAccessible(true);
