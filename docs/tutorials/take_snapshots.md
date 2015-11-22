@@ -320,9 +320,3 @@ This is the end of our snapshotting tutorial. We hope you enjoyed it and learned
 Feedback is welcome: [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/prooph/improoph)
 
 your prooph team
-
-
-
-
-
-
