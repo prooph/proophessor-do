@@ -60,9 +60,21 @@ final class UserProjector
      * Increases the open_todos counter of the assignee by one
      *
      * @param TodoWasPosted $event
+     * @throws \RuntimeException
      */
     public function onTodoWasPosted(TodoWasPosted $event)
     {
+        $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
+
+        if (! $user) {
+            throw new \RuntimeException(
+                sprintf(
+                    "Data of the assigned user of the todo %s cannot be found",
+                    $event->todoId()->toString()
+                )
+            );
+        }
+
         $stmt = $this->connection->prepare(sprintf('UPDATE %s SET open_todos = open_todos + 1 WHERE id = :assignee_id', Table::USER));
 
         $stmt->bindValue('assignee_id', $event->assigneeId()->toString());

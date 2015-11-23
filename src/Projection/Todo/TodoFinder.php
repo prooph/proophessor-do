@@ -10,6 +10,7 @@
  */
 namespace Prooph\ProophessorDo\Projection\Todo;
 
+use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
 
@@ -40,6 +41,14 @@ final class TodoFinder
     public function findAll()
     {
         return $this->connection->fetchAll(sprintf("SELECT * FROM %s", Table::TODO));
+    }
+
+    /**
+     * @return \stdClass[] of todoData
+     */
+    public function findAllOpen()
+    {
+        return $this->connection->fetchAll(sprintf("SELECT * FROM %s WHERE status = '%s'", Table::TODO, TodoStatus::OPEN));
     }
 
     /**
