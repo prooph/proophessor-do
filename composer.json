@@ -18,13 +18,13 @@
             "email": "saschaprolic@googlemail.com"
         }
     ],
-    "homepage": "https://github.com/prooph/proophessor",
+    "homepage": "http://getprooph.org/",
     "require": {
-        "php": ">=5.5",
-        "prooph/event-store" : "^5.0",
-        "prooph/event-sourcing" : "^3.0",
-        "prooph/service-bus" : "^4.2",
-        "prooph/event-store-bus-bridge" : "^1.0",
+        "php": "~5.5|~7.0",
+        "prooph/event-store" : "^6.0",
+        "prooph/event-sourcing" : "^4.0",
+        "prooph/service-bus" : "^5.0",
+        "prooph/event-store-bus-bridge" : "^2.0",
         "zendframework/zend-expressive" : "^0.3",
         "zendframework/zend-servicemanager" : "~2.6",
         "zendframework/zend-config": "^2.5",
@@ -38,11 +38,12 @@
     },
     "require-dev" : {
         "fabpot/php-cs-fixer": "1.7.*",
-        "phpunit/phpunit": "^4.7"
+        "phpunit/phpunit": "^4.7",
+        "symfony/stopwatch": "^2.7"
     },
     "suggest" : {
-        "prooph/event-store-doctrine-adapter" : "^2.0 Use doctrine dbal event store adapter",
-        "prooph/event-store-mongodb-adapter" : "^1.0 Use mongo db event store adapter"
+        "prooph/event-store-doctrine-adapter" : "^3.0 Use doctrine dbal event store adapter",
+        "prooph/event-store-mongodb-adapter" : "^2.0 Use mongo db event store adapter"
     },
     "autoload" : {
         "psr-4" : {

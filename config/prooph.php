@@ -13,13 +13,22 @@ return [
         'event_store' => [
             'plugins' => [
                 \Prooph\EventStoreBusBridge\EventPublisher::class,
+                \Prooph\EventStoreBusBridge\TransactionManager::class,
+            ],
+            //Repository configuration for EventStoreTodoList
+            'todo_list' => [
+                'repository_class' => \Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList::class,
+                'aggregate_type' => \Prooph\ProophessorDo\Model\Todo\Todo::class,
+                'aggregate_translator' => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class,
+            ],
+            'user_collection' => [
+                'repository_class' => \Prooph\ProophessorDo\Infrastructure\Repository\EventStoreUserCollection::class,
+                'aggregate_type' => \Prooph\ProophessorDo\Model\User\User::class,
+                'aggregate_translator' => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class
             ],
         ],
         'service_bus' => [
             'command_bus' => [
-                'plugins' => [
-                    \Prooph\EventStoreBusBridge\TransactionManager::class,
-                ],
                 'router' => [
                     'routes' => [
                         \Prooph\ProophessorDo\Model\User\Command\RegisterUser::class => \Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler::class,

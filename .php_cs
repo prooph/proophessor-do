@@ -4,6 +4,7 @@ $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->in('config')
     ->in('view')
     ->in('tests')
+    ->in('scripts')
     ->in('migrations');
 $config = Symfony\CS\Config\Config::create();
 $config->level(null);
