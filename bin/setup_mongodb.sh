@@ -34,5 +34,3 @@ return [
     ],
  ];
 EOL
-
-php bin/migrations.php --no-interaction migrations:migrate
