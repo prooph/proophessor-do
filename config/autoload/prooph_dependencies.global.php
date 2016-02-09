@@ -18,12 +18,13 @@ return [
     'dependencies' => [
         'invokables' => [
             \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class => \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class,
-            //Aggregate Translator
+            // Aggregate Translator
             \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class,
         ],
         'factories' => [
             \Prooph\Common\Messaging\FQCNMessageFactory::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
             \Prooph\ProophessorDo\Response\JsonResponse::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            // prooph/event-store set up
             \Prooph\EventStore\EventStore::class => \Prooph\EventStore\Container\EventStoreFactory::class,
             \Prooph\EventStore\Snapshot\SnapshotStore::class => \Prooph\EventStore\Container\Snapshot\SnapshotStoreFactory::class,
             //Default factories for the event store and snapshot adapters, depending on the installed adapter the event store factory
@@ -34,7 +35,7 @@ return [
             'Prooph\\EventStore\\Snapshot\\Adapter\\Doctrine\\DoctrineSnapshotAdapter' => 'Prooph\\EventStore\\Snapshot\\Adapter\\Doctrine\\Container\\DoctrineSnapshotAdapterFactory',
             'Prooph\\EventStore\\Snapshot\\Adapter\\MongoDb\\MongoDbSnapshotAdapter' => 'Prooph\\EventStore\\Snapshot\\Adapter\\MongoDb\\Container\\MongoDbSnapshotAdapterFactory',
             'Prooph\\EventStore\\Snapshot\\Adapter\\Memcached\\MemcachedSnapshotAdapter' => 'Prooph\\EventStore\\Snapshot\\Adapter\\Memcached\\Container\\MemcachedSnapshotAdapterFactory',
-            // prooph/psr7-middleware
+            // prooph/psr7-middleware set up
             \Prooph\Psr7Middleware\CommandMiddleware::class => \Prooph\Psr7Middleware\Container\CommandMiddlewareFactory::class,
             \Prooph\Psr7Middleware\EventMiddleware::class => \Prooph\Psr7Middleware\Container\EventMiddlewareFactory::class,
             \Prooph\Psr7Middleware\QueryMiddleware::class => \Prooph\Psr7Middleware\Container\QueryMiddlewareFactory::class,

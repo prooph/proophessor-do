@@ -28,7 +28,7 @@ namespace {
     // Setup autoloading
     require 'vendor/autoload.php';
 
-    $container = require 'config/services.php';
+    $container = require 'config/container.php';
 
     array_shift($argv);
 

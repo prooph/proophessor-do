@@ -41,5 +41,4 @@ class JsonError implements ErrorMiddlewareInterface
             return $out($request, $response, $error);
         }
     }
-
 }

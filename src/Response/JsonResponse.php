@@ -19,11 +19,10 @@ final class JsonResponse implements ResponseStrategy
     {
         $json = null;
 
-        $promise->done(function($data) use (&$json) {
+        $promise->done(function ($data) use (&$json) {
             $json = $data;
         });
 
         return new \Zend\Diactoros\Response\JsonResponse($json);
     }
-
 }
