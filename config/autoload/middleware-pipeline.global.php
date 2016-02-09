@@ -61,6 +61,7 @@ return [
         'error' => [
             'middleware' => [
                 // Add error middleware here.
+                \Prooph\ProophessorDo\Middleware\JsonError::class
             ],
             'error'    => true,
             'priority' => -10000,

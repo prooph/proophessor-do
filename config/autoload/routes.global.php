@@ -11,8 +11,11 @@
 return [
     'dependencies' => [
         'invokables' => [
-            Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\AuraRouter::class,
+            Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\AuraRouter::class
         ],
+        'factories' => [
+            \Prooph\ProophessorDo\Middleware\JsonPayload::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+        ]
     ],
     'routes' => [
         [
@@ -59,46 +62,58 @@ return [
         [
             'name' => 'command::register-user',
             'path' => '/api/commands/register-user',
-            'middleware' => \Prooph\Psr7Middleware\CommandMiddleware::class,
+            'middleware' => [
+                \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+                \Prooph\Psr7Middleware\CommandMiddleware::class,
+            ],
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
                     \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\User\Command\RegisterUser::class,
-                ]
-            ]
+                ],
+            ],
         ],
         [
             'name' => 'command::post-todo',
             'path' => '/api/commands/post-todo',
-            'middleware' => \Prooph\Psr7Middleware\CommandMiddleware::class,
+            'middleware' => [
+                \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+                \Prooph\Psr7Middleware\CommandMiddleware::class,
+            ],
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
                     \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\Todo\Command\PostTodo::class,
-                ]
-            ]
+                ],
+            ],
         ],
         [
             'name' => 'command::mark-todo-as-done',
             'path' => '/api/commands/mark-todo-as-done',
-            'middleware' => \Prooph\Psr7Middleware\CommandMiddleware::class,
+            'middleware' => [
+                \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+                \Prooph\Psr7Middleware\CommandMiddleware::class,
+            ],
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
                     \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone::class,
-                ]
-            ]
+                ],
+            ],
         ],
         [
             'name' => 'command::add-deadline-to-todo',
             'path' => '/api/commands/add-deadline-to-todo',
-            'middleware' => \Prooph\Psr7Middleware\CommandMiddleware::class,
+            'middleware' => [
+                \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+                \Prooph\Psr7Middleware\CommandMiddleware::class,
+            ],
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
                     \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo::class,
-                ]
-            ]
+                ],
+            ],
         ],
     ],
 ];
