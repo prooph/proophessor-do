@@ -79,7 +79,7 @@ namespace {
         return $duration / $commandCount;
     }
 
-    $container = require 'config/services.php';
+    $container = require 'config/container.php';
 
     $commandBus = $container->get(\Prooph\ServiceBus\CommandBus::class);
 

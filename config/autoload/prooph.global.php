@@ -10,6 +10,22 @@
  */
 return [
     'prooph' => [
+        'middleware' => [
+            'query' => [
+                'response_strategy' => \Prooph\ProophessorDo\Response\JsonResponse::class,
+                'message_factory' => \Prooph\Common\Messaging\FQCNMessageFactory::class,
+            ],
+            'command' => [
+                'message_factory' => \Prooph\Common\Messaging\FQCNMessageFactory::class,
+            ],
+            'event' => [
+                'message_factory' => \Prooph\Common\Messaging\FQCNMessageFactory::class,
+            ],
+            'message' => [
+                'response_strategy' => \Prooph\ProophessorDo\Response\JsonResponse::class,
+                'message_factory' => \Prooph\Common\Messaging\FQCNMessageFactory::class,
+            ],
+        ],
         'event_store' => [
             'plugins' => [
                 \Prooph\EventStoreBusBridge\EventPublisher::class,
@@ -32,11 +48,11 @@ return [
                 'router' => [
                     'routes' => [
                         \Prooph\ProophessorDo\Model\User\Command\RegisterUser::class => \Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler::class,
-                        \Prooph\ProophessorDo\Model\Todo\Command\PostTodo::class     => \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class,
-                        \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone::class     => \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class,
+                        \Prooph\ProophessorDo\Model\Todo\Command\PostTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class,
+                        \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone::class => \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler::class,
-                    ]
-                ]
+                    ],
+                ],
             ],
             'event_bus' => [
                 'plugins' => [
@@ -58,9 +74,9 @@ return [
                         \Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
                         ],
-                    ]
-                ]
-            ]
-        ]
+                    ],
+                ],
+            ],
+        ],
     ],
 ];

@@ -12,7 +12,7 @@ namespace Prooph\ProophessorDo\Container\App\Action;
 
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\App\Action\UserRegistration;
-use Zend\Expressive\Template\TemplateInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class UserRegistrationFactory
@@ -27,6 +27,6 @@ final class UserRegistrationFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new UserRegistration($container->get(TemplateInterface::class));
+        return new UserRegistration($container->get(TemplateRendererInterface::class));
     }
 }

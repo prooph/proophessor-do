@@ -13,7 +13,7 @@ namespace Prooph\ProophessorDo\App\Action;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Expressive\Template\TemplateInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class UserRegistration
@@ -23,14 +23,14 @@ use Zend\Expressive\Template\TemplateInterface;
 final class UserRegistration
 {
     /**
-     * @var TemplateInterface
+     * @var TemplateRendererInterface
      */
     private $templates;
 
     /**
-     * @param TemplateInterface $templates
+     * @param TemplateRendererInterface $templates
      */
-    public function __construct(TemplateInterface $templates)
+    public function __construct(TemplateRendererInterface $templates)
     {
         $this->templates = $templates;
     }

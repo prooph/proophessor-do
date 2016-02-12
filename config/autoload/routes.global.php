@@ -9,6 +9,14 @@
  * Date: 9/6/15 - 11:40 AM
  */
 return [
+    'dependencies' => [
+        'invokables' => [
+            Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\AuraRouter::class
+        ],
+        'factories' => [
+            \Prooph\ProophessorDo\Middleware\JsonPayload::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
+        ]
+    ],
     'routes' => [
         [
             'name' => 'page::home',
@@ -36,8 +44,8 @@ return [
             'options' => [
                 'tokens' => [
                     'user_id' => '[\w+-]{36,36}'
-                ]
-            ]
+                ],
+            ],
         ],
         [
             'name' => 'page::user-todo-form',
@@ -47,53 +55,65 @@ return [
             'options' => [
                 'tokens' => [
                     'user_id' => '[\w+-]{36,36}'
-                ]
-            ]
+                ],
+            ],
         ],
         //Commanding API
         [
             'name' => 'command::register-user',
             'path' => '/api/commands/register-user',
-            'middleware' => \Prooph\ProophessorDo\App\Commanding\API::class,
+            'middleware' => [
+                \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+                \Prooph\Psr7Middleware\CommandMiddleware::class,
+            ],
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
-                    'command' => \Prooph\ProophessorDo\Model\User\Command\RegisterUser::class,
-                ]
-            ]
+                    \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\User\Command\RegisterUser::class,
+                ],
+            ],
         ],
         [
             'name' => 'command::post-todo',
             'path' => '/api/commands/post-todo',
-            'middleware' => \Prooph\ProophessorDo\App\Commanding\API::class,
+            'middleware' => [
+                \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+                \Prooph\Psr7Middleware\CommandMiddleware::class,
+            ],
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
-                    'command' => \Prooph\ProophessorDo\Model\Todo\Command\PostTodo::class,
-                ]
-            ]
+                    \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\Todo\Command\PostTodo::class,
+                ],
+            ],
         ],
         [
             'name' => 'command::mark-todo-as-done',
             'path' => '/api/commands/mark-todo-as-done',
-            'middleware' => \Prooph\ProophessorDo\App\Commanding\API::class,
+            'middleware' => [
+                \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+                \Prooph\Psr7Middleware\CommandMiddleware::class,
+            ],
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
-                    'command' => \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone::class,
-                ]
-            ]
+                    \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone::class,
+                ],
+            ],
         ],
         [
             'name' => 'command::add-deadline-to-todo',
             'path' => '/api/commands/add-deadline-to-todo',
-            'middleware' => \Prooph\ProophessorDo\App\Commanding\API::class,
+            'middleware' => [
+                \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+                \Prooph\Psr7Middleware\CommandMiddleware::class,
+            ],
             'allowed_methods' => ['POST'],
             'options' => [
                 'values' => [
-                    'command' => \Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo::class,
-                ]
-            ]
+                    \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo::class,
+                ],
+            ],
         ],
-    ]
+    ],
 ];

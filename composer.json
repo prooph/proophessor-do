@@ -4,14 +4,25 @@
     "license": "BSD-3-Clause",
     "keywords": [
         "example",
+        "prooph",
         "proophessor",
-        "zf2"
+        "zend-expressive",
+        "cqrs",
+        "service bus",
+        "event sourcing",
+        "snapshots",
+        "integration"
     ],
     "authors": [
         {
             "name": "Alexander Miertsch",
             "email": "contact@prooph.de",
-            "homepage": "http://www.prooph.de"
+            "homepage": "http://prooph-software.com/"
+        },
+        {
+            "name": "Sandro Keil",
+            "email": "contact@prooph.de",
+            "homepage": "http://prooph-software.com/"
         },
         {
             "name": "Sascha-Oliver Prolic",
@@ -20,27 +31,32 @@
     ],
     "homepage": "http://getprooph.org/",
     "require": {
-        "php": "~5.5|~7.0",
-        "prooph/event-store" : "^6.0",
-        "prooph/event-sourcing" : "^4.0",
-        "prooph/service-bus" : "^5.0",
-        "prooph/event-store-bus-bridge" : "^2.0",
-        "zendframework/zend-expressive" : "^0.3",
-        "zendframework/zend-servicemanager" : "~2.6",
-        "zendframework/zend-config": "^2.5",
-        "zendframework/zend-view": "^2.5",
-        "zendframework/zend-filter": "^2.5",
+        "php": "^5.5 || ^7.0",
         "aura/router" : "^2.3",
         "doctrine/dbal": "^2.5",
         "doctrine/migrations": "^1.0",
-        "nicolopignatelli/valueobjects": "~3.0",
-        "sandrokeil/interop-config": "^0.3.1"
+        "nicolopignatelli/valueobjects": "^3.0",
+        "prooph/event-sourcing" : "^4.0",
+        "prooph/event-store" : "^6.0",
+        "prooph/event-store-bus-bridge" : "^2.0",
+        "prooph/psr7-middleware": "^0.1",
+        "prooph/service-bus" : "^5.0",
+        "roave/security-advisories": "dev-master",
+        "sandrokeil/interop-config": "^0.3.1",
+        "zendframework/zend-config": "^2.6",
+        "zendframework/zend-expressive" : "^1.0",
+        "zendframework/zend-expressive-aurarouter": "^1.0",
+        "zendframework/zend-expressive-helpers": "^2.0",
+        "zendframework/zend-expressive-zendviewrenderer": "^1.0.1",
+        "zendframework/zend-filter": "^2.6",
+        "zendframework/zend-servicemanager" : "^2.7.5 || ^3.0.3"
     },
     "require-dev" : {
-        "fabpot/php-cs-fixer": "1.7.*",
-        "phpunit/phpunit": "^4.7",
-        "symfony/stopwatch": "^2.7",
-        "proophsoftware/prooph-cli": "^0.1.2"
+        "fabpot/php-cs-fixer": "^1.9.3",
+        "filp/whoops": "^1.1",
+        "phpunit/phpunit": "^4.8 || ^5.2",
+        "proophsoftware/prooph-cli": "^0.1.2",
+        "symfony/stopwatch": "^2.7"
     },
     "suggest" : {
         "prooph/event-store-doctrine-adapter" : "^3.0 Use doctrine dbal event store adapter",

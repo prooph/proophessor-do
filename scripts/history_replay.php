@@ -30,7 +30,7 @@ namespace {
     // Setup autoloading
     require 'vendor/autoload.php';
 
-    $container = require 'config/services.php';
+    $container = require 'config/container.php';
 
     /** @var $dbalConnection Connection */
     $dbalConnection = $container->get('doctrine.connection.default');
