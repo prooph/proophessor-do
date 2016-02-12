@@ -13,7 +13,7 @@ namespace Prooph\ProophessorDo\Container\App\Action;
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\App\Action\UserTodoForm;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
-use Zend\Expressive\Template\TemplateInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class UserTodoFormFactory
@@ -28,6 +28,6 @@ final class UserTodoFormFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new UserTodoForm($container->get(TemplateInterface::class), $container->get(UserFinder::class));
+        return new UserTodoForm($container->get(TemplateRendererInterface::class), $container->get(UserFinder::class));
     }
 }

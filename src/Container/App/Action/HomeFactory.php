@@ -12,7 +12,7 @@ namespace Prooph\ProophessorDo\Container\App\Action;
 
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\App\Action\Home;
-use Zend\Expressive\Template\TemplateInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class HomeFactory
@@ -27,6 +27,6 @@ final class HomeFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new Home($container->get(TemplateInterface::class));
+        return new Home($container->get(TemplateRendererInterface::class));
     }
 }

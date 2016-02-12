@@ -4,11 +4,11 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
 echo "using adapter mongodb"
-touch ./config/mongo_client.local.php
+touch ./config/autoload/mongo_client.local.php
 
 php composer.phar require prooph/event-store-mongodb-adapter --update-no-dev -o --prefer-dist
 
-cat > config/mongo_client.local.php << EOL
+cat > config/autoload/mongo_client.local.php << EOL
 <?php
 return [
         'mongo_client' => function () {
@@ -18,7 +18,7 @@ return [
     ];
 EOL
 
-    cat > config/event_store.local.php << EOL
+    cat > config/autoload/event_store.local.php << EOL
 <?php
 return [
     'prooph' => [

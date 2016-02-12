@@ -22,7 +22,7 @@ namespace {
     // Setup autoloading
     require 'vendor/autoload.php';
 
-    $container = require 'config/services.php';
+    $container = require 'config/container.php';
 
     /** @var $todoFinder TodoFinder */
     $todoFinder = $container->get(TodoFinder::class);
@@ -36,7 +36,7 @@ namespace {
         exit(1);
     }
 
-    $randomIndex = rand(0, --$numOfTodos);
+    $randomIndex = mt_rand(0, --$numOfTodos);
 
     $todo = $allTodos[$randomIndex];
 

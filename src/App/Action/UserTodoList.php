@@ -15,7 +15,7 @@ use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
-use Zend\Expressive\Template\TemplateInterface;
+use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
  * Class UserTodoList
@@ -25,7 +25,7 @@ use Zend\Expressive\Template\TemplateInterface;
 final class UserTodoList
 {
     /**
-     * @var TemplateInterface
+     * @var TemplateRendererInterface
      */
     private $templates;
 
@@ -40,11 +40,11 @@ final class UserTodoList
     private $todoFinder;
 
     /**
-     * @param TemplateInterface $templates
+     * @param TemplateRendererInterface $templates
      * @param UserFinder $userFinder
      * @param TodoFinder $todoFinder
      */
-    public function __construct(TemplateInterface $templates, UserFinder $userFinder, TodoFinder $todoFinder)
+    public function __construct(TemplateRendererInterface $templates, UserFinder $userFinder, TodoFinder $todoFinder)
     {
         $this->templates = $templates;
         $this->userFinder = $userFinder;

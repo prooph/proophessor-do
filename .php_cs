@@ -2,7 +2,7 @@
 $finder = Symfony\CS\Finder\DefaultFinder::create()
     ->in('src')
     ->in('config')
-    ->in('view')
+    ->in('templates')
     ->in('tests')
     ->in('scripts')
     ->in('migrations');
