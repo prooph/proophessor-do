@@ -56,7 +56,8 @@
         "filp/whoops": "^1.1",
         "phpunit/phpunit": "^4.8 || ^5.2",
         "proophsoftware/prooph-cli": "^0.1.2",
-        "symfony/stopwatch": "^2.7"
+        "symfony/stopwatch": "^2.7",
+        "satooshi/php-coveralls": "^1.0"
     },
     "suggest" : {
         "prooph/event-store-doctrine-adapter" : "^3.0 Use doctrine dbal event store adapter",
