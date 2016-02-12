@@ -64,12 +64,12 @@ One is responsible for persisting the **write model**. This task is taken by pro
 And the other one is responsible for persisting the **read model** aka **projections**.
 
 We've prepared a template for you. Just rename the
-[config/dbal_connection.local.php.dist](../config/dbal_connection.local.php.dist) to `config/autoload/dbal_connection.local.php` 
+[config/autoload/dbal_connection.local.php.dist](../config/autoload/dbal_connection.local.php.dist) to `config/autoload/dbal_connection.local.php`
 and adjust configuration accordingly. Read on for more details.
 
 #### Adapter Configuration
 
-Tell the event store which adapter to use. To do so rename [config/event_store.local.php.dist](../config/event_store.local.php.dist) 
+Tell the event store which adapter to use. To do so rename [config/autoload/event_store.local.php.dist](../config/autoload/event_store.local.php.dist)
 to `config/autoload/event_store.local.php` and uncomment the adapter that you have installed in **Step 2**.
 
 ##### Doctrine DBAL Adapter
@@ -80,7 +80,7 @@ the projection tables too. Please see projection configuration for details.
 
 ##### MongoDB Adapter
 
-If you uncomment the mongo db adapter you also need to rename [config/mongo_client.local.php.dist](../config/mongo_client.local.php.dist) 
+If you uncomment the mongo db adapter you also need to rename [config/autoload/mongo_client.local.php.dist](../config/autoload/mongo_client.local.php.dist)
 to `config/autoload/mongo_client.local.php`.
 The MongoDB adapter will use a `\MongoClient` with default connection settings.
 But you can adjust the mongo client set up in the config file linked above.
