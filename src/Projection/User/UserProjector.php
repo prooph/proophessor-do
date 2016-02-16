@@ -14,6 +14,7 @@ use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
+use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
 use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
 
@@ -61,14 +62,14 @@ final class UserProjector
      * Increases the open_todos counter of the assignee by one
      *
      * @param TodoWasPosted $event
-     * @throws \RuntimeException
+     * @throws UserNotFound
      */
     public function onTodoWasPosted(TodoWasPosted $event)
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
         if (! $user) {
-            throw new \RuntimeException(
+            throw new UserNotFound(
                 sprintf(
                     "Data of the assigned user of the todo %s cannot be found",
                     $event->todoId()->toString()
@@ -85,14 +86,14 @@ final class UserProjector
 
     /**
      * @param TodoWasMarkedAsDone $event
-     * @throws \RuntimeException if data of the the assigned user can not be found
+     * @throws UserNotFound if data of the the assigned user can not be found
      */
     public function onTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
         if (! $user) {
-            throw new \RuntimeException(
+            throw new UserNotFound(
                 sprintf(
                     "Data of the assigned user of the todo %s cannot be found",
                     $event->todoId()->toString()
@@ -109,14 +110,14 @@ final class UserProjector
 
     /**
      * @param TodoWasReopened $event
-     * @throws \RuntimeException if data of the the assigned user can not be found
+     * @throws UserNotFound if data of the the assigned user can not be found
      */
     public function onTodoWasReopened(TodoWasReopened $event)
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
         if (! $user) {
-            throw new \RuntimeException(
+            throw new UserNotFound(
                 sprintf(
                     "Data of the assigned user of the todo %s cannot be found",
                     $event->todoId()->toString()
