@@ -47,7 +47,18 @@
                     $.failNotify
                 );
             } else {
-                $.appErrorNotify('Reopen a Todo is not yet possible. Want to implement it? See https://github.com/prooph/proophessor-do');
+                $.postJSON(
+                    '<?php echo $this->url('command::reopen-todo') ?>',
+                    {
+                        todo_id : self.id
+                    }
+                ).then(
+                    function () {
+                        self.status = 'open';
+                        self.update();
+                    },
+                    $.failNotify
+                );
             }
         }
 
