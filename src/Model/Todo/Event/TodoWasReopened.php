@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Date: 9/15/15 - 21:20 PM
+ * Date: 2/16/16
  */
 namespace Prooph\ProophessorDo\Model\Todo\Event;
 
@@ -48,7 +48,7 @@ final class TodoWasReopened extends AggregateChanged
      */
     public function todoId()
     {
-        if (is_null($this->todoId)) {
+        if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
         }
         return $this->todoId;
@@ -59,10 +59,9 @@ final class TodoWasReopened extends AggregateChanged
      */
     public function status()
     {
-        if (is_null($this->status)) {
+        if (null === $this->status) {
             $this->status = TodoStatus::fromString($this->payload['status']);
         }
         return $this->status;
     }
-
 }

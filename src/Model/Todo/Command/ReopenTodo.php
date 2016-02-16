@@ -6,7 +6,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Date: 5/2/15 - 5:50 PM
+ * Date: 2/16/16
  */
 namespace Prooph\ProophessorDo\Model\Todo\Command;
 
@@ -24,12 +24,6 @@ use Prooph\ProophessorDo\Model\Todo\TodoId;
 final class ReopenTodo extends Command implements PayloadConstructable
 {
     use PayloadTrait;
-
-    public function __construct(array $payload)
-    {
-        $this->init();
-        $this->setPayload($payload);
-    }
 
     /**
      *

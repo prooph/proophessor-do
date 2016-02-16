@@ -6,33 +6,31 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Date: 9/19/15 - 21:32 PM
+ * Date: 2/16/16
  */
 namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
 use Prooph\ProophessorDo\Model\Todo\Todo;
-use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 
 /**
- * Class TodoNotDone
+ * Class CannotReopenTodo
  *
  * @package Prooph\ProophessorDo\Model\Todo\Exception
  * @author Bas Kamer <bas@bushbaby.nl>
  */
-final class TodoNotDone extends \RuntimeException
+final class CannotReopenTodo extends \RuntimeException
 {
     /**
      * @param TodoStatus $status
      * @param Todo $todo
-     * @return TodoNotDone
+     * @return CannotReopenTodo
      */
-    public static function triedToReopen(Todo $todo)
+    public static function notMarkedDone(Todo $todo)
     {
         return new self(sprintf(
             'Tried to reopen status of Todo %s. But Todo is not marked as done!',
             $todo->todoId()->toString()
         ));
     }
-
 }

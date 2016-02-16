@@ -6,12 +6,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Date: 9/15/15 - 20:30 PM
+ * Date: 2/16/16
  */
 namespace Prooph\ProophessorDo\Container\Model\Todo;
 
 use Interop\Container\ContainerInterface;
-use Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler;
 use Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 

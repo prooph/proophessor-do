@@ -104,7 +104,7 @@ final class Todo extends AggregateRoot
     public function reopenTodo()
     {
         if (!$this->status->isDone()) {
-            throw Exception\TodoNotDone::triedToReopen($this);
+            throw Exception\CannotReopenTodo::notMarkedDone($this);
         }
 
         $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::fromString(TodoStatus::OPEN)));
