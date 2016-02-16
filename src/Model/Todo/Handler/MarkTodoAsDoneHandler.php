@@ -11,6 +11,7 @@
 namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
 use Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone;
+use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotFound;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 /**
@@ -40,6 +41,9 @@ final class MarkTodoAsDoneHandler
     public function __invoke(MarkTodoAsDone $command)
     {
         $todo = $this->todoList->get($command->todoId());
+        if (! $todo) {
+            throw TodoNotFound::withTodoId($command->todoId());
+        }
 
         $todo->markAsDone();
     }
