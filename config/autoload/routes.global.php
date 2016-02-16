@@ -114,7 +114,8 @@ return [
                     \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\Todo\Command\ReopenTodo::class,
                 ],
             ],
-        ],        [
+        ],
+        [
             'name' => 'command::add-deadline-to-todo',
             'path' => '/api/commands/add-deadline-to-todo',
             'middleware' => [
