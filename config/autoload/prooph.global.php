@@ -50,6 +50,7 @@ return [
                         \Prooph\ProophessorDo\Model\User\Command\RegisterUser::class => \Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\PostTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone::class => \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class,
+                        \Prooph\ProophessorDo\Model\Todo\Command\ReopenTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler::class,
                     ],
                 ],
@@ -68,6 +69,10 @@ return [
                             \Prooph\ProophessorDo\Projection\User\UserProjector::class,
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone::class => [
+                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
+                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
+                        ],
+                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
                             \Prooph\ProophessorDo\Projection\User\UserProjector::class,
                         ],

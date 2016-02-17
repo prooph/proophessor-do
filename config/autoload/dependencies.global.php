@@ -31,6 +31,7 @@ return [
             \Prooph\ProophessorDo\Model\User\UserCollection::class      => \Prooph\ProophessorDo\Container\Infrastructure\Repository\EventStoreUserCollectionFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class     => \Prooph\ProophessorDo\Container\Model\Todo\PostTodoHandlerFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class     => \Prooph\ProophessorDo\Container\Model\Todo\MarkTodoAsDoneHandlerFactory::class,
+            \Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler::class     => \Prooph\ProophessorDo\Container\Model\Todo\ReopenTodoHandlerFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\AddDeadlineToTodoHandlerFactory::class,
             \Prooph\ProophessorDo\Model\Todo\TodoList::class            => \Prooph\ProophessorDo\Container\Infrastructure\Repository\EventStoreTodoListFactory::class,
             // Projections

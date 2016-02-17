@@ -13,6 +13,7 @@ namespace Prooph\ProophessorDo\Projection\Todo;
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
 use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
 
@@ -58,6 +59,21 @@ final class TodoProjector
         $this->connection->update(Table::TODO,
             [
                 'status' => $event->newStatus()->toString()
+            ],
+            [
+                'id' => $event->todoId()->toString()
+            ]
+        );
+    }
+
+    /**
+     * @param TodoWasReopened $event
+     */
+    public function onTodoWasReopened(TodoWasReopened $event)
+    {
+        $this->connection->update(Table::TODO,
+            [
+                'status' => $event->status()->toString()
             ],
             [
                 'id' => $event->todoId()->toString()

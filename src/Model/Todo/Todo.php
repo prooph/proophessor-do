@@ -10,6 +10,7 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo;
 
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
 use Prooph\ProophessorDo\Model\User\UserId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
@@ -100,6 +101,15 @@ final class Todo extends AggregateRoot
         $this->recordThat(DeadlineWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $deadline));
     }
 
+    public function reopenTodo()
+    {
+        if (!$this->status->isDone()) {
+            throw Exception\CannotReopenTodo::notMarkedDone($this);
+        }
+
+        $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::fromString(TodoStatus::OPEN)));
+    }
+
     /**
      * @return \DateTimeImmutable
      */
@@ -157,6 +167,14 @@ final class Todo extends AggregateRoot
     protected function whenTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
     {
         $this->status = $event->newStatus();
+    }
+
+    /**
+     * @param TodoWasReopened $event
+     */
+    protected function whenTodoWasReopened(TodoWasReopened $event)
+    {
+        $this->status = $event->status();
     }
 
     /**

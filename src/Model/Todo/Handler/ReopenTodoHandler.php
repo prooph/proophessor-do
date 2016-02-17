@@ -6,21 +6,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Date: 9/15/15 - 20:45 PM
+ * Date: 2/16/16
  */
 namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
-use Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone;
+use Prooph\ProophessorDo\Model\Todo\Command\ReopenTodo;
 use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotFound;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 /**
- * Class MarkTodoAsDoneHandler
+ * Class ReopenTodoHandler
  *
  * @package Prooph\ProophessorDo\Model\Todo
- * @author Danny van der Sluijs <danny.vandersluijs@icloud.com>
+ * @author  Bas Kamer <bas@bushbaby.nl>
  */
-final class MarkTodoAsDoneHandler
+final class ReopenTodoHandler
 {
     /**
      * @var TodoList
@@ -36,15 +36,15 @@ final class MarkTodoAsDoneHandler
     }
 
     /**
-     * @param MarkTodoAsDone $command
+     * @param ReopenTodo $command
      */
-    public function __invoke(MarkTodoAsDone $command)
+    public function __invoke(ReopenTodo $command)
     {
         $todo = $this->todoList->get($command->todoId());
         if (! $todo) {
             throw TodoNotFound::withTodoId($command->todoId());
         }
 
-        $todo->markAsDone();
+        $todo->reopenTodo();
     }
 }
