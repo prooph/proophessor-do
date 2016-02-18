@@ -47,6 +47,7 @@ A successfully merged pull request will add you to the HALL OF FAME!
 - [ ] Mark a todo as expired - done by [your name here]
 - [ ] Notify assignee when todo deadline is expired - done by [your name here]
 - [ ] Notify assignee when reminder time is reached - done by [your name here]
+- [ ] Implement a dedicated event bus to replay events as reminders and deadline notifications should not be sent to users again - done by [your name here]
 - more features will follow ...
 
 ## Tutorials
