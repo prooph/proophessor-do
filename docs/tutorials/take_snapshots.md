@@ -269,7 +269,7 @@ return [
         ],
         'zeromq_producer' => [
             'dsn' => 'tcp://127.0.0.1:5555', // ZMQ Server Address.
-            'persistent_id' => 'proophessor-od', // ZMQ Persistent ID to keep connections alive between requests.
+            'persistent_id' => 'proophessor-do', // ZMQ Persistent ID to keep connections alive between requests.
             'rpc' => false, // Async mode without expecting a response.
         ],
         //...
