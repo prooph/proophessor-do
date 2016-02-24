@@ -43,7 +43,7 @@ return [
             'allowed_methods' => ['GET'],
             'options' => [
                 'tokens' => [
-                    'user_id' => '^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$'
+                    'user_id' => '[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}'
                 ],
             ],
         ],
@@ -54,7 +54,7 @@ return [
             'allowed_methods' => ['GET'],
             'options' => [
                 'tokens' => [
-                    'user_id' => '^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$'
+                    'user_id' => '[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}'
                 ],
             ],
         ],
