@@ -6,8 +6,6 @@ cd $DIR
 echo "using adapter: mysql"
 touch ./config/autoload/dbal_connection.local.php
 
-php composer.phar require prooph/event-store-doctrine-adapter --update-no-dev -o --prefer-dist
-
 cat > config/autoload/dbal_connection.local.php <<EOL
 <?php
 return [

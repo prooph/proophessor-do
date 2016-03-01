@@ -1,45 +1,60 @@
 # Installation
-proophessor-do offers you three options to install the demo application. We support Vagrant, Docker and have manual 
+*proophessor-do* offers you three options to install the demo application. We support *Vagrant*, *Docker* and have *manual* 
 instructions.
 
+> Docker is the recommended and fastest installation method
+
 At first, please clone this repository by running `git clone https://github.com/prooph/proophessor-do.git` or download 
-it manually from GitHub. If you use a own local web server, put this project to the document root of the local web 
-server. Now navigate to the proophessor-do directory.
+it manually from GitHub. 
+
+If you use a own local web server, put this project to the document root of the local web 
+server and navigate to the proophessor-do directory and follow the *Do it manually* instructions.
 
 ## Using Docker
-First ensure [Docker](https://docs.docker.com/engine/installation/ubuntulinux/) and [Docker Compose](https://docs.docker.com/compose/install/) are installed. It's recommended to use the latest version of Docker and 
-Docker Compose. Now install the dependencies and start the containers. Docker will now download all dependencies and 
-starts the containers. This may take a while ...
+First ensure [Docker](https://docs.docker.com/engine/installation/ubuntulinux/) and [Docker Compose](https://docs.docker.com/compose/install/) 
+are installed. It's recommended to use the latest version of Docker and Docker Compose. Docker will download all 
+dependencies and starts the containers.
+
+### Step 1 - Install dependencies
+
+To ensure you have the latest Docker images for the default application execute:
 
 ```bash
-$ docker run --rm -it --volume $(pwd):/app prooph/composer:7.0 install --no-dev -o --prefer-dist --ignore-platform-reqs
-$ docker-compose up -d
+$ docker pull prooph/php:5.6-fpm && docker pull prooph/composer:5.6 && docker pull prooph/nginx:www
 ```
 
-If you want to run (or write) unit tests you need to install the dev dependencies as well:
+Install PHP dependencies via Composer
 
 ```bash
-$ docker run --rm -it --volume $(pwd):/app prooph/composer:7.0 install -o --prefer-dist --ignore-platform-reqs
+$ docker run --rm -it --volume $(pwd):/app prooph/composer:5.6 install -o --prefer-dist
+```
+
+Now start your Docker Container so we can use Docker Compose for the next steps
+
+```bash
+$ docker-compose up -d
 ```
 
 ### Step 2 - Install event store adapter
 
-prooph offers two database adapters for `prooph/event-store` (at the moment).
-You can play with the doctrine one and install it via composer.
+*prooph* offers two database adapters for `prooph/event-store` (at the moment).
 
-#### Doctrine DBAL Adapter
-Install:
-
-`docker run --rm -it --volume $(pwd):/app prooph/composer:7.0 require prooph/event-store-doctrine-adapter`
-
-Configure the MySQL setup script with:
+The read model uses MySQL so it's important to execute the MySQL setup. This configures also MySQL for the event store.
 
 ```bash
+$ docker run --rm -it --volume $(pwd):/app prooph/composer:5.6 require prooph/event-store-doctrine-adapter -o --prefer-dist
 $ docker-compose run --rm php sh bin/setup_mysql.sh
 ```
 
+If you want to use MongoDB (only PHP 5.6 supported) for the event store execute also:
+
+```bash
+$ docker run --rm -it --volume $(pwd):/app prooph/composer:5.6 require prooph/event-store-mongodb-adapter -o --prefer-dist
+$ docker-compose run --rm php sh bin/setup_mongodb.sh
+```
+
 ### Step 3 - That's it
-Now open [http://localhost:8080](http://localhost:8080/).
+Now open [http://localhost:8080](http://localhost:8080/) and have fun.
 
 ## Using Vagrant
 Please install the following software if not already installed:
@@ -54,9 +69,12 @@ $: vagrant up
 
 All dependencies will be downloaded. This may take a while ...
 
-Now open [http://localhost:8080](http://localhost:8080/).
+Now open [http://localhost:8080](http://localhost:8080/) and have fun.
 
 ## Do it manually
+This is the hard way. Please ensure that you not want to use Docker. ;-)
+
+### Step 1 - Get source code
 
 `git clone https://github.com/prooph/proophessor-do.git` into the document root of a local web server.
 
@@ -70,6 +88,8 @@ Pick the one you want to play with and install it via composer.
 `composer require prooph/event-store-doctrine-adapter`
 
 #### MongoDB Adapter
+
+> Only PHP <= 5.6 is currently supported
 
 `composer require prooph/event-store-mongodb-adapter`
 
@@ -121,7 +141,7 @@ you should perform the [migrations](../migrations/) by running `php bin/migratio
 ### Step 4 - View It
 
 Open a terminal and navigate to the project root. Then start the PHP built-in web server with `php -S 0.0.0.0:8080 -t public`
-and open `http://localhost:8080/` in a browser.
+and open [http://localhost:8080](http://localhost:8080/) in a browser.
 
 *Note: You can also set the environmental variable `PROOPH_ENV` to `development`. That will forward exception messages to the client in case of an error.
 When using the built-in web server you can set the variable like so: `PROOPH_ENV=development php -S 0.0.0.0:8080 -t public`*
