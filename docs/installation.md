@@ -12,16 +12,33 @@ Docker Compose. Now install the dependencies and start the containers. Docker wi
 starts the containers. This may take a while ...
 
 ```bash
-$ docker run --rm -it --volume $(pwd):/app composer/composer:master install --no-dev -o --prefer-dist --ignore-platform-reqs
+$ docker run --rm -it --volume $(pwd):/app prooph/composer:7.0 install --no-dev -o --prefer-dist --ignore-platform-reqs
 $ docker-compose up -d
 ```
 
-Call the MySQL setup script with:
+If you want to run (or write) unit tests you need to install the dev dependencies as well:
+
+```bash
+$ docker run --rm -it --volume $(pwd):/app prooph/composer:7.0 install -o --prefer-dist --ignore-platform-reqs
+```
+
+### Step 2 - Install event store adapter
+
+prooph offers two database adapters for `prooph/event-store` (at the moment).
+You can play with the doctrine one and install it via composer.
+
+#### Doctrine DBAL Adapter
+Install:
+
+`docker run --rm -it --volume $(pwd):/app prooph/composer:7.0 require prooph/event-store-doctrine-adapter`
+
+Configure the MySQL setup script with:
 
 ```bash
 $ docker-compose run --rm php sh bin/setup_mysql.sh
 ```
 
+### Step 3 - That's it
 Now open [http://localhost:8080](http://localhost:8080/).
 
 ## Using Vagrant
