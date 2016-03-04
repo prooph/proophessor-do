@@ -8,7 +8,7 @@
         <div class="col-md-3">
             <div class="form-group">
                 <div class="input-group input-group-sm date" id="{ 'deadline_datetimepicker_' + id}">
-                    <input type="text" name="deadline_el" class="form-control" placeholder="Deadline" />
+                    <input type="text" name="deadline_el" class="form-control" placeholder="Deadline"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -16,11 +16,24 @@
             </div>
         </div>
         <div class="col-md-3">
-            <a href="#" class="btn btn-sm" onclick="{ addReminder }">add reminder</a>
+
+            <div class="form-group" id="{ 'reminder_container_' + id}" style="display: none">
+                <div class="input-group input-group-sm date" id="{ 'reminder_datetimepicker_' + id}">
+                    <input type="text" name="deadline_el" class="form-control" placeholder="Reminder"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+            <div class="btn btn-sm" onclick="{ addReminder }" title="{ getReminder() }">
+                <a href="#" id="{ 'reminder_button_' + id} ">add reminder</a>
+                <span if="{ hasReminder() }" class="glyphicon glyphicon-info-sign text-warning" ></span>
+            </div>
         </div>
         <div class="col-md-1 text-right">
-            <span class="{glyphicon: true, glyphicon-check: status == 'done', text-success: status == 'done', glyphicon-warning-sign: status == 'expired', glyphicon-unchecked: status == 'open'}"
-                  onclick="{ changeTodoStatus }"></span>
+            <span
+                class="{glyphicon: true, glyphicon-check: status == 'done', text-success: status == 'done', glyphicon-warning-sign: status == 'expired', glyphicon-unchecked: status == 'open'}"
+                onclick="{ changeTodoStatus }"></span>
         </div>
     </div>
 </div>
@@ -28,7 +41,13 @@
     function (context) {
 
         var self = this,
-            _selectedDate = null;
+            _selectedDeadlineDate = null,
+            _selectedReminderDate = null;
+
+        function _toggleReminderDOM(show_picker) {
+            $("#reminder_button_" + self.id).toggle(!show_picker);
+            $("#reminder_container_" + self.id).toggle(show_picker);
+        }
 
         self.changeTodoStatus = function () {
 
@@ -36,8 +55,8 @@
                 $.postJSON(
                     '<?php echo $this->url('command::mark-todo-as-done') ?>',
                     {
-                        todo_id : self.id,
-                        status : "done"
+                        todo_id: self.id,
+                        status: "done"
                     }
                 ).then(
                     function () {
@@ -50,7 +69,7 @@
                 $.postJSON(
                     '<?php echo $this->url('command::reopen-todo') ?>',
                     {
-                        todo_id : self.id
+                        todo_id: self.id
                     }
                 ).then(
                     function () {
@@ -62,19 +81,16 @@
             }
         }
 
-        self.addReminder = function () {
-            $.appErrorNotify('Add a reminder to Todo is not yet possible. Want to implement it? See https://github.com/prooph/proophessor-do')
-        }
 
         self.isExpired = function () {
-            if (! self.deadline) return false;
+            if (!self.deadline) return false;
             if (self.status == 'done') return false;
 
             return moment().isAfter(moment(self.deadline));
         }
 
         self.hasNotMuchTime = function () {
-            if (! self.deadline) return false;
+            if (!self.deadline) return false;
             if (self.status == 'done') return false;
             if (self.isExpired()) return false;
 
@@ -82,23 +98,23 @@
         }
 
         self.saveDeadline = function (e) {
-            if (!_selectedDate && self.deadline) {
+            if (!_selectedDeadlineDate && self.deadline) {
                 $.appErrorNotify('Removing a deadline is not yet possible. Want to implement it? See https://github.com/prooph/proophessor-do')
                 $(e.target).data("DateTimePicker").date(moment(self.deadline));
 
                 return;
             }
 
-            if (!_selectedDate) {
+            if (!_selectedDeadlineDate) {
                 return;
             }
 
-            if (! moment().add(5, "minutes").isBefore(e.date)) {
+            if (!moment().add(5, "minutes").isBefore(e.date)) {
                 $.appErrorNotify("Ooops. Your deadline is a way to short. Please try again.");
                 return;
             }
 
-            var newDeadline = _selectedDate;
+            var newDeadline = _selectedDeadlineDate;
 
             $.postJSON(
                 '<?php echo $this->url('command::add-deadline-to-todo') ?>',
@@ -108,26 +124,89 @@
                     deadline: newDeadline
                 }
             ).then(function () {
-                self.deadline = newDeadline;
-                self.update();
+                    self.deadline = newDeadline;
+                    self.update();
                 },
                 $.failNotify
             );
         }
 
+        self.hasReminder = function(e) {
+            return self.reminder !== null
+        }
+
+        self.saveReminder = function (e) {
+            if (!_selectedReminderDate && self.reminder) {
+                $.appErrorNotify('Removing a reminder is not yet possible. Want to implement it? See https://github.com/prooph/proophessor-do')
+                $(e.target).data("DateTimePicker").date(moment(self.reminder));
+
+                return;
+            }
+
+            if (!_selectedReminderDate) {
+                return;
+            }
+
+            var newReminder = _selectedReminderDate;
+
+            $.postJSON(
+                '<?php echo $this->url('command::add-reminder-to-todo') ?>',
+                {
+                    todo_id: self.id,
+                    user_id: context.app.userId,
+                    reminder: newReminder
+                }
+            ).then(function () {
+                    self.reminder = newReminder;
+                    self.update();
+                },
+                $.failNotify
+            );
+        }
+
+        self.addReminder = function () {
+            _toggleReminderDOM(true);
+            $("#reminder_datetimepicker_" + self.id).data("DateTimePicker").show();
+        }
+
+        self.getReminder = function (e) {
+            if(self.hasReminder()) {
+                return moment(self.reminder).fromNow();
+            }
+
+            return '';
+        }
+
         self.on("mount", function () {
 
-            var defaultDate = self.deadline? moment(self.deadline) : false;
+            var defaultDeadlineDate = self.deadline ? moment(self.deadline) : false;
+            var defaultReminderDate = self.reminder ? moment(self.reminder) : false;
 
-            $("#deadline_datetimepicker_" + self.id).datetimepicker({
-                showClear : true,
-                useCurrent : false,
-                defaultDate : defaultDate
-            })
-            .on("dp.change", function (e) {
-                _selectedDate = e.date;
-            })
-            .on("dp.hide", self.saveDeadline);
+            $("#deadline_datetimepicker_" + self.id)
+                .datetimepicker({
+                    showClear: true,
+                    useCurrent: false,
+                    defaultDate: defaultDeadlineDate
+                })
+                .on("dp.change", function (e) {
+                    _selectedDeadlineDate = e.date;
+                })
+                .on("dp.hide", self.saveDeadline);
+
+
+            $("#reminder_datetimepicker_" + self.id)
+                .datetimepicker({
+                    showClear: true,
+                    useCurrent: false,
+                    defaultDate: defaultReminderDate
+                })
+                .on("dp.change", function (e) {
+                    _selectedReminderDate = e.date;
+                })
+                .on("dp.hide", function (e) {
+                    _toggleReminderDOM(false);
+                    self.saveReminder(e)
+                });
         });
     }
 </script>

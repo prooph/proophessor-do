@@ -129,5 +129,19 @@ return [
                 ],
             ],
         ],
+        [
+            'name' => 'command::add-reminder-to-todo',
+            'path' => '/api/commands/add-reminder-to-todo',
+            'middleware' => [
+                \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+                \Prooph\Psr7Middleware\CommandMiddleware::class,
+            ],
+            'allowed_methods' => ['POST'],
+            'options' => [
+                'values' => [
+                    \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\Todo\Command\AddReminderToTodo::class,
+                ],
+            ],
+        ],
     ],
 ];

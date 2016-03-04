@@ -11,6 +11,7 @@
 namespace Prooph\ProophessorDo\Projection\Todo;
 
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
+use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
@@ -91,6 +92,23 @@ final class TodoProjector
             Table::TODO,
             [
                 'deadline' => $event->deadline()->toString(),
+            ],
+            [
+                'id' => $event->todoId()->toString(),
+            ]
+        );
+    }
+
+    /**
+     * @param ReminderWasAddedToTodo $event
+     * @return void
+     */
+    public function onReminderWasAddedToTodo(ReminderWasAddedToTodo $event)
+    {
+        $this->connection->update(
+            Table::TODO,
+            [
+                'reminder' => $event->reminder()->toString(),
             ],
             [
                 'id' => $event->todoId()->toString(),

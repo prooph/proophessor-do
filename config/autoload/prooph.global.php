@@ -52,6 +52,7 @@ return [
                         \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsDone::class => \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\ReopenTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler::class,
+                        \Prooph\ProophessorDo\Model\Todo\Command\AddReminderToTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\AddReminderToTodoHandler::class,
                     ],
                 ],
             ],
@@ -77,6 +78,9 @@ return [
                             \Prooph\ProophessorDo\Projection\User\UserProjector::class,
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo::class => [
+                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
+                        ],
+                        \Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
                         ],
                     ],

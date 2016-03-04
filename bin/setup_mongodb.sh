@@ -6,19 +6,17 @@ cd $DIR
 echo "using adapter mongodb"
 touch ./config/autoload/mongo_client.local.php
 
-php composer.phar require prooph/event-store-mongodb-adapter --update-no-dev -o --prefer-dist
-
 cat > config/autoload/mongo_client.local.php << EOL
 <?php
 return [
         'mongo_client' => function () {
             //Change set up of the mongo client, if you need to configure connection settings
-            return new \MongoClient();
+            return new \MongoClient('mongodb://mongodb:27017');
         },
     ];
 EOL
 
-    cat > config/autoload/event_store.local.php << EOL
+cat > config/autoload/event_store.local.php << EOL
 <?php
 return [
     'prooph' => [
