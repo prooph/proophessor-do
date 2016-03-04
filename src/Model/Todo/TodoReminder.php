@@ -34,8 +34,8 @@ final class TodoReminder
      */
     private function __construct($reminder)
     {
-        $this->reminder = new \DateTimeImmutable($reminder);
-        $this->createdOn = new \DateTimeImmutable;
+        $this->reminder = new \DateTimeImmutable($reminder, new \DateTimeZone('UTC'));
+        $this->createdOn = new \DateTimeImmutable("now", new \DateTimeZone('UTC'));
     }
 
     /**
