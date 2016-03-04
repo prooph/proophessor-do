@@ -240,7 +240,7 @@ final class TodoTest extends TestCase
      */
     public function it_throws_an_exception_if_reminder_is_in_the_past(Todo $todo)
     {
-        $this->expectException(InvalidReminder::class);
+        $this->setExpectedException(InvalidReminder::class);
 
         $todo->addReminder($todo->assigneeId(), TodoReminder::fromString('1980-12-11 12:00:00'));
     }
@@ -252,7 +252,7 @@ final class TodoTest extends TestCase
      */
     public function it_throws_an_exception_if_user_who_adds_reminder_is_not_the_assignee(Todo $todo)
     {
-        $this->expectException(InvalidReminder::class);
+        $this->setExpectedException(InvalidReminder::class);
 
         $todo->addReminder(UserId::generate(), TodoReminder::fromString('2047-12-11 12:00:00'));
     }
@@ -266,7 +266,7 @@ final class TodoTest extends TestCase
     {
         $todo->markAsDone();
 
-        $this->expectException(TodoNotOpen::class);
+        $this->setExpectedException(TodoNotOpen::class);
 
         $todo->addReminder($todo->assigneeId(), TodoReminder::fromString('2047-12-11 12:00:00'));
     }
