@@ -43,7 +43,7 @@ A successfully merged pull request will add you to the HALL OF FAME!
 - [x] [Mark a todo as done](https://github.com/prooph/proophessor-do/issues/1) - done by [Danny van der Sluijs](https://github.com/DannyvdSluijs)
 - [x] [Reopen a todo](https://github.com/prooph/proophessor-do/issues/2) - done by [Bas Kamer](https://github.com/basz)
 - [x] [Add deadline to todo](https://github.com/prooph/proophessor-do/issues/35) - done by [Wojtek Gancarczyk](https://github.com/theDisco)
-- [ ] [Add reminder for assignee](https://github.com/prooph/proophessor-do/issues/60) - done by [your name here]
+- [x] [Add reminder for assignee](https://github.com/prooph/proophessor-do/issues/60) - done by [Roman Sachse](https://github.com/rommsen)
 - [ ] Mark a todo as expired - done by [your name here]
 - [ ] Notify assignee when todo deadline is expired - done by [your name here]
 - [ ] Notify assignee when reminder time is reached - done by [your name here]
