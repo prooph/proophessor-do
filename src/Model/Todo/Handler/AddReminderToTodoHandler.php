@@ -15,7 +15,7 @@ use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotFound;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 /**
- * Class ReopenTodoHandler
+ * Class AddReminderToTodoHandler
  *
  * @package Prooph\ProophessorDo\Model\Todo
  * @author Roman Sachse <r.sachse@ipark-media.de>

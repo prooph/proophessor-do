@@ -18,7 +18,7 @@ use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
- * Class ReopenTodo
+ * Class AddReminderToTodo
  *
  * @package Prooph\ProophessorDo\Model\Todo
  * @author Roman Sachse <r.sachse@ipark-media.de>

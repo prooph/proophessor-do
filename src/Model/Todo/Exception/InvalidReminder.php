@@ -6,7 +6,7 @@ use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
- * Class InvalidDeadline
+ * Class InvalidReminder
  *
  * @package Prooph\ProophessorDo\Model\Todo\Exception
  * @author Roman Sachse <r.sachse@ipark-media.de>
