@@ -28,6 +28,10 @@ final class InvalidReminder extends \Exception
     }
 
 
+    /**
+     * @param TodoReminder $reminder
+     * @return InvalidReminder
+     */
     public static function reminderInThePast(TodoReminder $reminder)
     {
         return new self(sprintf(
