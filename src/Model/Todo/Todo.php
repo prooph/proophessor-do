@@ -10,6 +10,7 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo;
 
+use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
 use Prooph\ProophessorDo\Model\User\UserId;
 use Assert\Assertion;
@@ -50,6 +51,11 @@ final class Todo extends AggregateRoot
      * @var \DateTimeImmutable
      */
     private $deadline;
+
+    /**
+     * @var \DateTimeImmutable
+     */
+    private $reminder;
 
     /**
      * @param string $text
@@ -101,6 +107,29 @@ final class Todo extends AggregateRoot
         $this->recordThat(DeadlineWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $deadline));
     }
 
+    /**
+     * @param UserId $userId
+     * @param TodoReminder $reminder
+     * @return void
+     * @throws Exception\InvalidReminder
+     */
+    public function addReminder(UserId $userId, TodoReminder $reminder)
+    {
+        if (!$this->assigneeId()->sameValueAs($userId)) {
+            throw Exception\InvalidReminder::userIsNotAssignee($userId, $this->assigneeId());
+        }
+
+        if ($reminder->isInThePast()) {
+            throw Exception\InvalidReminder::reminderInThePast($reminder);
+        }
+
+        if ($this->status->isDone()) {
+            throw Exception\TodoNotOpen::triedToAddReminder($reminder, $this->status);
+        }
+
+        $this->recordThat(ReminderWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $reminder));
+    }
+
     public function reopenTodo()
     {
         if (!$this->status->isDone()) {
@@ -116,6 +145,14 @@ final class Todo extends AggregateRoot
     public function deadline()
     {
         return $this->deadline;
+    }
+
+    /**
+     * @return \DateTimeImmutable
+     */
+    public function reminder()
+    {
+        return $this->reminder;
     }
 
     /**
@@ -184,6 +221,16 @@ final class Todo extends AggregateRoot
     protected function whenDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event)
     {
         $this->deadline = $event->deadline();
+    }
+
+
+    /**
+     * @param ReminderWasAddedToTodo $event
+     * @return void
+     */
+    protected function whenReminderWasAddedToTodo(ReminderWasAddedToTodo $event)
+    {
+        $this->reminder = $event->reminder();
     }
 
     /**

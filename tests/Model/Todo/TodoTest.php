@@ -11,11 +11,15 @@
 namespace ProophTest\ProophessorDo\Model\Todo;
 
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Exception\InvalidReminder;
+use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotOpen;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 use Prooph\ProophessorDo\Model\User\UserId;
 use ProophTest\ProophessorDo\TestCase;
 
@@ -178,5 +182,92 @@ final class TodoTest extends TestCase
             $todo->assigneeId(),
             TodoDeadline::fromString('2047-12-11 12:00:00')
         );
+    }
+
+    /**
+     * @test
+     * @return Todo
+     */
+    public function it_adds_a_reminder_to_todo()
+    {
+        $todoId = TodoId::generate();
+        $userId = UserId::generate();
+        $reminder = TodoReminder::fromString('2047-12-31 12:00:00');
+        $todo = Todo::post('Do something tomorrow', $userId, $todoId);
+        $this->popRecordedEvent($todo);
+
+        $this->assertNull($todo->reminder());
+
+        $todo->addReminder($userId, $reminder);
+        $events = $this->popRecordedEvent($todo);
+
+        $this->assertCount(1, $events);
+
+        $this->assertInstanceOf(ReminderWasAddedToTodo::class, $events[0]);
+
+        $expectedPayload = [
+            'todo_id' => $todoId->toString(),
+            'user_id' => $userId->toString(),
+            'reminder' => $reminder->toString(),
+        ];
+
+        $this->assertEquals($expectedPayload, $events[0]->payload());
+
+        return $todo;
+    }
+
+    /**
+     * @test
+     * @param Todo $todo
+     * @depends it_adds_a_reminder_to_todo
+     * @return Todo
+     */
+    public function it_can_add_another_reminder_if_desired(Todo $todo)
+    {
+        $todo->addReminder($todo->assigneeId(), TodoReminder::fromString('2047-12-11 12:00:00'));
+        $events = $this->popRecordedEvent($todo);
+
+        $this->assertCount(1, $events);
+        $this->assertInstanceOf(ReminderWasAddedToTodo::class, $events[0]);
+
+        return $todo;
+    }
+
+    /**
+     * @test
+     * @param Todo $todo
+     * @depends it_adds_a_reminder_to_todo
+     */
+    public function it_throws_an_exception_if_reminder_is_in_the_past(Todo $todo)
+    {
+        $this->expectException(InvalidReminder::class);
+
+        $todo->addReminder($todo->assigneeId(), TodoReminder::fromString('1980-12-11 12:00:00'));
+    }
+
+    /**
+     * @test
+     * @param Todo $todo
+     * @depends it_adds_a_reminder_to_todo
+     */
+    public function it_throws_an_exception_if_user_who_adds_reminder_is_not_the_assignee(Todo $todo)
+    {
+        $this->expectException(InvalidReminder::class);
+
+        $todo->addReminder(UserId::generate(), TodoReminder::fromString('2047-12-11 12:00:00'));
+    }
+
+    /**
+     * @test
+     * @param Todo $todo
+     * @depends it_adds_a_reminder_to_todo
+     */
+    public function it_throws_an_exception_if_todo_is_closed_while_setting_a_reminder(Todo $todo)
+    {
+        $todo->markAsDone();
+
+        $this->expectException(TodoNotOpen::class);
+
+        $todo->addReminder($todo->assigneeId(), TodoReminder::fromString('2047-12-11 12:00:00'));
     }
 }
