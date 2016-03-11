@@ -21,7 +21,7 @@ use Zend\View\Helper\AbstractHelper;
  */
 final class RiotTag extends AbstractHelper
 {
-    private $search = ['"', "\n"];
+    private $search = ['"', PHP_EOL];
 
     private $replace = ['\"', ""];
 
