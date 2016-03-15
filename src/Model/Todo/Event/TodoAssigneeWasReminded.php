@@ -39,13 +39,11 @@ final class TodoAssigneeWasReminded extends AggregateChanged
     public static function forAssignee(TodoId $todoId, UserId $userId, TodoReminder $reminder)
     {
         $event = self::occur($todoId->toString(), [
-            'todo_id' => $todoId->toString(),
             'user_id' => $userId->toString(),
             'reminder' => $reminder->toString(),
             'reminder_status' => $reminder->status()->toString()
         ]);
 
-        $event->todoId = $todoId;
         $event->userId = $userId;
         $event->reminder = $reminder;
 
@@ -58,7 +56,7 @@ final class TodoAssigneeWasReminded extends AggregateChanged
     public function todoId()
     {
         if (!$this->todoId) {
-            $this->todoId = TodoId::fromString($this->payload['todo_id']);
+            $this->todoId = TodoId::fromString($this->aggregateId());
         }
 
         return $this->todoId;
