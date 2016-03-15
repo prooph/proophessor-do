@@ -11,21 +11,18 @@ use Prooph\ProophessorDo\Projection\Table;
  */
 class Version20160308110616 extends AbstractMigration
 {
-    /**
-     * @param Schema $schema
-     */
     public function up(Schema $schema)
     {
-        $todo = $schema->getTable(Table::TODO);
-        $todo->addColumn('reminded', 'boolean', ['default' => 0, 'notnull' => false, 'length' => 1]);
+        $user = $schema->createTable(Table::TODO_REMINDER);
+
+        $user->addColumn('todo_id', 'string', ['length' => 36]);
+        $user->addColumn('reminder', 'string', ['length' => 30]);
+        $user->addColumn('status', 'string', ['length' => 10]);
+        $user->setPrimaryKey(['todo_id']);
     }
 
-    /**
-     * @param Schema $schema
-     */
     public function down(Schema $schema)
     {
-        $todo = $schema->getTable(Table::TODO);
-        $todo->dropColumn('reminded');
+        $schema->dropTable(Table::TODO_REMINDER);
     }
 }

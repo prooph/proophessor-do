@@ -83,9 +83,11 @@ return [
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
+                            \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class,
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
+                            \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class,
                             \Prooph\ProophessorDo\App\Mail\SendTodoReminderMailSubscriber::class,
                         ],
                     ],

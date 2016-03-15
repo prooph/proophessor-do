@@ -3,6 +3,7 @@
 namespace ProophTest\ProophessorDo\Model\Todo;
 
 use Prooph\ProophessorDo\Model\Todo\TodoReminder;
+use Prooph\ProophessorDo\Model\Todo\TodoReminderStatus;
 use ProophTest\ProophessorDo\TestCase;
 
 /**
@@ -21,13 +22,14 @@ final class TodoReminderTest extends TestCase
      */
     public function it_correctly_validates_the_reminder($reminder, $inThePast)
     {
-        $reminder = TodoReminder::fromString($reminder);
-        $reminderInThePast = $reminder->isInThePast();
+        $reminder = TodoReminder::fromString($reminder, TodoReminderStatus::OPEN);
 
         if ($inThePast) {
-            $this->assertTrue($reminderInThePast);
+            $this->assertTrue($reminder->isInThePast());
+            $this->assertFalse($reminder->isInTheFuture());
         } else {
-            $this->assertFalse($reminderInThePast);
+            $this->assertFalse($reminder->isInThePast());
+            $this->assertTrue($reminder->isInTheFuture());
         }
     }
 
@@ -37,5 +39,26 @@ final class TodoReminderTest extends TestCase
             ['2047-02-01 10:00:00', false],
             ['1947-01-01 10:00:00', true],
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function it_knows_about_its_status()
+    {
+        $reminder = TodoReminder::fromString('2047-02-01 10:00:00', TodoReminderStatus::OPEN);
+        $this->assertTrue($reminder->isOpen());
+
+        $reminder = TodoReminder::fromString('2047-02-01 10:00:00', TodoReminderStatus::CLOSED);
+        $this->assertFalse($reminder->isOpen());
+    }
+
+    public function it_returns_a_new_reminder_with_status_closed_when_closed()
+    {
+        $reminder = TodoReminder::fromString('2047-02-01 10:00:00', TodoReminderStatus::OPEN);
+        $reminderClosed = $reminder->close();
+
+        $this->assertNotEquals($reminder, $reminderClosed);
+        $this->assertFalse($reminderClosed->isOpen());
     }
 }

@@ -15,6 +15,7 @@ use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoReminder;
+use Prooph\ProophessorDo\Model\Todo\TodoReminderStatus;
 use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
@@ -48,6 +49,6 @@ final class AddReminderToTodo extends Command implements PayloadConstructable
      */
     public function reminder()
     {
-        return TodoReminder::fromString($this->payload['reminder']);
+        return TodoReminder::fromString($this->payload['reminder'], TodoReminderStatus::OPEN);
     }
 }

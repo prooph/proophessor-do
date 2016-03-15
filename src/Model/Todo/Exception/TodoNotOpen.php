@@ -59,7 +59,21 @@ final class TodoNotOpen extends \RuntimeException
     public static function triedToAddReminder(TodoReminder $reminder, TodoStatus $status)
     {
         return new self(sprintf(
-            'Tried to reminder %s to a todo with status %s.',
+            'Tried to add reminder %s to a todo with status %s.',
+            $reminder->toString(),
+            $status->toString()
+        ));
+    }
+
+    /**
+     * @param TodoReminder $reminder
+     * @param TodoStatus $status
+     * @return TodoNotOpen
+     */
+    public static function triedToSendReminder(TodoReminder $reminder, TodoStatus $status)
+    {
+        return new self(sprintf(
+            'Tried to send a reminder %s for a todo with status %s.',
             $reminder->toString(),
             $status->toString()
         ));

@@ -12,6 +12,7 @@ namespace ProophTest\ProophessorDo\Model\Todo;
 
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Exception\InvalidReminder;
@@ -20,6 +21,8 @@ use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoReminder;
+use Prooph\ProophessorDo\Model\Todo\TodoReminderStatus;
+use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 use Prooph\ProophessorDo\Model\User\UserId;
 use ProophTest\ProophessorDo\TestCase;
 
@@ -101,7 +104,7 @@ final class TodoTest extends TestCase
     {
         $todoId = TodoId::generate();
         $userId = UserId::generate();
-        $deadline = TodoDeadline::fromString('2047-12-31 12:00:00', '2047-12-01 12:00:00');
+        $deadline = TodoDeadline::fromString('2047-12-31 12:00:00');
         $todo = Todo::post('Do something tomorrow', $userId, $todoId);
 
         $this->assertNull($todo->deadline());
@@ -192,7 +195,7 @@ final class TodoTest extends TestCase
     {
         $todoId = TodoId::generate();
         $userId = UserId::generate();
-        $reminder = TodoReminder::fromString('2047-12-31 12:00:00');
+        $reminder = TodoReminder::fromString('2047-12-31 12:00:00', TodoReminderStatus::OPEN);
         $todo = Todo::post('Do something tomorrow', $userId, $todoId);
         $this->popRecordedEvent($todo);
 
@@ -224,7 +227,9 @@ final class TodoTest extends TestCase
      */
     public function it_can_add_another_reminder_if_desired(Todo $todo)
     {
-        $todo->addReminder($todo->assigneeId(), TodoReminder::fromString('2047-12-11 12:00:00'));
+        $todo->addReminder(
+            $todo->assigneeId(), TodoReminder::fromString('2047-12-11 12:00:00', TodoReminderStatus::OPEN)
+        );
         $events = $this->popRecordedEvent($todo);
 
         $this->assertCount(1, $events);
@@ -242,7 +247,9 @@ final class TodoTest extends TestCase
     {
         $this->setExpectedException(InvalidReminder::class);
 
-        $todo->addReminder($todo->assigneeId(), TodoReminder::fromString('1980-12-11 12:00:00'));
+        $todo->addReminder(
+            $todo->assigneeId(), TodoReminder::fromString('1980-12-11 12:00:00', TodoReminderStatus::OPEN)
+        );
     }
 
     /**
@@ -254,7 +261,9 @@ final class TodoTest extends TestCase
     {
         $this->setExpectedException(InvalidReminder::class);
 
-        $todo->addReminder(UserId::generate(), TodoReminder::fromString('2047-12-11 12:00:00'));
+        $todo->addReminder(
+            UserId::generate(), TodoReminder::fromString('2047-12-11 12:00:00', TodoReminderStatus::OPEN)
+        );
     }
 
     /**
@@ -268,6 +277,94 @@ final class TodoTest extends TestCase
 
         $this->setExpectedException(TodoNotOpen::class);
 
-        $todo->addReminder($todo->assigneeId(), TodoReminder::fromString('2047-12-11 12:00:00'));
+        $todo->addReminder(
+            $todo->assigneeId(), TodoReminder::fromString('2047-12-11 12:00:00', TodoReminderStatus::OPEN)
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_remind_the_assignee()
+    {
+        $todo = $this->todoWithReminderInThePast();
+        $todo->remindAssignee(TodoReminder::fromString('2000-12-11 12:00:00', TodoReminderStatus::OPEN));
+
+        $events = $this->popRecordedEvent($todo);
+
+        $this->assertCount(1, $events);
+        $this->assertInstanceOf(TodoAssigneeWasReminded::class, $events[0]);
+
+        return $todo;
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_if_todo_is_closed_while_reminding_the_assignee()
+    {
+        $todo = $this->todoWithReminderInThePast();
+
+        $todo->markAsDone();
+
+        $this->setExpectedException(TodoNotOpen::class);
+
+        $todo->remindAssignee(TodoReminder::fromString('2000-12-11 12:00:00', TodoReminderStatus::OPEN));
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_if_assignee_should_be_notified_about_a_reminder_which_is_not_the_current_on()
+    {
+        $todo = $this->todoWithReminderInThePast();
+
+        $this->setExpectedException(InvalidReminder::class);
+
+        $todo->remindAssignee(TodoReminder::fromString('2046-12-11 12:00:00', TodoReminderStatus::OPEN));
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_if_assignee_should_be_notified_about_a_reminder_in_the_future()
+    {
+        $todo = $this->todoWithReminderInThePast();
+
+        $reminder = TodoReminder::fromString('2046-12-11 12:00:00', TodoReminderStatus::OPEN);
+        $todo->addReminder($todo->assigneeId(), $reminder);
+
+        $this->setExpectedException(InvalidReminder::class);
+        $todo->remindAssignee($reminder);
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_if_assignee_should_be_notified_about_a_closed_reminder()
+    {
+        $todo = $this->todoWithReminderInThePast();
+
+        $todo->remindAssignee(TodoReminder::fromString('2000-12-11 12:00:00', TodoReminderStatus::OPEN));
+
+        $this->setExpectedException(InvalidReminder::class);
+        $todo->remindAssignee(TodoReminder::fromString('2000-12-11 12:00:00', TodoReminderStatus::OPEN));
+    }
+
+    /**
+     * @return Todo
+     */
+    private function todoWithReminderInThePast()
+    {
+        $userId = UserId::generate();
+        $todoId = TodoId::generate();
+        $reminder = TodoReminder::fromString('2000-12-11 12:00:00', TodoReminderStatus::OPEN);
+
+        $events = [
+            TodoWasPosted::byUser($userId, 'test', $todoId, TodoStatus::open()),
+            ReminderWasAddedToTodo::byUserToDate($todoId, $userId, $reminder)
+        ];
+
+        return $this->reconstituteAggregateFromHistory(Todo::class, $events);
     }
 }

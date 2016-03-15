@@ -3,8 +3,9 @@
 namespace Prooph\ProophessorDo\Model\Todo\Event;
 
 use Prooph\EventSourcing\AggregateChanged;
-use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\TodoReminder;
+use Prooph\ProophessorDo\Model\Todo\TodoReminderStatus;
 use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
@@ -81,7 +82,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
     public function reminder()
     {
         if (!$this->reminder) {
-            $this->reminder = TodoReminder::fromString($this->payload['reminder']);
+            $this->reminder = TodoReminder::fromString($this->payload['reminder'], TodoReminderStatus::OPEN);
         }
 
         return $this->reminder;

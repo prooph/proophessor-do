@@ -4,10 +4,11 @@ namespace Prooph\ProophessorDo\Model\Todo\Event;
 
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
- * Class AssigneeWasNotified
+ * Class TodoAssigneeWasReminded
  *
  * @package Prooph\ProophessorDo\Model\Todo\Event
  * @author Roman Sachse <r.sachse@ipark-media.de>
@@ -25,25 +26,34 @@ final class TodoAssigneeWasReminded extends AggregateChanged
     private $userId;
 
     /**
+     * @var TodoReminder
+     */
+    private $reminder;
+
+    /**
      * @param TodoId $todoId
      * @param UserId $userId
-     * @return DeadlineWasAddedToTodo
+     * @param TodoReminder $reminder
+     * @return TodoAssigneeWasReminded
      */
-    public static function forAssignee(TodoId $todoId, UserId $userId)
+    public static function forAssignee(TodoId $todoId, UserId $userId, TodoReminder $reminder)
     {
         $event = self::occur($todoId->toString(), [
             'todo_id' => $todoId->toString(),
             'user_id' => $userId->toString(),
+            'reminder' => $reminder->toString(),
+            'reminder_status' => $reminder->status()->toString()
         ]);
 
         $event->todoId = $todoId;
         $event->userId = $userId;
+        $event->reminder = $reminder;
 
         return $event;
     }
 
     /**
-     * @return UserId
+     * @return TodoId
      */
     public function todoId()
     {
@@ -64,5 +74,17 @@ final class TodoAssigneeWasReminded extends AggregateChanged
         }
 
         return $this->userId;
+    }
+
+    /**
+     * @return TodoReminder
+     */
+    public function reminder()
+    {
+        if (!$this->reminder) {
+            $this->reminder = TodoReminder::fromString($this->payload['reminder'], $this->payload['reminder_status']);
+        }
+
+        return $this->reminder;
     }
 }

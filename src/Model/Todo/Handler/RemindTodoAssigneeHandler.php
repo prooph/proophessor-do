@@ -3,8 +3,9 @@ namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
 use Prooph\ProophessorDo\Model\Todo\Command\RemindTodoAssignee;
 use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotFound;
+use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
-use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
+use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 
 /**
  * Class RemindTodoAssigneeHandler
@@ -18,19 +19,13 @@ final class RemindTodoAssigneeHandler
      * @var TodoList
      */
     private $todoList;
-    /**
-     * @var TodoFinder
-     */
-    private $todoFinder;
 
     /**
      * @param TodoList $todoList
-     * @param TodoFinder $todoFinder
      */
-    public function __construct(TodoList $todoList, TodoFinder $todoFinder)
+    public function __construct(TodoList $todoList)
     {
         $this->todoList = $todoList;
-        $this->todoFinder = $todoFinder;
     }
 
     /**
@@ -43,23 +38,35 @@ final class RemindTodoAssigneeHandler
             throw TodoNotFound::withTodoId($command->todoId());
         }
 
-        $todoData = $this->todoFinder->findById($command->todoId()->toString());
+        $reminder = $todo->reminder();
 
-        if ($todoData->reminded) {
-            var_dump('do nothing, assignee already reminded');
+        if ($this->reminderShouldBeProcessed($todo, $reminder)) {
+            $todo->remindAssignee($reminder);
+        }
+    }
 
-            return;
+    /**
+     * @param Todo $todo
+     * @param TodoReminder $reminder
+     * @return bool
+     */
+    private function reminderShouldBeProcessed(Todo $todo, TodoReminder $reminder)
+    {
+        // drop command, wrong reminder
+        if (!$todo->reminder()->equals($reminder)) {
+            return false;
         }
 
-        $reminder = new \DateTimeImmutable($todoData->reminder, new \DateTimeZone('UTC'));
-        $now = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
-
-        if ($reminder > $now) {
-            var_dump('do nothing, reminder in future');
-
-            return;
+        // drop command, reminder is closed
+        if (!$reminder->isOpen()) {
+            return false;
         }
 
-        $todo->remindAssignee();
+        // drop command, reminder is in future
+        if ($reminder->isInTheFuture()) {
+            return false;
+        }
+
+        return true;
     }
 }
