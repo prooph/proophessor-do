@@ -11,7 +11,7 @@ use Prooph\ProophessorDo\Projection\User\UserFinder;
  * @package Prooph\ProophessorDo\App\Mail
  * @author Roman Sachse <r.sachse@ipark-media.de>
  */
-class SendTodoReminderMailSubscriber
+final class SendTodoReminderMailSubscriber
 {
     /**
      * @var UserFinder
@@ -32,6 +32,9 @@ class SendTodoReminderMailSubscriber
         $this->todoFinder = $todoFinder;
     }
 
+    /**
+     * @param TodoAssigneeWasReminded $event
+     */
     public function __invoke(TodoAssigneeWasReminded $event)
     {
         $user = $this->userFinder->findById($event->userId()->toString());

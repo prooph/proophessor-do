@@ -137,6 +137,10 @@ final class Todo extends AggregateRoot
         $this->recordThat(ReminderWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $reminder));
     }
 
+    /**
+     * @param TodoReminder $reminder
+     * @throws Exception\InvalidReminder
+     */
     public function remindAssignee(TodoReminder $reminder)
     {
         if ($this->status->isDone()) {

@@ -13,7 +13,7 @@ use Prooph\ProophessorDo\Projection\User\UserFinder;
  * @package Prooph\ProophessorDo\Container\Model\Todo
  * @author Roman Sachse <r.sachse@ipark-media.de>
  */
-class SendTodoReminderMailSubscriberFactory
+final class SendTodoReminderMailSubscriberFactory
 {
     /**
      * @param ContainerInterface $container

@@ -13,7 +13,7 @@ use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
  * @package Prooph\ProophessorDo\Container\Model\Todo
  * @author Roman Sachse <r.sachse@ipark-media.de>
  */
-class RemindTodoAssigneeHandlerFactory
+final class RemindTodoAssigneeHandlerFactory
 {
     /**
      * @param ContainerInterface $container
