@@ -14,8 +14,10 @@ use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Exception\InvalidReminder;
+use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotExpired;
 use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotOpen;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
@@ -366,5 +368,75 @@ final class TodoTest extends TestCase
         ];
 
         return $this->reconstituteAggregateFromHistory(Todo::class, $events);
+    }
+
+    /**
+     * @test
+     */
+    public function it_marks_an_open_todo_as_expired()
+    {
+        $todoId   = TodoId::generate();
+        $userId   = UserId::generate();
+        $deadline = TodoDeadline::fromString('yesterday');
+
+        $reflectionMethod = new \ReflectionProperty($deadline, 'createdOn');
+        $reflectionMethod->setAccessible(true);
+        $reflectionMethod->setValue($deadline, new \DateTimeImmutable('2 days ago'));
+        $reflectionMethod->setAccessible(false);
+
+        $todo = Todo::post('Do something that will be forgotten', $userId, $todoId);
+
+        $todo->addDeadline($userId, $deadline);
+        $todo->markAsExpired();
+
+        $events = $this->popRecordedEvent($todo);
+
+        $this->assertEquals(3, count($events));
+        $this->assertInstanceOf(TodoWasMarkedAsExpired::class, $events[2]);
+
+        $expectedPayload = [
+            'old_status' => 'open',
+            'new_status' => 'expired',
+        ];
+        $this->assertEquals($expectedPayload, $events[2]->payload());
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_marking_an_open_todo_before_the_deadline()
+    {
+        $todoId   = TodoId::generate();
+        $userId   = UserId::generate();
+        $deadline = TodoDeadline::fromString('2047-12-31 12:00:00');
+        $todo     = Todo::post('Do something before the deadline', $userId, $todoId);
+
+        $todo->addDeadline($userId, $deadline);
+
+        $this->setExpectedException(
+            TodoNotExpired::class,
+            'Tried to mark a non-expired Todo as expired.  Todo will expire after '
+            . 'the deadline 2047-12-31T12:00:00+00:00.'
+        );
+
+        $todo->markAsExpired();
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_marking_a_completed_todo_as_expired()
+    {
+        $todoId   = TodoId::generate();
+        $userId   = UserId::generate();
+        $deadline = TodoDeadline::fromString('2047-12-31 12:00:00');
+        $todo     = Todo::post('Do something fun', $userId, $todoId);
+
+        $todo->addDeadline($userId, $deadline);
+        $todo->markAsDone();
+
+        $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status done.');
+
+        $todo->markAsExpired();
     }
 }

@@ -16,6 +16,7 @@ use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
 use Prooph\ProophessorDo\Model\User\UserId;
@@ -88,6 +89,26 @@ final class Todo extends AggregateRoot
             throw Exception\TodoNotOpen::triedStatus($status, $this);
         }
         $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->todoId, $this->status, $status));
+    }
+
+    /**
+     * @return null
+     * @throws Exception\TodoNotExpired
+     * @throws Exception\TodoNotOpen
+     */
+    public function markAsExpired()
+    {
+        $status = TodoStatus::fromString(TodoStatus::EXPIRED);
+
+        if (!$this->status->isOpen()) {
+            throw Exception\TodoNotOpen::triedToExpire($this->status, $this);
+        }
+
+        if ($this->deadline->isMet()) {
+            throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
+        }
+
+        $this->recordThat(TodoWasMarkedAsExpired::fromStatus($this->todoId, $this->status, $status));
     }
 
     /**
@@ -242,6 +263,14 @@ final class Todo extends AggregateRoot
      * @param TodoWasMarkedAsDone $event
      */
     protected function whenTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
+    {
+        $this->status = $event->newStatus();
+    }
+
+    /**
+     * @param TodoWasMarkedAsExpired $event
+     */
+    protected function whenTodoWasMarkedAsExpired(TodoWasMarkedAsExpired $event)
     {
         $this->status = $event->newStatus();
     }
