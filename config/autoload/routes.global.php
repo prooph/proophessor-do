@@ -143,5 +143,19 @@ return [
                 ],
             ],
         ],
+        [
+            'name' => 'command::mark-todo-as-expired',
+            'path' => '/api/commands/mark-todo-as-expired',
+            'middleware' => [
+                \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+                \Prooph\Psr7Middleware\CommandMiddleware::class,
+            ],
+            'allowed_methods' => ['POST'],
+            'options' => [
+                'values' => [
+                    \Prooph\Psr7Middleware\CommandMiddleware::NAME_ATTRIBUTE => \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsExpired::class,
+                ],
+            ],
+        ],
     ],
 ];
