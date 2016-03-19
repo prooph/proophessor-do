@@ -91,6 +91,10 @@ return [
                             \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class,
                             \Prooph\ProophessorDo\App\Mail\SendTodoReminderMailSubscriber::class,
                         ],
+                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired::class => [
+                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
+                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
+                        ],
                     ],
                 ],
             ],

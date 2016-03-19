@@ -9,7 +9,12 @@
         <?php else: ?>
             <div class="list-group">
                 <?php foreach ($this->users as $user) : ?>
-                    <a href="<?php echo $this->url('page::user-todo-list', ['user_id' => $user->id]) ?>" class="list-group-item"><strong><?php echo $this->escapeHtml($user->name) ?></strong><small class="text-info">&nbsp;&nbsp;open Todos: <?php echo $user->open_todos + $user->expired_todos ?>&nbsp;&nbsp;|&nbsp;&nbsp;closed Todos:&nbsp;<?php echo $user->done_todos ?></small></a>
+                    <a href="<?php echo $this->url('page::user-todo-list', ['user_id' => $user->id]) ?>" class="list-group-item"><strong><?php echo $this->escapeHtml($user->name) ?></strong>
+                    <small class="text-info">
+                        &nbsp;&nbsp;open Todos: <?php echo $user->open_todos + $user->expired_todos ?>&nbsp;&nbsp;|
+                        &nbsp;&nbsp;expired Todos: <?php echo $user->expired_todos ?>&nbsp;&nbsp;|
+                        &nbsp;&nbsp;closed Todos:&nbsp;<?php echo $user->done_todos ?>
+                    </small></a>
                 <?php endforeach;?>
             </div>
         <?php endif; ?>
