@@ -28,10 +28,10 @@ function markExpiredTodos()
 
     $todoFinder = $container->get(TodoFinder::class);
 
-    $todos = $todoFinder->findOpendWithPastTheirDeadline();
+    $todos = $todoFinder->findOpenWithPastTheirDeadline();
 
     if (empty($todos)) {
-        echo "No open todos with deadline that are expired.";
+        echo "\033[1;32mNo open todo with past its deadline found!\033[42m\n";
         exit(1);
     }
 
@@ -45,5 +45,5 @@ function markExpiredTodos()
         $commandBus->dispatch($command);
     }
 
-    echo "All todos past their deadline are now marked as expired.";
+    echo "\033[1;32mAll todos past their deadline are now marked as expired!\033[42m\n";
 }

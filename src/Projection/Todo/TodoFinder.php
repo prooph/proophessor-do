@@ -89,11 +89,11 @@ final class TodoFinder
     /**
      * @return \stdClass[] of todoData
      */
-    public function findOpendWithPastTheirDeadline()
+    public function findOpenWithPastTheirDeadline()
     {
         return $this->connection->fetchAll(
             sprintf(
-                "SELECT * FROM %s WHERE status = :status AND deadline < NOW()",
+                "SELECT * FROM %s WHERE status = :status AND deadline < CONVERT_TZ(NOW(), @@session.time_zone, '+00:00')",
                 Table::TODO
             ), [
                 'status' => TodoStatus::OPEN,
