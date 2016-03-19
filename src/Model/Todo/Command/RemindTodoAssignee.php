@@ -1,13 +1,4 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- *
- * Date: 2/16/16
- */
 namespace Prooph\ProophessorDo\Model\Todo\Command;
 
 use Prooph\Common\Messaging\Command;
@@ -15,26 +6,32 @@ use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoReminder;
-use Prooph\ProophessorDo\Model\Todo\TodoReminderStatus;
-use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
- * Class AddReminderToTodo
+ * Class RemindTodoAssignee
  *
  * @package Prooph\ProophessorDo\Model\Todo
  * @author Roman Sachse <r.sachse@ipark-media.de>
  */
-final class AddReminderToTodo extends Command implements PayloadConstructable
+final class RemindTodoAssignee extends Command implements PayloadConstructable
 {
     use PayloadTrait;
 
     /**
-     * @return UserId
+     *
+     * @param TodoId $todoId
+     * @param TodoReminder $todoReminder
+     * @return RemindTodoAssignee
      */
-    public function userId()
+    public static function forTodo(TodoId $todoId, TodoReminder $todoReminder)
     {
-        return UserId::fromString($this->payload['user_id']);
+        return new self([
+            'todo_id' => $todoId->toString(),
+            'reminder' => $todoReminder->toString(),
+            'reminder_status' => $todoReminder->status()->toString()
+        ]);
     }
+
 
     /**
      * @return TodoId
@@ -49,6 +46,6 @@ final class AddReminderToTodo extends Command implements PayloadConstructable
      */
     public function reminder()
     {
-        return TodoReminder::fromString($this->payload['reminder'], TodoReminderStatus::OPEN);
+        return TodoReminder::fromString($this->payload['reminder'], $this->payload['reminder_status']);
     }
 }

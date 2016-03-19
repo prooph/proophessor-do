@@ -45,7 +45,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
     {
         return $this->getAggregateTranslator()->reconstituteAggregateFromHistory(
             AggregateType::fromAggregateRootClass($aggregateRootClass),
-            $events
+            new \ArrayIterator($events)
         );
     }
 

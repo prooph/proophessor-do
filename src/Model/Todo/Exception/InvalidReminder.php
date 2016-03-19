@@ -35,9 +35,42 @@ final class InvalidReminder extends \Exception
     public static function reminderInThePast(TodoReminder $reminder)
     {
         return new self(sprintf(
-            'Provided reminder %s is in the past from %s',
-            $reminder->toString(),
-            $reminder->createdOn()
+            'Provided reminder %s is in the past',
+            $reminder->toString()
+        ));
+    }
+
+    /**
+     * @param TodoReminder $reminder
+     * @return InvalidReminder
+     */
+    public static function reminderInTheFuture(TodoReminder $reminder)
+    {
+        return new self(sprintf(
+            'Provided reminder %s is in the future',
+            $reminder->toString()
+        ));
+    }
+
+    /**
+     * @return InvalidReminder
+     */
+    public static function alreadyReminded()
+    {
+        return new self('The assignee was already reminded.');
+    }
+
+    /**
+     * @param TodoReminder $expected
+     * @param TodoReminder $actual
+     * @return InvalidReminder
+     */
+    public static function reminderNotCurrent(TodoReminder $expected, TodoReminder $actual)
+    {
+        return new self(sprintf(
+            'Notification for reminder %s can not be send, because %s is the current one.',
+            $actual->toString(),
+            $expected->toString()
         ));
     }
 }

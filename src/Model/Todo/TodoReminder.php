@@ -16,26 +16,39 @@ final class TodoReminder
     private $reminder;
 
     /**
-     * @var \DateTimeImmutable
+     * @var TodoReminderStatus
      */
-    private $createdOn;
+    private $status;
 
     /**
      * @param string $reminder
+     * @param string $status
      * @return TodoReminder
      */
-    public static function fromString($reminder)
+    public static function fromString($reminder, $status)
     {
-        return new self($reminder);
+        return new self(
+            new \DateTimeImmutable($reminder, new \DateTimeZone('UTC')),
+            TodoReminderStatus::fromString($status)
+        );
     }
 
     /**
      * @param string $reminder
+     * @param TodoReminderStatus $status
      */
-    private function __construct($reminder)
+    private function __construct($reminder, TodoReminderStatus $status)
     {
-        $this->reminder = new \DateTimeImmutable($reminder, new \DateTimeZone('UTC'));
-        $this->createdOn = new \DateTimeImmutable("now", new \DateTimeZone('UTC'));
+        $this->reminder = $reminder;
+        $this->status = $status;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOpen()
+    {
+        return $this->status->isOpen();
     }
 
     /**
@@ -43,7 +56,32 @@ final class TodoReminder
      */
     public function isInThePast()
     {
-        return $this->reminder < $this->createdOn;
+        return $this->reminder < new \DateTimeImmutable("now", new \DateTimeZone('UTC'));
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInTheFuture()
+    {
+        return $this->reminder > new \DateTimeImmutable("now", new \DateTimeZone('UTC'));
+    }
+
+    /**
+     * @return TodoReminderStatus
+     */
+    public function status()
+    {
+        return $this->status;
+    }
+
+
+    /**
+     * @return TodoReminder
+     */
+    public function close()
+    {
+        return new self($this->reminder, TodoReminderStatus::closed());
     }
 
     /**
@@ -54,11 +92,8 @@ final class TodoReminder
         return $this->reminder->format(\DateTime::ATOM);
     }
 
-    /**
-     * @return string
-     */
-    public function createdOn()
+    public function equals(TodoReminder $todoReminder)
     {
-        return $this->createdOn->format(\DateTime::ATOM);
+        return $this->toString() === $todoReminder->toString();
     }
 }

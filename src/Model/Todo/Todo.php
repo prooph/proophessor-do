@@ -10,14 +10,15 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo;
 
-use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
-use Prooph\ProophessorDo\Model\User\UserId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class Todo
@@ -53,9 +54,14 @@ final class Todo extends AggregateRoot
     private $deadline;
 
     /**
-     * @var \DateTimeImmutable
+     * @var TodoReminder
      */
     private $reminder;
+
+    /**
+     * @var bool
+     */
+    private $reminded = false;
 
     /**
      * @param string $text
@@ -68,6 +74,7 @@ final class Todo extends AggregateRoot
         $self = new self();
         $self->assertText($text);
         $self->recordThat(TodoWasPosted::byUser($assigneeId, $text, $todoId, TodoStatus::open()));
+
         return $self;
     }
 
@@ -130,6 +137,31 @@ final class Todo extends AggregateRoot
         $this->recordThat(ReminderWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $reminder));
     }
 
+    /**
+     * @param TodoReminder $reminder
+     * @throws Exception\InvalidReminder
+     */
+    public function remindAssignee(TodoReminder $reminder)
+    {
+        if ($this->status->isDone()) {
+            throw Exception\TodoNotOpen::triedToAddReminder($reminder, $this->status);
+        }
+
+        if (!$this->reminder->equals($reminder)) {
+            throw Exception\InvalidReminder::reminderNotCurrent($this->reminder, $reminder);
+        }
+
+        if (!$this->reminder->isOpen()) {
+            throw Exception\InvalidReminder::alreadyReminded();
+        }
+
+        if ($reminder->isInTheFuture()) {
+            throw Exception\InvalidReminder::reminderInTheFuture($reminder);
+        }
+
+        $this->recordThat(TodoAssigneeWasReminded::forAssignee($this->todoId, $this->assigneeId, $reminder->close()));
+    }
+
     public function reopenTodo()
     {
         if (!$this->status->isDone()) {
@@ -148,11 +180,19 @@ final class Todo extends AggregateRoot
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return TodoReminder
      */
     public function reminder()
     {
         return $this->reminder;
+    }
+
+    /**
+     * @return bool
+     */
+    public function assigneeWasReminded()
+    {
+        return $this->reminded;
     }
 
     /**
@@ -223,12 +263,20 @@ final class Todo extends AggregateRoot
         $this->deadline = $event->deadline();
     }
 
-
     /**
      * @param ReminderWasAddedToTodo $event
      * @return void
      */
     protected function whenReminderWasAddedToTodo(ReminderWasAddedToTodo $event)
+    {
+        $this->reminder = $event->reminder();
+    }
+
+    /**
+     * @param TodoAssigneeWasReminded $event
+     * @return void
+     */
+    protected function whenTodoAssigneeWasReminded(TodoAssigneeWasReminded $event)
     {
         $this->reminder = $event->reminder();
     }

@@ -5,16 +5,15 @@ namespace Prooph\ProophessorDo\Model\Todo\Event;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoReminder;
-use Prooph\ProophessorDo\Model\Todo\TodoReminderStatus;
 use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
- * Class ReminderWasAddedToTodo
+ * Class TodoAssigneeWasReminded
  *
  * @package Prooph\ProophessorDo\Model\Todo\Event
  * @author Roman Sachse <r.sachse@ipark-media.de>
  */
-final class ReminderWasAddedToTodo extends AggregateChanged
+final class TodoAssigneeWasReminded extends AggregateChanged
 {
     /**
      * @var TodoId
@@ -35,17 +34,16 @@ final class ReminderWasAddedToTodo extends AggregateChanged
      * @param TodoId $todoId
      * @param UserId $userId
      * @param TodoReminder $reminder
-     * @return ReminderWasAddedToTodo
+     * @return TodoAssigneeWasReminded
      */
-    public static function byUserToDate(TodoId $todoId, UserId $userId, TodoReminder $reminder)
+    public static function forAssignee(TodoId $todoId, UserId $userId, TodoReminder $reminder)
     {
         $event = self::occur($todoId->toString(), [
-            'todo_id' => $todoId->toString(),
             'user_id' => $userId->toString(),
             'reminder' => $reminder->toString(),
+            'reminder_status' => $reminder->status()->toString()
         ]);
 
-        $event->todoId = $todoId;
         $event->userId = $userId;
         $event->reminder = $reminder;
 
@@ -53,12 +51,12 @@ final class ReminderWasAddedToTodo extends AggregateChanged
     }
 
     /**
-     * @return UserId
+     * @return TodoId
      */
     public function todoId()
     {
         if (!$this->todoId) {
-            $this->todoId = TodoId::fromString($this->payload['todo_id']);
+            $this->todoId = TodoId::fromString($this->aggregateId());
         }
 
         return $this->todoId;
@@ -82,7 +80,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
     public function reminder()
     {
         if (!$this->reminder) {
-            $this->reminder = TodoReminder::fromString($this->payload['reminder'], TodoReminderStatus::OPEN);
+            $this->reminder = TodoReminder::fromString($this->payload['reminder'], $this->payload['reminder_status']);
         }
 
         return $this->reminder;

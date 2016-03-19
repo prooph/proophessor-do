@@ -10,13 +10,13 @@
  */
 namespace Prooph\ProophessorDo\Projection\Todo;
 
+use Doctrine\DBAL\Connection;
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
 use Prooph\ProophessorDo\Projection\Table;
-use Doctrine\DBAL\Connection;
 
 /**
  * Class TodoProjector
