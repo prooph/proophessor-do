@@ -372,6 +372,7 @@ final class TodoTest extends TestCase
 
     /**
      * @test
+     * @return Todo $todo
      */
     public function it_marks_an_open_todo_as_expired()
     {
@@ -399,6 +400,8 @@ final class TodoTest extends TestCase
             'new_status' => 'expired',
         ];
         $this->assertEquals($expectedPayload, $events[2]->payload());
+
+        return $todo;
     }
 
     /**
@@ -436,6 +439,18 @@ final class TodoTest extends TestCase
         $todo->markAsDone();
 
         $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status done.');
+
+        $todo->markAsExpired();
+    }
+
+    /**
+     * @test
+     * @param Todo $todo
+     * @depends it_marks_an_open_todo_as_expired
+     */
+    public function it_throws_an_exception_when_marking_a_todo_as_expired_when_it_has_already_been_marked_as_expired(Todo $todo)
+    {
+        $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status expired.');
 
         $todo->markAsExpired();
     }

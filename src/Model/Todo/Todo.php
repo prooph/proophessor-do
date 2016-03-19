@@ -100,7 +100,7 @@ final class Todo extends AggregateRoot
     {
         $status = TodoStatus::fromString(TodoStatus::EXPIRED);
 
-        if (!$this->status->isOpen()) {
+        if (!$this->status->isOpen() || $this->status->isExpired()) {
             throw Exception\TodoNotOpen::triedToExpire($this->status, $this);
         }
 
