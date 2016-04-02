@@ -16,6 +16,7 @@ use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Exception\InvalidReminder;
 use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotExpired;
 use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotOpen;
@@ -453,5 +454,30 @@ final class TodoTest extends TestCase
         $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status expired.');
 
         $todo->markAsExpired();
+    }
+
+    /**
+     * @test
+     * @return Todo $todo
+     * @depends it_marks_an_open_todo_as_expired
+     */
+    public function it_unmarks_an_expired_todo_when_deadline_is_added(Todo $todo)
+    {
+        $userId   = $todo->assigneeId();
+        $deadline = TodoDeadline::fromString('yesterday');
+
+        $reflectionMethod = new \ReflectionProperty($deadline, 'createdOn');
+        $reflectionMethod->setAccessible(true);
+        $reflectionMethod->setValue($deadline, new \DateTimeImmutable('2 days ago'));
+        $reflectionMethod->setAccessible(false);
+
+        $todo->addDeadline($userId, $deadline);
+
+        $events = $this->popRecordedEvent($todo);
+
+        $this->assertEquals(2, count($events));
+        $this->assertInstanceOf(TodoWasUnmarkedAsExpired::class, $events[1]);
+
+        return $todo;
     }
 }

@@ -33,7 +33,8 @@
         <div class="col-md-1 text-right">
             <span
                 class="{glyphicon: true, glyphicon-check: status == 'done', text-success: status == 'done', glyphicon-warning-sign: status == 'expired', glyphicon-unchecked: status == 'open'}"
-                onclick="{ changeTodoStatus }"></span>
+                onclick="{ changeTodoStatus }"
+                title="{status == 'expired' ? 'Expired' : (status == 'done' ? 'Done' : '')}"></span>
         </div>
     </div>
 </div>
@@ -81,7 +82,6 @@
             }
         }
 
-
         self.isExpired = function () {
             if (!self.deadline) return false;
             if (self.status == 'done') return false;
@@ -125,6 +125,7 @@
                 }
             ).then(function () {
                     self.deadline = newDeadline;
+                    self.status = 'open';
                     self.update();
                 },
                 $.failNotify
