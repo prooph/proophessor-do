@@ -381,26 +381,25 @@ final class TodoTest extends TestCase
         $userId   = UserId::generate();
         $deadline = TodoDeadline::fromString('yesterday');
 
-        $reflectionMethod = new \ReflectionProperty($deadline, 'createdOn');
-        $reflectionMethod->setAccessible(true);
-        $reflectionMethod->setValue($deadline, new \DateTimeImmutable('2 days ago'));
-        $reflectionMethod->setAccessible(false);
+        $events = [
+            TodoWasPosted::byUser($userId, 'Do something that will be forgotten', $todoId, TodoStatus::open()),
+            DeadlineWasAddedToTodo::byUserToDate($todoId, $userId, $deadline),
+        ];
 
-        $todo = Todo::post('Do something that will be forgotten', $userId, $todoId);
+        $todo = $this->reconstituteAggregateFromHistory(Todo::class, $events);
 
-        $todo->addDeadline($userId, $deadline);
         $todo->markAsExpired();
 
         $events = $this->popRecordedEvent($todo);
 
-        $this->assertEquals(3, count($events));
-        $this->assertInstanceOf(TodoWasMarkedAsExpired::class, $events[2]);
+        $this->assertEquals(1, count($events));
+        $this->assertInstanceOf(TodoWasMarkedAsExpired::class, $events[0]);
 
         $expectedPayload = [
             'old_status' => 'open',
             'new_status' => 'expired',
         ];
-        $this->assertEquals($expectedPayload, $events[2]->payload());
+        $this->assertEquals($expectedPayload, $events[0]->payload());
 
         return $todo;
     }
@@ -464,12 +463,7 @@ final class TodoTest extends TestCase
     public function it_unmarks_an_expired_todo_when_deadline_is_added(Todo $todo)
     {
         $userId   = $todo->assigneeId();
-        $deadline = TodoDeadline::fromString('yesterday');
-
-        $reflectionMethod = new \ReflectionProperty($deadline, 'createdOn');
-        $reflectionMethod->setAccessible(true);
-        $reflectionMethod->setValue($deadline, new \DateTimeImmutable('2 days ago'));
-        $reflectionMethod->setAccessible(false);
+        $deadline = TodoDeadline::fromString('1 day');
 
         $todo->addDeadline($userId, $deadline);
 
