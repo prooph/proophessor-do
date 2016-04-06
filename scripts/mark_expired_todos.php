@@ -39,7 +39,7 @@ function markExpiredTodos()
 
     foreach ($todos as $todo) {
         $command = new MarkTodoAsExpired([
-            'todo_id' => $todo['id'],
+            'todo_id' => $todo->id,
         ]);
 
         $commandBus->dispatch($command);
