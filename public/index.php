@@ -7,6 +7,9 @@ if (php_sapi_name() === 'cli-server'
     return false;
 }
 
+//Workaround for https://github.com/prooph/proophessor-do/issues/64
+error_reporting(E_ALL & ~E_NOTICE);
+
 chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
 
