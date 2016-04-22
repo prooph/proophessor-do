@@ -14,8 +14,10 @@ use Doctrine\DBAL\Connection;
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
 use Prooph\ProophessorDo\Projection\Table;
 
 /**
@@ -112,6 +114,36 @@ final class TodoProjector
             ],
             [
                 'id' => $event->todoId()->toString(),
+            ]
+        );
+    }
+
+    /**
+     * @param TodoWasMarkedAsExpired $event
+     */
+    public function onTodoWasMarkedAsExpired(TodoWasMarkedAsExpired $event)
+    {
+        $this->connection->update(Table::TODO,
+            [
+                'status' => $event->newStatus()->toString()
+            ],
+            [
+                'id' => $event->todoId()->toString()
+            ]
+        );
+    }
+
+    /**
+     * @param TodoWasUnmarkedAsExpired $event
+     */
+    public function onTodoWasUnmarkedAsExpired(TodoWasUnmarkedAsExpired $event)
+    {
+        $this->connection->update(Table::TODO,
+            [
+                'status' => $event->newStatus()->toString()
+            ],
+            [
+                'id' => $event->todoId()->toString()
             ]
         );
     }

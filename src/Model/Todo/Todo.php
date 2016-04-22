@@ -16,8 +16,10 @@ use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
 use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
@@ -112,6 +114,63 @@ final class Todo extends AggregateRoot
         }
 
         $this->recordThat(DeadlineWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $deadline));
+
+        if ($this->isMarkedAsExpired()) {
+            $this->unmarkAsExpired();
+        }
+    }
+
+    /**
+     * @return null
+     * @throws Exception\TodoNotExpired
+     * @throws Exception\TodoNotOpen
+     */
+    public function markAsExpired()
+    {
+        $status = TodoStatus::fromString(TodoStatus::EXPIRED);
+
+        if (!$this->status->isOpen() || $this->status->isExpired()) {
+            throw Exception\TodoNotOpen::triedToExpire($this->status, $this);
+        }
+
+        if ($this->deadline->isMet()) {
+            throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
+        }
+
+        $this->recordThat(TodoWasMarkedAsExpired::fromStatus($this->todoId, $this->status, $status));
+    }
+
+    /**
+     * @return null
+     * @throws Exception\TodoNotExpired
+     */
+    public function unmarkAsExpired()
+    {
+        $status = TodoStatus::fromString(TodoStatus::OPEN);
+
+        if (!$this->isMarkedAsExpired()) {
+            throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
+        }
+
+        $this->recordThat(TodoWasUnmarkedAsExpired::fromStatus($this->todoId, $this->status, $status));
+    }
+
+    private function isExpired()
+    {
+        if (!$this->status->isOpen() || $this->status->isExpired()) {
+            return false;
+        }
+
+        if ($this->deadline->isMet()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function isMarkedAsExpired()
+    {
+        return $this->status->isExpired();
     }
 
     /**
@@ -242,6 +301,22 @@ final class Todo extends AggregateRoot
      * @param TodoWasMarkedAsDone $event
      */
     protected function whenTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
+    {
+        $this->status = $event->newStatus();
+    }
+
+    /**
+     * @param TodoWasMarkedAsExpired $event
+     */
+    protected function whenTodoWasMarkedAsExpired(TodoWasMarkedAsExpired $event)
+    {
+        $this->status = $event->newStatus();
+    }
+
+    /**
+     * @param TodoWasUnmarkedAsExpired $event
+     */
+    protected function whenTodoWasUnmarkedAsExpired(TodoWasUnmarkedAsExpired $event)
     {
         $this->status = $event->newStatus();
     }

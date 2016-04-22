@@ -61,4 +61,12 @@ final class TodoDeadline
     {
         return $this->createdOn->format(\DateTime::ATOM);
     }
+
+    /**
+     * @return bool
+     */
+    public function isMet()
+    {
+        return $this->deadline > new \DateTimeImmutable;
+    }
 }

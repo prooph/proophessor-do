@@ -76,7 +76,6 @@ final class TodoFinder
         return $stmt->fetch();
     }
 
-
     /**
      * @return \stdClass[] of todoData
      */
@@ -85,5 +84,20 @@ final class TodoFinder
         $stmt = $this->connection->prepare(sprintf("SELECT * FROM %s where reminder < NOW() AND reminded = 0", Table::TODO));
         $stmt->execute();
         return $stmt->fetchAll();
+    }
+
+    /**
+     * @return \stdClass[] of todoData
+     */
+    public function findOpenWithPastTheirDeadline()
+    {
+        return $this->connection->fetchAll(
+            sprintf(
+                "SELECT * FROM %s WHERE status = :status AND deadline < CONVERT_TZ(NOW(), @@session.time_zone, '+00:00')",
+                Table::TODO
+            ), [
+                'status' => TodoStatus::OPEN,
+            ]
+        );
     }
 }

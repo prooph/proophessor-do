@@ -14,8 +14,11 @@ use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Exception\InvalidReminder;
+use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotExpired;
 use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotOpen;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
@@ -366,5 +369,109 @@ final class TodoTest extends TestCase
         ];
 
         return $this->reconstituteAggregateFromHistory(Todo::class, $events);
+    }
+
+    /**
+     * @test
+     * @return Todo $todo
+     */
+    public function it_marks_an_open_todo_as_expired()
+    {
+        $todoId   = TodoId::generate();
+        $userId   = UserId::generate();
+        $deadline = TodoDeadline::fromString('yesterday');
+
+        $events = [
+            TodoWasPosted::byUser($userId, 'Do something that will be forgotten', $todoId, TodoStatus::open()),
+            DeadlineWasAddedToTodo::byUserToDate($todoId, $userId, $deadline),
+        ];
+
+        $todo = $this->reconstituteAggregateFromHistory(Todo::class, $events);
+
+        $todo->markAsExpired();
+
+        $events = $this->popRecordedEvent($todo);
+
+        $this->assertEquals(1, count($events));
+        $this->assertInstanceOf(TodoWasMarkedAsExpired::class, $events[0]);
+
+        $expectedPayload = [
+            'old_status' => 'open',
+            'new_status' => 'expired',
+        ];
+        $this->assertEquals($expectedPayload, $events[0]->payload());
+
+        return $todo;
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_marking_an_open_todo_before_the_deadline()
+    {
+        $todoId   = TodoId::generate();
+        $userId   = UserId::generate();
+        $deadline = TodoDeadline::fromString('2047-12-31 12:00:00');
+        $todo     = Todo::post('Do something before the deadline', $userId, $todoId);
+
+        $todo->addDeadline($userId, $deadline);
+
+        $this->setExpectedException(
+            TodoNotExpired::class,
+            'Tried to mark a non-expired Todo as expired.  Todo will expire after '
+            . 'the deadline 2047-12-31T12:00:00+00:00.'
+        );
+
+        $todo->markAsExpired();
+    }
+
+    /**
+     * @test
+     */
+    public function it_throws_an_exception_when_marking_a_completed_todo_as_expired()
+    {
+        $todoId   = TodoId::generate();
+        $userId   = UserId::generate();
+        $deadline = TodoDeadline::fromString('2047-12-31 12:00:00');
+        $todo     = Todo::post('Do something fun', $userId, $todoId);
+
+        $todo->addDeadline($userId, $deadline);
+        $todo->markAsDone();
+
+        $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status done.');
+
+        $todo->markAsExpired();
+    }
+
+    /**
+     * @test
+     * @param Todo $todo
+     * @depends it_marks_an_open_todo_as_expired
+     */
+    public function it_throws_an_exception_when_marking_a_todo_as_expired_when_it_has_already_been_marked_as_expired(Todo $todo)
+    {
+        $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status expired.');
+
+        $todo->markAsExpired();
+    }
+
+    /**
+     * @test
+     * @return Todo $todo
+     * @depends it_marks_an_open_todo_as_expired
+     */
+    public function it_unmarks_an_expired_todo_when_deadline_is_added(Todo $todo)
+    {
+        $userId   = $todo->assigneeId();
+        $deadline = TodoDeadline::fromString('1 day');
+
+        $todo->addDeadline($userId, $deadline);
+
+        $events = $this->popRecordedEvent($todo);
+
+        $this->assertEquals(2, count($events));
+        $this->assertInstanceOf(TodoWasUnmarkedAsExpired::class, $events[1]);
+
+        return $todo;
     }
 }
