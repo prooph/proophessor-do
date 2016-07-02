@@ -28,17 +28,9 @@ final class SendTodoReminderMailSubscriberFactory implements RequiresConfig, Req
     /**
      * @inheritdoc
      */
-    public function vendorName()
+    public function dimensions()
     {
-        return 'proophessor-do';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function packageName()
-    {
-        return 'mail';
+        return ['proophessor-do', 'mail'];
     }
 
     /**

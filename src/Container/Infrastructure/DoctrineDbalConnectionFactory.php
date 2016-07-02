@@ -12,7 +12,7 @@ namespace Prooph\ProophessorDo\Container\Infrastructure;
 
 use Doctrine\DBAL\DriverManager;
 use Interop\Config\ConfigurationTrait;
-use Interop\Config\RequiresContainerId;
+use Interop\Config\RequiresConfigId;
 use Interop\Config\RequiresMandatoryOptions;
 use Interop\Container\ContainerInterface;
 
@@ -21,7 +21,7 @@ use Interop\Container\ContainerInterface;
  *
  * @package src\Infrastructure\Container
  */
-final class DoctrineDbalConnectionFactory implements RequiresContainerId, RequiresMandatoryOptions
+final class DoctrineDbalConnectionFactory implements RequiresConfigId, RequiresMandatoryOptions
 {
     use ConfigurationTrait;
 
@@ -32,7 +32,7 @@ final class DoctrineDbalConnectionFactory implements RequiresContainerId, Requir
      */
     public function __invoke(ContainerInterface $container)
     {
-        $options = $this->options($container->get('config'));
+        $options = $this->options($container->get('config'), 'default');
 
         return DriverManager::getConnection($options);
     }
@@ -42,29 +42,9 @@ final class DoctrineDbalConnectionFactory implements RequiresContainerId, Requir
      *
      * @return string
      */
-    public function vendorName()
+    public function dimensions()
     {
-        return 'doctrine';
-    }
-
-    /**
-     * Returns the package name
-     *
-     * @return string
-     */
-    public function packageName()
-    {
-        return 'connection';
-    }
-
-    /**
-     * Returns the container identifier
-     *
-     * @return string
-     */
-    public function containerId()
-    {
-        return 'default';
+        return ['doctrine', 'connection'];
     }
 
     /**
