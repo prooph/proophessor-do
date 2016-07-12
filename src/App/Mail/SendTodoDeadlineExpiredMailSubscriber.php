@@ -4,7 +4,6 @@ namespace Prooph\ProophessorDo\App\Mail;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
-use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Mail\Transport\TransportInterface;
 use Zend\Mail;
 
