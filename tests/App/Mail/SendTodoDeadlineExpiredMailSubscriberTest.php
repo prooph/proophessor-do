@@ -18,13 +18,13 @@ class SendTodoDeadlineExpiredMailSubscriberTest extends \PHPUnit_Framework_TestC
 
     /** @var UserFinder|\PHPUnit_Framework_MockObject_MockObject */
     private $userFinder;
-    
+
     /** @var TransportInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $mailer;
 
     /** @var SendTodoDeadlineExpiredMailSubscriber */
     private $action;
-    
+
     public function setUp()
     {
         $this->userFinder = $this->getMockBuilder(UserFinder::class)
@@ -82,13 +82,13 @@ class SendTodoDeadlineExpiredMailSubscriberTest extends \PHPUnit_Framework_TestC
             'text'        => 'text',
             'deadline'    => (new \DateTime())->format('Y-m-d H:i:s'),
         ];
-        
+
         $user = [
             'id'    => $todo['assignee_id'],
             'name'  => 'Mike',
             'email' => 'mike@fakedomain.com'
         ];
-        
+
         return [
             [(object)$todo, (object)$user],
         ];
