@@ -10,7 +10,7 @@ class TransportFactoryTest extends \PHPUnit_Framework_TestCase
 {
     /** @var TransportFactory */
     private $factory;
-    
+
     /** @var ContainerInterface|\PHPUnit_Framework_MockObject_MockObject */
     private $containerMock;
 
@@ -19,7 +19,7 @@ class TransportFactoryTest extends \PHPUnit_Framework_TestCase
         $this->containerMock = $this->getMockBuilder(ContainerInterface::class)
             ->setMethods(['get'])
             ->getMockForAbstractClass();
-        
+
         $this->factory = new TransportFactory();
     }
 
@@ -29,7 +29,7 @@ class TransportFactoryTest extends \PHPUnit_Framework_TestCase
     public function test_it_returns_in_memory_transport_by_default()
     {
         $factory = $this->factory;
-        
+
         $this->assertInstanceOf(InMemory::class, $factory($this->containerMock));
     }
 
@@ -47,7 +47,7 @@ class TransportFactoryTest extends \PHPUnit_Framework_TestCase
                     ]
                 ]
             ]));
-        
+
         $factory = $this->factory;
 
         $this->assertInstanceOf(InMemory::class, $factory($this->containerMock));
