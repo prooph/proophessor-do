@@ -10,12 +10,17 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo;
 
-use Prooph\ProophessorDo\Model\User\UserId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Class Todo
@@ -51,6 +56,16 @@ final class Todo extends AggregateRoot
     private $deadline;
 
     /**
+     * @var TodoReminder
+     */
+    private $reminder;
+
+    /**
+     * @var bool
+     */
+    private $reminded = false;
+
+    /**
      * @param string $text
      * @param UserId $assigneeId
      * @param TodoId $todoId
@@ -61,6 +76,7 @@ final class Todo extends AggregateRoot
         $self = new self();
         $self->assertText($text);
         $self->recordThat(TodoWasPosted::byUser($assigneeId, $text, $todoId, TodoStatus::open()));
+
         return $self;
     }
 
@@ -98,6 +114,120 @@ final class Todo extends AggregateRoot
         }
 
         $this->recordThat(DeadlineWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $deadline));
+
+        if ($this->isMarkedAsExpired()) {
+            $this->unmarkAsExpired();
+        }
+    }
+
+    /**
+     * @return null
+     * @throws Exception\TodoNotExpired
+     * @throws Exception\TodoNotOpen
+     */
+    public function markAsExpired()
+    {
+        $status = TodoStatus::fromString(TodoStatus::EXPIRED);
+
+        if (!$this->status->isOpen() || $this->status->isExpired()) {
+            throw Exception\TodoNotOpen::triedToExpire($this->status, $this);
+        }
+
+        if ($this->deadline->isMet()) {
+            throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
+        }
+
+        $this->recordThat(TodoWasMarkedAsExpired::fromStatus($this->todoId, $this->status, $status));
+    }
+
+    /**
+     * @return null
+     * @throws Exception\TodoNotExpired
+     */
+    public function unmarkAsExpired()
+    {
+        $status = TodoStatus::fromString(TodoStatus::OPEN);
+
+        if (!$this->isMarkedAsExpired()) {
+            throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
+        }
+
+        $this->recordThat(TodoWasUnmarkedAsExpired::fromStatus($this->todoId, $this->status, $status));
+    }
+
+    private function isExpired()
+    {
+        if (!$this->status->isOpen() || $this->status->isExpired()) {
+            return false;
+        }
+
+        if ($this->deadline->isMet()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function isMarkedAsExpired()
+    {
+        return $this->status->isExpired();
+    }
+
+    /**
+     * @param UserId $userId
+     * @param TodoReminder $reminder
+     * @return void
+     * @throws Exception\InvalidReminder
+     */
+    public function addReminder(UserId $userId, TodoReminder $reminder)
+    {
+        if (!$this->assigneeId()->sameValueAs($userId)) {
+            throw Exception\InvalidReminder::userIsNotAssignee($userId, $this->assigneeId());
+        }
+
+        if ($reminder->isInThePast()) {
+            throw Exception\InvalidReminder::reminderInThePast($reminder);
+        }
+
+        if ($this->status->isDone()) {
+            throw Exception\TodoNotOpen::triedToAddReminder($reminder, $this->status);
+        }
+
+        $this->recordThat(ReminderWasAddedToTodo::byUserToDate($this->todoId, $this->assigneeId, $reminder));
+    }
+
+    /**
+     * @param TodoReminder $reminder
+     * @throws Exception\InvalidReminder
+     */
+    public function remindAssignee(TodoReminder $reminder)
+    {
+        if ($this->status->isDone()) {
+            throw Exception\TodoNotOpen::triedToAddReminder($reminder, $this->status);
+        }
+
+        if (!$this->reminder->equals($reminder)) {
+            throw Exception\InvalidReminder::reminderNotCurrent($this->reminder, $reminder);
+        }
+
+        if (!$this->reminder->isOpen()) {
+            throw Exception\InvalidReminder::alreadyReminded();
+        }
+
+        if ($reminder->isInTheFuture()) {
+            throw Exception\InvalidReminder::reminderInTheFuture($reminder);
+        }
+
+        $this->recordThat(TodoAssigneeWasReminded::forAssignee($this->todoId, $this->assigneeId, $reminder->close()));
+    }
+
+    public function reopenTodo()
+    {
+        if (!$this->status->isDone()) {
+            throw Exception\CannotReopenTodo::notMarkedDone($this);
+        }
+
+        $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::fromString(TodoStatus::OPEN)));
     }
 
     /**
@@ -106,6 +236,22 @@ final class Todo extends AggregateRoot
     public function deadline()
     {
         return $this->deadline;
+    }
+
+    /**
+     * @return TodoReminder
+     */
+    public function reminder()
+    {
+        return $this->reminder;
+    }
+
+    /**
+     * @return bool
+     */
+    public function assigneeWasReminded()
+    {
+        return $this->reminded;
     }
 
     /**
@@ -160,12 +306,54 @@ final class Todo extends AggregateRoot
     }
 
     /**
+     * @param TodoWasMarkedAsExpired $event
+     */
+    protected function whenTodoWasMarkedAsExpired(TodoWasMarkedAsExpired $event)
+    {
+        $this->status = $event->newStatus();
+    }
+
+    /**
+     * @param TodoWasUnmarkedAsExpired $event
+     */
+    protected function whenTodoWasUnmarkedAsExpired(TodoWasUnmarkedAsExpired $event)
+    {
+        $this->status = $event->newStatus();
+    }
+
+    /**
+     * @param TodoWasReopened $event
+     */
+    protected function whenTodoWasReopened(TodoWasReopened $event)
+    {
+        $this->status = $event->status();
+    }
+
+    /**
      * @param DeadlineWasAddedToTodo $event
      * @return void
      */
     protected function whenDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event)
     {
         $this->deadline = $event->deadline();
+    }
+
+    /**
+     * @param ReminderWasAddedToTodo $event
+     * @return void
+     */
+    protected function whenReminderWasAddedToTodo(ReminderWasAddedToTodo $event)
+    {
+        $this->reminder = $event->reminder();
+    }
+
+    /**
+     * @param TodoAssigneeWasReminded $event
+     * @return void
+     */
+    protected function whenTodoAssigneeWasReminded(TodoAssigneeWasReminded $event)
+    {
+        $this->reminder = $event->reminder();
     }
 
     /**

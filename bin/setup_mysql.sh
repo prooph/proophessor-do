@@ -4,11 +4,9 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
 echo "using adapter: mysql"
-touch ./config/dbal_connection.local.php
+touch ./config/autoload/dbal_connection.local.php
 
-php composer.phar require prooph/event-store-doctrine-adapter --update-no-dev -o --prefer-dist
-
-cat > config/dbal_connection.local.php <<EOL
+cat > config/autoload/dbal_connection.local.php <<EOL
 <?php
 return [
     'doctrine' => [
@@ -30,7 +28,7 @@ return [
  ];
 EOL
 
-cat > config/event_store.local.php <<EOL
+cat > config/autoload/event_store.local.php <<EOL
 <?php
 return [
     'prooph' => [

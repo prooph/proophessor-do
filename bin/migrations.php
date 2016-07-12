@@ -5,7 +5,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- * 
+ *
  * Date: 9/5/15 - 10:10 PM
  */
 /**
@@ -17,7 +17,7 @@ chdir(dirname(__DIR__));
 // Setup autoloading
 require 'vendor/autoload.php';
 
-$container = require 'config/services.php';
+$container = require 'config/container.php';
 
 $cli = new \Symfony\Component\Console\Application('Doctrine Command Line Interface', \Doctrine\DBAL\Migrations\MigrationsVersion::VERSION());
 

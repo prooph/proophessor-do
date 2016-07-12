@@ -37,7 +37,7 @@ namespace {
         return $versionProp->getValue($todo);
     }
 
-    $container = require 'config/services.php';
+    $container = require 'config/container.php';
 
     array_shift($argv);
 

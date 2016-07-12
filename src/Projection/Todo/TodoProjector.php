@@ -10,11 +10,15 @@
  */
 namespace Prooph\ProophessorDo\Projection\Todo;
 
-use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
-use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
+use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
+use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
+use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
+use Prooph\ProophessorDo\Projection\Table;
 
 /**
  * Class TodoProjector
@@ -66,6 +70,21 @@ final class TodoProjector
     }
 
     /**
+     * @param TodoWasReopened $event
+     */
+    public function onTodoWasReopened(TodoWasReopened $event)
+    {
+        $this->connection->update(Table::TODO,
+            [
+                'status' => $event->status()->toString()
+            ],
+            [
+                'id' => $event->todoId()->toString()
+            ]
+        );
+    }
+
+    /**
      * @param DeadlineWasAddedToTodo $event
      * @return void
      */
@@ -78,6 +97,53 @@ final class TodoProjector
             ],
             [
                 'id' => $event->todoId()->toString(),
+            ]
+        );
+    }
+
+    /**
+     * @param ReminderWasAddedToTodo $event
+     * @return void
+     */
+    public function onReminderWasAddedToTodo(ReminderWasAddedToTodo $event)
+    {
+        $this->connection->update(
+            Table::TODO,
+            [
+                'reminder' => $event->reminder()->toString(),
+            ],
+            [
+                'id' => $event->todoId()->toString(),
+            ]
+        );
+    }
+
+    /**
+     * @param TodoWasMarkedAsExpired $event
+     */
+    public function onTodoWasMarkedAsExpired(TodoWasMarkedAsExpired $event)
+    {
+        $this->connection->update(Table::TODO,
+            [
+                'status' => $event->newStatus()->toString()
+            ],
+            [
+                'id' => $event->todoId()->toString()
+            ]
+        );
+    }
+
+    /**
+     * @param TodoWasUnmarkedAsExpired $event
+     */
+    public function onTodoWasUnmarkedAsExpired(TodoWasUnmarkedAsExpired $event)
+    {
+        $this->connection->update(Table::TODO,
+            [
+                'status' => $event->newStatus()->toString()
+            ],
+            [
+                'id' => $event->todoId()->toString()
             ]
         );
     }

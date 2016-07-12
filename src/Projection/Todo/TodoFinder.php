@@ -33,6 +33,7 @@ final class TodoFinder
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
+        $this->connection->setFetchMode(\PDO::FETCH_OBJ);
     }
 
     /**
@@ -73,5 +74,30 @@ final class TodoFinder
         $stmt->bindValue('todo_id', $todoId);
         $stmt->execute();
         return $stmt->fetch();
+    }
+
+    /**
+     * @return \stdClass[] of todoData
+     */
+    public function findByOpenReminders()
+    {
+        $stmt = $this->connection->prepare(sprintf("SELECT * FROM %s where reminder < NOW() AND reminded = 0", Table::TODO));
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * @return \stdClass[] of todoData
+     */
+    public function findOpenWithPastTheirDeadline()
+    {
+        return $this->connection->fetchAll(
+            sprintf(
+                "SELECT * FROM %s WHERE status = :status AND deadline < CONVERT_TZ(NOW(), @@session.time_zone, '+00:00')",
+                Table::TODO
+            ), [
+                'status' => TodoStatus::OPEN,
+            ]
+        );
     }
 }

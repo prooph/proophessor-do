@@ -6,28 +6,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * Date: 7/5/15 - 8:23 PM
+ * Date: 5/4/15 - 8:53 PM
  */
-namespace Prooph\ProophessorDo\Container\App\Commanding;
+namespace Prooph\ProophessorDo\Container\Projection\Todo;
 
 use Interop\Container\ContainerInterface;
-use Prooph\Common\Messaging\FQCNMessageFactory;
-use Prooph\ProophessorDo\App\Commanding\API;
-use Prooph\ServiceBus\CommandBus;
+use Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder;
 
 /**
- * Class APIFactory
+ * Class TodoFinderFactory
  *
- * @package Prooph\ProophessorDo\App\Container\Commanding
+ * @package Prooph\ProophessorDo\Projection\Todo
+ * @author Roman Sachse <r.sachse@ipark-media.de>
  */
-final class APIFactory
+final class TodoReminderFinderFactory
 {
     /**
      * @param ContainerInterface $container
-     * @return API
+     * @return TodoReminderFinder
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new API($container->get(CommandBus::class), new FQCNMessageFactory());
+        return new TodoReminderFinder($container->get('doctrine.connection.default'));
     }
 }

@@ -36,7 +36,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
 
     config.vm.provision :docker
-    config.vm.provision :docker_compose, compose_version: "1.5.1", yml: "/vagrant/docker-compose.yml", rebuild: false, run: "always"
-    config.vm.provision "shell", inline: "cd /vagrant && docker-compose run --rm php sh bin/setup_composer.sh"
+    config.vm.provision :docker_compose, yml: "/vagrant/docker-compose.yml", rebuild: false, run: "always"
+    config.vm.provision "shell", inline: "cd /vagrant && docker run --rm -it --volume $(pwd):/app prooph/composer:5.6 install -o --prefer-dist"
+    config.vm.provision "shell", inline: "cd /vagrant && docker run --rm -it --volume $(pwd):/app prooph/composer:5.6 require prooph/event-store-doctrine-adapter -o --prefer-dist"
     config.vm.provision "shell", inline: "cd /vagrant && docker-compose run --rm php sh bin/setup_mysql.sh"
 end

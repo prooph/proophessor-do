@@ -12,6 +12,7 @@ namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
+use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 
 /**
@@ -48,5 +49,42 @@ final class TodoNotOpen extends \RuntimeException
             $deadline->toString(),
             $status->toString()
         ));
+    }
+
+    /**
+     * @param TodoReminder $reminder
+     * @param TodoStatus $status
+     * @return TodoNotOpen
+     */
+    public static function triedToAddReminder(TodoReminder $reminder, TodoStatus $status)
+    {
+        return new self(sprintf(
+            'Tried to add reminder %s to a todo with status %s.',
+            $reminder->toString(),
+            $status->toString()
+        ));
+    }
+
+    /**
+     * @param TodoReminder $reminder
+     * @param TodoStatus $status
+     * @return TodoNotOpen
+     */
+    public static function triedToSendReminder(TodoReminder $reminder, TodoStatus $status)
+    {
+        return new self(sprintf(
+            'Tried to send a reminder %s for a todo with status %s.',
+            $reminder->toString(),
+            $status->toString()
+        ));
+    }
+
+    /**
+     * @param TodoStatus $status
+     * @return TodoNotOpen
+     */
+    public static function triedToExpire(TodoStatus $status, Todo $todo)
+    {
+        return new self(sprintf('Tried to expire todo with status %s.', $status->toString()));
     }
 }

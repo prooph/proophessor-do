@@ -63,7 +63,7 @@ You should find a new table in your proophessor-do schema called `snapshot`.
 Loosely coupled components (like the prooph components) are great but wiring them together is a bit of work for the user.
 Don't worry, we do it step by step and it will only take a minute. Promised :)
 
-The only file we need to touch is `config/prooph.php`.
+The only file we need to touch is `config/autoload/prooph.global.php`.
 
 First add the following config to tell the snapshot store which adapter to use:
 
@@ -93,7 +93,7 @@ return [
 *Note: The snapshot store and the doctrine adapter are pre configured services in proophessor-do so their factories are already registered in the DI container.*
 
 Second step is to tell the TodoList (repository for todos) that it should use the snapshot store.
-Therefor we add a new config key to the repository configuration. Search for `todo_list` in `config/prooph.php` and
+Therefor we add a new config key to the repository configuration. Search for `todo_list` in `config/autoload/prooph.global.php` and
 add the following line:
 
 ```php
@@ -136,10 +136,10 @@ The package ships with two tools. The first one is an event store plugin that ac
 events and the second one is the actual snapshotter service.
 To enable the plugins they must be available as a services in the DI container.
 
-Add new `factories` entries in `config/services.php`:
+Add new `factories` entries in `config/autoload/prooph_dependencies.global.php`:
 
 ```php
-$servicesConfig = [
+return [
     //...
     'factories' => [
         //...
@@ -152,7 +152,7 @@ $servicesConfig = [
 //...
 ```
 
-The event store plugin needs to be added to the plugin list. The list can be found in `config/prooph.php`.
+The event store plugin needs to be added to the plugin list. The list can be found in `config/autoload/prooph.global.php`.
 
 ```php
 return [
@@ -174,7 +174,7 @@ The `SnapshotPlugin` observes recorded domain events and sends `TakeSnapshot` co
 Aggregate snapshots depend on the version of their aggregates. Each time an aggregate records a new domain event the
 aggregate version is increased by one and added to the event. The `SnapshotPlugin` compares the version with a
 configured interval f.e. *every 5 events a snapshot*.
-Add the rule to `config/prooph.php`:
+Add the rule to `config/autoload/prooph.global.php`:
 
 ```php
 return [
@@ -197,7 +197,7 @@ We also told the `Snapshotter` that the `TodoList` is the responsible repository
 
 One last step and our app will take snapshots automatically. As already mentioned the `SnapshotPlugin` sends
 `TakeSnapshot` commands using the application command bus. The `Snapshotter` on the other hand acts as command handler
-for `TakeSnapshot` commands so we simply need to configure a new command route in `config/prooph.php`:
+for `TakeSnapshot` commands so we simply need to configure a new command route in `config/autoload/prooph.global.php`:
 
 ```php
 return [
@@ -241,10 +241,10 @@ And of course we need the producer package `composer require prooph/psb-zeromq-p
 
 No new package without a bit configuration ;)
 
-Make zeromq producer available as a service in the DI container (`config/services.php`):
+Make zeromq producer available as a service in the DI container (`config/autoload/prooph_dependencies.global.php`):
 
 ```php
-$servicesConfig = [
+return [
     //...
     'factories' => [
         //...
@@ -256,7 +256,7 @@ $servicesConfig = [
 //...
 ```
 
-Configure zeromq binding in `config/prooph.php`:
+Configure zeromq binding in `config/autoload/prooph.global.php`:
 
 ```php
 return [
@@ -280,7 +280,7 @@ return [
 The trick to take snapshots async is now that we route `TakeSnapshot` commands to the `psb-zeromq-producer` instead
 of the snapshotter.
 
-Change command routing in `config/prooph.php`:
+Change command routing in `config/autoload/prooph.global.php`:
 
 ```php
 return [

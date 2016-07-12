@@ -96,6 +96,6 @@ body {
     text-decoration: none;
 }
 
-.glyphicon-unchecked {
+.glyphicon-unchecked,.glyphicon-check {
     cursor: pointer;
 }

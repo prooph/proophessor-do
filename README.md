@@ -41,12 +41,13 @@ A successfully merged pull request will add you to the HALL OF FAME!
 
 - [x] Project set up, register user, post todo - done by [people at prooph](https://github.com/orgs/prooph/people)
 - [x] [Mark a todo as done](https://github.com/prooph/proophessor-do/issues/1) - done by [Danny van der Sluijs](https://github.com/DannyvdSluijs)
-- [ ] [Reopen a todo](https://github.com/prooph/proophessor-do/issues/2) - done by [your name here]
+- [x] [Reopen a todo](https://github.com/prooph/proophessor-do/issues/2) - done by [Bas Kamer](https://github.com/basz)
 - [x] [Add deadline to todo](https://github.com/prooph/proophessor-do/issues/35) - done by [Wojtek Gancarczyk](https://github.com/theDisco)
-- [ ] Add reminder for assignee - done by [your name here]
-- [ ] Mark a todo as expired - done by [your name here]
+- [x] [Add reminder for assignee](https://github.com/prooph/proophessor-do/issues/60) - done by [Roman Sachse](https://github.com/rommsen)
+- [x] [Mark a todo as expired](https://github.com/prooph/proophessor-do/issues/75) - done by [Dranzd Viper](https://github.com/dranzd)
 - [ ] Notify assignee when todo deadline is expired - done by [your name here]
 - [ ] Notify assignee when reminder time is reached - done by [your name here]
+- [ ] Implement a dedicated event bus to replay events as reminders and deadline notifications should not be sent to users again - done by [your name here]
 - more features will follow ...
 
 ## Tutorials
