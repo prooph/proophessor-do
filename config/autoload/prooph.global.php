@@ -94,6 +94,7 @@ return [
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
                             \Prooph\ProophessorDo\Projection\User\UserProjector::class,
+                            \Prooph\ProophessorDo\App\Mail\SendTodoDeadlineExpiredMailSubscriber::class,
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
