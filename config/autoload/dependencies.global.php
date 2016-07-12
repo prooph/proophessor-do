@@ -20,6 +20,8 @@ return [
             Application::class => ApplicationFactory::class,
             Helper\UrlHelper::class => Helper\UrlHelperFactory::class,
             'doctrine.connection.default' => \Prooph\ProophessorDo\Container\Infrastructure\DoctrineDbalConnectionFactory::class,
+            \Zend\Mail\Transport\TransportInterface::class => \Prooph\ProophessorDo\Container\App\Mail\TransportFactory::class,
+            
             // Action middleware
             \Prooph\ProophessorDo\App\Action\Home::class => \Prooph\ProophessorDo\Container\App\Action\HomeFactory::class,
             \Prooph\ProophessorDo\App\Action\UserList::class => \Prooph\ProophessorDo\Container\App\Action\UserListFactory::class,
