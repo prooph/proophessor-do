@@ -1,7 +1,7 @@
 <?php
-namespace ProophTest\ProophessorDo\App\Mail;
+namespace ProophTest\ProophessorDo\ProcessManager;
 
-use Prooph\ProophessorDo\App\Mail\SendTodoDeadlineExpiredMailSubscriber;
+use Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
