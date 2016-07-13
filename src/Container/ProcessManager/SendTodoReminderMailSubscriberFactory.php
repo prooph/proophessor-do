@@ -1,9 +1,8 @@
 <?php
-
-namespace Prooph\ProophessorDo\Container\App\Mail;
+namespace Prooph\ProophessorDo\Container\ProcessManager;
 
 use Interop\Container\ContainerInterface;
-use Prooph\ProophessorDo\App\Mail\SendTodoReminderMailSubscriber;
+use Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailSubscriber;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Zend\Mail\Transport\TransportInterface;

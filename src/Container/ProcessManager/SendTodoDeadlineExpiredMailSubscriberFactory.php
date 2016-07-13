@@ -1,9 +1,8 @@
 <?php
-
-namespace Prooph\ProophessorDo\Container\App\Mail;
+namespace Prooph\ProophessorDo\Container\ProcessManager;
 
 use Interop\Container\ContainerInterface;
-use Prooph\ProophessorDo\App\Mail\SendTodoDeadlineExpiredMailSubscriber;
+use Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Zend\Mail\Transport\TransportInterface;
