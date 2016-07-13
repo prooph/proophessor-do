@@ -15,10 +15,27 @@ use Zend\Mail;
  */
 final class SendTodoDeadlineExpiredMailSubscriber
 {
+    /**
+     * @var UserFinder
+     */
     private $userFinder;
+
+    /**
+     * @var TodoFinder
+     */
     private $todoFinder;
+
+    /**
+     * @var TransportInterface
+     */
     private $mailer;
 
+    /**
+     * SendTodoDeadlineExpiredMailSubscriber constructor.
+     * @param UserFinder $userFinder
+     * @param TodoFinder $todoFinder
+     * @param TransportInterface $mailer
+     */
     public function __construct(
         UserFinder $userFinder,
         TodoFinder $todoFinder,
@@ -29,6 +46,10 @@ final class SendTodoDeadlineExpiredMailSubscriber
         $this->mailer = $mailer;
     }
 
+    /**
+     * @param TodoWasMarkedAsExpired $event
+     * @return void
+     */
     public function __invoke(TodoWasMarkedAsExpired $event)
     {
         $todo = $this->todoFinder->findById($event->todoId()->toString());

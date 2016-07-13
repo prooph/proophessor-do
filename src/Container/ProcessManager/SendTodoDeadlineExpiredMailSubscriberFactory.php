@@ -16,6 +16,10 @@ use Zend\Mail\Transport\TransportInterface;
  */
 final class SendTodoDeadlineExpiredMailSubscriberFactory
 {
+    /**
+     * @param ContainerInterface $container
+     * @return SendTodoDeadlineExpiredMailSubscriber
+     */
     public function __invoke(ContainerInterface $container)
     {
         return new SendTodoDeadlineExpiredMailSubscriber(
