@@ -15,7 +15,17 @@ First ensure [Docker](https://docs.docker.com/engine/installation/ubuntulinux/) 
 are installed. It's recommended to use the latest version of Docker and Docker Compose. Docker will download all 
 dependencies and starts the containers.
 
-### Step 1 - Install dependencies
+### Step 1 - Get the source code
+The application runs as a Docker volume. First download the source to a local directory:
+`git clone https://github.com/prooph/proophessor-do.git`
+
+If you are using a Linux distribution running SELinux then set the security context to allow Docker access to the volume:
+`chcon -Rt svirt_sandbox_file_t proophessor-do/`
+
+All the Docker commands are run from the source directory, so also do:
+`cd proophessor-do/`
+
+### Step 2 - Install dependencies
 
 To ensure you have the latest Docker images for the default application execute:
 
@@ -35,7 +45,7 @@ Now start your Docker Container so we can use Docker Compose for the next steps
 $ docker-compose up -d
 ```
 
-### Step 2 - Install event store adapter
+### Step 3 - Install event store adapter
 
 *prooph* offers two database adapters for `prooph/event-store` (at the moment).
 
@@ -53,7 +63,7 @@ $ docker run --rm -it --volume $(pwd):/app prooph/composer:5.6 require prooph/ev
 $ docker-compose run --rm php sh bin/setup_mongodb.sh
 ```
 
-### Step 3 - That's it
+### Step 4 - That's it
 Now open [http://localhost:8080](http://localhost:8080/) and have fun.
 
 ## Using Vagrant
