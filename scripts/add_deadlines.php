@@ -40,7 +40,7 @@ namespace {
 
     $todo = $allTodos[$randomIndex];
 
-    echo "Randomly selected todo: " . $todo['id'] . "\n";
+    echo "Randomly selected todo: " . $todo->id . "\n";
     echo "Going to add ".NUMBER_OF_DEADLINES." deadline events now\n";
     $commandBus = $container->get(\Prooph\ServiceBus\CommandBus::class);
 
@@ -51,8 +51,8 @@ namespace {
         $nextDay = $nextDay->add($oneDate);
 
         $addDeadline = new AddDeadlineToTodo([
-            'todo_id' => $todo['id'],
-            'user_id' => $todo['assignee_id'],
+            'todo_id' => $todo->id,
+            'user_id' => $todo->assignee_id,
             'deadline' => $nextDay->format(\DateTime::ATOM)
         ]);
 
