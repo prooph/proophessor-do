@@ -8,8 +8,7 @@ use Interop\Config\RequiresConfig;
 use Interop\Config\RequiresMandatoryOptions;
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\App\Mail\SendTodoReminderMailSubscriber;
-use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
-use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Prooph\ServiceBus\QueryBus;
 use Zend\Mail\Transport\InMemory as InMemoryTransport;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mail\Transport\SmtpOptions;
@@ -56,8 +55,7 @@ final class SendTodoReminderMailSubscriberFactory implements RequiresConfig, Req
     public function __invoke(ContainerInterface $container)
     {
         return new SendTodoReminderMailSubscriber(
-            $container->get(UserFinder::class),
-            $container->get(TodoFinder::class),
+            $container->get(QueryBus::class),
             $this->getTransport($container->get('config'))
         );
     }

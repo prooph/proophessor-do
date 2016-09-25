@@ -12,7 +12,7 @@ namespace Prooph\ProophessorDo\Container\App\Action;
 
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\App\Action\UserTodoForm;
-use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Prooph\ServiceBus\QueryBus;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
@@ -28,6 +28,6 @@ final class UserTodoFormFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new UserTodoForm($container->get(TemplateRendererInterface::class), $container->get(UserFinder::class));
+        return new UserTodoForm($container->get(TemplateRendererInterface::class), $container->get(QueryBus::class));
     }
 }

@@ -46,6 +46,11 @@ return [
             \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoReminderProjectorFactory::class,
             // Subscriber
             \Prooph\ProophessorDo\App\Mail\SendTodoReminderMailSubscriber::class => \Prooph\ProophessorDo\Container\App\Mail\SendTodoReminderMailSubscriberFactory::class,
+            // Query
+            \Prooph\ProophessorDo\Model\User\Handler\GetAllUsersHandler::class => \Prooph\ProophessorDo\Container\Model\User\GetAllUsersHandlerFactory::class,
+            \Prooph\ProophessorDo\Model\User\Handler\GetUserByIdHandler::class => \Prooph\ProophessorDo\Container\Model\User\GetUserByIdHandlerFactory::class,
+            \Prooph\ProophessorDo\Model\Todo\Handler\GetTodoByIdHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
+            \Prooph\ProophessorDo\Model\Todo\Handler\GetTodosByAssigneeIdHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
         ],
     ],
 ];

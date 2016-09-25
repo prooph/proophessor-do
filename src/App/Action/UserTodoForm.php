@@ -10,7 +10,8 @@
  */
 namespace Prooph\ProophessorDo\App\Action;
 
-use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Prooph\ProophessorDo\Model\User\Query\GetUserById;
+use Prooph\ServiceBus\QueryBus;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -29,18 +30,18 @@ final class UserTodoForm
     private $templates;
 
     /**
-     * @var UserFinder
+     * @var QueryBus
      */
-    private $userFinder;
+    private $queryBus;
 
     /**
      * @param TemplateRendererInterface $templates
-     * @param UserFinder $userFinder
+     * @param QueryBus $queryBus
      */
-    public function __construct(TemplateRendererInterface $templates, UserFinder $userFinder)
+    public function __construct(TemplateRendererInterface $templates, QueryBus $queryBus)
     {
         $this->templates  = $templates;
-        $this->userFinder = $userFinder;
+        $this->queryBus = $queryBus;
     }
 
     /**
@@ -57,7 +58,13 @@ final class UserTodoForm
         $user = null;
 
         if ($userId) {
-            $user = $this->userFinder->findById($userId);
+            $user = null;
+            $this->queryBus->dispatch(new GetUserById($userId))
+                ->then(
+                    function ($result) use (&$user) {
+                        $user = $result;
+                    }
+                );
 
             if ($user) {
                 $invalidUser = false;
