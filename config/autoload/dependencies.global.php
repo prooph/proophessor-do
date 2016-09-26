@@ -48,6 +48,11 @@ return [
             // Subscriber
             \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailSubscriber::class => \Prooph\ProophessorDo\Container\ProcessManager\SendTodoReminderMailSubscriberFactory::class,
             \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber::class => \Prooph\ProophessorDo\Container\ProcessManager\SendTodoDeadlineExpiredMailSubscriberFactory::class,
+            // Query
+            \Prooph\ProophessorDo\Model\User\Handler\GetAllUsersHandler::class => \Prooph\ProophessorDo\Container\Model\User\GetAllUsersHandlerFactory::class,
+            \Prooph\ProophessorDo\Model\User\Handler\GetUserByIdHandler::class => \Prooph\ProophessorDo\Container\Model\User\GetUserByIdHandlerFactory::class,
+            \Prooph\ProophessorDo\Model\Todo\Handler\GetTodoByIdHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
+            \Prooph\ProophessorDo\Model\Todo\Handler\GetTodosByAssigneeIdHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
         ],
     ],
 ];

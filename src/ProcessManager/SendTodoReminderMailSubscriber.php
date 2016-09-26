@@ -2,10 +2,11 @@
 namespace Prooph\ProophessorDo\ProcessManager;
 
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
-use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
-use Prooph\ProophessorDo\Projection\User\UserFinder;
-use Zend\Mail\Transport\TransportInterface;
+use Prooph\ProophessorDo\Model\Todo\Query\GetTodoById;
+use Prooph\ProophessorDo\Model\User\Query\GetUserById;
+use Prooph\ServiceBus\QueryBus;
 use Zend\Mail;
+use Zend\Mail\Transport\TransportInterface;
 
 /**
  * Class SendTodoReminderMailSubscriber
@@ -16,27 +17,21 @@ use Zend\Mail;
 final class SendTodoReminderMailSubscriber
 {
     /**
-     * @var UserFinder
+     * @var QueryBus
      */
-    private $userFinder;
-    /**
-     * @var TodoFinder
-     */
-    private $todoFinder;
+    private $queryBus;
     /**
      * @var TransportInterface
      */
     private $mailer;
 
     /**
-     * @param UserFinder $userFinder
-     * @param TodoFinder $todoFinder
+     * @param QueryBus $queryBus
      * @param TransportInterface $mailer
      */
-    public function __construct(UserFinder $userFinder, TodoFinder $todoFinder, TransportInterface $mailer)
+    public function __construct(QueryBus $queryBus, TransportInterface $mailer)
     {
-        $this->userFinder = $userFinder;
-        $this->todoFinder = $todoFinder;
+        $this->queryBus = $queryBus;
         $this->mailer = $mailer;
     }
 
@@ -45,8 +40,20 @@ final class SendTodoReminderMailSubscriber
      */
     public function __invoke(TodoAssigneeWasReminded $event)
     {
-        $user = $this->userFinder->findById($event->userId()->toString());
-        $todo = $this->todoFinder->findById($event->todoId()->toString());
+        $user = null;
+        $this->queryBus->dispatch(new GetUserById($event->userId()->toString()))
+            ->then(
+                function ($result) use (&$user) {
+                    $user = $result;
+                }
+            );
+        $todo = null;
+        $this->queryBus->dispatch(new GetTodoById($event->todoId()->toString()))
+            ->then(
+                function ($result) use (&$todo) {
+                    $todo = $result;
+                }
+            );
 
         $mail = new Mail\Message();
         $mail->setBody("Hello {$user->name}. This a reminder for '{$todo->text}'. Don't be lazy!");

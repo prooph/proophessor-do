@@ -10,8 +10,9 @@
  */
 namespace Prooph\ProophessorDo\App\Action;
 
-use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
-use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Prooph\ProophessorDo\Model\Todo\Query\GetTodosByAssigneeId;
+use Prooph\ProophessorDo\Model\User\Query\GetUserById;
+use Prooph\ServiceBus\QueryBus;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -30,25 +31,18 @@ final class UserTodoList
     private $templates;
 
     /**
-     * @var UserFinder
+     * @var QueryBus
      */
-    private $userFinder;
-
-    /**
-     * @var TodoFinder
-     */
-    private $todoFinder;
+    private $queryBus;
 
     /**
      * @param TemplateRendererInterface $templates
-     * @param UserFinder $userFinder
-     * @param TodoFinder $todoFinder
+     * @param QueryBus $queryBus
      */
-    public function __construct(TemplateRendererInterface $templates, UserFinder $userFinder, TodoFinder $todoFinder)
+    public function __construct(TemplateRendererInterface $templates, QueryBus $queryBus)
     {
         $this->templates = $templates;
-        $this->userFinder = $userFinder;
-        $this->todoFinder = $todoFinder;
+        $this->queryBus = $queryBus;
     }
 
     /**
@@ -60,8 +54,20 @@ final class UserTodoList
     {
         $userId = $request->getAttribute('user_id');
 
-        $user = $this->userFinder->findById($userId);
-        $todos = $this->todoFinder->findByAssigneeId($userId);
+        $user = null;
+        $this->queryBus->dispatch(new GetUserById($userId))
+            ->then(
+                function ($result) use (&$user) {
+                    $user = $result;
+                }
+            );
+        $todos = null;
+        $this->queryBus->dispatch(new GetTodosByAssigneeId($userId))
+            ->then(
+                function ($result) use (&$todos) {
+                    $todos = $result;
+                }
+            );
 
         return new HtmlResponse(
             $this->templates->render('page::user-todo-list', [

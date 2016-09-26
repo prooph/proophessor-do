@@ -103,6 +103,16 @@ return [
                     ],
                 ],
             ],
+            'query_bus' => [
+                'router' => [
+                    'routes' => [
+                        \Prooph\ProophessorDo\Model\Todo\Query\GetTodoById::class => \Prooph\ProophessorDo\Model\Todo\Handler\GetTodoByIdHandler::class,
+                        \Prooph\ProophessorDo\Model\Todo\Query\GetTodosByAssigneeId::class => \Prooph\ProophessorDo\Model\Todo\Handler\GetTodosByAssigneeIdHandler::class,
+                        \Prooph\ProophessorDo\Model\User\Query\GetAllUsers::class => \Prooph\ProophessorDo\Model\User\Handler\GetAllUsersHandler::class,
+                        \Prooph\ProophessorDo\Model\User\Query\GetUserById::class => \Prooph\ProophessorDo\Model\User\Handler\GetUserByIdHandler::class,
+                    ],
+                ],
+            ],
         ],
     ],
 ];
