@@ -10,7 +10,8 @@
  */
 namespace Prooph\ProophessorDo\App\Action;
 
-use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Prooph\ProophessorDo\Model\User\Query\GetAllUsers;
+use Prooph\ServiceBus\QueryBus;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\HtmlResponse;
@@ -29,18 +30,18 @@ final class UserList
     private $templates;
 
     /**
-     * @var UserFinder
+     * @var QueryBus
      */
-    private $userFinder;
+    private $queryBus;
 
     /**
      * @param TemplateRendererInterface $templates
-     * @param UserFinder $userFinder
+     * @param QueryBus $queryBus
      */
-    public function __construct(TemplateRendererInterface $templates, UserFinder $userFinder)
+    public function __construct(TemplateRendererInterface $templates, QueryBus $queryBus)
     {
         $this->templates = $templates;
-        $this->userFinder = $userFinder;
+        $this->queryBus = $queryBus;
     }
 
     /**
@@ -51,7 +52,13 @@ final class UserList
      */
     public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next)
     {
-        $users = $this->userFinder->findAll();
+        $users = [];
+        $this->queryBus->dispatch(new GetAllUsers())
+            ->then(
+                function ($result) use (&$users) {
+                    $users = $result;
+                }
+            );
 
         return new HtmlResponse(
             $this->templates->render('page::user-list', ['users' => $users])

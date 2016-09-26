@@ -12,8 +12,7 @@ namespace Prooph\ProophessorDo\Container\App\Action;
 
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\App\Action\UserTodoList;
-use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
-use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Prooph\ServiceBus\QueryBus;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 /**
@@ -31,8 +30,7 @@ final class UserTodoListFactory
     {
         return new UserTodoList(
             $container->get(TemplateRendererInterface::class),
-            $container->get(UserFinder::class),
-            $container->get(TodoFinder::class)
+            $container->get(QueryBus::class)
         );
     }
 }
