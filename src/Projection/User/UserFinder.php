@@ -53,6 +53,19 @@ class UserFinder
     }
 
     /**
+     * @param string $emailAddress User's email address
+     * @return bool
+     */
+    public function emailAddressExists($emailAddress)
+    {
+        $stmt = $this->connection->prepare(sprintf('SELECT COUNT(*) FROM %s where email = :email', Table::USER));
+        $stmt->bindValue('email', $emailAddress);
+        $stmt->execute();
+
+        return $stmt->fetchColumn() >= 1;
+    }
+
+    /**
      * @param $todoId
      * @return null|\stdClass containing userData
      */

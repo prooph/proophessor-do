@@ -15,6 +15,8 @@ use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
+use Prooph\ProophessorDo\Model\User\Exception\EmailAddressAlreadyExists;
+use Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress;
 
 /**
  * Class User
@@ -45,10 +47,20 @@ final class User extends AggregateRoot
      * @param UserId $userId
      * @param string $name
      * @param EmailAddress $emailAddress
+     * @param ChecksUniqueUsersEmailAddress $checksUniqueUsersEmailAddress
      * @return User
      */
-    public static function registerWithData(UserId $userId, $name, EmailAddress $emailAddress)
+    public static function registerWithData(
+        UserId $userId,
+        $name,
+        EmailAddress $emailAddress,
+        ChecksUniqueUsersEmailAddress $checksUniqueUsersEmailAddress
+    )
     {
+        if ($checksUniqueUsersEmailAddress->alreadyExists($emailAddress)) {
+            throw EmailAddressAlreadyExists::withEmailAddress($emailAddress);
+        }
+
         $self = new self();
 
         $self->assertName($name);
