@@ -55,8 +55,7 @@ final class User extends AggregateRoot
         $name,
         EmailAddress $emailAddress,
         ChecksUniqueUsersEmailAddress $checksUniqueUsersEmailAddress
-    )
-    {
+    ) {
         if ($checksUniqueUsersEmailAddress->alreadyExists($emailAddress)) {
             throw EmailAddressAlreadyExists::withEmailAddress($emailAddress);
         }

@@ -40,8 +40,7 @@ final class RegisterUserHandler
     public function __construct(
         UserCollection $userCollection,
         ChecksUniqueUsersEmailAddress $checksUniqueUsersEmailAddress
-    )
-    {
+    ) {
         $this->userCollection = $userCollection;
         $this->checksUniqueUsersEmailAddress = $checksUniqueUsersEmailAddress;
     }
