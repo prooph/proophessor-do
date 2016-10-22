@@ -14,7 +14,6 @@ final class EmailAddressAlreadyExists extends \InvalidArgumentException
 {
     /**
      * @param EmailAddress $emailAddress
-     *
      * @return EmailAddressAlreadyExists
      */
     public static function withEmailAddress(EmailAddress $emailAddress)

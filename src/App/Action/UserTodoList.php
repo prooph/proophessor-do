@@ -49,7 +49,7 @@ final class UserTodoList
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
      * @param callable $next
-     * @return HtmlResponse
+     * @return ResponseInterface
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {

@@ -16,7 +16,6 @@ interface ChecksUniqueUsersEmailAddress
      * Checks if the user's email address already exists
      *
      * @param EmailAddress $emailAddress
-     *
      * @return bool
      */
     public function alreadyExists(EmailAddress $emailAddress);
