@@ -3,6 +3,7 @@
 namespace Prooph\ProophessorDo\Model\User\Service;
 
 use Prooph\ProophessorDo\Model\User\EmailAddress;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 /**
  * Interface ChecksUniqueUsersEmailAddress
@@ -13,10 +14,10 @@ use Prooph\ProophessorDo\Model\User\EmailAddress;
 interface ChecksUniqueUsersEmailAddress
 {
     /**
-     * Checks if the user's email address already exists
+     * Checks if the user's email address already exists. If the user exists, it returns its user id.
      *
      * @param EmailAddress $emailAddress
-     * @return bool
+     * @return null|UserId
      */
-    public function alreadyExists(EmailAddress $emailAddress);
+    public function __invoke(EmailAddress $emailAddress);
 }

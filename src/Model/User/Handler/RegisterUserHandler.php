@@ -11,6 +11,8 @@
 namespace Prooph\ProophessorDo\Model\User\Handler;
 
 use Prooph\ProophessorDo\Model\User\Command\RegisterUser;
+use Prooph\ProophessorDo\Model\User\Exception\UserAlreadyExists;
+use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
 use Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress;
 use Prooph\ProophessorDo\Model\User\User;
 use Prooph\ProophessorDo\Model\User\UserCollection;
@@ -50,12 +52,21 @@ final class RegisterUserHandler
      */
     public function __invoke(RegisterUser $command)
     {
-        $user = User::registerWithData(
-            $command->userId(),
-            $command->name(),
-            $command->emailAddress(),
-            $this->checksUniqueUsersEmailAddress
-        );
+        if ($userId = ($this->checksUniqueUsersEmailAddress)($command->emailAddress())) {
+            if (!$user = $this->userCollection->get($userId)) {
+                throw UserNotFound::withUserId($userId);
+            }
+
+            $user->registerAgain($command->name(), $command->emailAddress());
+
+            return;
+        }
+
+        if ($user = $this->userCollection->get($command->userId())) {
+            throw UserAlreadyExists::withUserId($command->userId());
+        }
+
+        $user = User::registerWithData($command->userId(), $command->name(), $command->emailAddress());
 
         $this->userCollection->add($user);
     }

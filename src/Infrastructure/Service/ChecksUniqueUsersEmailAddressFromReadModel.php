@@ -4,6 +4,7 @@ namespace Prooph\ProophessorDo\Infrastructure\Service;
 
 use Prooph\ProophessorDo\Model\User\EmailAddress;
 use Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress;
+use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 
 /**
@@ -29,10 +30,12 @@ final class ChecksUniqueUsersEmailAddressFromReadModel implements ChecksUniqueUs
 
     /**
      * @param EmailAddress $emailAddress
-     * @return bool
+     * @return null|UserId
      */
-    public function alreadyExists(EmailAddress $emailAddress)
+    public function __invoke(EmailAddress $emailAddress)
     {
-        return $this->userFinder->emailAddressExists($emailAddress->toString());
+        if ($user = $this->userFinder->findOneByEmailAddress($emailAddress->toString())) {
+            return UserId::fromString($user->id);
+        }
     }
 }

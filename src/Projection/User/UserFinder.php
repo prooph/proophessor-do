@@ -54,15 +54,15 @@ class UserFinder
 
     /**
      * @param string $emailAddress User's email address
-     * @return bool
+     * @return null|\stdClass containing userData
      */
-    public function emailAddressExists($emailAddress)
+    public function findOneByEmailAddress($emailAddress)
     {
-        $stmt = $this->connection->prepare(sprintf('SELECT COUNT(*) FROM %s WHERE email = :email', Table::USER));
+        $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s WHERE email = :email LIMIT 1', Table::USER));
         $stmt->bindValue('email', $emailAddress);
         $stmt->execute();
 
-        return $stmt->fetchColumn() >= 1;
+        return $stmt->fetch();
     }
 
     /**
