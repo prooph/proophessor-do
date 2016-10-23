@@ -57,7 +57,7 @@ final class RegisterUserHandler
                 throw UserNotFound::withUserId($userId);
             }
 
-            $user->registerAgain($command->name(), $command->emailAddress());
+            $user->registerAgain($command->name());
 
             return;
         }

@@ -64,16 +64,13 @@ final class User extends AggregateRoot
 
     /**
      * @param string $name
-     * @param EmailAddress $emailAddress
      * @return User
      */
-    public function registerAgain(
-        $name,
-        EmailAddress $emailAddress
-    ) {
+    public function registerAgain($name)
+    {
         $this->assertName($name);
 
-        $this->recordThat(UserWasRegisteredAgain::withData($this->userId, $name, $emailAddress));
+        $this->recordThat(UserWasRegisteredAgain::withData($this->userId, $name, $this->emailAddress));
 
         return $this;
     }
