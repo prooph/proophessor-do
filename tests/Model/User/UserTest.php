@@ -1,6 +1,6 @@
 <?php
 
-namespace ProophTest\ProophessorDo\Model\Todo;
+namespace ProophTest\ProophessorDo\Model\User;
 
 use Prooph\ProophessorDo\Model\User\EmailAddress;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
