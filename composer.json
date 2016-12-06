@@ -64,7 +64,8 @@
         "malukenho/docheader": "^0.1.4"
     },
     "suggest" : {
-        "prooph/pdo-event-store": "Use MySQL or Postgres as EventStore"
+        "prooph/event-store-doctrine-adapter" : "^3.0 Use doctrine dbal event store adapter",
+        "prooph/event-store-mongodb-adapter" : "^2.0 Use mongo db event store adapter"
     },
     "autoload" : {
         "psr-4" : {
