@@ -38,6 +38,7 @@ return [
             \Prooph\ProophessorDo\App\Action\UserTodoForm::class => \Prooph\ProophessorDo\Container\App\Action\UserTodoFormFactory::class,
             // Model
             \Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler::class => \Prooph\ProophessorDo\Container\Model\User\RegisterUserHandlerFactory::class,
+            \Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress::class => \Prooph\ProophessorDo\Container\Model\User\ChecksUniqueUsersEmailAddressFactory::class,
             \Prooph\ProophessorDo\Model\User\UserCollection::class => \Prooph\ProophessorDo\Container\Infrastructure\Repository\EventStoreUserCollectionFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\PostTodoHandlerFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\MarkTodoAsDoneHandlerFactory::class,

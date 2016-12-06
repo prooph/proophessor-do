@@ -14,7 +14,7 @@ use Prooph\ProophessorDo\Model\User\UserId;
 /**
  * Class UserNotFound
  *
- * @package Prooph\ProophessorDo\Model\User
+ * @package Prooph\ProophessorDo\Model\User\Exception
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
 final class UserNotFound extends \InvalidArgumentException

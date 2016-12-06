@@ -45,9 +45,22 @@ class UserFinder
      */
     public function findById($userId)
     {
-        $stmt = $this->connection->prepare(sprintf("SELECT * FROM %s where id = :user_id", Table::USER));
+        $stmt = $this->connection->prepare(sprintf("SELECT * FROM %s WHERE id = :user_id", Table::USER));
         $stmt->bindValue('user_id', $userId);
         $stmt->execute();
+        return $stmt->fetch();
+    }
+
+    /**
+     * @param string $emailAddress User's email address
+     * @return null|\stdClass containing userData
+     */
+    public function findOneByEmailAddress($emailAddress)
+    {
+        $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s WHERE email = :email LIMIT 1', Table::USER));
+        $stmt->bindValue('email', $emailAddress);
+        $stmt->execute();
+
         return $stmt->fetch();
     }
 
@@ -58,7 +71,7 @@ class UserFinder
     public function findUserOfTodo($todoId)
     {
         $stmt = $this->connection->prepare(sprintf(
-            "SELECT u.* FROM %s as u JOIN %s as t ON u.id = t.assignee_id  where t.id = :todo_id",
+            "SELECT u.* FROM %s as u JOIN %s as t ON u.id = t.assignee_id WHERE t.id = :todo_id",
             Table::USER,
             Table::TODO
         ));

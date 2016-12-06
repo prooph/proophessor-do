@@ -14,6 +14,7 @@ use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
+use Prooph\ProophessorDo\Model\User\Event\UserWasRegisteredAgain;
 
 /**
  * Class User
@@ -46,8 +47,11 @@ final class User extends AggregateRoot
      * @param EmailAddress $emailAddress
      * @return User
      */
-    public static function registerWithData(UserId $userId, $name, EmailAddress $emailAddress)
-    {
+    public static function registerWithData(
+        UserId $userId,
+        $name,
+        EmailAddress $emailAddress
+    ) {
         $self = new self();
 
         $self->assertName($name);
@@ -55,6 +59,19 @@ final class User extends AggregateRoot
         $self->recordThat(UserWasRegistered::withData($userId, $name, $emailAddress));
 
         return $self;
+    }
+
+    /**
+     * @param string $name
+     * @return User
+     */
+    public function registerAgain($name)
+    {
+        $this->assertName($name);
+
+        $this->recordThat(UserWasRegisteredAgain::withData($this->userId, $name, $this->emailAddress));
+
+        return $this;
     }
 
     /**
@@ -107,6 +124,13 @@ final class User extends AggregateRoot
         $this->userId = $event->userId();
         $this->name = $event->name();
         $this->emailAddress = $event->emailAddress();
+    }
+
+    /**
+     * @param UserWasRegisteredAgain $event
+     */
+    protected function whenUserWasRegisteredAgain(UserWasRegisteredAgain $event)
+    {
     }
 
     /**
