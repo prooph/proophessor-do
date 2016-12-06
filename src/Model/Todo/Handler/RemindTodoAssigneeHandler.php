@@ -62,7 +62,7 @@ final class RemindTodoAssigneeHandler
     private function reminderShouldBeProcessed(Todo $todo, TodoReminder $reminder)
     {
         // drop command, wrong reminder
-        if (!$todo->reminder()->equals($reminder)) {
+        if (!$todo->reminder()->sameValueAs($reminder)) {
             return false;
         }
 

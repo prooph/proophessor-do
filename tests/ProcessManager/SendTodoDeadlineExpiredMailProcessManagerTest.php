@@ -31,8 +31,8 @@ class SendTodoDeadlineExpiredMailProcessManagerTest extends \PHPUnit_Framework_T
 
         $processManager(TodoWasMarkedAsExpired::fromStatus(
             TodoId::generate(),
-            TodoStatus::fromString(TodoStatus::OPEN),
-            TodoStatus::fromString(TodoStatus::EXPIRED)
+            TodoStatus::OPEN(),
+            TodoStatus::EXPIRED()
         ));
     }
 }

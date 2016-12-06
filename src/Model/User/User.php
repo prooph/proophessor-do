@@ -9,6 +9,7 @@
  */
 namespace Prooph\ProophessorDo\Model\User;
 
+use Prooph\ProophessorDo\Model\Entity;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Assert\Assertion;
@@ -24,7 +25,7 @@ use Prooph\ProophessorDo\Model\User\Event\UserWasRegisteredAgain;
  * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class User extends AggregateRoot
+final class User extends AggregateRoot implements Entity
 {
     /**
      * @var UserId
@@ -145,5 +146,10 @@ final class User extends AggregateRoot
         } catch (\Exception $e) {
             throw Exception\InvalidName::reason($e->getMessage());
         }
+    }
+
+    public function sameIdentityAs(Entity $other)
+    {
+        return get_class($this) === get_class($other) && $this->userId->sameValueAs($other->userId);
     }
 }

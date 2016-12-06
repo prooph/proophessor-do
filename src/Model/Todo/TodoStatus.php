@@ -9,86 +9,36 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo;
 
-use Assert\Assertion;
+use MabeEnum\Enum;
+use MabeEnum\EnumSerializableTrait;
+use Prooph\ProophessorDo\Model\ValueObject;
 
 /**
  * Class TodoStatus
  *
  * @package Prooph\ProophessorDo\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
+ *
+ * @method static TodoStatus OPEN()
+ * @method static TodoStatus DONE()
+ * @method static TodoStatus EXPIRED()
  */
-final class TodoStatus
+final class TodoStatus extends Enum implements ValueObject
 {
+    use EnumSerializableTrait;
+
     const OPEN = "open";
     const DONE = "done";
     const EXPIRED = "expired";
 
     /**
-     * @var string
-     */
-    private $status;
-
-    /**
-     * @return TodoStatus
-     */
-    public static function open()
-    {
-        return new self(self::OPEN);
-    }
-
-    /**
-     * @param string $status
-     * @return TodoStatus
-     */
-    public static function fromString($status)
-    {
-        return new self($status);
-    }
-
-    /**
-     * @param string $status
-     */
-    private function __construct($status)
-    {
-        Assertion::inArray($status, [self::OPEN, self::DONE, self::EXPIRED]);
-        $this->status = $status;
-    }
-
-    /**
-     * @return TodoStatus
-     */
-    public function close()
-    {
-        return new self(self::DONE);
-    }
-
-    public function expire()
-    {
-        return new self(self::EXPIRED);
-    }
-
-    /**
+     * @param ValueObject $object
+     *
      * @return bool
      */
-    public function isOpen()
+    public function sameValueAs(ValueObject $object)
     {
-        return $this->status !== self::DONE;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isDone()
-    {
-        return $this->status === self::DONE;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isExpired()
-    {
-        return $this->status === self::EXPIRED;
+        return $this->is($object);
     }
 
     /**
@@ -96,6 +46,6 @@ final class TodoStatus
      */
     public function toString()
     {
-        return $this->status;
+        return $this->__toString();
     }
 }

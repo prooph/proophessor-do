@@ -9,6 +9,7 @@
  */
 namespace Prooph\ProophessorDo\Model\User;
 
+use Prooph\ProophessorDo\Model\ValueObject;
 use Zend\Validator\EmailAddress as EmailAddressValidator;
 
 /**
@@ -19,7 +20,7 @@ use Zend\Validator\EmailAddress as EmailAddressValidator;
  * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class EmailAddress
+final class EmailAddress implements ValueObject
 {
     /**
      * @var string
@@ -59,11 +60,11 @@ final class EmailAddress
     }
 
     /**
-     * @param EmailAddress $other
+     * @param ValueObject $other
      * @return bool
      */
-    public function sameValueAs(EmailAddress $other)
+    public function sameValueAs(ValueObject $other)
     {
-        return $this->toString() === $other->toString();
+        return get_class($this) === get_class($other) && $this->toString() === $other->toString();
     }
 }

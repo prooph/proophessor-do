@@ -11,6 +11,7 @@ namespace Prooph\ProophessorDo\Model\Todo;
 
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
+use Prooph\ProophessorDo\Model\Entity;
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
@@ -27,7 +28,7 @@ use Prooph\ProophessorDo\Model\User\UserId;
  * @package Prooph\ProophessorDo\Model\Todo
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class Todo extends AggregateRoot
+final class Todo extends AggregateRoot implements Entity
 {
     /**
      * @var TodoId
@@ -74,7 +75,7 @@ final class Todo extends AggregateRoot
     {
         $self = new self();
         $self->assertText($text);
-        $self->recordThat(TodoWasPosted::byUser($assigneeId, $text, $todoId, TodoStatus::open()));
+        $self->recordThat(TodoWasPosted::byUser($assigneeId, $text, $todoId, TodoStatus::OPEN()));
 
         return $self;
     }
@@ -84,10 +85,12 @@ final class Todo extends AggregateRoot
      */
     public function markAsDone()
     {
-        $status = TodoStatus::fromString('done');
-        if (!$this->status->isOpen()) {
+        $status = TodoStatus::DONE();
+
+        if (! $this->status->is(TodoStatus::OPEN())) {
             throw Exception\TodoNotOpen::triedStatus($status, $this);
         }
+
         $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->todoId, $this->status, $status));
     }
 
@@ -108,7 +111,7 @@ final class Todo extends AggregateRoot
             throw Exception\InvalidDeadline::deadlineInThePast($deadline);
         }
 
-        if ($this->status->isDone()) {
+        if ($this->status->is(TodoStatus::DONE())) {
             throw Exception\TodoNotOpen::triedToAddDeadline($deadline, $this->status);
         }
 
@@ -126,9 +129,9 @@ final class Todo extends AggregateRoot
      */
     public function markAsExpired()
     {
-        $status = TodoStatus::fromString(TodoStatus::EXPIRED);
+        $status = TodoStatus::EXPIRED();
 
-        if (!$this->status->isOpen() || $this->status->isExpired()) {
+        if (! $this->status->is(TodoStatus::OPEN()) || $this->status->is(TodoStatus::EXPIRED())) {
             throw Exception\TodoNotOpen::triedToExpire($this->status, $this);
         }
 
@@ -145,7 +148,7 @@ final class Todo extends AggregateRoot
      */
     public function unmarkAsExpired()
     {
-        $status = TodoStatus::fromString(TodoStatus::OPEN);
+        $status = TodoStatus::OPEN();
 
         if (!$this->isMarkedAsExpired()) {
             throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
@@ -169,7 +172,7 @@ final class Todo extends AggregateRoot
 
     private function isMarkedAsExpired()
     {
-        return $this->status->isExpired();
+        return $this->status->is(TodoStatus::EXPIRED());
     }
 
     /**
@@ -188,7 +191,7 @@ final class Todo extends AggregateRoot
             throw Exception\InvalidReminder::reminderInThePast($reminder);
         }
 
-        if ($this->status->isDone()) {
+        if ($this->status->is(TodoStatus::DONE())) {
             throw Exception\TodoNotOpen::triedToAddReminder($reminder, $this->status);
         }
 
@@ -201,11 +204,11 @@ final class Todo extends AggregateRoot
      */
     public function remindAssignee(TodoReminder $reminder)
     {
-        if ($this->status->isDone()) {
+        if ($this->status->is(TodoStatus::DONE())) {
             throw Exception\TodoNotOpen::triedToAddReminder($reminder, $this->status);
         }
 
-        if (!$this->reminder->equals($reminder)) {
+        if (!$this->reminder->sameValueAs($reminder)) {
             throw Exception\InvalidReminder::reminderNotCurrent($this->reminder, $reminder);
         }
 
@@ -226,7 +229,7 @@ final class Todo extends AggregateRoot
             throw Exception\CannotReopenTodo::notMarkedDone($this);
         }
 
-        $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::fromString(TodoStatus::OPEN)));
+        $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::OPEN()));
     }
 
     /**
@@ -375,5 +378,15 @@ final class Todo extends AggregateRoot
         } catch (\Exception $e) {
             throw Exception\InvalidText::reason($e->getMessage());
         }
+    }
+
+    /**
+     * @param Entity $other
+     *
+     * @return bool
+     */
+    public function sameIdentityAs(Entity $other)
+    {
+        return get_class($this) === get_class($other) && $this->todoId->sameValueAs($other->todoId);
     }
 }

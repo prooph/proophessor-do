@@ -90,7 +90,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
     public function reminder()
     {
         if (!$this->reminder) {
-            $this->reminder = TodoReminder::fromString($this->payload['reminder'], TodoReminderStatus::OPEN);
+            $this->reminder = TodoReminder::fromString($this->payload['reminder'], TodoReminderStatus::OPEN()->getName());
         }
 
         return $this->reminder;

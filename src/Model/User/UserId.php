@@ -9,6 +9,7 @@
  */
 namespace Prooph\ProophessorDo\Model\User;
 
+use Prooph\ProophessorDo\Model\ValueObject;
 use Rhumsaa\Uuid\Uuid;
 
 /**
@@ -19,7 +20,7 @@ use Rhumsaa\Uuid\Uuid;
  * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class UserId
+final class UserId implements ValueObject
 {
     /**
      * @var Uuid
@@ -60,11 +61,11 @@ final class UserId
     }
 
     /**
-     * @param UserId $other
+     * @param ValueObject $other
      * @return bool
      */
-    public function sameValueAs(UserId $other)
+    public function sameValueAs(ValueObject $other)
     {
-        return $this->toString() === $other->toString();
+        return get_class($this) === get_class($other) && $this->uuid->equals($other->uuid);
     }
 }

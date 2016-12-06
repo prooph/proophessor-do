@@ -10,13 +10,15 @@
 
 namespace Prooph\ProophessorDo\Model\Todo;
 
+use Prooph\ProophessorDo\Model\ValueObject;
+
 /**
  * Class TodoReminder
  *
  * @package Prooph\ProophessorDo\Model\Todo
  * @author Roman Sachse <r.sachse@ipark-media.de>
  */
-final class TodoReminder
+final class TodoReminder implements ValueObject
 {
     /**
      * @var \DateTimeImmutable
@@ -37,7 +39,7 @@ final class TodoReminder
     {
         return new self(
             new \DateTimeImmutable($reminder, new \DateTimeZone('UTC')),
-            TodoReminderStatus::fromString($status)
+            TodoReminderStatus::getByName($status)
         );
     }
 
@@ -56,7 +58,7 @@ final class TodoReminder
      */
     public function isOpen()
     {
-        return $this->status->isOpen();
+        return $this->status->is(TodoReminderStatus::OPEN());
     }
 
     /**
@@ -89,7 +91,7 @@ final class TodoReminder
      */
     public function close()
     {
-        return new self($this->reminder, TodoReminderStatus::closed());
+        return new self($this->reminder, TodoReminderStatus::CLOSED());
     }
 
     /**
@@ -100,8 +102,15 @@ final class TodoReminder
         return $this->reminder->format(\DateTime::ATOM);
     }
 
-    public function equals(TodoReminder $todoReminder)
+    /**
+     * @param ValueObject $object
+     *
+     * @return bool
+     */
+    public function sameValueAs(ValueObject $object)
     {
-        return $this->toString() === $todoReminder->toString();
+        return get_class($this) === get_class($object)
+            && $this->reminder->format('U.u') === $object->reminder->format('U.u')
+            && $this->status->is($object->status);
     }
 }

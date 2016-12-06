@@ -10,13 +10,15 @@
 
 namespace Prooph\ProophessorDo\Model\Todo;
 
+use Prooph\ProophessorDo\Model\ValueObject;
+
 /**
  * Class TodoDeadline
  *
  * @package Prooph\ProophessorDo\Model\Todo
  * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
  */
-final class TodoDeadline
+final class TodoDeadline implements ValueObject
 {
     /**
      * @var \DateTimeImmutable
@@ -76,5 +78,17 @@ final class TodoDeadline
     public function isMet()
     {
         return $this->deadline > new \DateTimeImmutable;
+    }
+
+    /**
+     * @param ValueObject $object
+     *
+     * @return bool
+     */
+    public function sameValueAs(ValueObject $object)
+    {
+        return get_class($this) === get_class($object)
+            && $this->deadline->format('U.u') === $object->deadline->format('U.u')
+            && $this->createdOn->format('U.u') === $object->createdOn->format('U.u');
     }
 }

@@ -9,80 +9,34 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo;
 
-use Assert\Assertion;
+use MabeEnum\Enum;
+use MabeEnum\EnumSerializableTrait;
+use Prooph\ProophessorDo\Model\ValueObject;
 
 /**
  * Class TodoReminderStatus
  *
  * @package Prooph\ProophessorDo\Model\Todo
  * @author Roman Sachse <r.sachse@ipark-media.de>
+ *
+ * @method static TodoReminderStatus OPEN()
+ * @method static TodoReminderStatus CLOSED()
  */
-final class TodoReminderStatus
+final class TodoReminderStatus extends Enum implements ValueObject
 {
+    use EnumSerializableTrait;
+
     const OPEN = "open";
     const CLOSED = "closed";
 
     /**
-     * @var string
-     */
-    private $status;
-
-    /**
-     * @return TodoReminderStatus
-     */
-    public static function open()
-    {
-        return new self(self::OPEN);
-    }
-
-    /**
-     * @return TodoReminderStatus
-     */
-    public static function closed()
-    {
-        return new self(self::CLOSED);
-    }
-
-    /**
-     * @param string $status
-     * @return TodoReminderStatus
-     */
-    public static function fromString($status)
-    {
-        return new self($status);
-    }
-
-    /**
-     * @param string $status
-     */
-    private function __construct($status)
-    {
-        Assertion::inArray($status, [self::OPEN, self::CLOSED]);
-        $this->status = $status;
-    }
-
-    /**
-     * @return TodoReminderStatus
-     */
-    public function close()
-    {
-        return new self(self::CLOSED);
-    }
-
-    /**
+     * @param ValueObject $object
+     *
      * @return bool
      */
-    public function isOpen()
+    public function sameValueAs(ValueObject $object)
     {
-        return $this->status !== self::CLOSED;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isClosed()
-    {
-        return $this->status === self::CLOSED;
+        return $this->is($object);
     }
 
     /**
@@ -90,6 +44,6 @@ final class TodoReminderStatus
      */
     public function toString()
     {
-        return $this->status;
+        return $this->__toString();
     }
 }
