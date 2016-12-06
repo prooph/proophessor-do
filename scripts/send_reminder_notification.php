@@ -40,7 +40,7 @@ namespace {
         echo "Send reminder for Todo with id {$reminder->todo_id}.\n";
         $commandBus->dispatch(
             RemindTodoAssignee::forTodo(
-                TodoId::fromString($reminder->todo_id), TodoReminder::fromString($reminder->reminder, $reminder->status)
+                TodoId::fromString($reminder->todo_id), TodoReminder::from($reminder->reminder, $reminder->status)
             ));
     }
 

@@ -55,6 +55,6 @@ final class RemindTodoAssignee extends Command implements PayloadConstructable
      */
     public function reminder()
     {
-        return TodoReminder::fromString($this->payload['reminder'], $this->payload['reminder_status']);
+        return TodoReminder::from($this->payload['reminder'], $this->payload['reminder_status']);
     }
 }

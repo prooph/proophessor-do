@@ -35,7 +35,7 @@ final class TodoReminder implements ValueObject
      * @param string $status
      * @return TodoReminder
      */
-    public static function fromString($reminder, $status)
+    public static function from($reminder, $status)
     {
         return new self(
             new \DateTimeImmutable($reminder, new \DateTimeZone('UTC')),

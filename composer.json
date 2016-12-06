@@ -55,7 +55,7 @@
         "zendframework/zend-validator": "^2.8.1"
     },
     "require-dev" : {
-        "prooph/php-cs-fixer-config": "^0.1.1",
+        "friendsofphp/php-cs-fixer": "^1.13.1",
         "filp/whoops": "^1.1",
         "phpunit/phpunit": "^5.7",
         "proophsoftware/prooph-cli": "^0.2.0",

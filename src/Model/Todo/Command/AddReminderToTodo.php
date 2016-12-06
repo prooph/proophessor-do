@@ -48,6 +48,6 @@ final class AddReminderToTodo extends Command implements PayloadConstructable
      */
     public function reminder()
     {
-        return TodoReminder::fromString($this->payload['reminder'], TodoReminderStatus::OPEN);
+        return TodoReminder::from($this->payload['reminder'], TodoReminderStatus::OPEN);
     }
 }

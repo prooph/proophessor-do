@@ -30,7 +30,7 @@ final class TodoReminderTest extends TestCase
      */
     public function it_correctly_validates_the_reminder($reminder, $inThePast)
     {
-        $reminder = TodoReminder::fromString($reminder, TodoReminderStatus::OPEN()->getName());
+        $reminder = TodoReminder::from($reminder, TodoReminderStatus::OPEN()->getName());
 
         if ($inThePast) {
             $this->assertTrue($reminder->isInThePast());
@@ -54,16 +54,16 @@ final class TodoReminderTest extends TestCase
      */
     public function it_knows_about_its_status()
     {
-        $reminder = TodoReminder::fromString('2047-02-01 10:00:00', TodoReminderStatus::OPEN()->getName());
+        $reminder = TodoReminder::from('2047-02-01 10:00:00', TodoReminderStatus::OPEN()->getName());
         $this->assertTrue($reminder->isOpen());
 
-        $reminder = TodoReminder::fromString('2047-02-01 10:00:00', TodoReminderStatus::CLOSED()->getName());
+        $reminder = TodoReminder::from('2047-02-01 10:00:00', TodoReminderStatus::CLOSED()->getName());
         $this->assertFalse($reminder->isOpen());
     }
 
     public function it_returns_a_new_reminder_with_status_closed_when_closed()
     {
-        $reminder = TodoReminder::fromString('2047-02-01 10:00:00', TodoReminderStatus::OPEN()->getName());
+        $reminder = TodoReminder::from('2047-02-01 10:00:00', TodoReminderStatus::OPEN()->getName());
         $reminderClosed = $reminder->close();
 
         $this->assertNotEquals($reminder, $reminderClosed);

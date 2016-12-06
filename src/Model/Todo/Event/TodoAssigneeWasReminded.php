@@ -88,7 +88,7 @@ final class TodoAssigneeWasReminded extends AggregateChanged
     public function reminder()
     {
         if (!$this->reminder) {
-            $this->reminder = TodoReminder::fromString($this->payload['reminder'], $this->payload['reminder_status']);
+            $this->reminder = TodoReminder::from($this->payload['reminder'], $this->payload['reminder_status']);
         }
 
         return $this->reminder;
