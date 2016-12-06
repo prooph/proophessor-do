@@ -43,8 +43,6 @@ class NotifyUserOfExpiredTodoHandler
 
     /**
      * @param NotifyUserOfExpiredTodo $command
-     *
-     * @return void
      */
     public function __invoke(NotifyUserOfExpiredTodo $command)
     {
@@ -73,7 +71,7 @@ class NotifyUserOfExpiredTodoHandler
         $mail = new Message();
         $mail->setBody($message);
         $mail->setEncoding('utf-8');
-        $mail->setFrom('reminder@getprooph.org', 'Proophessor-do');
+        $mail->setFrom('reminder@localhost', 'Proophessor-do');
         $mail->addTo($user->email, $user->name);
         $mail->setSubject('Proophessor-do Todo expired');
 
