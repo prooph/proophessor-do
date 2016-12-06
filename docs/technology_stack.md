@@ -1,7 +1,7 @@
 # Technology Stack
 
 ## Server Side
-- PHP 5.5+
+- PHP 5.6+
 - [PSR-7](http://www.php-fig.org/psr/psr-7/) middleware layer based on [zend-expressive](https://github.com/zendframework/zend-expressive)
   - IoC Container: [zend-servicemanager](https://github.com/zendframework/zend-servicemanager) v2.6+ with [container-interop](https://github.com/container-interop/container-interop) support
   - Routing: [Aura.Router](https://github.com/auraphp/Aura.Router)
