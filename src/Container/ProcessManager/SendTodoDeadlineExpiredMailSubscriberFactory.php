@@ -11,7 +11,7 @@
 namespace Prooph\ProophessorDo\Container\ProcessManager;
 
 use Interop\Container\ContainerInterface;
-use Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber;
+use Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Zend\Mail\Transport\TransportInterface;
@@ -27,11 +27,11 @@ final class SendTodoDeadlineExpiredMailSubscriberFactory
 {
     /**
      * @param ContainerInterface $container
-     * @return SendTodoDeadlineExpiredMailSubscriber
+     * @return SendTodoDeadlineExpiredMailProcessManager
      */
     public function __invoke(ContainerInterface $container)
     {
-        return new SendTodoDeadlineExpiredMailSubscriber(
+        return new SendTodoDeadlineExpiredMailProcessManager(
             $container->get(UserFinder::class),
             $container->get(TodoFinder::class),
             $container->get(TransportInterface::class)

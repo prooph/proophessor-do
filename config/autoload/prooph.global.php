@@ -88,12 +88,12 @@ return [
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
                             \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class,
-                            \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailSubscriber::class,
+                            \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager::class,
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
                             \Prooph\ProophessorDo\Projection\User\UserProjector::class,
-                            \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber::class,
+                            \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager::class,
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,

@@ -8,27 +8,22 @@
  * file that was distributed with this source code.
  */
 
-namespace Prooph\ProophessorDo\ProcessManager;
+namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
-use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
+use Prooph\ProophessorDo\Model\Todo\Command\NotifyUserOfExpiredTodo;
 use Prooph\ProophessorDo\Model\Todo\Query\GetTodoById;
 use Prooph\ProophessorDo\Model\User\Query\GetUserById;
 use Prooph\ServiceBus\QueryBus;
-use Zend\Mail;
+use Zend\Mail\Message;
 use Zend\Mail\Transport\TransportInterface;
 
-/**
- * Class SendTodoReminderMailSubscriber
- *
- * @package Prooph\ProophessorDo\App\Mail
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
-final class SendTodoReminderMailSubscriber
+class NotifyUserOfExpiredTodoHandler
 {
     /**
      * @var QueryBus
      */
     private $queryBus;
+
     /**
      * @var TransportInterface
      */
@@ -38,37 +33,49 @@ final class SendTodoReminderMailSubscriber
      * @param QueryBus $queryBus
      * @param TransportInterface $mailer
      */
-    public function __construct(QueryBus $queryBus, TransportInterface $mailer)
-    {
+    public function __construct(
+        QueryBus $queryBus,
+        TransportInterface $mailer
+    ) {
         $this->queryBus = $queryBus;
         $this->mailer = $mailer;
     }
 
     /**
-     * @param TodoAssigneeWasReminded $event
+     * @param NotifyUserOfExpiredTodo $command
+     *
+     * @return void
      */
-    public function __invoke(TodoAssigneeWasReminded $event)
+    public function __invoke(NotifyUserOfExpiredTodo $command)
     {
-        $user = null;
-        $this->queryBus->dispatch(new GetUserById($event->userId()->toString()))
-            ->then(
-                function ($result) use (&$user) {
-                    $user = $result;
-                }
-            );
         $todo = null;
-        $this->queryBus->dispatch(new GetTodoById($event->todoId()->toString()))
+        $this->queryBus->dispatch(new GetTodoById($command->todoId()->toString()))
             ->then(
                 function ($result) use (&$todo) {
                     $todo = $result;
                 }
             );
+        $user = null;
+        $this->queryBus->dispatch(new GetUserById($todo->assigne_id))
+            ->then(
+                function ($result) use (&$user) {
+                    $user = $result;
+                }
+            );
 
-        $mail = new Mail\Message();
-        $mail->setBody("Hello {$user->name}. This a reminder for '{$todo->text}'. Don't be lazy!");
+        $message = sprintf(
+            'Hi %s! Just a heads up: your todo `%s` has expired on %s.',
+            $user->name,
+            $todo->text,
+            $todo->deadline
+        );
+
+        $mail = new Message();
+        $mail->setBody($message);
+        $mail->setEncoding('utf-8');
         $mail->setFrom('reminder@getprooph.org', 'Proophessor-do');
         $mail->addTo($user->email, $user->name);
-        $mail->setSubject('Proophessor-do Todo Reminder');
+        $mail->setSubject('Proophessor-do Todo expired');
 
         $this->mailer->send($mail);
     }

@@ -9,7 +9,7 @@
  */
 namespace Prooph\ProophessorDo\Model\User;
 
-use ValueObjects\Web\EmailAddress as VOEMailAddress;
+use Zend\Validator\EmailAddress as EmailAddressValidator;
 
 /**
  * Class EmailAddress
@@ -22,25 +22,32 @@ use ValueObjects\Web\EmailAddress as VOEMailAddress;
 final class EmailAddress
 {
     /**
-     * @var VOEMailAddress
+     * @var string
      */
     private $email;
 
     /**
      * @param string $email
+     *
      * @return EmailAddress
      */
     public static function fromString($email)
     {
-        return new self(VOEMailAddress::fromNative($email));
+        $validator = new EmailAddressValidator();
+
+        if (! $validator->isValid($email)) {
+            throw new \InvalidArgumentException('Invalid email address');
+        }
+
+        return new self($email);
     }
 
     /**
-     * @param VOEMailAddress $emailAddress
+     * @param string $emailAddress
      */
-    private function __construct(VOEMailAddress $emailAddress)
+    private function __construct($email)
     {
-        $this->email = $emailAddress;
+        $this->email = $email;
     }
 
     /**
@@ -48,7 +55,7 @@ final class EmailAddress
      */
     public function toString()
     {
-        return $this->email->toNative();
+        return $this->email;
     }
 
     /**
