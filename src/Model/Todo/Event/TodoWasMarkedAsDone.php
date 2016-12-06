@@ -52,7 +52,7 @@ final class TodoWasMarkedAsDone extends AggregateChanged
      */
     public function todoId()
     {
-        if (is_null($this->todoId)) {
+        if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
         }
         return $this->todoId;
@@ -63,7 +63,7 @@ final class TodoWasMarkedAsDone extends AggregateChanged
      */
     public function oldStatus()
     {
-        if (is_null($this->oldStatus)) {
+        if (null === $this->oldStatus) {
             $this->oldStatus = TodoStatus::getByName($this->payload['old_status']);
         }
         return $this->oldStatus;
@@ -74,7 +74,7 @@ final class TodoWasMarkedAsDone extends AggregateChanged
      */
     public function newStatus()
     {
-        if (is_null($this->newStatus)) {
+        if (null === $this->newStatus) {
             $this->newStatus = TodoStatus::getByName($this->payload['new_status']);
         }
         return $this->newStatus;

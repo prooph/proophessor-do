@@ -55,7 +55,7 @@ final class UserWasRegistered extends AggregateChanged
      */
     public function userId()
     {
-        if (is_null($this->userId)) {
+        if (null === $this->userId) {
             $this->userId = UserId::fromString($this->aggregateId());
         }
 
@@ -67,7 +67,7 @@ final class UserWasRegistered extends AggregateChanged
      */
     public function name()
     {
-        if (is_null($this->username)) {
+        if (null === $this->username) {
             $this->username = $this->payload['name'];
         }
         return $this->username;
@@ -78,7 +78,7 @@ final class UserWasRegistered extends AggregateChanged
      */
     public function emailAddress()
     {
-        if (is_null($this->emailAddress)) {
+        if (null === $this->emailAddress) {
             $this->emailAddress = EmailAddress::fromString($this->payload['email']);
         }
         return $this->emailAddress;

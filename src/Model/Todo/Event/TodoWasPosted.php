@@ -55,7 +55,7 @@ final class TodoWasPosted extends AggregateChanged
      */
     public function todoId()
     {
-        if (is_null($this->todoId)) {
+        if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
         }
         return $this->todoId;
@@ -66,7 +66,7 @@ final class TodoWasPosted extends AggregateChanged
      */
     public function assigneeId()
     {
-        if (is_null($this->assigneeId)) {
+        if (null === $this->assigneeId) {
             $this->assigneeId = UserId::fromString($this->payload['assignee_id']);
         }
         return $this->assigneeId;
@@ -85,7 +85,7 @@ final class TodoWasPosted extends AggregateChanged
      */
     public function todoStatus()
     {
-        if (is_null($this->todoStatus)) {
+        if (null === $this->todoStatus) {
             $this->todoStatus = TodoStatus::getByName($this->payload['status']);
         }
         return $this->todoStatus;

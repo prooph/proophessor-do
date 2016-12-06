@@ -26,7 +26,7 @@ final class RiotTag extends AbstractHelper
 
     public function __invoke($tagName, $template = null, $jsFunction = null)
     {
-        if (is_null($template)) {
+        if (null === $template) {
             $template = $tagName;
             $tagName  = $this->getTagNameFromTemplate($template);
         }
@@ -36,7 +36,7 @@ final class RiotTag extends AbstractHelper
 
         $template = $this->getView()->partial($template);
 
-        if (is_null($jsFunction)) {
+        if (null === $jsFunction) {
             $jsFunction = $this->extractJsFunction($template, $tagName);
             $template = $this->removeJsFromTemplate($template, $tagName);
         }

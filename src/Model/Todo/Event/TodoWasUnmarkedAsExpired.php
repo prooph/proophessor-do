@@ -52,7 +52,7 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
      */
     public function todoId()
     {
-        if (is_null($this->todoId)) {
+        if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
         }
 
@@ -64,7 +64,7 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
      */
     public function oldStatus()
     {
-        if (is_null($this->oldStatus)) {
+        if (null === $this->oldStatus) {
             $this->oldStatus = TodoStatus::getByName($this->payload['old_status']);
         }
 
@@ -76,7 +76,7 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
      */
     public function newStatus()
     {
-        if (is_null($this->newStatus)) {
+        if (null === $this->newStatus) {
             $this->newStatus = TodoStatus::getByName($this->payload['new_status']);
         }
 
