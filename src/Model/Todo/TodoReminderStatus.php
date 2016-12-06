@@ -9,9 +9,7 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo;
 
-use MabeEnum\Enum;
-use MabeEnum\EnumSerializableTrait;
-use Prooph\ProophessorDo\Model\ValueObject;
+use Prooph\ProophessorDo\Model\Enum;
 
 /**
  * Class TodoReminderStatus
@@ -22,28 +20,8 @@ use Prooph\ProophessorDo\Model\ValueObject;
  * @method static TodoReminderStatus OPEN()
  * @method static TodoReminderStatus CLOSED()
  */
-final class TodoReminderStatus extends Enum implements ValueObject
+final class TodoReminderStatus extends Enum
 {
-    use EnumSerializableTrait;
-
     const OPEN = "open";
     const CLOSED = "closed";
-
-    /**
-     * @param ValueObject $object
-     *
-     * @return bool
-     */
-    public function sameValueAs(ValueObject $object)
-    {
-        return $this->is($object);
-    }
-
-    /**
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->__toString();
-    }
 }

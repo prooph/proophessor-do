@@ -9,9 +9,7 @@
  */
 namespace Prooph\ProophessorDo\Model\Todo;
 
-use MabeEnum\Enum;
-use MabeEnum\EnumSerializableTrait;
-use Prooph\ProophessorDo\Model\ValueObject;
+use Prooph\ProophessorDo\Model\Enum;
 
 /**
  * Class TodoStatus
@@ -23,29 +21,9 @@ use Prooph\ProophessorDo\Model\ValueObject;
  * @method static TodoStatus DONE()
  * @method static TodoStatus EXPIRED()
  */
-final class TodoStatus extends Enum implements ValueObject
+final class TodoStatus extends Enum
 {
-    use EnumSerializableTrait;
-
     const OPEN = "open";
     const DONE = "done";
     const EXPIRED = "expired";
-
-    /**
-     * @param ValueObject $object
-     *
-     * @return bool
-     */
-    public function sameValueAs(ValueObject $object)
-    {
-        return $this->is($object);
-    }
-
-    /**
-     * @return string
-     */
-    public function toString()
-    {
-        return $this->__toString();
-    }
 }
