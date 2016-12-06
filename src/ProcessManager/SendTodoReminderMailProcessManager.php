@@ -12,12 +12,7 @@ namespace Prooph\ProophessorDo\ProcessManager;
 
 use Prooph\ProophessorDo\Model\Todo\Command\SendTodoReminderMail;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
-use Prooph\ProophessorDo\Model\Todo\Query\GetTodoById;
-use Prooph\ProophessorDo\Model\User\Query\GetUserById;
 use Prooph\ServiceBus\CommandBus;
-use Prooph\ServiceBus\QueryBus;
-use Zend\Mail;
-use Zend\Mail\Transport\TransportInterface;
 
 /**
  * Class SendTodoReminderMailProcessManager
