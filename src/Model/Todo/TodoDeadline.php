@@ -42,8 +42,8 @@ final class TodoDeadline
      */
     private function __construct($deadline)
     {
-        $this->deadline = new \DateTimeImmutable($deadline);
-        $this->createdOn = new \DateTimeImmutable;
+        $this->deadline = new \DateTimeImmutable($deadline, new \DateTimeZone('UTC'));
+        $this->createdOn = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     /**
