@@ -8,8 +8,11 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace ProophTest\ProophessorDo\ProcessManager;
 
+use PHPUnit\Framework\TestCase;
 use Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
@@ -17,12 +20,12 @@ use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 use Prooph\ServiceBus\CommandBus;
 use Prophecy\Argument;
 
-class SendTodoDeadlineExpiredMailProcessManagerTest extends \PHPUnit_Framework_TestCase
+class SendTodoDeadlineExpiredMailProcessManagerTest extends TestCase
 {
     /**
      * @test
      */
-    public function it_dispatches_email_to_the_assignee_command()
+    public function it_dispatches_email_to_the_assignee_command(): void
     {
         $commandBus = $this->prophesize(CommandBus::class);
         $commandBus->dispatch(Argument::any())->shouldBeCalled();

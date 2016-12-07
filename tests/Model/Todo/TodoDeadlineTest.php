@@ -8,23 +8,20 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace ProophTest\ProophessorDo\Model\Todo;
 
 use ProophTest\ProophessorDo\TestCase;
 use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
 
-/**
- * Class TodoDeadlineTest
- * @package ProophTest\ProophessorDo\Model\Todo
- * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
- */
-final class TodoDeadlineTest extends TestCase
+class TodoDeadlineTest extends TestCase
 {
     /**
      * @test
      * @dataProvider getDeadlines
      */
-    public function it_correctly_validates_the_deadline($deadline, $inThePast)
+    public function it_correctly_validates_the_deadline($deadline, $inThePast): void
     {
         $deadline = TodoDeadline::fromString($deadline);
         $deadlineInThePast = $deadline->isInThePast();
@@ -36,7 +33,7 @@ final class TodoDeadlineTest extends TestCase
         }
     }
 
-    public function getDeadlines()
+    public function getDeadlines(): array
     {
         return [
             [

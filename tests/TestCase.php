@@ -7,40 +7,33 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace ProophTest\ProophessorDo;
 
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 use Prooph\EventStore\Aggregate\AggregateType;
 
-/**
- * Class TestCase
- *
- * @package ProophTest\ProophessorDo\tests
- */
-class TestCase extends \PHPUnit_Framework_TestCase
+class TestCase extends PHPUnitTestCase
 {
     /**
      * @var AggregateTranslator
      */
     private $aggregateTranslator;
 
-    /**
-     * @param AggregateRoot $aggregateRoot
-     * @return AggregateChanged[]
-     */
-    protected function popRecordedEvent(AggregateRoot $aggregateRoot)
+    protected function popRecordedEvent(AggregateRoot $aggregateRoot): array
     {
         return $this->getAggregateTranslator()->extractPendingStreamEvents($aggregateRoot);
     }
 
     /**
-     * @param string $aggregateRootClass
-     * @param array $events
      * @return object
      */
-    protected function reconstituteAggregateFromHistory($aggregateRootClass, array $events)
+    protected function reconstituteAggregateFromHistory(string $aggregateRootClass, array $events)
     {
         return $this->getAggregateTranslator()->reconstituteAggregateFromHistory(
             AggregateType::fromAggregateRootClass($aggregateRootClass),
@@ -48,10 +41,7 @@ class TestCase extends \PHPUnit_Framework_TestCase
         );
     }
 
-    /**
-     * @return AggregateTranslator
-     */
-    private function getAggregateTranslator()
+    private function getAggregateTranslator(): AggregateTranslator
     {
         if (null === $this->aggregateTranslator) {
             $this->aggregateTranslator = new AggregateTranslator();

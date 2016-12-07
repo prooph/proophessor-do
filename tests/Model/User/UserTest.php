@@ -8,28 +8,24 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace ProophTest\ProophessorDo\Model\User;
 
 use Prooph\ProophessorDo\Model\User\EmailAddress;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegisteredAgain;
+use Prooph\ProophessorDo\Model\User\Exception\InvalidName;
 use Prooph\ProophessorDo\Model\User\User;
 use Prooph\ProophessorDo\Model\User\UserId;
 use ProophTest\ProophessorDo\TestCase;
 
-/**
- * Class UserTest
- *
- * @package ProophTest\ProophessorDo\Model\User
- * @author Lucas Courot <lucas@courot.com>
- */
-final class UserTest extends TestCase
+class UserTest extends TestCase
 {
     /**
      * @test
-     * @return User $user
      */
-    public function it_registers_a_new_user()
+    public function it_registers_a_new_user(): User
     {
         $userId = UserId::generate();
         $name = 'John Doe';
@@ -57,7 +53,7 @@ final class UserTest extends TestCase
     /**
      * @test
      */
-    public function it_registers_a_new_user_again()
+    public function it_registers_a_new_user_again(): void
     {
         $userId = UserId::generate();
         $name = 'John Doe';
@@ -87,10 +83,11 @@ final class UserTest extends TestCase
 
     /**
      * @test
-     * @expectedException \Prooph\ProophessorDo\Model\User\Exception\InvalidName
      */
-    public function it_throws_an_exception_if_user_registers_with_invalid_name()
+    public function it_throws_an_exception_if_user_registers_with_invalid_name(): void
     {
+        $this->expectException(InvalidName::class);
+
         $name = '';
 
         User::registerWithData(UserId::generate(), $name, EmailAddress::fromString('john.doe@example.com'));
@@ -98,12 +95,12 @@ final class UserTest extends TestCase
 
     /**
      * @test
-     * @param User $user
-     * @expectedException \Prooph\ProophessorDo\Model\User\Exception\InvalidName
      * @depends it_registers_a_new_user
      */
-    public function it_throws_an_exception_if_user_registers_again_with_invalid_name(User $user)
+    public function it_throws_an_exception_if_user_registers_again_with_invalid_name(User $user): void
     {
+        $this->expectException(InvalidName::class);
+
         $name = '';
 
         $user->registerAgain($name);
