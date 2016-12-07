@@ -21,7 +21,7 @@ use Prooph\ProophessorDo\Projection\Table;
  */
 class Version20160308110616 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $user = $schema->createTable(Table::TODO_REMINDER);
 
@@ -31,7 +31,7 @@ class Version20160308110616 extends AbstractMigration
         $user->setPrimaryKey(['todo_id']);
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $schema->dropTable(Table::TODO_REMINDER);
     }

@@ -36,6 +36,7 @@ namespace {
         $todoReflected = new \ReflectionClass($todo);
         $versionProp = $todoReflected->getProperty('version');
         $versionProp->setAccessible(true);
+
         return $versionProp->getValue($todo);
     }
 
@@ -75,7 +76,7 @@ namespace {
         $todoId->toString(),
         $todo,
         get_todo_version($todo),
-        new \DateTimeImmutable("now", new \DateTimeZone('UTC'))
+        new \DateTimeImmutable('now', new \DateTimeZone('UTC'))
     );
 
     $snapshotStore->save($snapshot);

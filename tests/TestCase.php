@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace ProophTest\ProophessorDo;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
-use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
 use Prooph\EventStore\Aggregate\AggregateType;

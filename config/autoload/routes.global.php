@@ -13,14 +13,15 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo;
 
 use Zend\Expressive;
+
 return [
     'dependencies' => [
         'invokables' => [
-            Expressive\Router\RouterInterface::class => Expressive\Router\AuraRouter::class
+            Expressive\Router\RouterInterface::class => Expressive\Router\AuraRouter::class,
         ],
         'factories' => [
             \Prooph\ProophessorDo\Middleware\JsonPayload::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
-        ]
+        ],
     ],
     'routes' => [
         [
@@ -48,7 +49,7 @@ return [
             'allowed_methods' => ['GET'],
             'options' => [
                 'tokens' => [
-                    'user_id' => '[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}'
+                    'user_id' => '[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}',
                 ],
             ],
         ],
@@ -59,7 +60,7 @@ return [
             'allowed_methods' => ['GET'],
             'options' => [
                 'tokens' => [
-                    'user_id' => '[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}'
+                    'user_id' => '[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}',
                 ],
             ],
         ],

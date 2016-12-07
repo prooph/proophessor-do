@@ -27,7 +27,7 @@ require_once 'vendor/autoload.php';
 
 $container = require 'config/container.php';
 
-$context = new ZMQContext;
+$context = new ZMQContext();
 $socket = new ZMQSocket($context, ZMQ::SOCKET_PULL);
 $socket->bind('tcp://127.0.0.1:5555');
 
@@ -38,8 +38,7 @@ $messageFactory = new \Prooph\Common\Messaging\FQCNMessageFactory();
 $snapshotter = $container->get(\Prooph\Snapshotter\Snapshotter::class);
 
 while ($messageStr = $socket->recv()) {
-
-    echo "Message received: " . $messageStr . "\n";
+    echo 'Message received: ' . $messageStr . "\n";
 
     $messageArr = json_decode($messageStr, true);
 

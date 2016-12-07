@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\User\Event;
 
-use Assert\Assertion;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\User\EmailAddress;
 use Prooph\ProophessorDo\Model\User\UserId;

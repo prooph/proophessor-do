@@ -52,7 +52,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
 
     public function todoId(): TodoId
     {
-        if (!$this->todoId) {
+        if (! $this->todoId) {
             $this->todoId = TodoId::fromString($this->payload['todo_id']);
         }
 
@@ -61,7 +61,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
 
     public function userId(): UserId
     {
-        if (!$this->userId) {
+        if (! $this->userId) {
             $this->userId = UserId::fromString($this->payload['user_id']);
         }
 
@@ -70,7 +70,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
 
     public function reminder(): TodoReminder
     {
-        if (!$this->reminder) {
+        if (! $this->reminder) {
             $this->reminder = TodoReminder::from($this->payload['reminder'], TodoReminderStatus::OPEN()->getName());
         }
 

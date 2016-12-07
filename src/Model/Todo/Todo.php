@@ -91,7 +91,7 @@ final class Todo extends AggregateRoot implements Entity
      */
     public function addDeadline(UserId $userId, TodoDeadline $deadline): void
     {
-        if (!$this->assigneeId()->sameValueAs($userId)) {
+        if (! $this->assigneeId()->sameValueAs($userId)) {
             throw Exception\InvalidDeadline::userIsNotAssignee($userId, $this->assigneeId());
         }
 
@@ -136,7 +136,7 @@ final class Todo extends AggregateRoot implements Entity
     {
         $status = TodoStatus::OPEN();
 
-        if (!$this->isMarkedAsExpired()) {
+        if (! $this->isMarkedAsExpired()) {
             throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
         }
 
@@ -153,7 +153,7 @@ final class Todo extends AggregateRoot implements Entity
      */
     public function addReminder(UserId $userId, TodoReminder $reminder): void
     {
-        if (!$this->assigneeId()->sameValueAs($userId)) {
+        if (! $this->assigneeId()->sameValueAs($userId)) {
             throw Exception\InvalidReminder::userIsNotAssignee($userId, $this->assigneeId());
         }
 
@@ -177,11 +177,11 @@ final class Todo extends AggregateRoot implements Entity
             throw Exception\TodoNotOpen::triedToAddReminder($reminder, $this->status);
         }
 
-        if (!$this->reminder->sameValueAs($reminder)) {
+        if (! $this->reminder->sameValueAs($reminder)) {
             throw Exception\InvalidReminder::reminderNotCurrent($this->reminder, $reminder);
         }
 
-        if (!$this->reminder->isOpen()) {
+        if (! $this->reminder->isOpen()) {
             throw Exception\InvalidReminder::alreadyReminded();
         }
 
@@ -194,7 +194,7 @@ final class Todo extends AggregateRoot implements Entity
 
     public function reopenTodo(): void
     {
-        if (!$this->status->isDone()) {
+        if (! $this->status->isDone()) {
             throw Exception\CannotReopenTodo::notMarkedDone($this);
         }
 

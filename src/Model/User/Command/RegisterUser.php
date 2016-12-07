@@ -16,8 +16,8 @@ use Assert\Assertion;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
-use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\ProophessorDo\Model\User\EmailAddress;
+use Prooph\ProophessorDo\Model\User\UserId;
 use Zend\Validator\EmailAddress as EmailAddressValidator;
 
 final class RegisterUser extends Command implements PayloadConstructable
@@ -27,9 +27,9 @@ final class RegisterUser extends Command implements PayloadConstructable
     public static function withData(string $userId, string $name, string $email): RegisterUser
     {
         return new self([
-            'user_id' => (string)$userId,
-            'name' => (string)$name,
-            'email' => (string)$email
+            'user_id' => (string) $userId,
+            'name' => (string) $name,
+            'email' => (string) $email,
         ]);
     }
 
@@ -60,6 +60,4 @@ final class RegisterUser extends Command implements PayloadConstructable
 
         $this->payload = $payload;
     }
-
-
 }

@@ -55,7 +55,7 @@ class TodoTest extends TestCase
         $expectedPayload = [
             'text' => 'This is test todo',
             'assignee_id' => $assigneeId->toString(),
-            'status' => 'OPEN'
+            'status' => 'OPEN',
         ];
 
         $this->assertEquals($expectedPayload, $events[0]->payload());
@@ -80,7 +80,7 @@ class TodoTest extends TestCase
 
         $expectedPayload = [
             'old_status' => 'OPEN',
-            'new_status' => 'DONE'
+            'new_status' => 'DONE',
         ];
 
         $this->assertEquals($expectedPayload, $events[1]->payload());
@@ -355,7 +355,7 @@ class TodoTest extends TestCase
 
         $events = [
             TodoWasPosted::byUser($userId, 'test', $todoId, TodoStatus::OPEN()),
-            ReminderWasAddedToTodo::byUserToDate($todoId, $userId, $reminder)
+            ReminderWasAddedToTodo::byUserToDate($todoId, $userId, $reminder),
         ];
 
         return $this->reconstituteAggregateFromHistory(Todo::class, $events);
@@ -366,8 +366,8 @@ class TodoTest extends TestCase
      */
     public function it_marks_an_open_todo_as_expired(): Todo
     {
-        $todoId   = TodoId::generate();
-        $userId   = UserId::generate();
+        $todoId = TodoId::generate();
+        $userId = UserId::generate();
         $deadline = TodoDeadline::fromString('yesterday');
 
         $events = [
@@ -398,10 +398,10 @@ class TodoTest extends TestCase
      */
     public function it_throws_an_exception_when_marking_an_open_todo_before_the_deadline(): void
     {
-        $todoId   = TodoId::generate();
-        $userId   = UserId::generate();
+        $todoId = TodoId::generate();
+        $userId = UserId::generate();
         $deadline = TodoDeadline::fromString('2047-12-31 12:00:00');
-        $todo     = Todo::post('Do something before the deadline', $userId, $todoId);
+        $todo = Todo::post('Do something before the deadline', $userId, $todoId);
 
         $todo->addDeadline($userId, $deadline);
 
@@ -419,10 +419,10 @@ class TodoTest extends TestCase
      */
     public function it_throws_an_exception_when_marking_a_completed_todo_as_expired(): void
     {
-        $todoId   = TodoId::generate();
-        $userId   = UserId::generate();
+        $todoId = TodoId::generate();
+        $userId = UserId::generate();
         $deadline = TodoDeadline::fromString('2047-12-31 12:00:00');
-        $todo     = Todo::post('Do something fun', $userId, $todoId);
+        $todo = Todo::post('Do something fun', $userId, $todoId);
 
         $todo->addDeadline($userId, $deadline);
         $todo->markAsDone();
@@ -450,7 +450,7 @@ class TodoTest extends TestCase
      */
     public function it_unmarks_an_expired_todo_when_deadline_is_added(Todo $todo): Todo
     {
-        $userId   = $todo->assigneeId();
+        $userId = $todo->assigneeId();
         $deadline = TodoDeadline::fromString('1 day');
 
         $todo->addDeadline($userId, $deadline);

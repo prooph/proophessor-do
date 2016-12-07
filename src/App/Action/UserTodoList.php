@@ -60,7 +60,7 @@ class UserTodoList
         return new HtmlResponse(
             $this->templates->render('page::user-todo-list', [
                 'user' => $user,
-                'todos' => $todos
+                'todos' => $todos,
             ])
         );
     }

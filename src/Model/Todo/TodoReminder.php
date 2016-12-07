@@ -49,12 +49,12 @@ final class TodoReminder implements ValueObject
 
     public function isInThePast(): bool
     {
-        return $this->reminder < new \DateTimeImmutable("now", new \DateTimeZone('UTC'));
+        return $this->reminder < new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     public function isInTheFuture(): bool
     {
-        return $this->reminder > new \DateTimeImmutable("now", new \DateTimeZone('UTC'));
+        return $this->reminder > new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
     public function status(): TodoReminderStatus

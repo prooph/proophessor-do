@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Projection\Todo;
 
+use Doctrine\DBAL\Connection;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 use Prooph\ProophessorDo\Projection\Table;
-use Doctrine\DBAL\Connection;
 
 class TodoFinder
 {
@@ -31,7 +31,7 @@ class TodoFinder
 
     public function findAll(): array
     {
-        return $this->connection->fetchAll(sprintf("SELECT * FROM %s", Table::TODO));
+        return $this->connection->fetchAll(sprintf('SELECT * FROM %s', Table::TODO));
     }
 
     public function findAllOpen(): array
@@ -42,23 +42,25 @@ class TodoFinder
     public function findByAssigneeId(string $assigneeId): array
     {
         return $this->connection->fetchAll(
-            sprintf("SELECT * FROM %s WHERE assignee_id = :assignee_id", Table::TODO),
+            sprintf('SELECT * FROM %s WHERE assignee_id = :assignee_id', Table::TODO),
             ['assignee_id' => $assigneeId]
         );
     }
 
     public function findById(string $todoId): \stdClass
     {
-        $stmt = $this->connection->prepare(sprintf("SELECT * FROM %s where id = :todo_id", Table::TODO));
+        $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s where id = :todo_id', Table::TODO));
         $stmt->bindValue('todo_id', $todoId);
         $stmt->execute();
+
         return $stmt->fetch();
     }
 
     public function findByOpenReminders(): array
     {
-        $stmt = $this->connection->prepare(sprintf("SELECT * FROM %s where reminder < NOW() AND reminded = 0", Table::TODO));
+        $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s where reminder < NOW() AND reminded = 0', Table::TODO));
         $stmt->execute();
+
         return $stmt->fetchAll();
     }
 

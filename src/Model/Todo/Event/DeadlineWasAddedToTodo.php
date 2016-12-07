@@ -51,7 +51,7 @@ final class DeadlineWasAddedToTodo extends AggregateChanged
 
     public function todoId(): TodoId
     {
-        if (!$this->todoId) {
+        if (! $this->todoId) {
             $this->todoId = TodoId::fromString($this->payload['todo_id']);
         }
 
@@ -60,7 +60,7 @@ final class DeadlineWasAddedToTodo extends AggregateChanged
 
     public function userId(): UserId
     {
-        if (!$this->userId) {
+        if (! $this->userId) {
             $this->userId = UserId::fromString($this->payload['user_id']);
         }
 
@@ -69,7 +69,7 @@ final class DeadlineWasAddedToTodo extends AggregateChanged
 
     public function deadline(): TodoDeadline
     {
-        if (!$this->deadline) {
+        if (! $this->deadline) {
             $this->deadline = TodoDeadline::fromString($this->payload['deadline']);
         }
 

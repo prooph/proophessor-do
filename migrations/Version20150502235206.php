@@ -12,16 +12,16 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Migrations;
 
-use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
+use Prooph\ProophessorDo\Projection\Table;
 
 /**
  * Auto-generated Migration: Please modify to your need!
  */
 class Version20150502235206 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $user = $schema->createTable(Table::USER);
 
@@ -34,7 +34,7 @@ class Version20150502235206 extends AbstractMigration
         $user->setPrimaryKey(['id']);
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $schema->dropTable(Table::USER);
     }

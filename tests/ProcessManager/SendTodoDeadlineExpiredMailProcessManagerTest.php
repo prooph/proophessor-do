@@ -13,10 +13,10 @@ declare(strict_types=1);
 namespace ProophTest\ProophessorDo\ProcessManager;
 
 use PHPUnit\Framework\TestCase;
-use Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager;
 use Prooph\ServiceBus\CommandBus;
 use Prophecy\Argument;
 

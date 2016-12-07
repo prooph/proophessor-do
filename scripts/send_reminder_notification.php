@@ -33,7 +33,7 @@ namespace {
 
     $todoReminder = $todoReminderFinder->findOpen();
 
-    if (!$todoReminder) {
+    if (! $todoReminder) {
         echo "Nothing to do. Exiting.\n";
         exit;
     }

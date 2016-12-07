@@ -28,8 +28,8 @@ return [
     'templates' => [
         'layout' => 'app::layout',
         'map' => [
-            'error/error'    => 'templates/error/error.phtml',
-            'error/404'      => 'templates/error/404.phtml',
+            'error/error' => 'templates/error/error.phtml',
+            'error/404' => 'templates/error/404.phtml',
             //html templates
             'app::layout' => 'templates/layout/layout.phtml',
             'page::home' => 'templates/action/home.phtml',
@@ -44,9 +44,9 @@ return [
             'riot::user-todo' => 'templates/riot/user-todo.phtml',
         ],
         'paths' => [
-            'app'    => ['templates/app'],
+            'app' => ['templates/app'],
             'layout' => ['templates/layout'],
-            'error'  => ['templates/error'],
+            'error' => ['templates/error'],
         ],
     ],
     'view_helpers' => [
@@ -58,6 +58,6 @@ return [
         // - etc.
         'invokables' => [
             'riotTag' => \Prooph\ProophessorDo\App\View\Helper\RiotTag::class,
-        ]
+        ],
     ],
 ];

@@ -21,7 +21,7 @@ use Prooph\ProophessorDo\Model\Enum;
  */
 final class TodoStatus extends Enum
 {
-    const OPEN = "open";
-    const DONE = "done";
-    const EXPIRED = "expired";
+    const OPEN = 'open';
+    const DONE = 'done';
+    const EXPIRED = 'expired';
 }

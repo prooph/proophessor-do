@@ -29,7 +29,7 @@ final class RemindTodoAssignee extends Command implements PayloadConstructable
         return new self([
             'todo_id' => $todoId->toString(),
             'reminder' => $todoReminder->toString(),
-            'reminder_status' => $todoReminder->status()->toString()
+            'reminder_status' => $todoReminder->status()->toString(),
         ]);
     }
 

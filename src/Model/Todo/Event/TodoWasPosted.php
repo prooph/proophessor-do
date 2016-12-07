@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\Todo\Event;
 
-use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 final class TodoWasPosted extends AggregateChanged
 {
@@ -39,7 +39,7 @@ final class TodoWasPosted extends AggregateChanged
         $event = self::occur($todoId->toString(), [
             'assignee_id' => $assigneeId->toString(),
             'text' => $text,
-            'status' => $todoStatus->toString()
+            'status' => $todoStatus->toString(),
         ]);
 
         $event->todoId = $todoId;
@@ -54,6 +54,7 @@ final class TodoWasPosted extends AggregateChanged
         if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
         }
+
         return $this->todoId;
     }
 
@@ -62,6 +63,7 @@ final class TodoWasPosted extends AggregateChanged
         if (null === $this->assigneeId) {
             $this->assigneeId = UserId::fromString($this->payload['assignee_id']);
         }
+
         return $this->assigneeId;
     }
 
@@ -75,6 +77,7 @@ final class TodoWasPosted extends AggregateChanged
         if (null === $this->todoStatus) {
             $this->todoStatus = TodoStatus::getByName($this->payload['status']);
         }
+
         return $this->todoStatus;
     }
 }

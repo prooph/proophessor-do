@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
-use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 final class InvalidDeadline extends \Exception
 {

@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
-use Prooph\ProophessorDo\Model\User\UserCollection;
-use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
 use Prooph\ProophessorDo\Model\Todo\Command\PostTodo;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
+use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
+use Prooph\ProophessorDo\Model\User\UserCollection;
 
 class PostTodoHandler
 {

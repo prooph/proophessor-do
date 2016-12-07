@@ -44,7 +44,7 @@ return [
             'user_collection' => [
                 'repository_class' => \Prooph\ProophessorDo\Infrastructure\Repository\EventStoreUserCollection::class,
                 'aggregate_type' => \Prooph\ProophessorDo\Model\User\User::class,
-                'aggregate_translator' => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class
+                'aggregate_translator' => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class,
             ],
         ],
         'service_bus' => [
@@ -66,7 +66,7 @@ return [
             ],
             'event_bus' => [
                 'plugins' => [
-                    \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class
+                    \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class,
                 ],
                 'router' => [
                     'routes' => [

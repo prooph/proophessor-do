@@ -34,7 +34,7 @@ namespace {
     $numOfTodos = count($allTodos);
 
     if ($numOfTodos === 0) {
-        echo "No open todos available in the database. Please add at least on open todo before running the script.";
+        echo 'No open todos available in the database. Please add at least on open todo before running the script.';
         exit(1);
     }
 
@@ -42,24 +42,24 @@ namespace {
 
     $todo = $allTodos[$randomIndex];
 
-    echo "Randomly selected todo: " . $todo->id . "\n";
-    echo "Going to add ".NUMBER_OF_DEADLINES." deadline events now\n";
+    echo 'Randomly selected todo: ' . $todo->id . "\n";
+    echo 'Going to add '.NUMBER_OF_DEADLINES." deadline events now\n";
     $commandBus = $container->get(\Prooph\ServiceBus\CommandBus::class);
 
     $nextDay = new \DateTimeImmutable();
     $oneDate = new \DateInterval('P1D');
 
-    for ($i=0;$i<NUMBER_OF_DEADLINES;$i++) {
+    for ($i = 0;$i < NUMBER_OF_DEADLINES;$i++) {
         $nextDay = $nextDay->add($oneDate);
 
         $addDeadline = new AddDeadlineToTodo([
             'todo_id' => $todo->id,
             'user_id' => $todo->assignee_id,
-            'deadline' => $nextDay->format(\DateTime::ATOM)
+            'deadline' => $nextDay->format(\DateTime::ATOM),
         ]);
 
         $commandBus->dispatch($addDeadline);
     }
 
-    echo "All deadlines successfully added.";
+    echo 'All deadlines successfully added.';
 }

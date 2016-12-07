@@ -91,5 +91,5 @@ namespace {
 
     $replayWatchEvent = $stopWatch->stop('replay');
 
-    echo "Replay done in " . $replayWatchEvent->getDuration() . " ms";
+    echo 'Replay done in ' . $replayWatchEvent->getDuration() . ' ms';
 }

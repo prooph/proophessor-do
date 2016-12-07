@@ -12,11 +12,11 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\User;
 
+use Assert\Assertion;
+use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\Entity;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
-use Assert\Assertion;
-use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegisteredAgain;
 

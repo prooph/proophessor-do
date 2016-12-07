@@ -40,7 +40,7 @@ class TodoProjector
             'id' => $event->todoId()->toString(),
             'assignee_id' => $event->assigneeId()->toString(),
             'text' => $event->text(),
-            'status' => $event->todoStatus()->toString()
+            'status' => $event->todoStatus()->toString(),
         ]);
     }
 
@@ -48,10 +48,10 @@ class TodoProjector
     {
         $this->connection->update(Table::TODO,
             [
-                'status' => $event->newStatus()->toString()
+                'status' => $event->newStatus()->toString(),
             ],
             [
-                'id' => $event->todoId()->toString()
+                'id' => $event->todoId()->toString(),
             ]
         );
     }
@@ -60,10 +60,10 @@ class TodoProjector
     {
         $this->connection->update(Table::TODO,
             [
-                'status' => $event->status()->toString()
+                'status' => $event->status()->toString(),
             ],
             [
-                'id' => $event->todoId()->toString()
+                'id' => $event->todoId()->toString(),
             ]
         );
     }
@@ -98,10 +98,10 @@ class TodoProjector
     {
         $this->connection->update(Table::TODO,
             [
-                'status' => $event->newStatus()->toString()
+                'status' => $event->newStatus()->toString(),
             ],
             [
-                'id' => $event->todoId()->toString()
+                'id' => $event->todoId()->toString(),
             ]
         );
     }
@@ -110,10 +110,10 @@ class TodoProjector
     {
         $this->connection->update(Table::TODO,
             [
-                'status' => $event->newStatus()->toString()
+                'status' => $event->newStatus()->toString(),
             ],
             [
-                'id' => $event->todoId()->toString()
+                'id' => $event->todoId()->toString(),
             ]
         );
     }

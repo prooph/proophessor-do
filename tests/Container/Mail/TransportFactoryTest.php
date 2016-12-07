@@ -56,8 +56,8 @@ class TransportFactoryTest extends TestCase
                 'proophessor-do' => [
                     'mail' => [
                         'transport' => 'in_memory',
-                    ]
-                ]
+                    ],
+                ],
             ]));
 
         $factory = $this->factory;
@@ -77,8 +77,8 @@ class TransportFactoryTest extends TestCase
                     'mail' => [
                         'transport' => 'smtp',
                         'smtp' => [],
-                    ]
-                ]
+                    ],
+                ],
             ]));
 
         $factory = $this->factory;
@@ -99,8 +99,8 @@ class TransportFactoryTest extends TestCase
                 'proophessor-do' => [
                     'mail' => [
                         'transport' => 'missing',
-                    ]
-                ]
+                    ],
+                ],
             ]));
 
         $factory = $this->factory;

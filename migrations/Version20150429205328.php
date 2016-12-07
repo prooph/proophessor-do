@@ -21,14 +21,14 @@ use Prooph\EventStore\Adapter\Doctrine\Schema\EventStoreSchema;
  */
 class Version20150429205328 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         if (class_exists('Prooph\EventStore\Adapter\Doctrine\Schema\EventStoreSchema')) {
             EventStoreSchema::createSingleStream($schema, 'event_stream', true);
         }
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         if (class_exists('Prooph\EventStore\Adapter\Doctrine\Schema\EventStoreSchema')) {
             EventStoreSchema::dropStream($schema);

@@ -32,7 +32,7 @@ class MarkTodoAsExpiredHandler
     {
         $todo = $this->todoList->get($command->todoId());
 
-        if (!$todo) {
+        if (! $todo) {
             throw TodoNotFound::withTodoId($command->todoId());
         }
 

@@ -39,14 +39,14 @@ $helperSet->set(
 $cli->setCatchExceptions(true);
 $cli->setHelperSet($helperSet);
 
-$cli->addCommands(array(
+$cli->addCommands([
     // Migrations Commands
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\ExecuteCommand(),
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\GenerateCommand(),
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\LatestCommand(),
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand(),
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand(),
-    new \Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand()
-));
+    new \Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand(),
+]);
 
 $cli->run();

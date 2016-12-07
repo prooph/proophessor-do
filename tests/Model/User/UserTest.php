@@ -42,7 +42,7 @@ class UserTest extends TestCase
 
         $expectedPayload = [
             'name' => $name,
-            'email' => $emailAddress->toString()
+            'email' => $emailAddress->toString(),
         ];
 
         $this->assertEquals($expectedPayload, $events[0]->payload());
@@ -60,7 +60,7 @@ class UserTest extends TestCase
         $emailAddress = EmailAddress::fromString('john.doe@example.com');
 
         $events = [
-            UserWasRegistered::withData($userId, $name, $emailAddress)
+            UserWasRegistered::withData($userId, $name, $emailAddress),
         ];
 
         /** @var $user User */
@@ -75,7 +75,7 @@ class UserTest extends TestCase
 
         $expectedPayload = [
             'name' => $name,
-            'email' => $emailAddress->toString()
+            'email' => $emailAddress->toString(),
         ];
 
         $this->assertEquals($expectedPayload, $events[0]->payload());

@@ -41,6 +41,4 @@ final class MarkTodoAsDone extends Command implements PayloadConstructable
 
         $this->payload = $payload;
     }
-
-
 }

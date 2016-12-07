@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
 use Prooph\ProophessorDo\Model\Todo\Todo;
-use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 
 final class CannotReopenTodo extends \RuntimeException
 {

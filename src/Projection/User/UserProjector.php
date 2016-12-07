@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Projection\User;
 
+use Doctrine\DBAL\Connection;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
@@ -20,7 +21,6 @@ use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
 use Prooph\ProophessorDo\Projection\Table;
-use Doctrine\DBAL\Connection;
 
 class UserProjector
 {
@@ -45,7 +45,7 @@ class UserProjector
         $this->connection->insert(Table::USER, [
             'id' => $event->userId()->toString(),
             'name' => $event->name(),
-            'email' => $event->emailAddress()->toString()
+            'email' => $event->emailAddress()->toString(),
         ]);
     }
 
@@ -59,7 +59,7 @@ class UserProjector
         if (! $user) {
             throw new UserNotFound(
                 sprintf(
-                    "Data of the assigned user of the todo %s cannot be found",
+                    'Data of the assigned user of the todo %s cannot be found',
                     $event->todoId()->toString()
                 )
             );
@@ -82,7 +82,7 @@ class UserProjector
         if (! $user) {
             throw new UserNotFound(
                 sprintf(
-                    "Data of the assigned user of the todo %s cannot be found",
+                    'Data of the assigned user of the todo %s cannot be found',
                     $event->todoId()->toString()
                 )
             );
@@ -105,7 +105,7 @@ class UserProjector
         if (! $user) {
             throw new UserNotFound(
                 sprintf(
-                    "Data of the assigned user of the todo %s cannot be found",
+                    'Data of the assigned user of the todo %s cannot be found',
                     $event->todoId()->toString()
                 )
             );
@@ -128,7 +128,7 @@ class UserProjector
         if (! $user) {
             throw new UserNotFound(
                 sprintf(
-                    "Data of the assigned user of the todo %s cannot be found",
+                    'Data of the assigned user of the todo %s cannot be found',
                     $event->todoId()->toString()
                 )
             );
@@ -151,7 +151,7 @@ class UserProjector
         if (! $user) {
             throw new UserNotFound(
                 sprintf(
-                    "Data of the assigned user of the todo %s cannot be found",
+                    'Data of the assigned user of the todo %s cannot be found',
                     $event->todoId()->toString()
                 )
             );

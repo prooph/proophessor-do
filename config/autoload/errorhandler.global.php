@@ -28,9 +28,9 @@ return [
 
     'whoops' => [
         'json_exceptions' => [
-            'display'    => true,
+            'display' => true,
             'show_trace' => true,
-            'ajax_only'  => true,
+            'ajax_only' => true,
         ],
     ],
 ];

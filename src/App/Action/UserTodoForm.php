@@ -33,7 +33,7 @@ class UserTodoForm
 
     public function __construct(TemplateRendererInterface $templates, QueryBus $queryBus)
     {
-        $this->templates  = $templates;
+        $this->templates = $templates;
         $this->queryBus = $queryBus;
     }
 

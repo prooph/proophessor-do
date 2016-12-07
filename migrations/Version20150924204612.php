@@ -12,22 +12,22 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Migrations;
 
-use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
+use Prooph\ProophessorDo\Projection\Table;
 
 /**
  * Auto-generated Migration: Please modify to your need!
  */
 class Version20150924204612 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $todo = $schema->getTable(Table::TODO);
         $todo->addColumn('deadline', 'string', ['default' => null, 'notnull' => false, 'length' => 30]);
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $todo = $schema->getTable(Table::TODO);
         $todo->dropColumn('deadline');

@@ -24,13 +24,13 @@ class RiotTag extends AbstractHelper
     /**
      * @var array
      */
-    private $replace = ['\"', ""];
+    private $replace = ['\"', ''];
 
     public function __invoke(?string $tagName, string $template = null, string $jsFunction = null): string
     {
         if (null === $template) {
             $template = $tagName;
-            $tagName  = $this->getTagNameFromTemplate($template);
+            $tagName = $this->getTagNameFromTemplate($template);
         }
 
         $template = $this->getView()->partial($template);
@@ -45,7 +45,7 @@ class RiotTag extends AbstractHelper
 
     private function getTagNameFromTemplate(string $template): string
     {
-        $parts = explode("::", $template);
+        $parts = explode('::', $template);
 
         return array_pop($parts);
     }
@@ -55,7 +55,7 @@ class RiotTag extends AbstractHelper
         preg_match('/<script .*type="text\/javascript"[^>]*>[\s]*(?<func>function.+\});?[\s]*<\/script>/is', $template, $matches);
 
         if (! $matches['func']) {
-            throw new \RuntimeException("Riot tag javascript function could not be found for tag name: " . $tagName);
+            throw new \RuntimeException('Riot tag javascript function could not be found for tag name: ' . $tagName);
         }
 
         return $matches['func'];
@@ -63,10 +63,10 @@ class RiotTag extends AbstractHelper
 
     private function removeJsFromTemplate(string $template, string $tagName): string
     {
-        $template = preg_replace('/<script .*type="text\/javascript"[^>]*>.*<\/script>/is', "", $template);
+        $template = preg_replace('/<script .*type="text\/javascript"[^>]*>.*<\/script>/is', '', $template);
 
         if (! $template) {
-            throw new \RuntimeException("Riot tag template compilation failed for tag: " . $tagName . " with error code: " . preg_last_error());
+            throw new \RuntimeException('Riot tag template compilation failed for tag: ' . $tagName . ' with error code: ' . preg_last_error());
         }
 
         return $template;

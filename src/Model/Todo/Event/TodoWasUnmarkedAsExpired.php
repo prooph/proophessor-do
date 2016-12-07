@@ -37,10 +37,10 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
     {
         $event = self::occur($todoId->toString(), [
             'old_status' => $oldStatus->toString(),
-            'new_status' => $newStatus->toString()
+            'new_status' => $newStatus->toString(),
         ]);
 
-        $event->todoId    = $todoId;
+        $event->todoId = $todoId;
         $event->oldStatus = $oldStatus;
         $event->newStatus = $newStatus;
 

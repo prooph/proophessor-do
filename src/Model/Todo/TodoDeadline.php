@@ -54,7 +54,7 @@ final class TodoDeadline implements ValueObject
 
     public function isMet(): bool
     {
-        return $this->deadline > new \DateTimeImmutable;
+        return $this->deadline > new \DateTimeImmutable();
     }
 
     public function sameValueAs(ValueObject $object): bool

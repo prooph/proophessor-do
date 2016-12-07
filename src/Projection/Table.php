@@ -15,6 +15,6 @@ namespace Prooph\ProophessorDo\Projection;
 final class Table
 {
     const USER = 'read_user';
-    const TODO = "read_todo";
-    const TODO_REMINDER = "read_todo_reminder";
+    const TODO = 'read_todo';
+    const TODO_REMINDER = 'read_todo_reminder';
 }

@@ -33,7 +33,7 @@ class RemindTodoAssigneeHandler
     public function __invoke(RemindTodoAssignee $command): void
     {
         $todo = $this->todoList->get($command->todoId());
-        if (!$todo) {
+        if (! $todo) {
             throw TodoNotFound::withTodoId($command->todoId());
         }
 
@@ -47,12 +47,12 @@ class RemindTodoAssigneeHandler
     private function reminderShouldBeProcessed(Todo $todo, TodoReminder $reminder): bool
     {
         // drop command, wrong reminder
-        if (!$todo->reminder()->sameValueAs($reminder)) {
+        if (! $todo->reminder()->sameValueAs($reminder)) {
             return false;
         }
 
         // drop command, reminder is closed
-        if (!$reminder->isOpen()) {
+        if (! $reminder->isOpen()) {
             return false;
         }
 

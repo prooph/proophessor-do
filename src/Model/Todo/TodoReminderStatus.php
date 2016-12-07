@@ -20,6 +20,6 @@ use Prooph\ProophessorDo\Model\Enum;
  */
 final class TodoReminderStatus extends Enum
 {
-    const OPEN = "open";
-    const CLOSED = "closed";
+    const OPEN = 'open';
+    const CLOSED = 'closed';
 }

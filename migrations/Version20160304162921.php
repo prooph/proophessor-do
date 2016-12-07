@@ -21,11 +21,10 @@ use Prooph\ProophessorDo\Projection\Table;
  */
 class Version20160304162921 extends AbstractMigration
 {
-
     /**
      * @param Schema $schema
      */
-    public function up(Schema $schema)
+    public function up(Schema $schema): void
     {
         $todo = $schema->getTable(Table::TODO);
         $todo->addColumn('reminder', 'string', ['default' => null, 'notnull' => false, 'length' => 30]);
@@ -34,7 +33,7 @@ class Version20160304162921 extends AbstractMigration
     /**
      * @param Schema $schema
      */
-    public function down(Schema $schema)
+    public function down(Schema $schema): void
     {
         $todo = $schema->getTable(Table::TODO);
         $todo->dropColumn('reminder');

@@ -42,7 +42,7 @@ class RegisterUserHandler
     public function __invoke(RegisterUser $command): void
     {
         if ($userId = ($this->checksUniqueUsersEmailAddress)($command->emailAddress())) {
-            if (!$user = $this->userCollection->get($userId)) {
+            if (! $user = $this->userCollection->get($userId)) {
                 throw UserNotFound::withUserId($userId);
             }
 

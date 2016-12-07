@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace ProophTest\ProophessorDo\Model\Todo;
 
-use ProophTest\ProophessorDo\TestCase;
 use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
+use ProophTest\ProophessorDo\TestCase;
 
 class TodoDeadlineTest extends TestCase
 {
@@ -38,11 +38,11 @@ class TodoDeadlineTest extends TestCase
         return [
             [
                 '2047-02-01 10:00:00',
-                false
+                false,
             ],
             [
                 '1947-01-01 10:00:00',
-                true
+                true,
             ],
         ];
     }

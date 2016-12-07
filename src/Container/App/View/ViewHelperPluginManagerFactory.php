@@ -24,7 +24,7 @@ class ViewHelperPluginManagerFactory
     {
         $helperPluginManager = new HelperPluginManager();
 
-        $config = $container->has('config')? $container->get('config') : [];
+        $config = $container->has('config') ? $container->get('config') : [];
 
         if (isset($config['templates']['plugins'])) {
             foreach ($config['templates']['plugins'] as $pluginName => $serviceName) {

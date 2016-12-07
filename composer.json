@@ -31,7 +31,7 @@
     ],
     "homepage": "http://getprooph.org/",
     "require": {
-        "php": "^5.6 || ^7.0",
+        "php": "^7.1",
         "aura/router" : "^2.3",
         "doctrine/dbal": "^2.5.4",
         "doctrine/migrations": "^1.4.1",
@@ -55,7 +55,7 @@
         "zendframework/zend-validator": "^2.8.1"
     },
     "require-dev" : {
-        "friendsofphp/php-cs-fixer": "^1.13.1",
+        "prooph/php-cs-fixer-config": "^0.1.1",
         "filp/whoops": "^1.1",
         "phpunit/phpunit": "^5.7",
         "proophsoftware/prooph-cli": "^0.2.0",
