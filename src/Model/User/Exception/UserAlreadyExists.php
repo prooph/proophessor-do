@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\User\Exception;
 
 use Prooph\ProophessorDo\Model\User\UserId;
