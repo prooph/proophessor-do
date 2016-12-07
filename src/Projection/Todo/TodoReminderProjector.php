@@ -17,32 +17,19 @@ use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Projection\Table;
 
-/**
- * Class TodoReminderProjector
- *
- * @package Prooph\ProophessorDo\Projection\Todo
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
-final class TodoReminderProjector
+class TodoReminderProjector
 {
     /**
      * @var Connection
      */
     private $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param ReminderWasAddedToTodo $event
-     * @return void
-     */
-    public function onReminderWasAddedToTodo(ReminderWasAddedToTodo $event)
+    public function onReminderWasAddedToTodo(ReminderWasAddedToTodo $event): void
     {
         // remove other reminder for todo first
         $this->connection->delete(
@@ -63,11 +50,7 @@ final class TodoReminderProjector
         );
     }
 
-    /**
-     * @param TodoAssigneeWasReminded $event
-     * @return void
-     */
-    public function onTodoAssigneeWasReminded(TodoAssigneeWasReminded $event)
+    public function onTodoAssigneeWasReminded(TodoAssigneeWasReminded $event): void
     {
         $this->connection->update(
             Table::TODO_REMINDER,

@@ -22,13 +22,7 @@ use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
 use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
 
-/**
- * Class UserProjector
- *
- * @package Prooph\ProophessorDo\Projection\User
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class UserProjector
+class UserProjector
 {
     /**
      * @var Connection
@@ -40,20 +34,13 @@ final class UserProjector
      */
     private $userFinder;
 
-    /**
-     * @param Connection $connection
-     * @param UserFinder $userFinder
-     */
     public function __construct(Connection $connection, UserFinder $userFinder)
     {
         $this->connection = $connection;
         $this->userFinder = $userFinder;
     }
 
-    /**
-     * @param UserWasRegistered $event
-     */
-    public function onUserWasRegistered(UserWasRegistered $event)
+    public function onUserWasRegistered(UserWasRegistered $event): void
     {
         $this->connection->insert(Table::USER, [
             'id' => $event->userId()->toString(),
@@ -63,12 +50,9 @@ final class UserProjector
     }
 
     /**
-     * Increases the open_todos counter of the assignee by one
-     *
-     * @param TodoWasPosted $event
      * @throws UserNotFound
      */
-    public function onTodoWasPosted(TodoWasPosted $event)
+    public function onTodoWasPosted(TodoWasPosted $event): void
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
@@ -89,10 +73,9 @@ final class UserProjector
     }
 
     /**
-     * @param TodoWasMarkedAsDone $event
      * @throws UserNotFound if data of the the assigned user can not be found
      */
-    public function onTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
+    public function onTodoWasMarkedAsDone(TodoWasMarkedAsDone $event): void
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
@@ -113,10 +96,9 @@ final class UserProjector
     }
 
     /**
-     * @param TodoWasReopened $event
      * @throws UserNotFound if data of the the assigned user can not be found
      */
-    public function onTodoWasReopened(TodoWasReopened $event)
+    public function onTodoWasReopened(TodoWasReopened $event): void
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
@@ -137,10 +119,9 @@ final class UserProjector
     }
 
     /**
-     * @param TodoWasMarkedAsExpired $event
      * @throws UserNotFound if data of the the assigned user can not be found
      */
-    public function onTodoWasMarkedAsExpired(TodoWasMarkedAsExpired $event)
+    public function onTodoWasMarkedAsExpired(TodoWasMarkedAsExpired $event): void
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 
@@ -161,10 +142,9 @@ final class UserProjector
     }
 
     /**
-     * @param TodoWasUnmarkedAsExpired $event
      * @throws UserNotFound if data of the the assigned user can not be found
      */
-    public function onTodoWasUnmarkedAsExpired(TodoWasUnmarkedAsExpired $event)
+    public function onTodoWasUnmarkedAsExpired(TodoWasUnmarkedAsExpired $event): void
     {
         $user = $this->userFinder->findUserOfTodo($event->todoId()->toString());
 

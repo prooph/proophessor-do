@@ -12,12 +12,6 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Projection;
 
-/**
- * Class Table
- *
- * @package Prooph\ProophessorDo\Projection
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class Table
 {
     const USER = 'read_user';

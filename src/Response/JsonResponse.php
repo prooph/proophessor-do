@@ -25,6 +25,6 @@ final class JsonResponse implements ResponseStrategy
             $json = $data;
         });
 
-        return new \Zend\Diactoros\Response\JsonResponse($json);
+        return new JsonResponse($json);
     }
 }

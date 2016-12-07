@@ -16,12 +16,6 @@ use Prooph\ProophessorDo\Model\Todo\Command\NotifyUserOfExpiredTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ServiceBus\CommandBus;
 
-/**
- * Class SendTodoDeadlineExpiredMailProcessManager
- *
- * @package Prooph\ProophessorDo\App\Mail
- * @author Michał Żukowski <michal@durooil.com
- */
 class SendTodoDeadlineExpiredMailProcessManager
 {
     /**
@@ -29,20 +23,12 @@ class SendTodoDeadlineExpiredMailProcessManager
      */
     private $commandBus;
 
-    /**
-     * SendTodoDeadlineExpiredMailProcessManager constructor.
-     * @param CommandBus $commandBus
-     */
     public function __construct(CommandBus $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param TodoWasMarkedAsExpired $event
-     * @return void
-     */
-    public function __invoke(TodoWasMarkedAsExpired $event)
+    public function __invoke(TodoWasMarkedAsExpired $event): void
     {
         $this->commandBus->dispatch(NotifyUserOfExpiredTodo::with($event->todoId()));
     }

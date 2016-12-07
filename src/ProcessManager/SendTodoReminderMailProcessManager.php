@@ -16,12 +16,6 @@ use Prooph\ProophessorDo\Model\Todo\Command\SendTodoReminderMail;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ServiceBus\CommandBus;
 
-/**
- * Class SendTodoReminderMailProcessManager
- *
- * @package Prooph\ProophessorDo\App\Mail
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
 class SendTodoReminderMailProcessManager
 {
     /**
@@ -29,18 +23,12 @@ class SendTodoReminderMailProcessManager
      */
     private $commandBus;
 
-    /**
-     * @param CommandBus $commandBus
-     */
     public function __construct(CommandBus $commandBus)
     {
         $this->commandBus = $commandBus;
     }
 
-    /**
-     * @param TodoAssigneeWasReminded $event
-     */
-    public function __invoke(TodoAssigneeWasReminded $event)
+    public function __invoke(TodoAssigneeWasReminded $event): void
     {
         $this->commandBus->dispatch(SendTodoReminderMail::with($event->userId(), $event->todoId()));
     }

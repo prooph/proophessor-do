@@ -22,31 +22,19 @@ use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
 use Prooph\ProophessorDo\Projection\Table;
 
-/**
- * Class TodoProjector
- *
- * @package Prooph\ProophessorDo\Projection\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class TodoProjector
+class TodoProjector
 {
     /**
      * @var Connection
      */
     private $connection;
 
-    /**
-     * @param Connection $connection
-     */
     public function __construct(Connection $connection)
     {
         $this->connection = $connection;
     }
 
-    /**
-     * @param TodoWasPosted $event
-     */
-    public function onTodoWasPosted(TodoWasPosted $event)
+    public function onTodoWasPosted(TodoWasPosted $event): void
     {
         $this->connection->insert(Table::TODO, [
             'id' => $event->todoId()->toString(),
@@ -56,10 +44,7 @@ final class TodoProjector
         ]);
     }
 
-    /**
-     * @param TodoWasMarkedAsDone $event
-     */
-    public function onTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
+    public function onTodoWasMarkedAsDone(TodoWasMarkedAsDone $event): void
     {
         $this->connection->update(Table::TODO,
             [
@@ -71,10 +56,7 @@ final class TodoProjector
         );
     }
 
-    /**
-     * @param TodoWasReopened $event
-     */
-    public function onTodoWasReopened(TodoWasReopened $event)
+    public function onTodoWasReopened(TodoWasReopened $event): void
     {
         $this->connection->update(Table::TODO,
             [
@@ -86,11 +68,7 @@ final class TodoProjector
         );
     }
 
-    /**
-     * @param DeadlineWasAddedToTodo $event
-     * @return void
-     */
-    public function onDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event)
+    public function onDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event): void
     {
         $this->connection->update(
             Table::TODO,
@@ -103,11 +81,7 @@ final class TodoProjector
         );
     }
 
-    /**
-     * @param ReminderWasAddedToTodo $event
-     * @return void
-     */
-    public function onReminderWasAddedToTodo(ReminderWasAddedToTodo $event)
+    public function onReminderWasAddedToTodo(ReminderWasAddedToTodo $event): void
     {
         $this->connection->update(
             Table::TODO,
@@ -120,10 +94,7 @@ final class TodoProjector
         );
     }
 
-    /**
-     * @param TodoWasMarkedAsExpired $event
-     */
-    public function onTodoWasMarkedAsExpired(TodoWasMarkedAsExpired $event)
+    public function onTodoWasMarkedAsExpired(TodoWasMarkedAsExpired $event): void
     {
         $this->connection->update(Table::TODO,
             [
@@ -135,10 +106,7 @@ final class TodoProjector
         );
     }
 
-    /**
-     * @param TodoWasUnmarkedAsExpired $event
-     */
-    public function onTodoWasUnmarkedAsExpired(TodoWasUnmarkedAsExpired $event)
+    public function onTodoWasUnmarkedAsExpired(TodoWasUnmarkedAsExpired $event): void
     {
         $this->connection->update(Table::TODO,
             [
