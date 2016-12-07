@@ -1,7 +1,16 @@
 <?php
-namespace Prooph\ProophessorDo\ProcessManager;
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
+namespace Prooph\ProophessorDo\Model\Todo\Handler;
+
+use Prooph\ProophessorDo\Model\Todo\Command\SendTodoReminderMail;
 use Prooph\ProophessorDo\Model\Todo\Query\GetTodoById;
 use Prooph\ProophessorDo\Model\User\Query\GetUserById;
 use Prooph\ServiceBus\QueryBus;
@@ -9,12 +18,12 @@ use Zend\Mail;
 use Zend\Mail\Transport\TransportInterface;
 
 /**
- * Class SendTodoReminderMailSubscriber
+ * Class SendTodoReminderMailProcessManager
  *
  * @package Prooph\ProophessorDo\App\Mail
  * @author Roman Sachse <r.sachse@ipark-media.de>
  */
-final class SendTodoReminderMailSubscriber
+final class SendTodoReminderMailHandler
 {
     /**
      * @var QueryBus
@@ -36,19 +45,19 @@ final class SendTodoReminderMailSubscriber
     }
 
     /**
-     * @param TodoAssigneeWasReminded $event
+     * @param SendTodoReminderMail $command
      */
-    public function __invoke(TodoAssigneeWasReminded $event)
+    public function __invoke(SendTodoReminderMail $command)
     {
         $user = null;
-        $this->queryBus->dispatch(new GetUserById($event->userId()->toString()))
+        $this->queryBus->dispatch(new GetUserById($command->userId()->toString()))
             ->then(
                 function ($result) use (&$user) {
                     $user = $result;
                 }
             );
         $todo = null;
-        $this->queryBus->dispatch(new GetTodoById($event->todoId()->toString()))
+        $this->queryBus->dispatch(new GetTodoById($command->todoId()->toString()))
             ->then(
                 function ($result) use (&$todo) {
                     $todo = $result;

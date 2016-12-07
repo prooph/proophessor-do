@@ -1,12 +1,11 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 5/4/15 - 5:02 PM
  */
 namespace Prooph\ProophessorDo\Model\Todo\Event;
 
@@ -56,7 +55,7 @@ final class TodoWasPosted extends AggregateChanged
      */
     public function todoId()
     {
-        if (is_null($this->todoId)) {
+        if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
         }
         return $this->todoId;
@@ -67,7 +66,7 @@ final class TodoWasPosted extends AggregateChanged
      */
     public function assigneeId()
     {
-        if (is_null($this->assigneeId)) {
+        if (null === $this->assigneeId) {
             $this->assigneeId = UserId::fromString($this->payload['assignee_id']);
         }
         return $this->assigneeId;
@@ -86,8 +85,8 @@ final class TodoWasPosted extends AggregateChanged
      */
     public function todoStatus()
     {
-        if (is_null($this->todoStatus)) {
-            $this->todoStatus = TodoStatus::fromString($this->payload['status']);
+        if (null === $this->todoStatus) {
+            $this->todoStatus = TodoStatus::getByName($this->payload['status']);
         }
         return $this->todoStatus;
     }

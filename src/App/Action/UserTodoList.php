@@ -1,12 +1,11 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 9/6/15 - 7:04 PM
  */
 namespace Prooph\ProophessorDo\App\Action;
 
@@ -49,6 +48,7 @@ final class UserTodoList
      * @param ServerRequestInterface $request
      * @param ResponseInterface $response
      * @param callable $next
+     * @return ResponseInterface
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {

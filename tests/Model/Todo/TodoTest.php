@@ -1,12 +1,11 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 9/15/15 - 8:48 PM
  */
 namespace ProophTest\ProophessorDo\Model\Todo;
 
@@ -57,7 +56,7 @@ final class TodoTest extends TestCase
         $expectedPayload = [
             'text' => 'This is test todo',
             'assignee_id' => $assigneeId->toString(),
-            'status' => 'open'
+            'status' => 'OPEN'
         ];
 
         $this->assertEquals($expectedPayload, $events[0]->payload());
@@ -72,7 +71,7 @@ final class TodoTest extends TestCase
         $todo = Todo::post('This is an unit test todo', UserId::generate(), $todoId);
         $todo->markAsDone();
 
-        $this->assertTrue($todo->status()->isDone());
+        $this->assertTrue($todo->status()->is(TodoStatus::DONE()));
 
         $events = $this->popRecordedEvent($todo);
 
@@ -81,8 +80,8 @@ final class TodoTest extends TestCase
         $this->assertInstanceOf(TodoWasMarkedAsDone::class, $events[1]);
 
         $expectedPayload = [
-            'old_status' => 'open',
-            'new_status' => 'done'
+            'old_status' => 'OPEN',
+            'new_status' => 'DONE'
         ];
 
         $this->assertEquals($expectedPayload, $events[1]->payload());
@@ -198,7 +197,7 @@ final class TodoTest extends TestCase
     {
         $todoId = TodoId::generate();
         $userId = UserId::generate();
-        $reminder = TodoReminder::fromString('2047-12-31 12:00:00', TodoReminderStatus::OPEN);
+        $reminder = TodoReminder::from('2047-12-31 12:00:00', TodoReminderStatus::OPEN()->getName());
         $todo = Todo::post('Do something tomorrow', $userId, $todoId);
         $this->popRecordedEvent($todo);
 
@@ -231,7 +230,7 @@ final class TodoTest extends TestCase
     public function it_can_add_another_reminder_if_desired(Todo $todo)
     {
         $todo->addReminder(
-            $todo->assigneeId(), TodoReminder::fromString('2047-12-11 12:00:00', TodoReminderStatus::OPEN)
+            $todo->assigneeId(), TodoReminder::from('2047-12-11 12:00:00', TodoReminderStatus::OPEN()->getName())
         );
         $events = $this->popRecordedEvent($todo);
 
@@ -251,7 +250,7 @@ final class TodoTest extends TestCase
         $this->setExpectedException(InvalidReminder::class);
 
         $todo->addReminder(
-            $todo->assigneeId(), TodoReminder::fromString('1980-12-11 12:00:00', TodoReminderStatus::OPEN)
+            $todo->assigneeId(), TodoReminder::from('1980-12-11 12:00:00', TodoReminderStatus::OPEN()->getName())
         );
     }
 
@@ -265,7 +264,7 @@ final class TodoTest extends TestCase
         $this->setExpectedException(InvalidReminder::class);
 
         $todo->addReminder(
-            UserId::generate(), TodoReminder::fromString('2047-12-11 12:00:00', TodoReminderStatus::OPEN)
+            UserId::generate(), TodoReminder::from('2047-12-11 12:00:00', TodoReminderStatus::OPEN()->getName())
         );
     }
 
@@ -281,7 +280,7 @@ final class TodoTest extends TestCase
         $this->setExpectedException(TodoNotOpen::class);
 
         $todo->addReminder(
-            $todo->assigneeId(), TodoReminder::fromString('2047-12-11 12:00:00', TodoReminderStatus::OPEN)
+            $todo->assigneeId(), TodoReminder::from('2047-12-11 12:00:00', TodoReminderStatus::OPEN()->getName())
         );
     }
 
@@ -291,7 +290,7 @@ final class TodoTest extends TestCase
     public function it_can_remind_the_assignee()
     {
         $todo = $this->todoWithReminderInThePast();
-        $todo->remindAssignee(TodoReminder::fromString('2000-12-11 12:00:00', TodoReminderStatus::OPEN));
+        $todo->remindAssignee(TodoReminder::from('2000-12-11 12:00:00', TodoReminderStatus::OPEN()->getName()));
 
         $events = $this->popRecordedEvent($todo);
 
@@ -312,7 +311,7 @@ final class TodoTest extends TestCase
 
         $this->setExpectedException(TodoNotOpen::class);
 
-        $todo->remindAssignee(TodoReminder::fromString('2000-12-11 12:00:00', TodoReminderStatus::OPEN));
+        $todo->remindAssignee(TodoReminder::from('2000-12-11 12:00:00', TodoReminderStatus::OPEN()->getName()));
     }
 
     /**
@@ -324,7 +323,7 @@ final class TodoTest extends TestCase
 
         $this->setExpectedException(InvalidReminder::class);
 
-        $todo->remindAssignee(TodoReminder::fromString('2046-12-11 12:00:00', TodoReminderStatus::OPEN));
+        $todo->remindAssignee(TodoReminder::from('2046-12-11 12:00:00', TodoReminderStatus::OPEN()->getName()));
     }
 
     /**
@@ -334,7 +333,7 @@ final class TodoTest extends TestCase
     {
         $todo = $this->todoWithReminderInThePast();
 
-        $reminder = TodoReminder::fromString('2046-12-11 12:00:00', TodoReminderStatus::OPEN);
+        $reminder = TodoReminder::from('2046-12-11 12:00:00', TodoReminderStatus::OPEN()->getName());
         $todo->addReminder($todo->assigneeId(), $reminder);
 
         $this->setExpectedException(InvalidReminder::class);
@@ -348,10 +347,10 @@ final class TodoTest extends TestCase
     {
         $todo = $this->todoWithReminderInThePast();
 
-        $todo->remindAssignee(TodoReminder::fromString('2000-12-11 12:00:00', TodoReminderStatus::OPEN));
+        $todo->remindAssignee(TodoReminder::from('2000-12-11 12:00:00', TodoReminderStatus::OPEN()->getName()));
 
         $this->setExpectedException(InvalidReminder::class);
-        $todo->remindAssignee(TodoReminder::fromString('2000-12-11 12:00:00', TodoReminderStatus::OPEN));
+        $todo->remindAssignee(TodoReminder::from('2000-12-11 12:00:00', TodoReminderStatus::OPEN()->getName()));
     }
 
     /**
@@ -361,10 +360,10 @@ final class TodoTest extends TestCase
     {
         $userId = UserId::generate();
         $todoId = TodoId::generate();
-        $reminder = TodoReminder::fromString('2000-12-11 12:00:00', TodoReminderStatus::OPEN);
+        $reminder = TodoReminder::from('2000-12-11 12:00:00', TodoReminderStatus::OPEN()->getName());
 
         $events = [
-            TodoWasPosted::byUser($userId, 'test', $todoId, TodoStatus::open()),
+            TodoWasPosted::byUser($userId, 'test', $todoId, TodoStatus::OPEN()),
             ReminderWasAddedToTodo::byUserToDate($todoId, $userId, $reminder)
         ];
 
@@ -382,7 +381,7 @@ final class TodoTest extends TestCase
         $deadline = TodoDeadline::fromString('yesterday');
 
         $events = [
-            TodoWasPosted::byUser($userId, 'Do something that will be forgotten', $todoId, TodoStatus::open()),
+            TodoWasPosted::byUser($userId, 'Do something that will be forgotten', $todoId, TodoStatus::OPEN()),
             DeadlineWasAddedToTodo::byUserToDate($todoId, $userId, $deadline),
         ];
 
@@ -396,8 +395,8 @@ final class TodoTest extends TestCase
         $this->assertInstanceOf(TodoWasMarkedAsExpired::class, $events[0]);
 
         $expectedPayload = [
-            'old_status' => 'open',
-            'new_status' => 'expired',
+            'old_status' => 'OPEN',
+            'new_status' => 'EXPIRED',
         ];
         $this->assertEquals($expectedPayload, $events[0]->payload());
 
@@ -438,7 +437,7 @@ final class TodoTest extends TestCase
         $todo->addDeadline($userId, $deadline);
         $todo->markAsDone();
 
-        $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status done.');
+        $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status DONE.');
 
         $todo->markAsExpired();
     }
@@ -450,7 +449,7 @@ final class TodoTest extends TestCase
      */
     public function it_throws_an_exception_when_marking_a_todo_as_expired_when_it_has_already_been_marked_as_expired(Todo $todo)
     {
-        $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status expired.');
+        $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status EXPIRED.');
 
         $todo->markAsExpired();
     }

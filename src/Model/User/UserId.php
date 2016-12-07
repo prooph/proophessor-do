@@ -1,15 +1,15 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 5/2/15 - 12:24 AM
  */
 namespace Prooph\ProophessorDo\Model\User;
 
+use Prooph\ProophessorDo\Model\ValueObject;
 use Rhumsaa\Uuid\Uuid;
 
 /**
@@ -20,7 +20,7 @@ use Rhumsaa\Uuid\Uuid;
  * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class UserId
+final class UserId implements ValueObject
 {
     /**
      * @var Uuid
@@ -61,11 +61,11 @@ final class UserId
     }
 
     /**
-     * @param UserId $other
+     * @param ValueObject $other
      * @return bool
      */
-    public function sameValueAs(UserId $other)
+    public function sameValueAs(ValueObject $other)
     {
-        return $this->toString() === $other->toString();
+        return get_class($this) === get_class($other) && $this->uuid->equals($other->uuid);
     }
 }

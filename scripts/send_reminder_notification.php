@@ -1,5 +1,14 @@
 <?php
 /**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+/**
  * This script looks for todos with open reminders and reminds the assignees
  */
 namespace {
@@ -31,7 +40,7 @@ namespace {
         echo "Send reminder for Todo with id {$reminder->todo_id}.\n";
         $commandBus->dispatch(
             RemindTodoAssignee::forTodo(
-                TodoId::fromString($reminder->todo_id), TodoReminder::fromString($reminder->reminder, $reminder->status)
+                TodoId::fromString($reminder->todo_id), TodoReminder::from($reminder->reminder, $reminder->status)
             ));
     }
 

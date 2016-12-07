@@ -31,13 +31,13 @@
     ],
     "homepage": "http://getprooph.org/",
     "require": {
-        "php": "^5.5 || ^7.0",
+        "php": "^5.6 || ^7.0",
         "aura/router" : "^2.3",
         "doctrine/dbal": "^2.5.4",
         "doctrine/migrations": "^1.4.1",
-        "nicolopignatelli/valueobjects": "^3.0",
+        "marc-mabe/php-enum": "^2.2.1",
         "prooph/event-sourcing" : "^4.0",
-        "prooph/event-store" : "^6.3",
+        "prooph/event-store" : "^6.5.1",
         "prooph/event-store-bus-bridge" : "^2.0",
         "prooph/psr7-middleware": "^0.3",
         "prooph/service-bus" : "^5.1",
@@ -51,15 +51,17 @@
         "zendframework/zend-filter": "^2.7.1",
         "zendframework/zend-servicemanager" : "^3.0.3",
         "zendframework/zend-stdlib": "^3.0.1",
-        "zendframework/zend-mail": "^2.7.1"
+        "zendframework/zend-mail": "^2.7.1",
+        "zendframework/zend-validator": "^2.8.1"
     },
     "require-dev" : {
-        "fabpot/php-cs-fixer": "^1.11.4",
+        "friendsofphp/php-cs-fixer": "^1.13.1",
         "filp/whoops": "^1.1",
-        "phpunit/phpunit": "^4.8 || ^5.2",
+        "phpunit/phpunit": "^5.7",
         "proophsoftware/prooph-cli": "^0.2.0",
         "symfony/stopwatch": "^2.7",
-        "satooshi/php-coveralls": "^1.0"
+        "satooshi/php-coveralls": "^1.0",
+        "malukenho/docheader": "^0.1.4"
     },
     "suggest" : {
         "prooph/event-store-doctrine-adapter" : "^3.0 Use doctrine dbal event store adapter",

@@ -1,12 +1,11 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 9/6/15 - 12:59 PM
  */
 
 namespace Prooph\ProophessorDo\App\View\Helper;
@@ -27,7 +26,7 @@ final class RiotTag extends AbstractHelper
 
     public function __invoke($tagName, $template = null, $jsFunction = null)
     {
-        if (is_null($template)) {
+        if (null === $template) {
             $template = $tagName;
             $tagName  = $this->getTagNameFromTemplate($template);
         }
@@ -37,7 +36,7 @@ final class RiotTag extends AbstractHelper
 
         $template = $this->getView()->partial($template);
 
-        if (is_null($jsFunction)) {
+        if (null === $jsFunction) {
             $jsFunction = $this->extractJsFunction($template, $tagName);
             $template = $this->removeJsFromTemplate($template, $tagName);
         }

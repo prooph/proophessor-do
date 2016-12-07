@@ -1,12 +1,11 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 5/2/15 - 6:46 PM
  */
 namespace Prooph\ProophessorDo\Model\User\Event;
 
@@ -56,7 +55,7 @@ final class UserWasRegistered extends AggregateChanged
      */
     public function userId()
     {
-        if (is_null($this->userId)) {
+        if (null === $this->userId) {
             $this->userId = UserId::fromString($this->aggregateId());
         }
 
@@ -68,7 +67,7 @@ final class UserWasRegistered extends AggregateChanged
      */
     public function name()
     {
-        if (is_null($this->username)) {
+        if (null === $this->username) {
             $this->username = $this->payload['name'];
         }
         return $this->username;
@@ -79,7 +78,7 @@ final class UserWasRegistered extends AggregateChanged
      */
     public function emailAddress()
     {
-        if (is_null($this->emailAddress)) {
+        if (null === $this->emailAddress) {
             $this->emailAddress = EmailAddress::fromString($this->payload['email']);
         }
         return $this->emailAddress;

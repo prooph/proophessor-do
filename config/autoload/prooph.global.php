@@ -1,12 +1,11 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 9/6/15 - 5:07 PM
  */
 return [
     'prooph' => [
@@ -54,7 +53,9 @@ return [
                         \Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\AddReminderToTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\AddReminderToTodoHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsExpired::class => \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsExpiredHandler::class,
+                        \Prooph\ProophessorDo\Model\Todo\Command\NotifyUserOfExpiredTodo::class => \Prooph\ProophessorDo\Model\Todo\Handler\NotifyUserOfExpiredTodoHandler::class,
                         \Prooph\ProophessorDo\Model\Todo\Command\RemindTodoAssignee::class => \Prooph\ProophessorDo\Model\Todo\Handler\RemindTodoAssigneeHandler::class,
+                        \Prooph\ProophessorDo\Model\Todo\Command\SendTodoReminderMail::class => \Prooph\ProophessorDo\Model\Todo\Handler\SendTodoReminderMailHandler::class,
                     ],
                 ],
             ],
@@ -89,12 +90,12 @@ return [
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
                             \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class,
-                            \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailSubscriber::class,
+                            \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager::class,
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
                             \Prooph\ProophessorDo\Projection\User\UserProjector::class,
-                            \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber::class,
+                            \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager::class,
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired::class => [
                             \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,

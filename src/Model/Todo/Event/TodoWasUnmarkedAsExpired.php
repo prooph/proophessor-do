@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Prooph\ProophessorDo\Model\Todo\Event;
 
@@ -44,7 +52,7 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
      */
     public function todoId()
     {
-        if (is_null($this->todoId)) {
+        if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
         }
 
@@ -56,8 +64,8 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
      */
     public function oldStatus()
     {
-        if (is_null($this->oldStatus)) {
-            $this->oldStatus = TodoStatus::fromString($this->payload['old_status']);
+        if (null === $this->oldStatus) {
+            $this->oldStatus = TodoStatus::getByName($this->payload['old_status']);
         }
 
         return $this->oldStatus;
@@ -68,8 +76,8 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
      */
     public function newStatus()
     {
-        if (is_null($this->newStatus)) {
-            $this->newStatus = TodoStatus::fromString($this->payload['new_status']);
+        if (null === $this->newStatus) {
+            $this->newStatus = TodoStatus::getByName($this->payload['new_status']);
         }
 
         return $this->newStatus;

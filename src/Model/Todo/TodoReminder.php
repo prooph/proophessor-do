@@ -1,6 +1,16 @@
 <?php
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace Prooph\ProophessorDo\Model\Todo;
+
+use Prooph\ProophessorDo\Model\ValueObject;
 
 /**
  * Class TodoReminder
@@ -8,7 +18,7 @@ namespace Prooph\ProophessorDo\Model\Todo;
  * @package Prooph\ProophessorDo\Model\Todo
  * @author Roman Sachse <r.sachse@ipark-media.de>
  */
-final class TodoReminder
+final class TodoReminder implements ValueObject
 {
     /**
      * @var \DateTimeImmutable
@@ -25,11 +35,11 @@ final class TodoReminder
      * @param string $status
      * @return TodoReminder
      */
-    public static function fromString($reminder, $status)
+    public static function from($reminder, $status)
     {
         return new self(
             new \DateTimeImmutable($reminder, new \DateTimeZone('UTC')),
-            TodoReminderStatus::fromString($status)
+            TodoReminderStatus::getByName($status)
         );
     }
 
@@ -48,7 +58,7 @@ final class TodoReminder
      */
     public function isOpen()
     {
-        return $this->status->isOpen();
+        return $this->status->is(TodoReminderStatus::OPEN());
     }
 
     /**
@@ -81,7 +91,7 @@ final class TodoReminder
      */
     public function close()
     {
-        return new self($this->reminder, TodoReminderStatus::closed());
+        return new self($this->reminder, TodoReminderStatus::CLOSED());
     }
 
     /**
@@ -92,8 +102,15 @@ final class TodoReminder
         return $this->reminder->format(\DateTime::ATOM);
     }
 
-    public function equals(TodoReminder $todoReminder)
+    /**
+     * @param ValueObject $object
+     *
+     * @return bool
+     */
+    public function sameValueAs(ValueObject $object)
     {
-        return $this->toString() === $todoReminder->toString();
+        return get_class($this) === get_class($object)
+            && $this->reminder->format('U.u') === $object->reminder->format('U.u')
+            && $this->status->is($object->status);
     }
 }

@@ -1,4 +1,13 @@
 <?php
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Zend\Expressive\Application;
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Helper;
@@ -29,6 +38,7 @@ return [
             \Prooph\ProophessorDo\App\Action\UserTodoForm::class => \Prooph\ProophessorDo\Container\App\Action\UserTodoFormFactory::class,
             // Model
             \Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler::class => \Prooph\ProophessorDo\Container\Model\User\RegisterUserHandlerFactory::class,
+            \Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress::class => \Prooph\ProophessorDo\Container\Model\User\ChecksUniqueUsersEmailAddressFactory::class,
             \Prooph\ProophessorDo\Model\User\UserCollection::class => \Prooph\ProophessorDo\Container\Infrastructure\Repository\EventStoreUserCollectionFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\PostTodoHandlerFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\MarkTodoAsDoneHandlerFactory::class,
@@ -46,8 +56,8 @@ return [
             \Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoReminderFinderFactory::class,
             \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoReminderProjectorFactory::class,
             // Subscriber
-            \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailSubscriber::class => \Prooph\ProophessorDo\Container\ProcessManager\SendTodoReminderMailSubscriberFactory::class,
-            \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailSubscriber::class => \Prooph\ProophessorDo\Container\ProcessManager\SendTodoDeadlineExpiredMailSubscriberFactory::class,
+            \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager::class => \Prooph\ProophessorDo\Container\ProcessManager\SendTodoReminderMailSubscriberFactory::class,
+            \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager::class => \Prooph\ProophessorDo\Container\ProcessManager\SendTodoDeadlineExpiredMailSubscriberFactory::class,
             // Query
             \Prooph\ProophessorDo\Model\User\Handler\GetAllUsersHandler::class => \Prooph\ProophessorDo\Container\Model\User\GetAllUsersHandlerFactory::class,
             \Prooph\ProophessorDo\Model\User\Handler\GetUserByIdHandler::class => \Prooph\ProophessorDo\Container\Model\User\GetUserByIdHandlerFactory::class,

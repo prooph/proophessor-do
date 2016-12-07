@@ -1,20 +1,21 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 5/2/15 - 12:10 AM
  */
 namespace Prooph\ProophessorDo\Model\User;
 
+use Prooph\ProophessorDo\Model\Entity;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Assert\Assertion;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
+use Prooph\ProophessorDo\Model\User\Event\UserWasRegisteredAgain;
 
 /**
  * Class User
@@ -24,7 +25,7 @@ use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
  * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class User extends AggregateRoot
+final class User extends AggregateRoot implements Entity
 {
     /**
      * @var UserId
@@ -47,8 +48,11 @@ final class User extends AggregateRoot
      * @param EmailAddress $emailAddress
      * @return User
      */
-    public static function registerWithData(UserId $userId, $name, EmailAddress $emailAddress)
-    {
+    public static function registerWithData(
+        UserId $userId,
+        $name,
+        EmailAddress $emailAddress
+    ) {
         $self = new self();
 
         $self->assertName($name);
@@ -56,6 +60,19 @@ final class User extends AggregateRoot
         $self->recordThat(UserWasRegistered::withData($userId, $name, $emailAddress));
 
         return $self;
+    }
+
+    /**
+     * @param string $name
+     * @return User
+     */
+    public function registerAgain($name)
+    {
+        $this->assertName($name);
+
+        $this->recordThat(UserWasRegisteredAgain::withData($this->userId, $name, $this->emailAddress));
+
+        return $this;
     }
 
     /**
@@ -111,6 +128,13 @@ final class User extends AggregateRoot
     }
 
     /**
+     * @param UserWasRegisteredAgain $event
+     */
+    protected function whenUserWasRegisteredAgain(UserWasRegisteredAgain $event)
+    {
+    }
+
+    /**
      * @param string $name
      * @throws Exception\InvalidName
      */
@@ -122,5 +146,10 @@ final class User extends AggregateRoot
         } catch (\Exception $e) {
             throw Exception\InvalidName::reason($e->getMessage());
         }
+    }
+
+    public function sameIdentityAs(Entity $other)
+    {
+        return get_class($this) === get_class($other) && $this->userId->sameValueAs($other->userId);
     }
 }

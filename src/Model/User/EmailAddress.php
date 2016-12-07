@@ -1,16 +1,16 @@
 <?php
-/*
- * This file is part of prooph/proophessor.
- * (c) 2014-2015 prooph software GmbH <contact@prooph.de>
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
- *
- * Date: 5/2/15 - 12:27 AM
  */
 namespace Prooph\ProophessorDo\Model\User;
 
-use ValueObjects\Web\EmailAddress as VOEMailAddress;
+use Prooph\ProophessorDo\Model\ValueObject;
+use Zend\Validator\EmailAddress as EmailAddressValidator;
 
 /**
  * Class EmailAddress
@@ -20,28 +20,35 @@ use ValueObjects\Web\EmailAddress as VOEMailAddress;
  * @package Prooph\ProophessorDo\Model\User
  * @author Alexander Miertsch <kontakt@codeliner.ws>
  */
-final class EmailAddress
+final class EmailAddress implements ValueObject
 {
     /**
-     * @var VOEMailAddress
+     * @var string
      */
     private $email;
 
     /**
      * @param string $email
+     *
      * @return EmailAddress
      */
     public static function fromString($email)
     {
-        return new self(VOEMailAddress::fromNative($email));
+        $validator = new EmailAddressValidator();
+
+        if (! $validator->isValid($email)) {
+            throw new \InvalidArgumentException('Invalid email address');
+        }
+
+        return new self($email);
     }
 
     /**
-     * @param VOEMailAddress $emailAddress
+     * @param string $emailAddress
      */
-    private function __construct(VOEMailAddress $emailAddress)
+    private function __construct($email)
     {
-        $this->email = $emailAddress;
+        $this->email = $email;
     }
 
     /**
@@ -49,15 +56,15 @@ final class EmailAddress
      */
     public function toString()
     {
-        return $this->email->toNative();
+        return $this->email;
     }
 
     /**
-     * @param EmailAddress $other
+     * @param ValueObject $other
      * @return bool
      */
-    public function sameValueAs(EmailAddress $other)
+    public function sameValueAs(ValueObject $other)
     {
-        return $this->toString() === $other->toString();
+        return get_class($this) === get_class($other) && $this->toString() === $other->toString();
     }
 }
