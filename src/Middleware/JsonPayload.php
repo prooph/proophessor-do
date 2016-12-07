@@ -15,17 +15,8 @@ namespace Prooph\ProophessorDo\Middleware;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-/**
- * Checks the request content type and converts the json to an array
- */
 class JsonPayload
 {
-    /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param callable $next
-     * @return mixed
-     */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
     {
         $contentType = trim($request->getHeaderLine('Content-Type'));
@@ -46,6 +37,7 @@ class JsonPayload
 
             $request = $request->withParsedBody(null === $payload ? [] : $payload);
         }
+
         return $next($request, $response);
     }
 }

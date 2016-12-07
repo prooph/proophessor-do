@@ -17,28 +17,14 @@ use Prooph\ProophessorDo\Model\User\User;
 use Prooph\ProophessorDo\Model\User\UserCollection;
 use Prooph\ProophessorDo\Model\User\UserId;
 
-/**
- * Class EventStoreUserCollection
- *
- * @package Application\Infrastructure\Repository
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class EventStoreUserCollection extends AggregateRepository implements UserCollection
 {
-    /**
-     * @param User $user
-     * @return void
-     */
-    public function add(User $user)
+    public function add(User $user): void
     {
         $this->addAggregateRoot($user);
     }
 
-    /**
-     * @param UserId $userId
-     * @return User
-     */
-    public function get(UserId $userId)
+    public function get(UserId $userId): ?User
     {
         return $this->getAggregateRoot($userId->toString());
     }

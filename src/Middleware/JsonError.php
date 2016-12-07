@@ -19,11 +19,8 @@ use Zend\Stratigility\ErrorMiddlewareInterface;
 /**
  * Error middleware to handle json requests
  */
-class JsonError implements ErrorMiddlewareInterface
+final class JsonError implements ErrorMiddlewareInterface
 {
-    /**
-     * @interitdoc
-     */
     public function __invoke($error, Request $request, Response $response, callable $out = null)
     {
         $contentType = trim($request->getHeaderLine('Content-Type'));

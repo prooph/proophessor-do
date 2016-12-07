@@ -17,28 +17,14 @@ use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
-/**
- * Class EventStoreTodoListRepository
- *
- * @package Application\Infrastructure\Repository
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class EventStoreTodoList extends AggregateRepository implements TodoList
 {
-    /**
-     * @param Todo $todo
-     * @return void
-     */
-    public function add(Todo $todo)
+    public function add(Todo $todo): void
     {
         $this->addAggregateRoot($todo);
     }
 
-    /**
-     * @param TodoId $todoId
-     * @return Todo
-     */
-    public function get(TodoId $todoId)
+    public function get(TodoId $todoId): ?Todo
     {
         return $this->getAggregateRoot($todoId->toString());
     }
