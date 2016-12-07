@@ -19,12 +19,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-/**
- * Class UserTodoForm
- *
- * @package Prooph\ProophessorDo\App\Action
- */
-final class UserTodoForm
+class UserTodoForm
 {
     /**
      * @var TemplateRendererInterface
@@ -36,23 +31,13 @@ final class UserTodoForm
      */
     private $queryBus;
 
-    /**
-     * @param TemplateRendererInterface $templates
-     * @param QueryBus $queryBus
-     */
     public function __construct(TemplateRendererInterface $templates, QueryBus $queryBus)
     {
         $this->templates  = $templates;
         $this->queryBus = $queryBus;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param callable $next
-     * @return ResponseInterface
-     */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next): ResponseInterface
     {
         $userId = $request->getAttribute('user_id');
 

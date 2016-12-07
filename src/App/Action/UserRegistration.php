@@ -17,33 +17,19 @@ use Psr\Http\Message\ResponseInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-/**
- * Class UserRegistration
- *
- * @package Prooph\ProophessorDo\App\Action
- */
-final class UserRegistration
+class UserRegistration
 {
     /**
      * @var TemplateRendererInterface
      */
     private $templates;
 
-    /**
-     * @param TemplateRendererInterface $templates
-     */
     public function __construct(TemplateRendererInterface $templates)
     {
         $this->templates = $templates;
     }
 
-    /**
-     * @param RequestInterface $request
-     * @param ResponseInterface $response
-     * @param callable $next
-     * @return ResponseInterface
-     */
-    public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next)
+    public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next): ResponseInterface
     {
         return new HtmlResponse(
             $this->templates->render('page::user-registration')
