@@ -12,9 +12,6 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\Todo\Query;
 
-/**
- * @author Bruno Galeotti <bgaleotti@gmail.com>
- */
 final class GetTodosByAssigneeId
 {
     /**
@@ -22,18 +19,12 @@ final class GetTodosByAssigneeId
      */
     private $userId;
 
-    /**
-     * @param string $userId
-     */
-    public function __construct($userId)
+    public function __construct(string $userId)
     {
         $this->userId = $userId;
     }
 
-    /**
-     * @return string
-     */
-    public function userId()
+    public function userId(): string
     {
         return $this->userId;
     }

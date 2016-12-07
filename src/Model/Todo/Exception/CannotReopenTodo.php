@@ -15,20 +15,9 @@ namespace Prooph\ProophessorDo\Model\Todo\Exception;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 
-/**
- * Class CannotReopenTodo
- *
- * @package Prooph\ProophessorDo\Model\Todo\Exception
- * @author Bas Kamer <bas@bushbaby.nl>
- */
 final class CannotReopenTodo extends \RuntimeException
 {
-    /**
-     * @param TodoStatus $status
-     * @param Todo $todo
-     * @return CannotReopenTodo
-     */
-    public static function notMarkedDone(Todo $todo)
+    public static function notMarkedDone(Todo $todo): CannotReopenTodo
     {
         return new self(sprintf(
             'Tried to reopen status of Todo %s. But Todo is not marked as done!',

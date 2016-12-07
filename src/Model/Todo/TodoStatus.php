@@ -15,11 +15,6 @@ namespace Prooph\ProophessorDo\Model\Todo;
 use Prooph\ProophessorDo\Model\Enum;
 
 /**
- * Class TodoStatus
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- *
  * @method static TodoStatus OPEN()
  * @method static TodoStatus DONE()
  * @method static TodoStatus EXPIRED()

@@ -15,11 +15,6 @@ namespace Prooph\ProophessorDo\Model\Todo;
 use Prooph\ProophessorDo\Model\Enum;
 
 /**
- * Class TodoReminderStatus
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Roman Sachse <r.sachse@ipark-media.de>
- *
  * @method static TodoReminderStatus OPEN()
  * @method static TodoReminderStatus CLOSED()
  */

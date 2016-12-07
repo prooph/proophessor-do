@@ -118,7 +118,7 @@ namespace {
         $close = rand(0, 1);
 
         if ($close) {
-            $commandBus->dispatch(MarkTodoAsDone::forTodo($openTodoId));
+            $commandBus->dispatch(MarkTodoAsDone::with($openTodoId));
         }
     }
 

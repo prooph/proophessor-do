@@ -12,23 +12,9 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\Todo;
 
-/**
- * Interface TodoList
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 interface TodoList
 {
-    /**
-     * @param Todo $todo
-     * @return void
-     */
-    public function add(Todo $todo);
+    public function add(Todo $todo): void;
 
-    /**
-     * @param TodoId $todoId
-     * @return Todo
-     */
-    public function get(TodoId $todoId);
+    public function get(TodoId $todoId): ?Todo;
 }

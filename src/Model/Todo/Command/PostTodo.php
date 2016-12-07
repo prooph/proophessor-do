@@ -12,28 +12,18 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\Todo\Command;
 
+use Assert\Assertion;
 use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 
-/**
- * Class PostTodo
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class PostTodo extends Command implements PayloadConstructable
 {
     use PayloadTrait;
-    /**
-     * @param string $assigneeId
-     * @param string $text
-     * @param string $todoId
-     * @return PostTodo
-     */
-    public static function forUser($assigneeId, $text, $todoId)
+
+    public static function forUser(string $assigneeId, string $text, string $todoId): PostTodo
     {
         return new self([
             'assignee_id' => (string)$assigneeId,
@@ -42,27 +32,32 @@ final class PostTodo extends Command implements PayloadConstructable
         ]);
     }
 
-    /**
-     * @return TodoId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
         return TodoId::fromString($this->payload['todo_id']);
     }
 
-    /**
-     * @return UserId
-     */
-    public function assigneeId()
+    public function assigneeId(): UserId
     {
         return UserId::fromString($this->payload['assignee_id']);
     }
 
-    /**
-     * @return string
-     */
-    public function text()
+    public function text(): string
     {
         return $this->payload['text'];
     }
+
+    protected function setPayload(array $payload): void
+    {
+        Assertion::keyExists($payload, 'assigne_id');
+        Assertion::uuid($payload['assigne_id']);
+        Assertion::keyExists($payload, 'todo_id');
+        Assertion::uuid($payload['assigne_id']);
+        Assertion::keyExists($payload, 'text');
+        Assertion::uuid($payload['assigne_id']);
+
+        $this->payload = $payload;
+    }
+
+
 }

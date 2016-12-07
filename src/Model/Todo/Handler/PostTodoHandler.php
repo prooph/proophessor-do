@@ -17,13 +17,7 @@ use Prooph\ProophessorDo\Model\User\Exception\UserNotFound;
 use Prooph\ProophessorDo\Model\Todo\Command\PostTodo;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
-/**
- * Class PostTodoHandler
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class PostTodoHandler
+class PostTodoHandler
 {
     /**
      * @var TodoList
@@ -35,10 +29,6 @@ final class PostTodoHandler
      */
     private $userCollection;
 
-    /**
-     * @param UserCollection $userCollection
-     * @param TodoList $todoList
-     */
     public function __construct(UserCollection $userCollection, TodoList $todoList)
     {
         $this->userCollection = $userCollection;
@@ -46,10 +36,9 @@ final class PostTodoHandler
     }
 
     /**
-     * @param PostTodo $command
-     * @throws \Prooph\ProophessorDo\Model\User\Exception\UserNotFound
+     * @throws UserNotFound
      */
-    public function __invoke(PostTodo $command)
+    public function __invoke(PostTodo $command): void
     {
         $user = $this->userCollection->get($command->assigneeId());
 

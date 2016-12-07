@@ -19,20 +19,12 @@ abstract class Enum extends MabeEnum implements ValueObject
 {
     use EnumSerializableTrait;
 
-    /**
-     * @param ValueObject $object
-     *
-     * @return bool
-     */
-    public function sameValueAs(ValueObject $object)
+    public function sameValueAs(ValueObject $object): bool
     {
         return $this->is($object);
     }
 
-    /**
-     * @return string
-     */
-    public function toString()
+    public function toString(): string
     {
         return $this->__toString();
     }

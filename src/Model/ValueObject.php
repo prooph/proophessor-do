@@ -14,10 +14,5 @@ namespace Prooph\ProophessorDo\Model;
 
 interface ValueObject
 {
-    /**
-     * @param ValueObject $object
-     *
-     * @return bool
-     */
-    public function sameValueAs(ValueObject $object);
+    public function sameValueAs(ValueObject $object): bool;
 }

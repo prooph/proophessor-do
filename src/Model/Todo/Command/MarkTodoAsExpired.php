@@ -18,35 +18,20 @@ use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 
-/**
- * Class MarkTodoAsExpired
- *
- * @package Prooph\ProophessorDo\Model\Todo
- */
 final class MarkTodoAsExpired extends Command implements PayloadConstructable
 {
     use PayloadTrait;
 
-    /**
-     *
-     * @param string $todoId
-     * @return MarkTodoAsExpired
-     * @throws \Assert\AssertionFailedException
-     */
-    public static function forTodo($todoId)
+    public static function forTodo(string $todoId): MarkTodoAsExpired
     {
-        Assertion::string($todoId);
-        Assertion::notEmpty($todoId);
+        Assertion::uuid($todoId);
 
         return new self([
             'todo_id' => $todoId,
         ]);
     }
 
-    /**
-     * @return TodoId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
         return TodoId::fromString($this->payload['todo_id']);
     }

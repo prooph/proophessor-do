@@ -14,19 +14,9 @@ namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 
-/**
- * Class TodoNotFound
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Bas Kamer <bas@bushbaby.nl>
- */
 final class TodoNotFound extends \InvalidArgumentException
 {
-    /**
-     * @param TodoId $todoId
-     * @return TodoNotFound
-     */
-    public static function withTodoId(TodoId $todoId)
+    public static function withTodoId(TodoId $todoId): TodoNotFound
     {
         return new self(sprintf('Todo with id %s cannot be found.', $todoId->toString()));
     }

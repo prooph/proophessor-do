@@ -19,13 +19,7 @@ use Prooph\ServiceBus\QueryBus;
 use Zend\Mail;
 use Zend\Mail\Transport\TransportInterface;
 
-/**
- * Class SendTodoReminderMailProcessManager
- *
- * @package Prooph\ProophessorDo\App\Mail
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
-final class SendTodoReminderMailHandler
+class SendTodoReminderMailHandler
 {
     /**
      * @var QueryBus
@@ -36,20 +30,13 @@ final class SendTodoReminderMailHandler
      */
     private $mailer;
 
-    /**
-     * @param QueryBus $queryBus
-     * @param TransportInterface $mailer
-     */
     public function __construct(QueryBus $queryBus, TransportInterface $mailer)
     {
         $this->queryBus = $queryBus;
         $this->mailer = $mailer;
     }
 
-    /**
-     * @param SendTodoReminderMail $command
-     */
-    public function __invoke(SendTodoReminderMail $command)
+    public function __invoke(SendTodoReminderMail $command): void
     {
         $user = null;
         $this->queryBus->dispatch(new GetUserById($command->userId()->toString()))

@@ -31,10 +31,6 @@ class NotifyUserOfExpiredTodoHandler
      */
     private $mailer;
 
-    /**
-     * @param QueryBus $queryBus
-     * @param TransportInterface $mailer
-     */
     public function __construct(
         QueryBus $queryBus,
         TransportInterface $mailer
@@ -43,10 +39,7 @@ class NotifyUserOfExpiredTodoHandler
         $this->mailer = $mailer;
     }
 
-    /**
-     * @param NotifyUserOfExpiredTodo $command
-     */
-    public function __invoke(NotifyUserOfExpiredTodo $command)
+    public function __invoke(NotifyUserOfExpiredTodo $command): void
     {
         $todo = null;
         $this->queryBus->dispatch(new GetTodoById($command->todoId()->toString()))

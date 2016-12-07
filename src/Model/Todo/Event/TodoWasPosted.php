@@ -17,28 +17,24 @@ use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 
-/**
- * Class TodoWasPosted
- *
- * @package Prooph\ProophessorDo\Model\Todo\Event
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class TodoWasPosted extends AggregateChanged
 {
+    /**
+     * @var UserId
+     */
     private $assigneeId;
 
+    /**
+     * @var TodoId
+     */
     private $todoId;
 
+    /**
+     * @var TodoStatus
+     */
     private $todoStatus;
 
-    /**
-     * @param UserId $assigneeId
-     * @param string $text
-     * @param TodoId $todoId
-     * @param TodoStatus $todoStatus
-     * @return TodoWasPosted
-     */
-    public static function byUser(UserId $assigneeId, $text, TodoId $todoId, TodoStatus $todoStatus)
+    public static function byUser(UserId $assigneeId, string $text, TodoId $todoId, TodoStatus $todoStatus): TodoWasPosted
     {
         $event = self::occur($todoId->toString(), [
             'assignee_id' => $assigneeId->toString(),
@@ -53,10 +49,7 @@ final class TodoWasPosted extends AggregateChanged
         return $event;
     }
 
-    /**
-     * @return TodoId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
         if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
@@ -64,10 +57,7 @@ final class TodoWasPosted extends AggregateChanged
         return $this->todoId;
     }
 
-    /**
-     * @return UserId
-     */
-    public function assigneeId()
+    public function assigneeId(): UserId
     {
         if (null === $this->assigneeId) {
             $this->assigneeId = UserId::fromString($this->payload['assignee_id']);
@@ -75,18 +65,12 @@ final class TodoWasPosted extends AggregateChanged
         return $this->assigneeId;
     }
 
-    /**
-     * @return string
-     */
-    public function text()
+    public function text(): string
     {
         return $this->payload['text'];
     }
 
-    /**
-     * @return TodoStatus
-     */
-    public function todoStatus()
+    public function todoStatus(): TodoStatus
     {
         if (null === $this->todoStatus) {
             $this->todoStatus = TodoStatus::getByName($this->payload['status']);

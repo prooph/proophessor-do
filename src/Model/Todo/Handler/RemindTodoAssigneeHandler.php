@@ -18,31 +18,19 @@ use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 
-/**
- * Class RemindTodoAssigneeHandler
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
-final class RemindTodoAssigneeHandler
+class RemindTodoAssigneeHandler
 {
     /**
      * @var TodoList
      */
     private $todoList;
 
-    /**
-     * @param TodoList $todoList
-     */
     public function __construct(TodoList $todoList)
     {
         $this->todoList = $todoList;
     }
 
-    /**
-     * @param RemindTodoAssignee $command
-     */
-    public function __invoke(RemindTodoAssignee $command)
+    public function __invoke(RemindTodoAssignee $command): void
     {
         $todo = $this->todoList->get($command->todoId());
         if (!$todo) {
@@ -56,12 +44,7 @@ final class RemindTodoAssigneeHandler
         }
     }
 
-    /**
-     * @param Todo $todo
-     * @param TodoReminder $reminder
-     * @return bool
-     */
-    private function reminderShouldBeProcessed(Todo $todo, TodoReminder $reminder)
+    private function reminderShouldBeProcessed(Todo $todo, TodoReminder $reminder): bool
     {
         // drop command, wrong reminder
         if (!$todo->reminder()->sameValueAs($reminder)) {

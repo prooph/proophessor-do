@@ -16,26 +16,24 @@ use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 
-/**
- * Class TodoWasUnmarkedAsExpired
- *
- * @package Prooph\ProophessorDo\Model\Todo\Event
- */
 final class TodoWasUnmarkedAsExpired extends AggregateChanged
 {
+    /**
+     * @var TodoId
+     */
     private $todoId;
 
+    /**
+     * @var TodoStatus
+     */
     private $oldStatus;
 
+    /**
+     * @var TodoStatus
+     */
     private $newStatus;
 
-    /**
-     * @param TodoId $todoId
-     * @param TodoStatus $oldStatus
-     * @param TodoStatus $newStatus
-     * @return TodoWasUnmarkedAsExpired
-     */
-    public static function fromStatus(TodoId $todoId, TodoStatus $oldStatus, TodoStatus $newStatus)
+    public static function fromStatus(TodoId $todoId, TodoStatus $oldStatus, TodoStatus $newStatus): TodoWasUnmarkedAsExpired
     {
         $event = self::occur($todoId->toString(), [
             'old_status' => $oldStatus->toString(),
@@ -49,10 +47,7 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
         return $event;
     }
 
-    /**
-     * @return TodoId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
         if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
@@ -61,10 +56,7 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
         return $this->todoId;
     }
 
-    /**
-     * @return TodoStatus
-     */
-    public function oldStatus()
+    public function oldStatus(): TodoStatus
     {
         if (null === $this->oldStatus) {
             $this->oldStatus = TodoStatus::getByName($this->payload['old_status']);
@@ -73,10 +65,7 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
         return $this->oldStatus;
     }
 
-    /**
-     * @return TodoStatus
-     */
-    public function newStatus()
+    public function newStatus(): TodoStatus
     {
         if (null === $this->newStatus) {
             $this->newStatus = TodoStatus::getByName($this->payload['new_status']);

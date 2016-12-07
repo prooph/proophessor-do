@@ -12,9 +12,6 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\Todo\Query;
 
-/**
- * @author Bruno Galeotti <bgaleotti@gmail.com>
- */
 final class GetTodoById
 {
     /**
@@ -22,18 +19,12 @@ final class GetTodoById
      */
     private $todoId;
 
-    /**
-     * @param string $todoId
-     */
-    public function __construct($todoId)
+    public function __construct(string $todoId)
     {
         $this->todoId = $todoId;
     }
 
-    /**
-     * @return string
-     */
-    public function todoId()
+    public function todoId(): string
     {
         return $this->todoId;
     }

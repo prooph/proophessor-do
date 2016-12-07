@@ -18,12 +18,6 @@ use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 use Prooph\ProophessorDo\Model\Todo\TodoReminderStatus;
 use Prooph\ProophessorDo\Model\User\UserId;
 
-/**
- * Class ReminderWasAddedToTodo
- *
- * @package Prooph\ProophessorDo\Model\Todo\Event
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
 final class ReminderWasAddedToTodo extends AggregateChanged
 {
     /**
@@ -41,13 +35,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
      */
     private $reminder;
 
-    /**
-     * @param TodoId $todoId
-     * @param UserId $userId
-     * @param TodoReminder $reminder
-     * @return ReminderWasAddedToTodo
-     */
-    public static function byUserToDate(TodoId $todoId, UserId $userId, TodoReminder $reminder)
+    public static function byUserToDate(TodoId $todoId, UserId $userId, TodoReminder $reminder): ReminderWasAddedToTodo
     {
         $event = self::occur($todoId->toString(), [
             'todo_id' => $todoId->toString(),
@@ -62,10 +50,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
         return $event;
     }
 
-    /**
-     * @return UserId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
         if (!$this->todoId) {
             $this->todoId = TodoId::fromString($this->payload['todo_id']);
@@ -74,10 +59,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
         return $this->todoId;
     }
 
-    /**
-     * @return UserId
-     */
-    public function userId()
+    public function userId(): UserId
     {
         if (!$this->userId) {
             $this->userId = UserId::fromString($this->payload['user_id']);
@@ -86,10 +68,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
         return $this->userId;
     }
 
-    /**
-     * @return TodoReminder
-     */
-    public function reminder()
+    public function reminder(): TodoReminder
     {
         if (!$this->reminder) {
             $this->reminder = TodoReminder::from($this->payload['reminder'], TodoReminderStatus::OPEN()->getName());

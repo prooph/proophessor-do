@@ -16,10 +16,7 @@ use Prooph\ProophessorDo\Model\Todo\Query\GetTodoById;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use React\Promise\Deferred;
 
-/**
- * @author Bruno Galeotti <bgaleotti@gmail.com>
- */
-final class GetTodoByIdHandler
+class GetTodoByIdHandler
 {
     private $todoFinder;
 
