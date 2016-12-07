@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\Todo;
 
+use DateTimeImmutable;
+use DateTimeZone;
 use Prooph\ProophessorDo\Model\ValueObject;
 
 final class TodoReminder implements ValueObject
@@ -29,12 +31,12 @@ final class TodoReminder implements ValueObject
     public static function from(string $reminder, string $status): TodoReminder
     {
         return new self(
-            new \DateTimeImmutable($reminder, new \DateTimeZone('UTC')),
+            new DateTimeImmutable($reminder, new DateTimeZone('UTC')),
             TodoReminderStatus::getByName($status)
         );
     }
 
-    private function __construct(string $reminder, TodoReminderStatus $status)
+    private function __construct(DateTimeImmutable $reminder, TodoReminderStatus $status)
     {
         $this->reminder = $reminder;
         $this->status = $status;

@@ -201,12 +201,12 @@ final class Todo extends AggregateRoot implements Entity
         $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::OPEN()));
     }
 
-    public function deadline(): \DateTimeImmutable
+    public function deadline(): ?\DateTimeImmutable
     {
         return $this->deadline;
     }
 
-    public function reminder(): TodoReminder
+    public function reminder(): ?TodoReminder
     {
         return $this->reminder;
     }
