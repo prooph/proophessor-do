@@ -8,6 +8,15 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
+use RuntimeException;
+use ZMQ;
+use ZMQContext;
+use ZMQSocket;
+
 if (! extension_loaded('zmq')) {
     throw new RuntimeException('Requires `ext-zmq` extension to run server.');
 }
@@ -48,4 +57,3 @@ while ($messageStr = $socket->recv()) {
 
     $snapshotter($message);
 }
-

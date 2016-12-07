@@ -8,23 +8,23 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
+use Zend\Expressive;
+use Zend\View;
+
 return [
     'dependencies' => [
         'factories' => [
-            'Zend\Expressive\FinalHandler' =>
-                Zend\Expressive\Container\TemplatedErrorHandlerFactory::class,
-
-            Zend\Expressive\Template\TemplateRendererInterface::class =>
-                Zend\Expressive\ZendView\ZendViewRendererFactory::class,
-
-            Zend\View\HelperPluginManager::class =>
-                Zend\Expressive\ZendView\HelperPluginManagerFactory::class,
+            'Zend\Expressive\FinalHandler' => Expressive\Container\TemplatedErrorHandlerFactory::class,
+            Expressive\Template\TemplateRendererInterface::class => Expressive\ZendView\ZendViewRendererFactory::class,
+            View\HelperPluginManager::class => Expressive\ZendView\HelperPluginManagerFactory::class,
             //Custom view plugins
-            \Prooph\ProophessorDo\App\View\Helper\RiotTag::class
-                => \Zend\ServiceManager\Factory\InvokableFactory::class,
+            \Prooph\ProophessorDo\App\View\Helper\RiotTag::class => \Zend\ServiceManager\Factory\InvokableFactory::class,
         ],
     ],
-
     'templates' => [
         'layout' => 'app::layout',
         'map' => [

@@ -8,6 +8,11 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
+use ArrayObject;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\Glob;
 

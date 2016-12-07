@@ -7,10 +7,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
+use Zend\Expressive;
 return [
     'dependencies' => [
         'invokables' => [
-            Zend\Expressive\Router\RouterInterface::class => Zend\Expressive\Router\AuraRouter::class
+            Expressive\Router\RouterInterface::class => Expressive\Router\AuraRouter::class
         ],
         'factories' => [
             \Prooph\ProophessorDo\Middleware\JsonPayload::class => \Zend\ServiceManager\Factory\InvokableFactory::class,

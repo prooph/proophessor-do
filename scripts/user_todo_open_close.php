@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 /**
  * This script creates NUMBER_OF_USERS and then it performs NUMBER_OF_TODO_PER_USER
  */

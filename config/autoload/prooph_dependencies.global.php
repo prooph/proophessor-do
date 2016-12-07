@@ -7,6 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
 /**
  * The services configuration is used to set up a Zend\ServiceManager
  * which is used as Inversion of Controller container in our application

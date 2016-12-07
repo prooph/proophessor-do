@@ -7,6 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
@@ -22,7 +27,7 @@ $cli = new \Symfony\Component\Console\Application('Doctrine Command Line Interfa
 
 $helperSet = new \Symfony\Component\Console\Helper\HelperSet();
 
-$helperSet->set(new \Symfony\Component\Console\Helper\DialogHelper(), 'dialog');
+$helperSet->set(new \Symfony\Component\Console\Helper\QuestionHelper(), 'question');
 
 $helperSet->set(
     new \Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper(
@@ -45,8 +50,3 @@ $cli->addCommands(array(
 ));
 
 $cli->run();
-
-
-
-
-

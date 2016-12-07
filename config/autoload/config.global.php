@@ -8,8 +8,11 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
 return [
     'debug' => true,
-
     'config_cache_enabled' => false,
 ];
