@@ -12,20 +12,10 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\User\Exception;
 
-/**
- * Class InvalidName
- *
- * @package Prooph\ProophessorDo\Model\User\Exception
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class InvalidName extends \InvalidArgumentException
 {
-    /**
-     * @param string $msg
-     * @return InvalidName
-     */
-    public static function reason($msg)
+    public static function reason(string $msg): InvalidName
     {
-        return new self('Invalid user name because ' . (string)$msg);
+        return new self('Invalid user name because ' . $msg);
     }
 }

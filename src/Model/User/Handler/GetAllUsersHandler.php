@@ -16,10 +16,7 @@ use Prooph\ProophessorDo\Model\User\Query\GetAllUsers;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 use React\Promise\Deferred;
 
-/**
- * @author Bruno Galeotti <bgaleotti@gmail.com>
- */
-final class GetAllUsersHandler
+class GetAllUsersHandler
 {
     private $userFinder;
 

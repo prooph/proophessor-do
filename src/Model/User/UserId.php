@@ -15,14 +15,6 @@ namespace Prooph\ProophessorDo\Model\User;
 use Prooph\ProophessorDo\Model\ValueObject;
 use Rhumsaa\Uuid\Uuid;
 
-/**
- * Class UserId
- *
- * The UserId identifies a User.
- *
- * @package Prooph\ProophessorDo\Model\User
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class UserId implements ValueObject
 {
     /**
@@ -30,44 +22,27 @@ final class UserId implements ValueObject
      */
     private $uuid;
 
-    /**
-     * @return UserId
-     */
-    public static function generate()
+    public static function generate(): UserId
     {
         return new self(Uuid::uuid4());
     }
 
-    /**
-     * @param $userId
-     * @return UserId
-     */
-    public static function fromString($userId)
+    public static function fromString(string $userId): UserId
     {
         return new self(Uuid::fromString($userId));
     }
 
-    /**
-     * @param Uuid $uuid
-     */
     private function __construct(Uuid $uuid)
     {
         $this->uuid = $uuid;
     }
 
-    /**
-     * @return string
-     */
-    public function toString()
+    public function toString(): string
     {
         return $this->uuid->toString();
     }
 
-    /**
-     * @param ValueObject $other
-     * @return bool
-     */
-    public function sameValueAs(ValueObject $other)
+    public function sameValueAs(ValueObject $other): bool
     {
         return get_class($this) === get_class($other) && $this->uuid->equals($other->uuid);
     }

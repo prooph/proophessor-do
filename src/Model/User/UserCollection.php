@@ -12,23 +12,9 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\User;
 
-/**
- * Interface UserCollection
- *
- * @package Prooph\ProophessorDo\Model\User
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 interface UserCollection
 {
-    /**
-     * @param User $user
-     * @return void
-     */
-    public function add(User $user);
+    public function add(User $user): void;
 
-    /**
-     * @param UserId $userId
-     * @return User
-     */
-    public function get(UserId $userId);
+    public function get(UserId $userId): ?User;
 }

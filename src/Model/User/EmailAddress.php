@@ -15,14 +15,6 @@ namespace Prooph\ProophessorDo\Model\User;
 use Prooph\ProophessorDo\Model\ValueObject;
 use Zend\Validator\EmailAddress as EmailAddressValidator;
 
-/**
- * Class EmailAddress
- *
- * Email address of a User.
- *
- * @package Prooph\ProophessorDo\Model\User
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class EmailAddress implements ValueObject
 {
     /**
@@ -30,12 +22,7 @@ final class EmailAddress implements ValueObject
      */
     private $email;
 
-    /**
-     * @param string $email
-     *
-     * @return EmailAddress
-     */
-    public static function fromString($email)
+    public static function fromString(string $email): EmailAddress
     {
         $validator = new EmailAddressValidator();
 
@@ -46,27 +33,17 @@ final class EmailAddress implements ValueObject
         return new self($email);
     }
 
-    /**
-     * @param string $emailAddress
-     */
-    private function __construct($email)
+    private function __construct(string $email)
     {
         $this->email = $email;
     }
 
-    /**
-     * @return string
-     */
-    public function toString()
+    public function toString(): string
     {
         return $this->email;
     }
 
-    /**
-     * @param ValueObject $other
-     * @return bool
-     */
-    public function sameValueAs(ValueObject $other)
+    public function sameValueAs(ValueObject $other): bool
     {
         return get_class($this) === get_class($other) && $this->toString() === $other->toString();
     }

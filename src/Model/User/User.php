@@ -20,14 +20,6 @@ use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegisteredAgain;
 
-/**
- * Class User
- *
- * A user manages Todos on his or her TodoList. Each user is identified by her user id, has a name and an email address.
- *
- * @package Prooph\ProophessorDo\Model\User
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class User extends AggregateRoot implements Entity
 {
     /**
@@ -45,17 +37,11 @@ final class User extends AggregateRoot implements Entity
      */
     private $emailAddress;
 
-    /**
-     * @param UserId $userId
-     * @param string $name
-     * @param EmailAddress $emailAddress
-     * @return User
-     */
     public static function registerWithData(
         UserId $userId,
-        $name,
+        string $name,
         EmailAddress $emailAddress
-    ) {
+    ): User {
         $self = new self();
 
         $self->assertName($name);
@@ -65,93 +51,62 @@ final class User extends AggregateRoot implements Entity
         return $self;
     }
 
-    /**
-     * @param string $name
-     * @return User
-     */
-    public function registerAgain($name)
+    public function registerAgain(string $name): void
     {
         $this->assertName($name);
 
         $this->recordThat(UserWasRegisteredAgain::withData($this->userId, $name, $this->emailAddress));
-
-        return $this;
     }
 
-    /**
-     * @return UserId
-     */
-    public function userId()
+    public function userId(): UserId
     {
         return $this->userId;
     }
 
-    /**
-     * @return string
-     */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return EmailAddress
-     */
-    public function emailAddress()
+    public function emailAddress(): EmailAddress
     {
         return $this->emailAddress;
     }
 
-    /**
-     * @param string $text
-     * @param TodoId $todoId
-     * @return Todo
-     */
-    public function postTodo($text, TodoId $todoId)
+    public function postTodo(string $text, TodoId $todoId): Todo
     {
         return Todo::post($text, $this->userId(), $todoId);
     }
 
-    /**
-     * @return string representation of the unique identifier of the aggregate root
-     */
-    protected function aggregateId()
+    protected function aggregateId(): string
     {
         return $this->userId->toString();
     }
 
-    /**
-     * @param UserWasRegistered $event
-     */
-    protected function whenUserWasRegistered(UserWasRegistered $event)
+    protected function whenUserWasRegistered(UserWasRegistered $event): void
     {
         $this->userId = $event->userId();
         $this->name = $event->name();
         $this->emailAddress = $event->emailAddress();
     }
 
-    /**
-     * @param UserWasRegisteredAgain $event
-     */
-    protected function whenUserWasRegisteredAgain(UserWasRegisteredAgain $event)
+    protected function whenUserWasRegisteredAgain(UserWasRegisteredAgain $event): void
     {
     }
 
     /**
-     * @param string $name
      * @throws Exception\InvalidName
      */
-    private function assertName($name)
+    private function assertName(string $name)
     {
         try {
-            Assertion::string($name);
             Assertion::notEmpty($name);
         } catch (\Exception $e) {
             throw Exception\InvalidName::reason($e->getMessage());
         }
     }
 
-    public function sameIdentityAs(Entity $other)
+    public function sameIdentityAs(Entity $other): bool
     {
         return get_class($this) === get_class($other) && $this->userId->sameValueAs($other->userId);
     }

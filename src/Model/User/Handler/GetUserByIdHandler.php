@@ -16,10 +16,7 @@ use Prooph\ProophessorDo\Model\User\Query\GetUserById;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 use React\Promise\Deferred;
 
-/**
- * @author Bruno Galeotti <bgaleotti@gmail.com>
- */
-final class GetUserByIdHandler
+class GetUserByIdHandler
 {
     private $userFinder;
 

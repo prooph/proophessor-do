@@ -19,13 +19,7 @@ use Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress;
 use Prooph\ProophessorDo\Model\User\User;
 use Prooph\ProophessorDo\Model\User\UserCollection;
 
-/**
- * Class RegisterUserHandler
- *
- * @package Prooph\ProophessorDo\Model\User\Handler
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class RegisterUserHandler
+class RegisterUserHandler
 {
     /**
      * @var UserCollection
@@ -37,10 +31,6 @@ final class RegisterUserHandler
      */
     private $checksUniqueUsersEmailAddress;
 
-    /**
-     * @param UserCollection $userCollection
-     * @param ChecksUniqueUsersEmailAddress $checksUniqueUsersEmailAddress
-     */
     public function __construct(
         UserCollection $userCollection,
         ChecksUniqueUsersEmailAddress $checksUniqueUsersEmailAddress
@@ -49,10 +39,7 @@ final class RegisterUserHandler
         $this->checksUniqueUsersEmailAddress = $checksUniqueUsersEmailAddress;
     }
 
-    /**
-     * @param RegisterUser $command
-     */
-    public function __invoke(RegisterUser $command)
+    public function __invoke(RegisterUser $command): void
     {
         if ($userId = ($this->checksUniqueUsersEmailAddress)($command->emailAddress())) {
             if (!$user = $this->userCollection->get($userId)) {
