@@ -14,19 +14,9 @@ namespace Prooph\ProophessorDo\Container\Infrastructure\Repository;
 
 use Prooph\EventStore\Container\Aggregate\AbstractAggregateRepositoryFactory;
 
-/**
- * Class EventStoreUserCollectionFactory
- *
- * @package Application\Infrastructure\Repository\Factory
- */
-final class EventStoreUserCollectionFactory extends AbstractAggregateRepositoryFactory
+class EventStoreUserCollectionFactory extends AbstractAggregateRepositoryFactory
 {
-    /**
-     * Returns the container identifier
-     *
-     * @return string
-     */
-    public function containerId()
+    public function containerId(): string
     {
         return 'user_collection';
     }

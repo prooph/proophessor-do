@@ -17,19 +17,9 @@ use Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler;
 use Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress;
 use Prooph\ProophessorDo\Model\User\UserCollection;
 
-/**
- * Class RegisterUserHandlerFactory
- *
- * @package Application\Infrastructure\HandlerFactory
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class RegisterUserHandlerFactory
+class RegisterUserHandlerFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return RegisterUserHandler
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): RegisterUserHandler
     {
         return new RegisterUserHandler(
             $container->get(UserCollection::class),

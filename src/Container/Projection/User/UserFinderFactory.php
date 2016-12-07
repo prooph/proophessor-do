@@ -15,20 +15,9 @@ namespace Prooph\ProophessorDo\Container\Projection\User;
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 
-/**
- * Class UserFinderFactory
- *
- * @package Prooph\ProophessorDo\Projection\User
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class UserFinderFactory
+class UserFinderFactory
 {
-
-    /**
-     * @param ContainerInterface $container
-     * @return UserFinder
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): UserFinder
     {
         return new UserFinder($container->get('doctrine.connection.default'));
     }

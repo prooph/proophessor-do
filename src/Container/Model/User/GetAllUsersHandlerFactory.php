@@ -16,17 +16,9 @@ use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\User\Handler\GetAllUsersHandler;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 
-/**
- * @author Bruno Galeotti <bgaleotti@gmail.com>
- */
-final class GetAllUsersHandlerFactory
+class GetAllUsersHandlerFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return GetAllUsersHandler
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): GetAllUsersHandler
     {
         return new GetAllUsersHandler($container->get(UserFinder::class));
     }

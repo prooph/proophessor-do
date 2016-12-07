@@ -16,17 +16,9 @@ use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\Todo\Handler\GetTodoByIdHandler;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 
-/**
- * @author Bruno Galeotti <bgaleotti@gmail.com>
- */
-final class GetTodoByIdHandlerFactory
+class GetTodoByIdHandlerFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return GetTodoByIdHandler
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): GetTodoByIdHandler
     {
         return new GetTodoByIdHandler($container->get(TodoFinder::class));
     }

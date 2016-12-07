@@ -16,19 +16,9 @@ use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Prooph\ProophessorDo\Projection\User\UserProjector;
 
-/**
- * Class UserProjectorFactory
- *
- * @package Prooph\ProophessorDo\Projection\User
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class UserProjectorFactory
+class UserProjectorFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return UserProjector
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): UserProjector
     {
         return new UserProjector(
             $container->get('doctrine.connection.default'),

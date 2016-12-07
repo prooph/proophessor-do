@@ -15,58 +15,32 @@ namespace Prooph\ProophessorDo\Container\App\Mail;
 use Interop\Config\ConfigurationTrait;
 use Interop\Config\ProvidesDefaultOptions;
 use Interop\Config\RequiresConfig;
-use Interop\Config\RequiresMandatoryOptions;
 use Interop\Container\ContainerInterface;
 use Zend\Mail\Transport\InMemory as InMemoryTransport;
 use Zend\Mail\Transport\Smtp as SmtpTransport;
 use Zend\Mail\Transport\SmtpOptions;
 use Zend\Mail\Transport\TransportInterface;
 
-
-/**
- * Class TransportFactory
- *
- * @package Prooph\ProophessorDo\Container\Model\Todo
- * @author Michał Żukowski <michal@durooil.com>
- */
-final class TransportFactory implements RequiresConfig, RequiresMandatoryOptions, ProvidesDefaultOptions
+class TransportFactory implements RequiresConfig, ProvidesDefaultOptions
 {
     use ConfigurationTrait;
 
-    /**
-     * @inheritdoc
-     */
-    public function dimensions()
+    public function dimensions(): array
     {
         return ['proophessor-do', 'mail'];
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function mandatoryOptions()
-    {
-        return ['transport'];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function defaultOptions()
+    public function defaultOptions(): array
     {
         return ['transport' => 'in_memory'];
     }
 
-    /**
-     * @param ContainerInterface $container
-     * @return TransportInterface
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): TransportInterface
     {
         return $this->getTransport($container->get('config'));
     }
 
-    private function getTransport($config)
+    private function getTransport($config): TransportInterface
     {
         $config = $this->optionsWithFallback($config);
 

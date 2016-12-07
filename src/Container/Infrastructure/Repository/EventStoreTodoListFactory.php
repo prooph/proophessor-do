@@ -14,19 +14,9 @@ namespace Prooph\ProophessorDo\Container\Infrastructure\Repository;
 
 use Prooph\EventStore\Container\Aggregate\AbstractAggregateRepositoryFactory;
 
-/**
- * Class EventStoreTodoListFactory
- *
- * @package Application\Infrastructure\Repository\Factory
- */
-final class EventStoreTodoListFactory extends AbstractAggregateRepositoryFactory
+class EventStoreTodoListFactory extends AbstractAggregateRepositoryFactory
 {
-    /**
-     * Returns the container identifier
-     *
-     * @return string
-     */
-    public function containerId()
+    public function containerId(): string
     {
         return 'todo_list';
     }

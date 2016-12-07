@@ -16,18 +16,9 @@ use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Infrastructure\Service\ChecksUniqueUsersEmailAddressFromReadModel;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 
-/**
- * Class ChecksUniqueUsersEmailAddressFactory
- *
- * @author Lucas Courot <lucas@courot.com>
- */
-final class ChecksUniqueUsersEmailAddressFactory
+class ChecksUniqueUsersEmailAddressFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return ChecksUniqueUsersEmailAddressFromReadModel
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): ChecksUniqueUsersEmailAddressFromReadModel
     {
         return new ChecksUniqueUsersEmailAddressFromReadModel(
             $container->get(UserFinder::class)

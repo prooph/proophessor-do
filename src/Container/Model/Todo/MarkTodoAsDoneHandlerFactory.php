@@ -16,19 +16,9 @@ use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
-/**
- * Class PostTodoHandlerFactory
- *
- * @package Application\Infrastructure\HandlerFactory
- * @author Danny van der Sluijs <danny.vandersluijs@icloud.com>
- */
-final class MarkTodoAsDoneHandlerFactory
+class MarkTodoAsDoneHandlerFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return MarkTodoAsDoneHandler
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): MarkTodoAsDoneHandler
     {
         return new MarkTodoAsDoneHandler(
             $container->get(TodoList::class)

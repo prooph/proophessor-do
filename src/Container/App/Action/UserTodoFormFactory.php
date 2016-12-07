@@ -17,18 +17,9 @@ use Prooph\ProophessorDo\App\Action\UserTodoForm;
 use Prooph\ServiceBus\QueryBus;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-/**
- * Class UserTodoFormFactory
- *
- * @package Prooph\ProophessorDo\Container\App\Action
- */
-final class UserTodoFormFactory
+class UserTodoFormFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return UserTodoForm
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): UserTodoForm
     {
         return new UserTodoForm($container->get(TemplateRendererInterface::class), $container->get(QueryBus::class));
     }

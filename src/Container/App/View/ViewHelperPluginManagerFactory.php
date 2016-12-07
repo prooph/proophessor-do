@@ -15,19 +15,12 @@ namespace Prooph\ProophessorDo\Container\App\View;
 use Interop\Container\ContainerInterface;
 use Zend\View\HelperPluginManager;
 
-/**
- * Class ViewHelperPluginManagerFactory
- *
- * @package Prooph\ProophessorDo\Container\App\View
- */
-final class ViewHelperPluginManagerFactory
+class ViewHelperPluginManagerFactory
 {
     /**
-     * @param ContainerInterface $container
      * @throws \RuntimeException
-     * @return HelperPluginManager
      */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): HelperPluginManager
     {
         $helperPluginManager = new HelperPluginManager();
 

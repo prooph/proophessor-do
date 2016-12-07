@@ -17,18 +17,9 @@ use Prooph\ProophessorDo\App\Action\UserList;
 use Prooph\ServiceBus\QueryBus;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-/**
- * Class UserListFactory
- *
- * @package Prooph\ProophessorDo\Container\App\Action
- */
-final class UserListFactory
+class UserListFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return UserList
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): UserList
     {
         return new UserList($container->get(TemplateRendererInterface::class), $container->get(QueryBus::class));
     }

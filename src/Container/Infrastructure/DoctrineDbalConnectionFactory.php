@@ -12,49 +12,30 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\Infrastructure;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Interop\Config\ConfigurationTrait;
 use Interop\Config\RequiresConfigId;
 use Interop\Config\RequiresMandatoryOptions;
 use Interop\Container\ContainerInterface;
 
-/**
- * Class DoctrineDbalConnectionFactory
- *
- * @package src\Infrastructure\Container
- */
-final class DoctrineDbalConnectionFactory implements RequiresConfigId, RequiresMandatoryOptions
+class DoctrineDbalConnectionFactory implements RequiresConfigId, RequiresMandatoryOptions
 {
     use ConfigurationTrait;
 
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return \Doctrine\DBAL\Connection
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): Connection
     {
         $options = $this->options($container->get('config'), 'default');
 
         return DriverManager::getConnection($options);
     }
 
-    /**
-     * Returns the vendor name
-     *
-     * @return string
-     */
-    public function dimensions()
+    public function dimensions(): array
     {
         return ['doctrine', 'connection'];
     }
 
-    /**
-     * Returns a list of mandatory options which must be available
-     *
-     * @return string[] List with mandatory options
-     */
-    public function mandatoryOptions()
+    public function mandatoryOptions(): array
     {
         return ['driverClass'];
     }

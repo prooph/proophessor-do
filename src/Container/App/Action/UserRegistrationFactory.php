@@ -16,18 +16,9 @@ use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\App\Action\UserRegistration;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-/**
- * Class UserRegistrationFactory
- *
- * @package Prooph\ProophessorDo\Container\App\Action
- */
-final class UserRegistrationFactory
+class UserRegistrationFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return UserRegistration
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): UserRegistration
     {
         return new UserRegistration($container->get(TemplateRendererInterface::class));
     }

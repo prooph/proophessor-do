@@ -17,7 +17,7 @@ use Prooph\Cli\Console\Helper\Psr4Info;
 
 class Psr4ClassInfoFactory
 {
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): Psr4Info
     {
         $docblock = <<<'PROOPH'
 This file is part of prooph/proophessor.

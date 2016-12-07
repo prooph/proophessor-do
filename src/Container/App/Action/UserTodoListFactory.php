@@ -17,18 +17,9 @@ use Prooph\ProophessorDo\App\Action\UserTodoList;
 use Prooph\ServiceBus\QueryBus;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-/**
- * Class UserTodoListFactory
- *
- * @package Prooph\ProophessorDo\Container\App\Action
- */
-final class UserTodoListFactory
+class UserTodoListFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return UserTodoList
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): UserTodoList
     {
         return new UserTodoList(
             $container->get(TemplateRendererInterface::class),

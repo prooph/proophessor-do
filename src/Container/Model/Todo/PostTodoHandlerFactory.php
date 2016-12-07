@@ -17,19 +17,9 @@ use Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 use Prooph\ProophessorDo\Model\User\UserCollection;
 
-/**
- * Class PostTodoHandlerFactory
- *
- * @package Application\Infrastructure\HandlerFactory
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class PostTodoHandlerFactory
+class PostTodoHandlerFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return PostTodoHandler
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): PostTodoHandler
     {
         return new PostTodoHandler(
             $container->get(UserCollection::class),
