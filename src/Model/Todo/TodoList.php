@@ -14,7 +14,7 @@ namespace Prooph\ProophessorDo\Model\Todo;
 
 interface TodoList
 {
-    public function add(Todo $todo): void;
+    public function save(Todo $todo): void;
 
     public function get(TodoId $todoId): ?Todo;
 }

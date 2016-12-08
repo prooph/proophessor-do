@@ -12,16 +12,16 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Infrastructure\Repository;
 
-use Prooph\EventStore\Aggregate\AggregateRepository;
+use Prooph\EventSourcing\Aggregate\AggregateRepository;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
 final class EventStoreTodoList extends AggregateRepository implements TodoList
 {
-    public function add(Todo $todo): void
+    public function save(Todo $todo): void
     {
-        $this->addAggregateRoot($todo);
+        $this->saveAggregateRoot($todo);
     }
 
     public function get(TodoId $todoId): ?Todo

@@ -14,7 +14,7 @@ namespace Prooph\ProophessorDo\Model\User;
 
 interface UserCollection
 {
-    public function add(User $user): void;
+    public function save(User $user): void;
 
     public function get(UserId $userId): ?User;
 }

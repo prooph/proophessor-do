@@ -12,16 +12,16 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Infrastructure\Repository;
 
-use Prooph\EventStore\Aggregate\AggregateRepository;
+use Prooph\EventSourcing\Aggregate\AggregateRepository;
 use Prooph\ProophessorDo\Model\User\User;
 use Prooph\ProophessorDo\Model\User\UserCollection;
 use Prooph\ProophessorDo\Model\User\UserId;
 
 final class EventStoreUserCollection extends AggregateRepository implements UserCollection
 {
-    public function add(User $user): void
+    public function save(User $user): void
     {
-        $this->addAggregateRoot($user);
+        $this->saveAggregateRoot($user);
     }
 
     public function get(UserId $userId): ?User
