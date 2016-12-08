@@ -19,27 +19,17 @@ return [
     // Doctrine DBAL connection settings - for read model
     'doctrine' => [
         'connection' => [
-// choose one !!!
-// first for mysql
-//            'default' => [
-//                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
-//                'host' => 'localhost',
-//                'port' => '3306',
-//                'user' => 'root',
-//                'password' => 'root',
-//                'dbname' => 'todo',
-//                'charset' => 'utf8',
-//                'driverOptions' => [
-//                    1002 => "SET NAMES 'UTF8'"
-//                ],
-// second for postgres
-//            'default' => [
-//                'driverClass' => 'Doctrine\DBAL\Driver\PDOPgSql\Driver',
-//                'host' => 'localhost',
-//                'port' => '5432',
-//                'user' => 'postgres',
-//                'password' => '5432',
-//                'dbname' => 'todo',
+            'default' => [
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'host' => '127.0.0.1',
+                'port' => '3306',
+                'user' => 'root',
+                'password' => '',
+                'dbname' => 'todo',
+                'charset' => 'utf8',
+                'driverOptions' => [
+                    1002 => "SET NAMES 'UTF8'"
+                ],
             ],
         ],
     ],

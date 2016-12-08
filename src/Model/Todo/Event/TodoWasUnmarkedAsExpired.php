@@ -15,6 +15,7 @@ namespace Prooph\ProophessorDo\Model\Todo\Event;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 final class TodoWasUnmarkedAsExpired extends AggregateChanged
 {
@@ -33,16 +34,23 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
      */
     private $newStatus;
 
-    public static function fromStatus(TodoId $todoId, TodoStatus $oldStatus, TodoStatus $newStatus): TodoWasUnmarkedAsExpired
+    /**
+     * @var UserId
+     */
+    private $assigneeId;
+
+    public static function fromStatus(TodoId $todoId, TodoStatus $oldStatus, TodoStatus $newStatus, UserId $assigneeId): TodoWasUnmarkedAsExpired
     {
         $event = self::occur($todoId->toString(), [
             'old_status' => $oldStatus->toString(),
             'new_status' => $newStatus->toString(),
+            'assignee_id' => $assigneeId->toString(),
         ]);
 
         $event->todoId = $todoId;
         $event->oldStatus = $oldStatus;
         $event->newStatus = $newStatus;
+        $event->assigneeId = $assigneeId;
 
         return $event;
     }
@@ -72,5 +80,14 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
         }
 
         return $this->newStatus;
+    }
+
+    public function assigneeId(): UserId
+    {
+        if (null === $this->assigneeId) {
+            $this->assigneeId = UserId::fromString($this->payload['assignee_id']);
+        }
+
+        return $this->assigneeId;
     }
 }

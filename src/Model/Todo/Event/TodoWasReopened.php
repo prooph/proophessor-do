@@ -15,6 +15,8 @@ namespace Prooph\ProophessorDo\Model\Todo\Event;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\Model\User\User;
+use Prooph\ProophessorDo\Model\User\UserId;
 
 final class TodoWasReopened extends AggregateChanged
 {
@@ -28,14 +30,21 @@ final class TodoWasReopened extends AggregateChanged
      */
     private $status;
 
-    public static function withStatus(TodoId $todoId, TodoStatus $status): TodoWasReopened
+    /**
+     * @var UserId
+     */
+    private $assigneeId;
+
+    public static function withStatus(TodoId $todoId, TodoStatus $status, UserId $assigneeId): TodoWasReopened
     {
         $event = self::occur($todoId->toString(), [
             'status' => $status->toString(),
+            'assignee_id' => $assigneeId->toString(),
         ]);
 
         $event->todoId = $todoId;
         $event->status = $status;
+        $event->assigneeId = $assigneeId;
 
         return $event;
     }
@@ -56,5 +65,14 @@ final class TodoWasReopened extends AggregateChanged
         }
 
         return $this->status;
+    }
+
+    public function assigneeId(): UserId
+    {
+        if (null === $this->assigneeId) {
+            $this->assigneeId = UserId::fromString($this->payload['assignee_id']);
+        }
+
+        return $this->assigneeId;
     }
 }

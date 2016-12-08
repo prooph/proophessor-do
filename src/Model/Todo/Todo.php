@@ -83,7 +83,7 @@ final class Todo extends AggregateRoot implements Entity
             throw Exception\TodoNotOpen::triedStatus($status, $this);
         }
 
-        $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->todoId, $this->status, $status));
+        $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->todoId, $this->status, $status, $this->assigneeId));
     }
 
     /**
@@ -127,7 +127,7 @@ final class Todo extends AggregateRoot implements Entity
             throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
         }
 
-        $this->recordThat(TodoWasMarkedAsExpired::fromStatus($this->todoId, $this->status, $status));
+        $this->recordThat(TodoWasMarkedAsExpired::fromStatus($this->todoId, $this->status, $status, $this->assigneeId));
     }
 
     /**
@@ -141,7 +141,7 @@ final class Todo extends AggregateRoot implements Entity
             throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
         }
 
-        $this->recordThat(TodoWasUnmarkedAsExpired::fromStatus($this->todoId, $this->status, $status));
+        $this->recordThat(TodoWasUnmarkedAsExpired::fromStatus($this->todoId, $this->status, $status, $this->assigneeId));
     }
 
     private function isMarkedAsExpired(): bool
@@ -199,7 +199,7 @@ final class Todo extends AggregateRoot implements Entity
             throw Exception\CannotReopenTodo::notMarkedDone($this);
         }
 
-        $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::OPEN()));
+        $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::OPEN(), $this->assigneeId));
     }
 
     public function deadline(): ?\DateTimeImmutable
