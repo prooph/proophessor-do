@@ -33,24 +33,25 @@
     "require": {
         "php": "^7.1",
         "aura/router" : "^2.3",
-        "doctrine/dbal": "^2.5.4",
+        "doctrine/dbal": "^2.5.5",
         "doctrine/migrations": "^1.4.1",
         "marc-mabe/php-enum": "^2.2.1",
-        "prooph/event-sourcing" : "^4.0",
-        "prooph/event-store" : "^6.5.1",
-        "prooph/event-store-bus-bridge" : "^2.0",
-        "prooph/psr7-middleware": "^0.3",
-        "prooph/service-bus" : "^5.1",
+        "prooph/common" : "4.0.x-dev",
+        "prooph/event-sourcing" : "5.0.x-dev",
+        "prooph/event-store" : "7.0.x-dev",
+        "prooph/event-store-bus-bridge" : "3.0.x-dev",
+        "prooph/psr7-middleware": "0.4.x-dev",
+        "prooph/service-bus" : "6.0.x-dev",
         "roave/security-advisories": "dev-master",
         "sandrokeil/interop-config": "^1.0",
         "zendframework/zend-config": "^2.6",
-        "zendframework/zend-expressive" : "^1.0",
+        "zendframework/zend-expressive" : "^1.0.3",
         "zendframework/zend-expressive-aurarouter": "^1.0",
-        "zendframework/zend-expressive-helpers": "^2.0",
+        "zendframework/zend-expressive-helpers": "^2.1",
         "zendframework/zend-expressive-zendviewrenderer": "^1.1.0",
         "zendframework/zend-filter": "^2.7.1",
-        "zendframework/zend-servicemanager" : "^3.0.3",
-        "zendframework/zend-stdlib": "^3.0.1",
+        "zendframework/zend-servicemanager" : "^3.1.1",
+        "zendframework/zend-stdlib": "^3.1.0",
         "zendframework/zend-mail": "^2.7.1",
         "zendframework/zend-validator": "^2.8.1"
     },
@@ -59,13 +60,13 @@
         "filp/whoops": "^1.1",
         "phpunit/phpunit": "^5.7",
         "proophsoftware/prooph-cli": "^0.2.0",
-        "symfony/stopwatch": "^2.7",
+        "symfony/stopwatch": "^3.2",
         "satooshi/php-coveralls": "^1.0",
         "malukenho/docheader": "^0.1.4"
     },
     "suggest" : {
-        "prooph/event-store-doctrine-adapter" : "^3.0 Use doctrine dbal event store adapter",
-        "prooph/event-store-mongodb-adapter" : "^2.0 Use mongo db event store adapter"
+        "prooph/pdo-event-store": "^1.0 Use PDO event store implementation",
+        "sandrokeil/interop-config": "1.0 for provided factories"
     },
     "autoload" : {
         "psr-4" : {
