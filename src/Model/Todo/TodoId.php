@@ -13,12 +13,13 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo\Model\Todo;
 
 use Prooph\ProophessorDo\Model\ValueObject;
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class TodoId implements ValueObject
 {
     /**
-     * @var Uuid
+     * @var UuidInterface
      */
     private $uuid;
 
@@ -32,7 +33,7 @@ final class TodoId implements ValueObject
         return new self(Uuid::fromString($todoId));
     }
 
-    private function __construct(Uuid $uuid)
+    private function __construct(UuidInterface $uuid)
     {
         $this->uuid = $uuid;
     }
