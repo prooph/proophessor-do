@@ -14,10 +14,13 @@ namespace Prooph\ProophessorDo\Container\Infrastructure;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\Type;
 use Interop\Config\ConfigurationTrait;
 use Interop\Config\RequiresConfigId;
 use Interop\Config\RequiresMandatoryOptions;
 use Interop\Container\ContainerInterface;
+use Prooph\ProophessorDo\App\DBAL\Types\JsonType;
 
 class DoctrineDbalConnectionFactory implements RequiresConfigId, RequiresMandatoryOptions
 {
@@ -26,6 +29,8 @@ class DoctrineDbalConnectionFactory implements RequiresConfigId, RequiresMandato
     public function __invoke(ContainerInterface $container): Connection
     {
         $options = $this->options($container->get('config'), 'default');
+
+        Type::addType('json', JsonType::class);
 
         return DriverManager::getConnection($options);
     }

@@ -51,7 +51,6 @@ class RegisterUserHandler
             if ($user = $this->userCollection->get($command->userId())) {
                 throw UserAlreadyExists::withUserId($command->userId());
             }
-
             $user = User::registerWithData($command->userId(), $command->name(), $command->emailAddress());
         }
 

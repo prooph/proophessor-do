@@ -53,7 +53,13 @@ class TodoFinder
         $stmt->bindValue('todo_id', $todoId);
         $stmt->execute();
 
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+
+        if (false === $result) {
+            return null;
+        }
+
+        return $result;
     }
 
     public function findByOpenReminders(): array

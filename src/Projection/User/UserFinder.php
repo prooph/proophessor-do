@@ -39,7 +39,13 @@ class UserFinder
         $stmt->bindValue('user_id', $userId);
         $stmt->execute();
 
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+
+        if (false === $result) {
+            return null;
+        }
+
+        return $result;
     }
 
     public function findOneByEmailAddress(string $emailAddress): ?\stdClass
@@ -48,7 +54,13 @@ class UserFinder
         $stmt->bindValue('email', $emailAddress);
         $stmt->execute();
 
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+
+        if (false === $result) {
+            return null;
+        }
+
+        return $result;
     }
 
     public function findUserOfTodo(string $todoId): ?\stdClass
@@ -61,6 +73,12 @@ class UserFinder
         $stmt->bindValue('todo_id', $todoId);
         $stmt->execute();
 
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+
+        if (false === $result) {
+            return null;
+        }
+
+        return $result;
     }
 }
