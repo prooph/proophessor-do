@@ -47,16 +47,14 @@ class RegisterUserHandler
             }
 
             $user->registerAgain($command->name());
+        } else {
+            if ($user = $this->userCollection->get($command->userId())) {
+                throw UserAlreadyExists::withUserId($command->userId());
+            }
 
-            return;
+            $user = User::registerWithData($command->userId(), $command->name(), $command->emailAddress());
         }
 
-        if ($user = $this->userCollection->get($command->userId())) {
-            throw UserAlreadyExists::withUserId($command->userId());
-        }
-
-        $user = User::registerWithData($command->userId(), $command->name(), $command->emailAddress());
-
-        $this->userCollection->add($user);
+        $this->userCollection->save($user);
     }
 }
