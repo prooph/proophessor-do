@@ -13,8 +13,11 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo;
 
 return [
-    'mongo_client' => function () {
-        //Change set up of the mongo client, if you need to configure connection settings
-        return new \MongoClient();
-    },
+    'prooph' => [
+        'event_store' => [
+            'default' => [
+                'connection_service' => 'pdo.connection',
+            ],
+        ],
+    ],
 ];

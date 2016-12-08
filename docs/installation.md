@@ -45,22 +45,13 @@ Now start your Docker Container so we can use Docker Compose for the next steps
 $ docker-compose up -d
 ```
 
-### Step 3 - Install event store adapter
-
-*prooph* offers two database adapters for `prooph/event-store` (at the moment).
+### Step 3 - Install event store imp
 
 The read model uses MySQL so it's important to execute the MySQL setup. This configures also MySQL for the event store.
 
 ```bash
 $ docker run --rm -it --volume $(pwd):/app prooph/composer:5.6 require prooph/event-store-doctrine-adapter -o --prefer-dist
 $ docker-compose run --rm php sh bin/setup_mysql.sh
-```
-
-If you want to use MongoDB (only PHP 5.6 supported) for the event store execute also:
-
-```bash
-$ docker run --rm -it --volume $(pwd):/app prooph/composer:5.6 require prooph/event-store-mongodb-adapter -o --prefer-dist
-$ docker-compose run --rm php sh bin/setup_mongodb.sh
 ```
 
 ### Step 4 - That's it
@@ -88,54 +79,16 @@ This is the hard way. Please ensure that you not want to use Docker. ;-)
 
 `git clone https://github.com/prooph/proophessor-do.git` into the document root of a local web server.
 
-### Step 2 - Install event store adapter
-
-prooph offers two database adapters for `prooph/event-store` (at the moment).
-Pick the one you want to play with and install it via composer.
-
-#### Doctrine DBAL Adapter
-
-`composer require prooph/event-store-doctrine-adapter`
-
-#### MongoDB Adapter
-
-> Only PHP <= 5.6 is currently supported
-
-`composer require prooph/event-store-mongodb-adapter`
-
-### Step 3 - Configure Database
+### Step 2 - Configure Database
 
 Before you can start you have to configure your database connection.
 As this is an example application for a CQRS-driven application we are using two different persistence layers.
 One is responsible for persisting the **write model**. This task is taken by prooph/event-store.
 And the other one is responsible for persisting the **read model** aka **projections**.
 
-We've prepared a template for you. Just rename the
-[config/autoload/dbal_connection.local.php.dist](../config/autoload/dbal_connection.local.php.dist) to `config/autoload/dbal_connection.local.php`
-and adjust configuration accordingly. Read on for more details.
+### Step 3 - Configuration
 
-#### Adapter Configuration
-
-Tell the event store which adapter to use. To do so rename [config/autoload/event_store.local.php.dist](../config/autoload/event_store.local.php.dist)
-to `config/autoload/event_store.local.php` and uncomment the adapter that you have installed in **Step 2**.
-
-##### Doctrine DBAL Adapter
-
-If you uncomment the doctrine dbal adapter it will use the same **dbal connection** as the read model does.
-The required `event_stream` table is automatically created by `doctrine migrations` which you have to execute to create
-the projection tables too. Please see projection configuration for details.
-
-##### MongoDB Adapter
-
-If you uncomment the mongo db adapter you also need to rename [config/autoload/mongo_client.local.php.dist](../config/autoload/mongo_client.local.php.dist)
-to `config/autoload/mongo_client.local.php`.
-The MongoDB adapter will use a `\MongoClient` with default connection settings.
-But you can adjust the mongo client set up in the config file linked above.
-
-### Projection Configuration
-Projections are persisted in SQL tables using Doctrine DBAL. The projections are independent from the event store adapter
-so you must set up a RDBMS (we suggest MySql) and adjust the `doctrine.connection.default` configuration
-which you can find in the `dbal_connection.local.php.dist` file.
+Copy `config/autoload/config.local.php.dist` to `config/autoload/config.local.php` and make your adjustments.
 
 ##### Create An Empty Database
 Before you can run the migrations you have to make sure that the database `todo` exists. You can of course use another

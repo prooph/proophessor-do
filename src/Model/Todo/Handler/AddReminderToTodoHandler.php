@@ -36,5 +36,7 @@ class AddReminderToTodoHandler
         }
 
         $todo->addReminder($command->userId(), $command->reminder());
+
+        $this->todoList->save($todo);
     }
 }

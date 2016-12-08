@@ -40,6 +40,7 @@
         "prooph/event-sourcing" : "5.0.x-dev",
         "prooph/event-store" : "7.0.x-dev",
         "prooph/event-store-bus-bridge" : "3.0.x-dev",
+        "prooph/pdo-event-store": "1.0.x-dev",
         "prooph/psr7-middleware": "0.4.x-dev",
         "prooph/service-bus" : "6.0.x-dev",
         "roave/security-advisories": "dev-master",
@@ -65,7 +66,8 @@
         "malukenho/docheader": "^0.1.4"
     },
     "suggest" : {
-        "prooph/pdo-event-store": "^1.0 Use PDO event store implementation",
+        "prooph/pdo-snapshot-store": "^1.0 for pdo snapshot store",
+        "prooph/mongodb-snapshot-store": "^1.0 for pdo snapshot store",
         "sandrokeil/interop-config": "1.0 for provided factories"
     },
     "autoload" : {

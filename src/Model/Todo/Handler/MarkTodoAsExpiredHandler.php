@@ -37,5 +37,7 @@ class MarkTodoAsExpiredHandler
         }
 
         $todo->markAsExpired();
+
+        $this->todoList->save($todo);
     }
 }

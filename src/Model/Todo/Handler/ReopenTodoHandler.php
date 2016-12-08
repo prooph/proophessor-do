@@ -31,10 +31,13 @@ class ReopenTodoHandler
     public function __invoke(ReopenTodo $command): void
     {
         $todo = $this->todoList->get($command->todoId());
+
         if (! $todo) {
             throw TodoNotFound::withTodoId($command->todoId());
         }
 
         $todo->reopenTodo();
+
+        $this->todoList->save($todo);
     }
 }

@@ -31,5 +31,7 @@ class AddDeadlineToTodoHandler
     {
         $todo = $this->todoList->get($command->todoId());
         $todo->addDeadline($command->userId(), $command->deadline());
+
+        $this->todoList->save($todo);
     }
 }

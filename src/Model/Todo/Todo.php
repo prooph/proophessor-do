@@ -13,6 +13,7 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo\Model\Todo;
 
 use Assert\Assertion;
+use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\Entity;
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
@@ -302,5 +303,28 @@ final class Todo extends AggregateRoot implements Entity
     public function sameIdentityAs(Entity $other): bool
     {
         return get_class($this) === get_class($other) && $this->todoId->sameValueAs($other->todoId);
+    }
+
+    /**
+     * Apply given event
+     */
+    protected function apply(AggregateChanged $e): void
+    {
+        $handler = $this->determineEventHandlerMethodFor($e);
+
+        if (! method_exists($this, $handler)) {
+            throw new \RuntimeException(sprintf(
+                'Missing event handler method %s for aggregate root %s',
+                $handler,
+                get_class($this)
+            ));
+        }
+
+        $this->{$handler}($e);
+    }
+
+    protected function determineEventHandlerMethodFor(AggregateChanged $e): string
+    {
+        return 'when' . implode(array_slice(explode('\\', get_class($e)), -1));
     }
 }

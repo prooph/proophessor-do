@@ -49,7 +49,7 @@ class NotifyUserOfExpiredTodoHandler
                 }
             );
         $user = null;
-        $this->queryBus->dispatch(new GetUserById($todo->assigne_id))
+        $this->queryBus->dispatch(new GetUserById($todo->assignee_id))
             ->then(
                 function ($result) use (&$user) {
                     $user = $result;

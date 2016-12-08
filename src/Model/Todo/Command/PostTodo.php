@@ -26,9 +26,9 @@ final class PostTodo extends Command implements PayloadConstructable
     public static function forUser(string $assigneeId, string $text, string $todoId): PostTodo
     {
         return new self([
-            'assignee_id' => (string) $assigneeId,
-            'todo_id' => (string) $todoId,
-            'text' => (string) $text,
+            'assignee_id' => $assigneeId,
+            'todo_id' => $todoId,
+            'text' => $text,
         ]);
     }
 
@@ -49,12 +49,12 @@ final class PostTodo extends Command implements PayloadConstructable
 
     protected function setPayload(array $payload): void
     {
-        Assertion::keyExists($payload, 'assigne_id');
-        Assertion::uuid($payload['assigne_id']);
+        Assertion::keyExists($payload, 'assignee_id');
+        Assertion::uuid($payload['assignee_id']);
         Assertion::keyExists($payload, 'todo_id');
-        Assertion::uuid($payload['assigne_id']);
+        Assertion::uuid($payload['todo_id']);
         Assertion::keyExists($payload, 'text');
-        Assertion::uuid($payload['assigne_id']);
+        Assertion::string($payload['text']);
 
         $this->payload = $payload;
     }

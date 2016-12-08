@@ -45,9 +45,11 @@ return [
             ],
         ],
         'event_store' => [
-            'plugins' => [
-                \Prooph\EventStoreBusBridge\EventPublisher::class,
-                \Prooph\EventStoreBusBridge\TransactionManager::class,
+            'default' => [
+                'plugins' => [
+                    \Prooph\EventStoreBusBridge\EventPublisher::class,
+                    \Prooph\EventStoreBusBridge\TransactionManager::class,
+                ],
             ],
         ],
         'service_bus' => [

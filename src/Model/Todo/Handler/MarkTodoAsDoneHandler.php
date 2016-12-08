@@ -31,10 +31,13 @@ class MarkTodoAsDoneHandler
     public function __invoke(MarkTodoAsDone $command): void
     {
         $todo = $this->todoList->get($command->todoId());
+
         if (! $todo) {
             throw TodoNotFound::withTodoId($command->todoId());
         }
 
         $todo->markAsDone();
+
+        $this->todoList->save($todo);
     }
 }

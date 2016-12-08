@@ -48,6 +48,6 @@ class PostTodoHandler
 
         $todo = $user->postTodo($command->text(), $command->todoId());
 
-        $this->todoList->add($todo);
+        $this->todoList->save($todo);
     }
 }

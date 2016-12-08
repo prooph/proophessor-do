@@ -33,6 +33,7 @@ class RemindTodoAssigneeHandler
     public function __invoke(RemindTodoAssignee $command): void
     {
         $todo = $this->todoList->get($command->todoId());
+
         if (! $todo) {
             throw TodoNotFound::withTodoId($command->todoId());
         }
@@ -41,6 +42,8 @@ class RemindTodoAssigneeHandler
 
         if ($this->reminderShouldBeProcessed($todo, $reminder)) {
             $todo->remindAssignee($reminder);
+
+            $this->todoList->save($todo);
         }
     }
 

@@ -38,13 +38,6 @@ foreach (Glob::glob('config/autoload/{{,*.}global,{,*.}local}.php', Glob::GLOB_B
     $config = ArrayUtils::merge($config, include $file);
 }
 
-$mongoClientFactoryConfigFile = 'config/autoload/mongo_client.local.php';
-
-if (file_exists($mongoClientFactoryConfigFile)) {
-    $mongoClientFactoryConfig = include $mongoClientFactoryConfigFile;
-    $config['dependencies']['factories']['mongo_client'] = $mongoClientFactoryConfig['mongo_client'];
-}
-
 // Cache config if enabled
 if (isset($config['config_cache_enabled']) && $config['config_cache_enabled'] === true) {
     file_put_contents($cachedConfigFile, '<?php return ' . var_export($config, true) . ';');
