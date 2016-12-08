@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo;
 
+use Prooph\EventSourcing\Container\Aggregate\AggregateRepositoryFactory;
 use Zend\Expressive\Application;
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Helper;
@@ -43,7 +44,7 @@ return [
             // Model
             \Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler::class => \Prooph\ProophessorDo\Container\Model\User\RegisterUserHandlerFactory::class,
             \Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress::class => \Prooph\ProophessorDo\Container\Model\User\ChecksUniqueUsersEmailAddressFactory::class,
-            \Prooph\ProophessorDo\Model\User\UserCollection::class => \Prooph\ProophessorDo\Container\Infrastructure\Repository\EventStoreUserCollectionFactory::class,
+            \Prooph\ProophessorDo\Model\User\UserCollection::class => [AggregateRepositoryFactory::class, 'user_collection'],
             \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\PostTodoHandlerFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\MarkTodoAsDoneHandlerFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\ReopenTodoHandlerFactory::class,
@@ -51,7 +52,7 @@ return [
             \Prooph\ProophessorDo\Model\Todo\Handler\AddReminderToTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\AddReminderToTodoHandlerFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsExpiredHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\MarkTodoAsExpiredHandlerFactory::class,
             \Prooph\ProophessorDo\Model\Todo\Handler\RemindTodoAssigneeHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\RemindTodoAssigneeHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\Todo\TodoList::class => \Prooph\ProophessorDo\Container\Infrastructure\Repository\EventStoreTodoListFactory::class,
+            \Prooph\ProophessorDo\Model\Todo\TodoList::class => [AggregateRepositoryFactory::class, 'todo_list'],
             // Projections
             \Prooph\ProophessorDo\Projection\User\UserProjector::class => \Prooph\ProophessorDo\Container\Projection\User\UserProjectorFactory::class,
             \Prooph\ProophessorDo\Projection\User\UserFinder::class => \Prooph\ProophessorDo\Container\Projection\User\UserFinderFactory::class,
