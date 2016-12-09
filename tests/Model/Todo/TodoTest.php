@@ -31,6 +31,7 @@ use Prooph\ProophessorDo\Model\Todo\TodoReminderStatus;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
 use Prooph\ProophessorDo\Model\User\UserId;
 use ProophTest\ProophessorDo\TestCase;
+use Ramsey\Uuid\Uuid;
 
 class TodoTest extends TestCase
 {
@@ -78,12 +79,14 @@ class TodoTest extends TestCase
 
         $this->assertInstanceOf(TodoWasMarkedAsDone::class, $events[1]);
 
-        $expectedPayload = [
-            'old_status' => 'OPEN',
-            'new_status' => 'DONE',
-        ];
+        $payload = $events[1]->payload();
 
-        $this->assertEquals($expectedPayload, $events[1]->payload());
+        $this->assertArrayHasKey('old_status', $payload);
+        $this->assertEquals('OPEN', $payload['old_status']);
+        $this->assertArrayHasKey('new_status', $payload);
+        $this->assertEquals('DONE', $payload['new_status']);
+        $this->assertArrayHasKey('assignee_id', $payload);
+        $this->assertTrue(Uuid::isValid($payload['assignee_id']));
 
         return $todo;
     }
@@ -384,11 +387,14 @@ class TodoTest extends TestCase
         $this->assertEquals(1, count($events));
         $this->assertInstanceOf(TodoWasMarkedAsExpired::class, $events[0]);
 
-        $expectedPayload = [
-            'old_status' => 'OPEN',
-            'new_status' => 'EXPIRED',
-        ];
-        $this->assertEquals($expectedPayload, $events[0]->payload());
+        $payload = $events[0]->payload();
+
+        $this->assertArrayHasKey('old_status', $payload);
+        $this->assertEquals('OPEN', $payload['old_status']);
+        $this->assertArrayHasKey('new_status', $payload);
+        $this->assertEquals('EXPIRED', $payload['new_status']);
+        $this->assertArrayHasKey('assignee_id', $payload);
+        $this->assertTrue(Uuid::isValid($payload['assignee_id']));
 
         return $todo;
     }

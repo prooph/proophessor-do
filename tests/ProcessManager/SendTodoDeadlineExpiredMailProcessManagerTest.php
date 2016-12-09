@@ -16,6 +16,7 @@ use PHPUnit\Framework\TestCase;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager;
 use Prooph\ServiceBus\CommandBus;
 use Prophecy\Argument;
@@ -35,7 +36,8 @@ class SendTodoDeadlineExpiredMailProcessManagerTest extends TestCase
         $processManager(TodoWasMarkedAsExpired::fromStatus(
             TodoId::generate(),
             TodoStatus::OPEN(),
-            TodoStatus::EXPIRED()
+            TodoStatus::EXPIRED(),
+            UserId::generate()
         ));
     }
 }
