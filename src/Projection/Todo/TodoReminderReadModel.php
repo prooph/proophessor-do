@@ -89,12 +89,12 @@ EOT;
         $this->connection->insert(Table::TODO_REMINDER, $data);
     }
 
-    protected function update(array $query, array $data): void
+    protected function update(array $data, array $identifier): void
     {
         $this->connection->update(
-            Table::TODO_REMINDER,
-            $query,
-            $data
+            Table::TODO,
+            $data,
+            $identifier
         );
     }
 

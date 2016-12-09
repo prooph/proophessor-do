@@ -94,12 +94,12 @@ EOT;
         $this->connection->insert(Table::TODO, $data);
     }
 
-    protected function update(array $query, array $data): void
+    protected function update(array $data, array $identifier): void
     {
         $this->connection->update(
             Table::TODO,
-            $query,
-            $data
+            $data,
+            $identifier
         );
     }
 }
