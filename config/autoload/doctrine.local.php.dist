@@ -1,0 +1,36 @@
+<?php
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
+/**
+ * Local configuration overrides - make your adjustments here
+ */
+return [
+    // Doctrine DBAL connection settings - for read model
+    'doctrine' => [
+        'connection' => [
+            'default' => [
+                'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
+                'host' => '127.0.0.1',
+                'port' => '3306',
+                'user' => 'root',
+                'password' => '',
+                'dbname' => 'todo',
+                'charset' => 'utf8',
+                'driverOptions' => [
+                    1002 => "SET NAMES 'UTF8'"
+                ],
+            ],
+        ],
+    ],
+];

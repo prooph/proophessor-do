@@ -55,7 +55,7 @@ class SendTodoReminderMailHandler
 
         $mail = new Mail\Message();
         $mail->setBody("Hello {$user->name}. This a reminder for '{$todo->text}'. Don't be lazy!");
-        $mail->setFrom('reminder@getprooph.org', 'Proophessor-do');
+        $mail->setFrom('reminder@localhost', 'Proophessor-do');
         $mail->addTo($user->email, $user->name);
         $mail->setSubject('Proophessor-do Todo Reminder');
 

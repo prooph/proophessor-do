@@ -1,0 +1,37 @@
+<?php
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
+/**
+ * Local configuration overrides - make your adjustments here
+ */
+return [
+    // mail transport settings
+    'proophessor-do' => [
+        'mail' => [
+            'transport' => 'in_memory',  // smtp or in_memory (default)
+// uncomment if you want to use smtp. Preset for gmail
+//            'smtp' => [
+//                'name' => 'gmail.com',
+//                'host' => 'smtp.gmail.com',
+//                'port' => 587,
+//                'connection_class' => 'plain',
+//                'connection_config' => [
+//                    'username' => 'YOUR_USERNAME_HERE',
+//                    'password' => 'YOUR_PASSWORD_HERE',
+//                    'ssl' => 'tls',
+//                ],
+//            ],
+        ],
+    ],
+];
