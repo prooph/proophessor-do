@@ -91,4 +91,4 @@ $projection
             $this->readModel()->stack('unmarkTodoAsExpired', $event->assigneeId()->toString());
         }
     ])
-    ->run(false);
+    ->run();
