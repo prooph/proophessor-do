@@ -24,7 +24,7 @@ use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
-use Prooph\ProophessorDo\Projection\User\UserReadModel;
+use Prooph\ProophessorDo\Projection\Todo\TodoReadModel;
 
 chdir(dirname(__DIR__));
 
@@ -36,7 +36,7 @@ $eventStore = $container->get(EventStore::class);
 
 $pdo = $container->get('pdo.connection');
 
-$readModel = new UserReadModel($container->get('doctrine.connection.default'));
+$readModel = new TodoReadModel($container->get('doctrine.connection.default'));
 
 if ($eventStore instanceof MySQLEventStore) {
     $projection = new MySQLEventStoreReadModelProjection(

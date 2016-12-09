@@ -10,7 +10,7 @@ it manually from GitHub.
 If you use a own local web server, put this project to the document root of the local web 
 server and navigate to the proophessor-do directory and follow the *Do it manually* instructions.
 
-## Using Docker
+## Using Docker (ATTENTION - Docker installation manual is out of date !!!)
 First ensure [Docker](https://docs.docker.com/engine/installation/ubuntulinux/) and [Docker Compose](https://docs.docker.com/compose/install/) 
 are installed. It's recommended to use the latest version of Docker and Docker Compose. Docker will download all 
 dependencies and starts the containers.
@@ -45,7 +45,7 @@ Now start your Docker Container so we can use Docker Compose for the next steps
 $ docker-compose up -d
 ```
 
-### Step 3 - Install event store imp
+### Step 3 - Install event store implementation
 
 The read model uses MySQL so it's important to execute the MySQL setup. This configures also MySQL for the event store.
 
@@ -88,18 +88,67 @@ And the other one is responsible for persisting the **read model** aka **project
 
 ### Step 3 - Configuration
 
-Copy `config/autoload/config.local.php.dist` to `config/autoload/config.local.php` and make your adjustments.
+For email sending (mandatory):
 
-##### Create An Empty Database
-Before you can run the migrations you have to make sure that the database `todo` exists. You can of course use another
-name for the database but please align the `doctrine.connection.default` configuration accordingly.
+Copy `config/autoload/mail.local.php.dist` to `config/autoload/mail.local.php` and make your adjustments.
 
-##### Run Doctrine Migrations
+For read model (mandatory):
 
-To create the needed projection tables (and the `event_stream` if the doctrine event store adapter is installed)
-you should perform the [migrations](../migrations/) by running `php bin/migrations.php migrations:migrate` from the project root.
+Copy `config/autoload/doctrine.local.php.dist` to `config/autoload/doctrine.local.php` and make your adjustments.
 
-*Note: We use a custom migrations script instead of the doctrine version because we're injecting the dbal connection provided by our IoC container.*
+For MySQL Event Store (mandatory: choose MySQL or Postgres):
+
+Copy `config/autoload/mysql_event_store.local.php.dist` to `config/autoload/mysql_event_store.local.php` and make your adjustments.
+
+For Postgres Event Store (mandatory: choose MySQL or Postgres):
+
+Copy `config/autoload/postgres_event_store.local.php.dist` to `config/autoload/postgres_event_store.local.php` and make your adjustments.
+
+For PDO Snapshot Store (optional - it uses the same PDO connection as for given EventStore)
+
+Copy `config/autoload/pdo_snapshot_store.local.php.dist` to `config/autoload/pdo_snapshot_store.local.php` and make your adjustments.
+
+For MongoDB Snapshot Store (optional)
+
+Copy `config/autoload/mongo_snapshot_store.local.php.dist` to `config/autoload/mongo_snapshot_store.local.php` and make your adjustments.
+
+##### Create An Empty Database for Read Model
+
+execute `CREATE DATABASE todo;` on your MySQL instance.
+
+##### Create An Empty Database for MySQL Event Store
+
+execute the scripts located at:
+
+`vendor/prooph/pdo-event-store/scripts/mysql_event_streams_table.sql`
+`vendor/prooph/pdo-event-store/scripts/mysql_projections_table.sql`
+
+##### Create An Empty Database for Postgres Event Store
+
+execute the scripts located at:
+
+`vendor/prooph/pdo-event-store/scripts/postgres_event_streams_table.sql`
+`vendor/prooph/pdo-event-store/scripts/postgres_projections_table.sql`
+
+##### Create empty stream
+
+execute:
+
+`php scripts/create_event_stream.php`
+
+##### Start projections
+
+`php bin/todo_projection.php`
+
+`php bin/todo_reminder_projection.php`
+
+`php bin/user_projection.php`
+
+##### Start snapshotters (optional)
+
+`php bin/todo_snapshotter.php`
+
+`php bin/user_snapshotter.php`
 
 ### Step 4 - View It
 

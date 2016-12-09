@@ -31,6 +31,7 @@ class AddReminderToTodoHandler
     public function __invoke(AddReminderToTodo $command): void
     {
         $todo = $this->todoList->get($command->todoId());
+
         if (! $todo) {
             throw TodoNotFound::withTodoId($command->todoId());
         }

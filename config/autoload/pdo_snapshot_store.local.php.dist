@@ -26,7 +26,7 @@ return [
     'prooph' => [
         'pdo_snapshot_store' => [
             'default' => [
-                'connection_service' => 'doctrine.connection.default',
+                'connection_service' => 'pdo.connection',
             ],
         ],
         'event_sourcing' => [

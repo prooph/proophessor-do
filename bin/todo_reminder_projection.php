@@ -19,7 +19,7 @@ use Prooph\EventStore\PDO\Projection\MySQLEventStoreReadModelProjection;
 use Prooph\EventStore\PDO\Projection\PostgresEventStoreReadModelProjection;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
-use Prooph\ProophessorDo\Projection\User\UserReadModel;
+use Prooph\ProophessorDo\Projection\Todo\TodoReminderReadModel;
 
 chdir(dirname(__DIR__));
 
@@ -31,7 +31,7 @@ $eventStore = $container->get(EventStore::class);
 
 $pdo = $container->get('pdo.connection');
 
-$readModel = new UserReadModel($container->get('doctrine.connection.default'));
+$readModel = new TodoReminderReadModel($container->get('doctrine.connection.default'));
 
 if ($eventStore instanceof MySQLEventStore) {
     $projection = new MySQLEventStoreReadModelProjection(
