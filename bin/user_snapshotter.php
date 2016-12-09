@@ -19,14 +19,7 @@ use Prooph\EventStore\PDO\MySQLEventStore;
 use Prooph\EventStore\PDO\PostgresEventStore;
 use Prooph\EventStore\PDO\Projection\MySQLEventStoreReadModelProjection;
 use Prooph\EventStore\PDO\Projection\PostgresEventStoreReadModelProjection;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
-use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
-use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Prooph\ProophessorDo\Model\User\UserCollection;
-use Prooph\ProophessorDo\Projection\User\UserReadModel;
 use Prooph\Snapshotter\SnapshotReadModel;
 use Prooph\Snapshotter\StreamSnapshotProjection;
 

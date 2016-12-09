@@ -84,11 +84,11 @@ $projection
         TodoWasReopened::class => function ($state, TodoWasReopened $event) {
             $this->readModel()->stack('reopenTodo', $event->assigneeId()->toString());
         },
-        TodoWasMarkedAsExpired::class => function($state, TodoWasMarkedAsExpired $event) {
+        TodoWasMarkedAsExpired::class => function ($state, TodoWasMarkedAsExpired $event) {
             $this->readModel()->stack('markTodoAsExpired', $event->assigneeId()->toString());
         },
         TodoWasUnmarkedAsExpired::class => function ($state, TodoWasUnmarkedAsExpired $event) {
             $this->readModel()->stack('unmarkTodoAsExpired', $event->assigneeId()->toString());
-        }
+        },
     ])
     ->run();

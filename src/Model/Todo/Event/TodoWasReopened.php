@@ -15,7 +15,6 @@ namespace Prooph\ProophessorDo\Model\Todo\Event;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
-use Prooph\ProophessorDo\Model\User\User;
 use Prooph\ProophessorDo\Model\User\UserId;
 
 final class TodoWasReopened extends AggregateChanged

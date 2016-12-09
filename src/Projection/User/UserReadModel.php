@@ -13,7 +13,6 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo\Projection\User;
 
 use Doctrine\DBAL\Connection;
-use PDO;
 use Prooph\EventStore\Projection\AbstractReadModel;
 use Prooph\ProophessorDo\Projection\Table;
 
@@ -72,7 +71,6 @@ EOT;
         $tableName = Table::USER;
 
         $sql = "TRUNCATE TABLE '$tableName';";
-EOT;
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
