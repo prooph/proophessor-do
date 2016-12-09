@@ -13,9 +13,9 @@ declare(strict_types=1);
 namespace ProophTest\ProophessorDo;
 
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Prooph\EventSourcing\Aggregate\AggregateType;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
-use Prooph\EventSourcing\Aggregate\AggregateType;
 
 class TestCase extends PHPUnitTestCase
 {
