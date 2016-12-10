@@ -57,7 +57,7 @@ $ docker-compose run --rm php sh bin/setup_mysql.sh
 ### Step 4 - That's it
 Now open [http://localhost:8080](http://localhost:8080/) and have fun.
 
-## Using Vagrant
+## Using Vagrant (ATTENTION - Vagrant installation manual is out of date !!!)
 Please install the following software if not already installed:
 
 * [Vagrant >= 1.7.3](http://www.vagrantup.com/downloads.html)
