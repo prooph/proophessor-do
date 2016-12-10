@@ -67,8 +67,7 @@
     },
     "suggest" : {
         "prooph/pdo-snapshot-store": "^1.0 for pdo snapshot store",
-        "prooph/mongodb-snapshot-store": "^1.0 for mongodb snapshot store",
-        "sandrokeil/interop-config": "1.0 for provided factories"
+        "prooph/mongodb-snapshot-store": "^1.0 for mongodb snapshot store"
     },
     "autoload" : {
         "psr-4" : {
