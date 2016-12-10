@@ -54,12 +54,9 @@ return [
             \Prooph\ProophessorDo\Model\Todo\Handler\RemindTodoAssigneeHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\RemindTodoAssigneeHandlerFactory::class,
             \Prooph\ProophessorDo\Model\Todo\TodoList::class => [AggregateRepositoryFactory::class, 'todo_list'],
             // Projections
-            \Prooph\ProophessorDo\Projection\User\UserProjector::class => \Prooph\ProophessorDo\Container\Projection\User\UserProjectorFactory::class,
             \Prooph\ProophessorDo\Projection\User\UserFinder::class => \Prooph\ProophessorDo\Container\Projection\User\UserFinderFactory::class,
-            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoProjectorFactory::class,
             \Prooph\ProophessorDo\Projection\Todo\TodoFinder::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoFinderFactory::class,
             \Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoReminderFinderFactory::class,
-            \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoReminderProjectorFactory::class,
             // Subscriber
             \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager::class => \Prooph\ProophessorDo\Container\ProcessManager\SendTodoReminderMailSubscriberFactory::class,
             \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager::class => \Prooph\ProophessorDo\Container\ProcessManager\SendTodoDeadlineExpiredMailSubscriberFactory::class,
