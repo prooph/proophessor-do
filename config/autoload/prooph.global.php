@@ -75,41 +75,11 @@ return [
                 ],
                 'router' => [
                     'routes' => [
-                        \Prooph\ProophessorDo\Model\User\Event\UserWasRegistered::class => [
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class,
-                        ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class,
                             \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager::class,
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
                             \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
                         ],
                     ],
                 ],
