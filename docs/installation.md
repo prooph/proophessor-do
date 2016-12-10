@@ -10,7 +10,7 @@ it manually from GitHub.
 If you use a own local web server, put this project to the document root of the local web 
 server and navigate to the proophessor-do directory and follow the *Do it manually* instructions.
 
-## Using Docker (ATTENTION - Docker installation manual is out of date !!!)
+## Using Docker
 First ensure [Docker](https://docs.docker.com/engine/installation/ubuntulinux/) and [Docker Compose](https://docs.docker.com/compose/install/) 
 are installed. It's recommended to use the latest version of Docker and Docker Compose. Docker will download all 
 dependencies and starts the containers.
@@ -30,31 +30,24 @@ All the Docker commands are run from the source directory, so also do:
 To ensure you have the latest Docker images for the default application execute:
 
 ```bash
-$ docker pull prooph/php:5.6-fpm && docker pull prooph/composer:5.6 && docker pull prooph/nginx:www
+$ docker pull prooph/php:7.1-fpm && docker pull prooph/composer:7.1 && docker pull prooph/nginx:www
 ```
 
 Install PHP dependencies via Composer
 
+#### Note for Windows: Replace `$(pwd)` with `%cd%` in all commands
+
 ```bash
-$ docker run --rm -it --volume $(pwd):/app prooph/composer:5.6 install -o --prefer-dist
+$ docker run --rm -it --volume $(pwd):/app prooph/composer:7.1 install -o --prefer-dist
 ```
 
-Now start your Docker Container so we can use Docker Compose for the next steps
+Now start your Docker Containers all together with `docker-compose`
 
 ```bash
 $ docker-compose up -d
 ```
 
-### Step 3 - Install event store implementation
-
-The read model uses MySQL so it's important to execute the MySQL setup. This configures also MySQL for the event store.
-
-```bash
-$ docker run --rm -it --volume $(pwd):/app prooph/composer:5.6 require prooph/event-store-doctrine-adapter -o --prefer-dist
-$ docker-compose run --rm php sh bin/setup_mysql.sh
-```
-
-### Step 4 - That's it
+### Step 3 - That's it!
 Now open [http://localhost:8080](http://localhost:8080/) and have fun.
 
 ## Using Vagrant (ATTENTION - Vagrant installation manual is out of date !!!)
@@ -88,55 +81,29 @@ And the other one is responsible for persisting the **read model** aka **project
 
 ### Step 3 - Configuration
 
-For email sending (mandatory):
+#### 3.1 Email sending (mandatory):
 
 Copy `config/autoload/mail.local.php.dist` to `config/autoload/mail.local.php` and make your adjustments.
 
-For read model (mandatory):
+#### 3.2 Read model (mandatory):
 
-Copy `config/autoload/doctrine.local.php.dist` to `config/autoload/doctrine.local.php` and make your adjustments.
+ - Copy `config/autoload/doctrine.local.php.dist` to `config/autoload/doctrine.local.php` and make your adjustments.
+ - Execute `CREATE DATABASE todo;` on your MySQL instance.
 
-For MySQL Event Store (mandatory: choose MySQL or Postgres):
+#### 3.3 Event Store
 
-Copy `config/autoload/mysql_event_store.local.php.dist` to `config/autoload/mysql_event_store.local.php` and make your adjustments.
+ - Copy `config/autoload/mysql_event_store.local.php.dist` to `config/autoload/mysql_event_store.local.php` and make your adjustments.
+ - Execute the scripts located at:
+   - `vendor/prooph/pdo-event-store/scripts/mysql/01_event_streams_table.sql`
+   - `vendor/prooph/pdo-event-store/scripts/mysql/02_projections_table.sql`
+ - Create empty stream: Run `php scripts/create_event_stream.php`
 
-For Postgres Event Store (mandatory: choose MySQL or Postgres):
-
-Copy `config/autoload/postgres_event_store.local.php.dist` to `config/autoload/postgres_event_store.local.php` and make your adjustments.
-
-For PDO Snapshot Store (optional - it uses the same PDO connection as for given EventStore)
+#### 3.4 PDO Snapshot Store (optional)
+*PDO Snapshot Store uses the same PDO connection as for given EventStore*
 
 Copy `config/autoload/pdo_snapshot_store.local.php.dist` to `config/autoload/pdo_snapshot_store.local.php` and make your adjustments.
 
-For MongoDB Snapshot Store (optional)
-
-Copy `config/autoload/mongo_snapshot_store.local.php.dist` to `config/autoload/mongo_snapshot_store.local.php` and make your adjustments.
-
-##### Create An Empty Database for Read Model
-
-execute `CREATE DATABASE todo;` on your MySQL instance.
-
-##### Create An Empty Database for MySQL Event Store
-
-execute the scripts located at:
-
-`vendor/prooph/pdo-event-store/scripts/mysql_event_streams_table.sql`
-`vendor/prooph/pdo-event-store/scripts/mysql_projections_table.sql`
-
-##### Create An Empty Database for Postgres Event Store
-
-execute the scripts located at:
-
-`vendor/prooph/pdo-event-store/scripts/postgres_event_streams_table.sql`
-`vendor/prooph/pdo-event-store/scripts/postgres_projections_table.sql`
-
-##### Create empty stream
-
-execute:
-
-`php scripts/create_event_stream.php`
-
-##### Start projections
+### Step 4 - Start projections
 
 `php bin/todo_projection.php`
 
@@ -144,13 +111,13 @@ execute:
 
 `php bin/user_projection.php`
 
-##### Start snapshotters (optional)
+##### 4.1 Start snapshotters (only if you decided to use 3.4)
 
 `php bin/todo_snapshotter.php`
 
 `php bin/user_snapshotter.php`
 
-### Step 4 - View It
+### Step 5 - View It
 
 Open a terminal and navigate to the project root. Then start the PHP built-in web server with `php -S 0.0.0.0:8080 -t public`
 and open [http://localhost:8080](http://localhost:8080/) in a browser.
