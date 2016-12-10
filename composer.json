@@ -43,7 +43,7 @@
         "prooph/psr7-middleware": "0.4.x-dev",
         "prooph/service-bus" : "6.0.x-dev",
         "roave/security-advisories": "dev-master",
-        "sandrokeil/interop-config": "^1.0",
+        "sandrokeil/interop-config": "^2.0.1",
         "zendframework/zend-config": "^2.6",
         "zendframework/zend-expressive" : "^1.0.3",
         "zendframework/zend-expressive-aurarouter": "^1.0",

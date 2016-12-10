@@ -51,12 +51,12 @@ class PDOConnectionFactory implements RequiresConfig, RequiresMandatoryOptions
         return new PDO($dsn, $user, $password);
     }
 
-    public function dimensions(): array
+    public function dimensions(): iterable
     {
         return ['proophessor-do', 'pdo_connection'];
     }
 
-    public function mandatoryOptions(): array
+    public function mandatoryOptions(): iterable
     {
         return [
             'driver',

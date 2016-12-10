@@ -29,12 +29,12 @@ class MongoClientFactory implements RequiresConfig, ProvidesDefaultOptions
         return new Client($config['uri'], $config['uri_options'], $config['driver_options']);
     }
 
-    public function dimensions()
+    public function dimensions(): iterable
     {
         return ['proophessor-do', 'mongo_client'];
     }
 
-    public function defaultOptions()
+    public function defaultOptions(): iterable
     {
         return [
             'uri' => 'mongodb://127.0.0.1/',

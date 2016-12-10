@@ -25,12 +25,12 @@ class TransportFactory implements RequiresConfig, ProvidesDefaultOptions
 {
     use ConfigurationTrait;
 
-    public function dimensions(): array
+    public function dimensions(): iterable
     {
         return ['proophessor-do', 'mail'];
     }
 
-    public function defaultOptions(): array
+    public function defaultOptions(): iterable
     {
         return ['transport' => 'in_memory'];
     }

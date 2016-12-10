@@ -19,7 +19,6 @@ use Interop\Config\ConfigurationTrait;
 use Interop\Config\RequiresConfigId;
 use Interop\Config\RequiresMandatoryOptions;
 use Interop\Container\ContainerInterface;
-use Prooph\ProophessorDo\App\DBAL\Types\JsonType;
 
 class DoctrineDbalConnectionFactory implements RequiresConfigId, RequiresMandatoryOptions
 {
@@ -29,17 +28,15 @@ class DoctrineDbalConnectionFactory implements RequiresConfigId, RequiresMandato
     {
         $options = $this->options($container->get('config'), 'default');
 
-        Type::addType('json', JsonType::class);
-
         return DriverManager::getConnection($options);
     }
 
-    public function dimensions(): array
+    public function dimensions(): iterable
     {
         return ['doctrine', 'connection'];
     }
 
-    public function mandatoryOptions(): array
+    public function mandatoryOptions(): iterable
     {
         return ['driverClass'];
     }
