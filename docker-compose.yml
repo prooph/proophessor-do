@@ -32,12 +32,6 @@ services:
 
   php:
     image: prooph/php:7.1-fpm
-    links:
-      - mysql:mysql
-      - mongodb:mongodb
-    environment:
-      # To show errors uncomment
-      - PROOPH_ENV=development
     volumes:
       - .:/var/www
     depends_on:
@@ -48,12 +42,6 @@ services:
     image: prooph/php:7.1-cli
     entrypoint:
       - /app/.docker/wait_for_sql.sh
-    links:
-      - mysql:mysql
-      - mongodb:mongodb
-    environment:
-      # To show errors uncomment
-      - PROOPH_ENV=development
     volumes:
       - .:/app
     depends_on:
@@ -64,12 +52,6 @@ services:
   projection_todo_reminder:
     image: prooph/php:7.1-cli
     entrypoint: /app/.docker/wait_for_sql.sh
-    links:
-      - mysql:mysql
-      - mongodb:mongodb
-    environment:
-      # To show errors uncomment
-      - PROOPH_ENV=development
     volumes:
       - .:/app
     depends_on:
@@ -80,12 +62,6 @@ services:
   projection_user:
     image: prooph/php:7.1-cli
     entrypoint: /app/.docker/wait_for_sql.sh
-    links:
-      - mysql:mysql
-      - mongodb:mongodb
-    environment:
-      # To show errors uncomment
-      - PROOPH_ENV=development
     volumes:
       - .:/app
     depends_on:
@@ -93,19 +69,23 @@ services:
       - mongodb
     command: php /app/bin/user_projection.php
 
-  # Uncomment to use snapshotters
-#  snapshotters:
-#    build:
-#      context: .docker
-#      dockerfile: Dockerfile-snapshotters
-#    links:
-#      - mysql:mysql
-#      - mongodb:mongodb
-#    environment:
-#      # To show errors uncomment
-#      - PROOPH_ENV=development
+  # Uncomment when using snapshotters
+#  snapshotter_todo:
+#    image: prooph/php:7.1-cli
+#    entrypoint: /app/.docker/wait_for_sql.sh
 #    volumes:
-#      - .:/var/www
+#      - .:/app
 #    depends_on:
 #      - mysql
 #      - mongodb
+#    command: php /app/bin/todo_projection.php
+#
+#  snapshotter_user:
+#    image: prooph/php:7.1-cli
+#    entrypoint: /app/.docker/wait_for_sql.sh
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - mysql
+#      - mongodb
+#    command: php /app/bin/user_projection.php
