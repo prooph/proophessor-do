@@ -41,13 +41,33 @@ Install PHP dependencies via Composer
 $ docker run --rm -it --volume $(pwd):/app prooph/composer:7.1 install -o --prefer-dist
 ```
 
-Now start your Docker Containers all together with `docker-compose`
+### Step 3: Configuration
+
+#### 3.1 Email sending (mandatory):
+
+Copy `config/autoload/mail.local.php.dist` to `config/autoload/mail.local.php` and make your adjustments.
+
+#### 3.2 Read model (mandatory):
+
+Copy `config/autoload/doctrine.local.php.dist` to `config/autoload/doctrine.local.php` and make your adjustments.
+
+#### 3.3 Event Store
+
+Copy `config/autoload/mysql_event_store.local.php.dist` to `config/autoload/mysql_event_store.local.php` and make your adjustments.
+
+#### 3.4 Start your Docker Containers
 
 ```bash
 $ docker-compose up -d
 ```
 
-### Step 3 - That's it!
+#### 3.5 Create the initial event stream with the already started container:
+
+```bash
+$ docker exec proophessordo_php_1 php /var/www/scripts/create_event_stream.php
+```
+
+### Step 4 - That's it!
 Now open [http://localhost:8080](http://localhost:8080/) and have fun.
 
 ## Using Vagrant (ATTENTION - Vagrant installation manual is out of date !!!)
