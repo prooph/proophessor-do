@@ -36,11 +36,6 @@ Copy `config/autoload/mail.local.php.dist` to `config/autoload/mail.local.php` a
    - `vendor/prooph/pdo-event-store/scripts/mysql/02_projections_table.sql`
  - Create empty stream: Run `php scripts/create_event_stream.php`
 
-#### 3.4 PDO Snapshot Store (optional)
-*PDO Snapshot Store uses the same PDO connection as for given EventStore*
-
-Copy `config/autoload/pdo_snapshot_store.local.php.dist` to `config/autoload/pdo_snapshot_store.local.php` and make your adjustments.
-
 ### Step 4 - Start projections
 
 `php bin/todo_projection.php`

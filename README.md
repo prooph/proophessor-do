@@ -20,9 +20,10 @@ instructions.
 
 > Docker is the recommended and fastest installation method
 
-- [Install using Docker](installation/docker.md)
-- [Install using Vagrant](installation/vagrant.md)
-- [Manual Installation](installation/manual.md)
+- [Install using Docker](docs/installation/docker.md)
+- [Install using Vagrant](docs/installation/vagrant.md)
+- [Manual Installation](docs/installation/manual.md)
+- Optional Feature: [Install Snapshots](docs/installation/snapshots.md)
 
 ## Learning by doing!
 
