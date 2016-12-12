@@ -15,8 +15,14 @@ It is about managing todo lists for users whereby a todo can have a deadline and
 time has passed.
 
 ## Installation
+*proophessor-do* offers you three options to install the demo application. We support *Vagrant*, *Docker* and have *manual*
+instructions.
 
-Please refer to the [installation instructions](docs/installation.md).
+> Docker is the recommended and fastest installation method
+
+- [Install using Docker](installation/docker.md)
+- [Install using Vagrant](installation/vagrant.md)
+- [Manual Installation](installation/manual.md)
 
 ## Learning by doing!
 
