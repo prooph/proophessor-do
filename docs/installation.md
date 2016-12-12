@@ -88,6 +88,10 @@ Now open [http://localhost:8080](http://localhost:8080/) and have fun.
 ## Do it manually
 This is the hard way. Please ensure that you not want to use Docker. ;-)
 
+### Requirements:
+ - PHP >= v7.1
+ - MySql >= v5.7.8 (For JSON support)
+
 ### Step 1 - Get source code
 
 `git clone https://github.com/prooph/proophessor-do.git` into the document root of a local web server.
