@@ -1,7 +1,7 @@
 # Technology Stack
 
 ## Server Side
-- PHP 5.6+
+- PHP >= 7.1
 - [PSR-7](http://www.php-fig.org/psr/psr-7/) middleware layer based on [zend-expressive](https://github.com/zendframework/zend-expressive)
   - IoC Container: [zend-servicemanager](https://github.com/zendframework/zend-servicemanager) v2.6+ with [container-interop](https://github.com/container-interop/container-interop) support
   - Routing: [Aura.Router](https://github.com/auraphp/Aura.Router)
@@ -10,7 +10,7 @@
 - Communication from and to the domain layer is handled by [prooph/service-bus](https://github.com/prooph/service-bus)
 - Event sourced write model is powered by [prooph/event-sourcing](https://github.com/prooph/event-sourcing)
 - Domain events are persisted in a [prooph/event-store](https://github.com/prooph/event-store) using one of the adapters:
-  - [doctrine adapter](https://github.com/prooph/event-store-doctrine-adapter)
+  - [pdo-event-store](https://github.com/prooph/pdo-event-store)
   - [mongo db adapter](https://github.com/prooph/event-store-mongodb-adapter)
 - Read model persistence is managed with the help of [Doctrine DBAL](https://github.com/doctrine/dbal)
 - Value Object implementations are graped from [nicolopignatelli/valueobjects](https://github.com/nicolopignatelli/valueobjects)
