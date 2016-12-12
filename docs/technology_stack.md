@@ -12,6 +12,7 @@
 - Domain events are persisted in a [prooph/event-store](https://github.com/prooph/event-store) using one of the adapters:
   - [pdo-event-store](https://github.com/prooph/pdo-event-store)
   - [mongo db adapter](https://github.com/prooph/event-store-mongodb-adapter)
+- Simple and fast implementation of enumerations: [php-enum](https://github.com/marc-mabe/php-enum)
 - Read model persistence is managed with the help of [Doctrine DBAL](https://github.com/doctrine/dbal)
 - Interop. factories using [sandrokeil/interop-config](https://github.com/sandrokeil/interop-config)
 - [Assertions](https://github.com/beberlei/assert) - well, you know it
