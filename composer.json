@@ -66,6 +66,7 @@
         "malukenho/docheader": "^0.1.4"
     },
     "suggest" : {
+        "prooph/snapshotter": "^2.0 for snapshotter",
         "prooph/pdo-snapshot-store": "^1.0 for pdo snapshot store",
         "prooph/mongodb-snapshot-store": "^1.0 for mongodb snapshot store"
     },
@@ -76,8 +77,7 @@
     },
     "autoload-dev" : {
         "psr-4" : {
-            "ProophTest\\ProophessorDo\\": "tests/",
-            "Prooph\\ProophessorDo\\Migrations\\" : "migrations"
+            "ProophTest\\ProophessorDo\\": "tests/"
         }
     },
     "repositories": [
