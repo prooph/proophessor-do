@@ -99,3 +99,29 @@ body {
 .glyphicon-unchecked,.glyphicon-check {
     cursor: pointer;
 }
+
+.navbar {
+    background: rgba(255,255,255,0.9);
+}
+
+.prooph-logo {
+    float: left;
+    margin-left: 8px;
+    margin-right: 8px;
+
+    transition-timing-function: ease-in-out;
+    transition: all 5s;
+}
+
+.prooph-logo:hover {
+
+    transition: all .7s;
+    transition-timing-function: ease-out;
+    transform: rotate(360deg);
+}
+
+.prooph-logo img {
+
+    height: 50px;
+
+}
