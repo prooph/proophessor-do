@@ -13,7 +13,6 @@
   - [pdo-event-store](https://github.com/prooph/pdo-event-store)
   - [mongo db adapter](https://github.com/prooph/event-store-mongodb-adapter)
 - Read model persistence is managed with the help of [Doctrine DBAL](https://github.com/doctrine/dbal)
-- Value Object implementations are graped from [nicolopignatelli/valueobjects](https://github.com/nicolopignatelli/valueobjects)
 - Interop. factories using [sandrokeil/interop-config](https://github.com/sandrokeil/interop-config)
 - [Assertions](https://github.com/beberlei/assert) - well, you know it
 
