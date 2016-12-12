@@ -64,7 +64,7 @@ A successfully merged pull request will add you to the HALL OF FAME!
 
 ## Technology Stack
 
-[We <3 Open Source](docs/technology_stack.md)
+[List of used technologies](docs/technology_stack.md) - We <3 Open Source
 
 ## Support
 
