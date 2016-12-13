@@ -13,10 +13,6 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo;
 
 use Prooph\EventStore\EventStore;
-use Prooph\EventStore\PDO\MySQLEventStore;
-use Prooph\EventStore\PDO\PostgresEventStore;
-use Prooph\EventStore\PDO\Projection\MySQLEventStoreReadModelProjection;
-use Prooph\EventStore\PDO\Projection\PostgresEventStoreReadModelProjection;
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone;
