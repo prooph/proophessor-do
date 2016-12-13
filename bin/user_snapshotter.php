@@ -30,8 +30,7 @@ require_once 'vendor/autoload.php';
 $container = require 'config/container.php';
 
 $eventStore = $container->get(EventStore::class);
-
-$pdo = $container->get('pdo.connection');
+/* @var EventStore $eventStore */
 
 $readModel = new SnapshotReadModel(
     $container->get(UserCollection::class),
@@ -39,38 +38,12 @@ $readModel = new SnapshotReadModel(
     $container->get(SnapshotStore::class)
 );
 
-if ($eventStore instanceof MySQLEventStore) {
-    $projection = new StreamSnapshotProjection(
-        new MySQLEventStoreReadModelProjection(
-            $eventStore,
-            $pdo,
-            'user_snapshotter',
-            $readModel,
-            'event_streams',
-            'projections',
-            2000,
-            10,
-            100
-        ),
-        'event_streams'
-    );
-} elseif ($eventStore instanceof PostgresEventStore) {
-    $projection = new StreamSnapshotProjection(
-        new PostgresEventStoreReadModelProjection(
-            $eventStore,
-            $pdo,
-            'user',
-            $readModel,
-            'user_snapshotter',
-            'projections',
-            2000,
-            10,
-            100
-        ),
-        'event_streams'
-    );
-} else {
-    throw new \RuntimeException('Unknown event store implementation used.');
-}
+$projection = new StreamSnapshotProjection(
+    $eventStore->createReadModelProjection(
+        'user_snapshotter',
+        $readModel
+    ),
+    'event_stream'
+);
 
 $projection();
