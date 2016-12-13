@@ -60,7 +60,7 @@ final class TodoWasReopened extends AggregateChanged
     public function status(): TodoStatus
     {
         if (null === $this->status) {
-            $this->status = TodoStatus::getByName($this->payload['status']);
+            $this->status = TodoStatus::byName($this->payload['status']);
         }
 
         return $this->status;

@@ -75,7 +75,7 @@ final class TodoWasPosted extends AggregateChanged
     public function todoStatus(): TodoStatus
     {
         if (null === $this->todoStatus) {
-            $this->todoStatus = TodoStatus::getByName($this->payload['status']);
+            $this->todoStatus = TodoStatus::byName($this->payload['status']);
         }
 
         return $this->todoStatus;

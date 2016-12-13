@@ -32,7 +32,7 @@ final class TodoReminder implements ValueObject
     {
         return new self(
             new DateTimeImmutable($reminder, new DateTimeZone('UTC')),
-            TodoReminderStatus::getByName($status)
+            TodoReminderStatus::byName($status)
         );
     }
 
