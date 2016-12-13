@@ -48,7 +48,6 @@ return [
             'default' => [
                 'plugins' => [
                     \Prooph\EventStoreBusBridge\EventPublisher::class,
-                    \Prooph\EventStoreBusBridge\TransactionManager::class,
                 ],
             ],
         ],

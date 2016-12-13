@@ -32,10 +32,17 @@ return [
         'event_sourcing' => [
             'aggregate_repository' => [
                 'todo_list' => [
-                    'snapshot_store' => \Prooph\EventSourcing\Snapshot\SnapshotStore::class
+                    'snapshot_store' => \Prooph\EventSourcing\Snapshot\SnapshotStore::class,
                 ],
                 'user_collection' => [
-                    'snapshot_store' => \Prooph\EventSourcing\Snapshot\SnapshotStore::class
+                    'snapshot_store' => \Prooph\EventSourcing\Snapshot\SnapshotStore::class,
+                ],
+            ],
+        ],
+        'service_bus' => [
+            'command_bus' => [
+                'plugins' => [
+                    \Prooph\EventStoreBusBridge\TransactionManager::class,
                 ],
             ],
         ],
