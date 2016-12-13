@@ -27,6 +27,12 @@ As a general purpose helper we use the *prooph/snapshotter* which can be install
   ```bash
   $ composer require prooph/pdo-snapshot-store
   ```
+  
+ - Execute the following script:
+ 
+   for MySQL: `vendor/prooph/pdo-snapshot-store/scripts/mysql_snapshot_table.sql`
+   
+   for Postgres: `vendor/prooph/pdo-snapshot-store/scripts/postgres_snapshot_table.sql`
 
 ### MongoDB Snapshot Store
 
