@@ -14,8 +14,9 @@ namespace Prooph\ProophessorDo\Model;
 
 use MabeEnum\Enum as MabeEnum;
 use MabeEnum\EnumSerializableTrait;
+use Serializable;
 
-abstract class Enum extends MabeEnum implements ValueObject
+abstract class Enum extends MabeEnum implements Serializable, ValueObject
 {
     use EnumSerializableTrait;
 
@@ -26,6 +27,6 @@ abstract class Enum extends MabeEnum implements ValueObject
 
     public function toString(): string
     {
-        return $this->__toString();
+        return $this->getName();
     }
 }
