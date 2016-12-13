@@ -38,6 +38,13 @@ return [
             'default' => [
                 'persistence_strategy' => 'Prooph\EventStore\PDO\PersistenceStrategy\PostgresSingleStreamStrategy',
             ]
-        ]
+        ],
+        'service_bus' => [
+            'command_bus' => [
+                'plugins' => [
+                    \Prooph\EventStoreBusBridge\TransactionManager::class,
+                ],
+            ],
+        ],
     ],
 ];

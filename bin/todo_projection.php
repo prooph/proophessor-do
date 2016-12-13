@@ -33,38 +33,11 @@ require_once 'vendor/autoload.php';
 $container = require 'config/container.php';
 
 $eventStore = $container->get(EventStore::class);
-
-$pdo = $container->get('pdo.connection');
+/* @var EventStore $eventStore */
 
 $readModel = new TodoReadModel($container->get('doctrine.connection.default'));
 
-if ($eventStore instanceof MySQLEventStore) {
-    $projection = new MySQLEventStoreReadModelProjection(
-        $eventStore,
-        $pdo,
-        'todo',
-        $readModel,
-        'event_streams',
-        'projections',
-        2000,
-        10,
-        100
-    );
-} elseif ($eventStore instanceof PostgresEventStore) {
-    $projection = new PostgresEventStoreReadModelProjection(
-        $eventStore,
-        $pdo,
-        'todo',
-        $readModel,
-        'event_streams',
-        'projections',
-        2000,
-        10,
-        100
-    );
-} else {
-    throw new \RuntimeException('Unknown event store implementation used.');
-}
+$projection = $eventStore->createReadModelProjection('todo', $readModel);
 
 $projection
     ->fromStream('event_stream')
