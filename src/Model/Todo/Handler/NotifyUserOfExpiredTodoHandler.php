@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
 use Prooph\ProophessorDo\Model\Todo\Command\NotifyUserOfExpiredTodo;
@@ -29,10 +31,6 @@ class NotifyUserOfExpiredTodoHandler
      */
     private $mailer;
 
-    /**
-     * @param QueryBus $queryBus
-     * @param TransportInterface $mailer
-     */
     public function __construct(
         QueryBus $queryBus,
         TransportInterface $mailer
@@ -41,10 +39,7 @@ class NotifyUserOfExpiredTodoHandler
         $this->mailer = $mailer;
     }
 
-    /**
-     * @param NotifyUserOfExpiredTodo $command
-     */
-    public function __invoke(NotifyUserOfExpiredTodo $command)
+    public function __invoke(NotifyUserOfExpiredTodo $command): void
     {
         $todo = null;
         $this->queryBus->dispatch(new GetTodoById($command->todoId()->toString()))
@@ -54,7 +49,7 @@ class NotifyUserOfExpiredTodoHandler
                 }
             );
         $user = null;
-        $this->queryBus->dispatch(new GetUserById($todo->assigne_id))
+        $this->queryBus->dispatch(new GetUserById($todo->assignee_id))
             ->then(
                 function ($result) use (&$user) {
                     $user = $result;

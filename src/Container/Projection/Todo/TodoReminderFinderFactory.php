@@ -7,24 +7,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Container\Projection\Todo;
 
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder;
 
-/**
- * Class TodoFinderFactory
- *
- * @package Prooph\ProophessorDo\Projection\Todo
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
-final class TodoReminderFinderFactory
+class TodoReminderFinderFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return TodoReminderFinder
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): TodoReminderFinder
     {
         return new TodoReminderFinder($container->get('doctrine.connection.default'));
     }

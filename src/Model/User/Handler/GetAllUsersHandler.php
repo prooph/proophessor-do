@@ -7,16 +7,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\User\Handler;
 
 use Prooph\ProophessorDo\Model\User\Query\GetAllUsers;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 use React\Promise\Deferred;
 
-/**
- * @author Bruno Galeotti <bgaleotti@gmail.com>
- */
-final class GetAllUsersHandler
+class GetAllUsersHandler
 {
     private $userFinder;
 

@@ -8,6 +8,13 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
+use Whoops;
+use Zend\Expressive;
+
 return [
     'dependencies' => [
         'invokables' => [
@@ -15,15 +22,15 @@ return [
             'Zend\Expressive\WhoopsPageHandler' => Whoops\Handler\PrettyPageHandler::class,
         ],
         'factories' => [
-            'Zend\Expressive\FinalHandler' => Zend\Expressive\Container\WhoopsErrorHandlerFactory::class,
+            'Zend\Expressive\FinalHandler' => Expressive\Container\WhoopsErrorHandlerFactory::class,
         ],
     ],
 
     'whoops' => [
         'json_exceptions' => [
-            'display'    => true,
+            'display' => true,
             'show_trace' => true,
-            'ajax_only'  => true,
+            'ajax_only' => true,
         ],
     ],
 ];

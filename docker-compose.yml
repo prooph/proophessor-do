@@ -1,39 +1,91 @@
-nginx:
-  image: prooph/nginx:www
-  ports:
+version: '2'
+services:
+
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+
+  mysql:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=dev
+      - MYSQL_USER=dev
+      - MYSQL_PASSWORD=dev
+      - MYSQL_DATABASE=todo
+    volumes:
+      - ./vendor/prooph/pdo-event-store/scripts/mysql:/docker-entrypoint-initdb.d
+
+  nginx:
+    image: prooph/nginx:www
+    ports:
       - 8080:80
       - 443:443
       - 10081:10081
       - 10082:10082
-  links:
-    - php:php
-  volumes_from:
-    - dataphp
+    links:
+      - php:php
+    volumes:
+      - .:/var/www
 
-php:
-  image: prooph/php:5.6-fpm
-  links:
-    - mariadb:mariadb
-    - mongodb:mongodb
-  volumes_from:
-    - dataphp
+  php:
+    image: prooph/php:7.1-fpm
+    volumes:
+      - .:/var/www
+    depends_on:
+      - mysql
+      - mongodb
 
-dataphp:
-  image: debian:jessie
-  volumes:
-    - .:/var/www
+  projection_todo:
+    image: prooph/php:7.1-cli
+    entrypoint:
+      - /app/.docker/wait_for_sql.sh
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+      - mongodb
+    command: php /app/bin/todo_projection.php
 
-mariadb:
-  image: mariadb
-  ports:
-    - 3306:3306
-  environment:
-    - MYSQL_ROOT_PASSWORD=dev
-    - MYSQL_USER=dev
-    - MYSQL_PASSWORD=dev
-    - MYSQL_DATABASE=proophessor
+  projection_todo_reminder:
+    image: prooph/php:7.1-cli
+    entrypoint: /app/.docker/wait_for_sql.sh
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+      - mongodb
+    command: php /app/bin/todo_reminder_projection.php
 
-mongodb:
-    image: mongo
-    ports:
-      - 27017:27017
+  projection_user:
+    image: prooph/php:7.1-cli
+    entrypoint: /app/.docker/wait_for_sql.sh
+    volumes:
+      - .:/app
+    depends_on:
+      - mysql
+      - mongodb
+    command: php /app/bin/user_projection.php
+
+  # Uncomment when using snapshotters
+#  snapshotter_todo:
+#    image: prooph/php:7.1-cli
+#    entrypoint: /app/.docker/wait_for_sql.sh
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - mysql
+#      - mongodb
+#    command: php /app/bin/todo_projection.php
+#
+#  snapshotter_user:
+#    image: prooph/php:7.1-cli
+#    entrypoint: /app/.docker/wait_for_sql.sh
+#    volumes:
+#      - .:/app
+#    depends_on:
+#      - mysql
+#      - mongodb
+#    command: php /app/bin/user_projection.php

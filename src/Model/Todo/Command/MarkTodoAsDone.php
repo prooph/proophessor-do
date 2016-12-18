@@ -7,39 +7,38 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Command;
 
+use Assert\Assertion;
 use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 
-/**
- * Class MarkTodoAsDone
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Danny van der Sluijs <danny.vandersluijs@icloud.com>
- */
 final class MarkTodoAsDone extends Command implements PayloadConstructable
 {
     use PayloadTrait;
-    /**
-     *
-     * @param type $todoId
-     * @return MarkTodoAsDone
-     */
-    public static function forTodo($todoId)
+
+    public static function with(string $todoId): MarkTodoAsDone
     {
         return new self([
-            'todo_id' => (string)$todoId,
+            'todo_id' => $todoId,
         ]);
     }
 
-    /**
-     * @return TodoId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
         return TodoId::fromString($this->payload['todo_id']);
+    }
+
+    protected function setPayload(array $payload): void
+    {
+        Assertion::keyExists($payload, 'todo_id');
+        Assertion::uuid($payload['todo_id']);
+
+        $this->payload = $payload;
     }
 }

@@ -7,24 +7,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Container\App\Action;
 
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\App\Action\Home;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-/**
- * Class HomeFactory
- *
- * @package Prooph\ProophessorDo\Container\App\Action
- */
-final class HomeFactory
+class HomeFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return Home
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): Home
     {
         return new Home($container->get(TemplateRendererInterface::class));
     }

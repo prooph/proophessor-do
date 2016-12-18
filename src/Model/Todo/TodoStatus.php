@@ -7,23 +7,21 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo;
 
 use Prooph\ProophessorDo\Model\Enum;
 
 /**
- * Class TodoStatus
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- *
  * @method static TodoStatus OPEN()
  * @method static TodoStatus DONE()
  * @method static TodoStatus EXPIRED()
  */
 final class TodoStatus extends Enum
 {
-    const OPEN = "open";
-    const DONE = "done";
-    const EXPIRED = "expired";
+    public const OPEN = 'open';
+    public const DONE = 'done';
+    public const EXPIRED = 'expired';
 }

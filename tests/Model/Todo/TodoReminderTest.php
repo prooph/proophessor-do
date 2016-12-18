@@ -8,27 +8,21 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace ProophTest\ProophessorDo\Model\Todo;
 
 use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 use Prooph\ProophessorDo\Model\Todo\TodoReminderStatus;
 use ProophTest\ProophessorDo\TestCase;
 
-/**
- * Class TodoReminderTest
- * @package ProophTest\ProophessorDo\Model\Todo
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
-final class TodoReminderTest extends TestCase
+class TodoReminderTest extends TestCase
 {
     /**
      * @test
      * @dataProvider getReminders
-     *
-     * @param $reminder
-     * @param $inThePast
      */
-    public function it_correctly_validates_the_reminder($reminder, $inThePast)
+    public function it_correctly_validates_the_reminder(string $reminder, bool $inThePast): void
     {
         $reminder = TodoReminder::from($reminder, TodoReminderStatus::OPEN()->getName());
 
@@ -41,7 +35,7 @@ final class TodoReminderTest extends TestCase
         }
     }
 
-    public function getReminders()
+    public function getReminders(): array
     {
         return [
             ['2047-02-01 10:00:00', false],
@@ -52,7 +46,7 @@ final class TodoReminderTest extends TestCase
     /**
      * @test
      */
-    public function it_knows_about_its_status()
+    public function it_knows_about_its_status(): void
     {
         $reminder = TodoReminder::from('2047-02-01 10:00:00', TodoReminderStatus::OPEN()->getName());
         $this->assertTrue($reminder->isOpen());
@@ -61,7 +55,10 @@ final class TodoReminderTest extends TestCase
         $this->assertFalse($reminder->isOpen());
     }
 
-    public function it_returns_a_new_reminder_with_status_closed_when_closed()
+    /**
+     * @test
+     */
+    public function it_returns_a_new_reminder_with_status_closed_when_closed(): void
     {
         $reminder = TodoReminder::from('2047-02-01 10:00:00', TodoReminderStatus::OPEN()->getName());
         $reminderClosed = $reminder->close();

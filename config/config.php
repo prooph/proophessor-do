@@ -8,6 +8,11 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
+use ArrayObject;
 use Zend\Stdlib\ArrayUtils;
 use Zend\Stdlib\Glob;
 
@@ -31,13 +36,6 @@ $config = [];
 // Load configuration from autoload path
 foreach (Glob::glob('config/autoload/{{,*.}global,{,*.}local}.php', Glob::GLOB_BRACE) as $file) {
     $config = ArrayUtils::merge($config, include $file);
-}
-
-$mongoClientFactoryConfigFile = 'config/autoload/mongo_client.local.php';
-
-if (file_exists($mongoClientFactoryConfigFile)) {
-    $mongoClientFactoryConfig = include $mongoClientFactoryConfigFile;
-    $config['dependencies']['factories']['mongo_client'] = $mongoClientFactoryConfig['mongo_client'];
 }
 
 // Cache config if enabled

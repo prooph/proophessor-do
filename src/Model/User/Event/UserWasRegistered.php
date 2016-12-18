@@ -7,37 +7,34 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\User\Event;
 
-use Assert\Assertion;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\User\EmailAddress;
 use Prooph\ProophessorDo\Model\User\UserId;
 
-/**
- * Class UserWasRegistered
- *
- * @package Prooph\ProophessorDo\Model\User\Event
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class UserWasRegistered extends AggregateChanged
 {
+    /**
+     * @var UserId
+     */
     private $userId;
 
+    /**
+     * @var string
+     */
     private $username;
 
+    /**
+     * @var EmailAddress
+     */
     private $emailAddress;
 
-    /**
-     * @param UserId $userId
-     * @param string $name
-     * @param EmailAddress $emailAddress
-     * @return UserWasRegistered
-     */
-    public static function withData(UserId $userId, $name, EmailAddress $emailAddress)
+    public static function withData(UserId $userId, string $name, EmailAddress $emailAddress): UserWasRegistered
     {
-        Assertion::string($name);
-
         $event = self::occur($userId->toString(), [
             'name' => $name,
             'email' => $emailAddress->toString(),
@@ -50,10 +47,7 @@ final class UserWasRegistered extends AggregateChanged
         return $event;
     }
 
-    /**
-     * @return UserId
-     */
-    public function userId()
+    public function userId(): UserId
     {
         if (null === $this->userId) {
             $this->userId = UserId::fromString($this->aggregateId());
@@ -62,25 +56,21 @@ final class UserWasRegistered extends AggregateChanged
         return $this->userId;
     }
 
-    /**
-     * @return string
-     */
-    public function name()
+    public function name(): string
     {
         if (null === $this->username) {
             $this->username = $this->payload['name'];
         }
+
         return $this->username;
     }
 
-    /**
-     * @return EmailAddress
-     */
-    public function emailAddress()
+    public function emailAddress(): EmailAddress
     {
         if (null === $this->emailAddress) {
             $this->emailAddress = EmailAddress::fromString($this->payload['email']);
         }
+
         return $this->emailAddress;
     }
 }

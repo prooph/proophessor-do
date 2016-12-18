@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
 use Prooph\ProophessorDo\Model\Todo\Command\SendTodoReminderMail;
@@ -17,13 +19,7 @@ use Prooph\ServiceBus\QueryBus;
 use Zend\Mail;
 use Zend\Mail\Transport\TransportInterface;
 
-/**
- * Class SendTodoReminderMailProcessManager
- *
- * @package Prooph\ProophessorDo\App\Mail
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
-final class SendTodoReminderMailHandler
+class SendTodoReminderMailHandler
 {
     /**
      * @var QueryBus
@@ -34,20 +30,13 @@ final class SendTodoReminderMailHandler
      */
     private $mailer;
 
-    /**
-     * @param QueryBus $queryBus
-     * @param TransportInterface $mailer
-     */
     public function __construct(QueryBus $queryBus, TransportInterface $mailer)
     {
         $this->queryBus = $queryBus;
         $this->mailer = $mailer;
     }
 
-    /**
-     * @param SendTodoReminderMail $command
-     */
-    public function __invoke(SendTodoReminderMail $command)
+    public function __invoke(SendTodoReminderMail $command): void
     {
         $user = null;
         $this->queryBus->dispatch(new GetUserById($command->userId()->toString()))
@@ -66,7 +55,7 @@ final class SendTodoReminderMailHandler
 
         $mail = new Mail\Message();
         $mail->setBody("Hello {$user->name}. This a reminder for '{$todo->text}'. Don't be lazy!");
-        $mail->setFrom('reminder@getprooph.org', 'Proophessor-do');
+        $mail->setFrom('reminder@localhost', 'Proophessor-do');
         $mail->addTo($user->email, $user->name);
         $mail->setSubject('Proophessor-do Todo Reminder');
 

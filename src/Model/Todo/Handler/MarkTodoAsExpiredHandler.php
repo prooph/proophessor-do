@@ -8,43 +8,36 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Handler;
 
 use Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsExpired;
 use Prooph\ProophessorDo\Model\Todo\Exception\TodoNotFound;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
-/**
- * Class MarkTodoAsExpiredHandler
- *
- * @package Prooph\ProophessorDo\Model\Todo
- */
-final class MarkTodoAsExpiredHandler
+class MarkTodoAsExpiredHandler
 {
     /**
      * @var TodoList
      */
     private $todoList;
 
-    /**
-     * @param TodoList $todoList
-     */
     public function __construct(TodoList $todoList)
     {
         $this->todoList = $todoList;
     }
 
-    /**
-     * @param MarkTodoAsExpired $command
-     */
-    public function __invoke(MarkTodoAsExpired $command)
+    public function __invoke(MarkTodoAsExpired $command): void
     {
         $todo = $this->todoList->get($command->todoId());
 
-        if (!$todo) {
+        if (! $todo) {
             throw TodoNotFound::withTodoId($command->todoId());
         }
 
         $todo->markAsExpired();
+
+        $this->todoList->save($todo);
     }
 }

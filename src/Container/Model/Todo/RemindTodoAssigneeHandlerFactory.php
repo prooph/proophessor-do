@@ -8,27 +8,18 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Container\Model\Todo;
 
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\Todo\Handler\RemindTodoAssigneeHandler;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
-use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 
-/**
- * Class RemindTodoAssigneeHandlerFactory
- *
- * @package Prooph\ProophessorDo\Container\Model\Todo
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
-final class RemindTodoAssigneeHandlerFactory
+class RemindTodoAssigneeHandlerFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return RemindTodoAssigneeHandlerFactory
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): RemindTodoAssigneeHandlerFactory
     {
-        return new RemindTodoAssigneeHandler($container->get(TodoList::class), $container->get(TodoFinder::class));
+        return new RemindTodoAssigneeHandler($container->get(TodoList::class));
     }
 }

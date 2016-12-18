@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Command;
 
 use Assert\Assertion;
@@ -21,12 +23,7 @@ final class SendTodoReminderMail extends Command implements PayloadConstructable
 {
     use PayloadTrait;
 
-    /**
-     * @param UserId $userId
-     * @param TodoId $todoId
-     * @return SendTodoReminderMail
-     */
-    public static function with(UserId $userId, TodoId $todoId)
+    public static function with(UserId $userId, TodoId $todoId): SendTodoReminderMail
     {
         return new self([
             'user_id' => $userId->toString(),
@@ -34,26 +31,17 @@ final class SendTodoReminderMail extends Command implements PayloadConstructable
         ]);
     }
 
-    /**
-     * @return UserId
-     */
-    public function userId()
+    public function userId(): UserId
     {
         return UserId::fromString($this->payload['user_id']);
     }
 
-    /**
-     * @return TodoId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
         return TodoId::fromString($this->payload['todo_id']);
     }
 
-    /**
-     * @param array $payload
-     */
-    protected function setPayload(array $payload)
+    protected function setPayload(array $payload): void
     {
         Assertion::keyExists($payload, 'user_id');
         Assertion::uuid($payload['user_id']);

@@ -7,17 +7,14 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Projection\User;
 
-use Prooph\ProophessorDo\Projection\Table;
 use Doctrine\DBAL\Connection;
+use Prooph\ProophessorDo\Projection\Table;
 
-/**
- * Class UserFinder
- *
- * @package Prooph\ProophessorDo\Projection\User
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 class UserFinder
 {
     /**
@@ -31,52 +28,57 @@ class UserFinder
         $this->connection->setFetchMode(\PDO::FETCH_OBJ);
     }
 
-    /**
-     * @return \stdClass[] containing userData
-     */
-    public function findAll()
+    public function findAll(): array
     {
-        return $this->connection->fetchAll(sprintf("SELECT * FROM %s", Table::USER));
+        return $this->connection->fetchAll(sprintf('SELECT * FROM %s', Table::USER));
     }
 
-    /**
-     * @param $userId
-     * @return null|\stdClass containing userData
-     */
-    public function findById($userId)
+    public function findById(string $userId): ?\stdClass
     {
-        $stmt = $this->connection->prepare(sprintf("SELECT * FROM %s WHERE id = :user_id", Table::USER));
+        $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s WHERE id = :user_id', Table::USER));
         $stmt->bindValue('user_id', $userId);
         $stmt->execute();
-        return $stmt->fetch();
+
+        $result = $stmt->fetch();
+
+        if (false === $result) {
+            return null;
+        }
+
+        return $result;
     }
 
-    /**
-     * @param string $emailAddress User's email address
-     * @return null|\stdClass containing userData
-     */
-    public function findOneByEmailAddress($emailAddress)
+    public function findOneByEmailAddress(string $emailAddress): ?\stdClass
     {
         $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s WHERE email = :email LIMIT 1', Table::USER));
         $stmt->bindValue('email', $emailAddress);
         $stmt->execute();
 
-        return $stmt->fetch();
+        $result = $stmt->fetch();
+
+        if (false === $result) {
+            return null;
+        }
+
+        return $result;
     }
 
-    /**
-     * @param $todoId
-     * @return null|\stdClass containing userData
-     */
-    public function findUserOfTodo($todoId)
+    public function findUserOfTodo(string $todoId): ?\stdClass
     {
         $stmt = $this->connection->prepare(sprintf(
-            "SELECT u.* FROM %s as u JOIN %s as t ON u.id = t.assignee_id WHERE t.id = :todo_id",
+            'SELECT u.* FROM %s as u JOIN %s as t ON u.id = t.assignee_id WHERE t.id = :todo_id',
             Table::USER,
             Table::TODO
         ));
         $stmt->bindValue('todo_id', $todoId);
         $stmt->execute();
-        return $stmt->fetch();
+
+        $result = $stmt->fetch();
+
+        if (false === $result) {
+            return null;
+        }
+
+        return $result;
     }
 }

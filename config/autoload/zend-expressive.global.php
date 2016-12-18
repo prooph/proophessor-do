@@ -8,14 +8,16 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
 return [
     'debug' => false,
-
     'config_cache_enabled' => false,
-
     'zend-expressive' => [
         'error_handler' => [
-            'template_404'   => 'error::404',
+            'template_404' => 'error::404',
             'template_error' => 'error::error',
         ],
     ],

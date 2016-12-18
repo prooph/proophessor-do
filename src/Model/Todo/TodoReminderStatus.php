@@ -7,21 +7,19 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo;
 
 use Prooph\ProophessorDo\Model\Enum;
 
 /**
- * Class TodoReminderStatus
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Roman Sachse <r.sachse@ipark-media.de>
- *
  * @method static TodoReminderStatus OPEN()
  * @method static TodoReminderStatus CLOSED()
  */
 final class TodoReminderStatus extends Enum
 {
-    const OPEN = "open";
-    const CLOSED = "closed";
+    public const OPEN = 'open';
+    public const CLOSED = 'closed';
 }

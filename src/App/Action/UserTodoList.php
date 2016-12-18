@@ -7,6 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\App\Action;
 
 use Prooph\ProophessorDo\Model\Todo\Query\GetTodosByAssigneeId;
@@ -17,12 +20,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-/**
- * Class UserTodoList
- *
- * @package Prooph\ProophessorDo\App\Action
- */
-final class UserTodoList
+class UserTodoList
 {
     /**
      * @var TemplateRendererInterface
@@ -34,23 +32,13 @@ final class UserTodoList
      */
     private $queryBus;
 
-    /**
-     * @param TemplateRendererInterface $templates
-     * @param QueryBus $queryBus
-     */
     public function __construct(TemplateRendererInterface $templates, QueryBus $queryBus)
     {
         $this->templates = $templates;
         $this->queryBus = $queryBus;
     }
 
-    /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
-     * @param callable $next
-     * @return ResponseInterface
-     */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next): ResponseInterface
     {
         $userId = $request->getAttribute('user_id');
 
@@ -72,7 +60,7 @@ final class UserTodoList
         return new HtmlResponse(
             $this->templates->render('page::user-todo-list', [
                 'user' => $user,
-                'todos' => $todos
+                'todos' => $todos,
             ])
         );
     }

@@ -8,6 +8,10 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 

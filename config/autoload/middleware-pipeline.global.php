@@ -8,6 +8,10 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
 use Zend\Expressive\Container\ApplicationFactory;
 use Zend\Expressive\Helper;
 
@@ -70,9 +74,9 @@ return [
         'error' => [
             'middleware' => [
                 // Add error middleware here.
-                \Prooph\ProophessorDo\Middleware\JsonError::class
+                \Prooph\ProophessorDo\Middleware\JsonError::class,
             ],
-            'error'    => true,
+            'error' => true,
             'priority' => -10000,
         ],
     ],

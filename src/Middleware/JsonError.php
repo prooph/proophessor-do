@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Middleware;
 
 use Psr\Http\Message\ResponseInterface as Response;
@@ -17,11 +19,8 @@ use Zend\Stratigility\ErrorMiddlewareInterface;
 /**
  * Error middleware to handle json requests
  */
-class JsonError implements ErrorMiddlewareInterface
+final class JsonError implements ErrorMiddlewareInterface
 {
-    /**
-     * @interitdoc
-     */
     public function __invoke($error, Request $request, Response $response, callable $out = null)
     {
         $contentType = trim($request->getHeaderLine('Content-Type'));

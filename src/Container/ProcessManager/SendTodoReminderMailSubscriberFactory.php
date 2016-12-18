@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Container\ProcessManager;
 
 use Interop\Container\ContainerInterface;
@@ -16,19 +18,9 @@ use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 use Zend\Mail\Transport\TransportInterface;
 
-/**
- * Class RemindTodoAssigneeHandlerFactory
- *
- * @package Prooph\ProophessorDo\Container\Model\Todo
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
-final class SendTodoReminderMailSubscriberFactory
+class SendTodoReminderMailSubscriberFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return SendTodoReminderMailProcessManager
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): SendTodoReminderMailProcessManager
     {
         return new SendTodoReminderMailProcessManager(
             $container->get(UserFinder::class),

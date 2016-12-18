@@ -7,23 +7,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Container\Model\User;
 
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\User\Handler\GetUserByIdHandler;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
 
-/**
- * @author Bruno Galeotti <bgaleotti@gmail.com>
- */
-final class GetUserByIdHandlerFactory
+class GetUserByIdHandlerFactory
 {
-    /**
-     * @param ContainerInterface $container
-     *
-     * @return GetUserByIdHandler
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): GetUserByIdHandler
     {
         return new GetUserByIdHandler($container->get(UserFinder::class));
     }

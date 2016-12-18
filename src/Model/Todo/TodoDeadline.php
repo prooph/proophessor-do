@@ -8,16 +8,12 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo;
 
 use Prooph\ProophessorDo\Model\ValueObject;
 
-/**
- * Class TodoDeadline
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
- */
 final class TodoDeadline implements ValueObject
 {
     /**
@@ -30,62 +26,38 @@ final class TodoDeadline implements ValueObject
      */
     private $createdOn;
 
-    /**
-     * @param string $deadline
-     * @return TodoDeadline
-     */
-    public static function fromString($deadline)
+    public static function fromString(string $deadline): TodoDeadline
     {
         return new self($deadline);
     }
 
-    /**
-     * @param string $deadline
-     */
-    private function __construct($deadline)
+    private function __construct(string $deadline)
     {
         $this->deadline = new \DateTimeImmutable($deadline, new \DateTimeZone('UTC'));
         $this->createdOn = new \DateTimeImmutable('now', new \DateTimeZone('UTC'));
     }
 
-    /**
-     * @return bool
-     */
-    public function isInThePast()
+    public function isInThePast(): bool
     {
         return $this->deadline < $this->createdOn;
     }
 
-    /**
-     * @return string
-     */
-    public function toString()
+    public function toString(): string
     {
         return $this->deadline->format(\DateTime::ATOM);
     }
 
-    /**
-     * @return string
-     */
-    public function createdOn()
+    public function createdOn(): string
     {
         return $this->createdOn->format(\DateTime::ATOM);
     }
 
-    /**
-     * @return bool
-     */
-    public function isMet()
+    public function isMet(): bool
     {
-        return $this->deadline > new \DateTimeImmutable;
+        return $this->deadline > new \DateTimeImmutable();
     }
 
-    /**
-     * @param ValueObject $object
-     *
-     * @return bool
-     */
-    public function sameValueAs(ValueObject $object)
+    public function sameValueAs(ValueObject $object): bool
     {
         return get_class($this) === get_class($object)
             && $this->deadline->format('U.u') === $object->deadline->format('U.u')

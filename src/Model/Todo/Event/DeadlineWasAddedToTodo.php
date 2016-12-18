@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Event;
 
 use Prooph\EventSourcing\AggregateChanged;
@@ -15,12 +17,6 @@ use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\User\UserId;
 
-/**
- * Class DeadlineWasAddedToTodo
- *
- * @package Prooph\ProophessorDo\Model\Todo\Event
- * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
- */
 final class DeadlineWasAddedToTodo extends AggregateChanged
 {
     /**
@@ -38,13 +34,7 @@ final class DeadlineWasAddedToTodo extends AggregateChanged
      */
     private $deadline;
 
-    /**
-     * @param TodoId $todoId
-     * @param UserId $userId
-     * @param TodoDeadline $deadline
-     * @return DeadlineWasAddedToTodo
-     */
-    public static function byUserToDate(TodoId $todoId, UserId $userId, TodoDeadline $deadline)
+    public static function byUserToDate(TodoId $todoId, UserId $userId, TodoDeadline $deadline): DeadlineWasAddedToTodo
     {
         $event = self::occur($todoId->toString(), [
             'todo_id' => $todoId->toString(),
@@ -59,36 +49,27 @@ final class DeadlineWasAddedToTodo extends AggregateChanged
         return $event;
     }
 
-    /**
-     * @return UserId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
-        if (!$this->todoId) {
+        if (! $this->todoId) {
             $this->todoId = TodoId::fromString($this->payload['todo_id']);
         }
 
         return $this->todoId;
     }
 
-    /**
-     * @return UserId
-     */
-    public function userId()
+    public function userId(): UserId
     {
-        if (!$this->userId) {
+        if (! $this->userId) {
             $this->userId = UserId::fromString($this->payload['user_id']);
         }
 
         return $this->userId;
     }
 
-    /**
-     * @return TodoDeadline
-     */
-    public function deadline()
+    public function deadline(): TodoDeadline
     {
-        if (!$this->deadline) {
+        if (! $this->deadline) {
             $this->deadline = TodoDeadline::fromString($this->payload['deadline']);
         }
 

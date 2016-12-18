@@ -8,25 +8,16 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
-use Prooph\ProophessorDo\Model\User\UserId;
 use Prooph\ProophessorDo\Model\Todo\TodoDeadline;
+use Prooph\ProophessorDo\Model\User\UserId;
 
-/**
- * Class InvalidDeadline
- *
- * @package Prooph\ProophessorDo\Model\Todo\Exception
- * @author Wojtek Gancarczyk <wojtek@aferalabs.com>
- */
 final class InvalidDeadline extends \Exception
 {
-    /**
-     * @param UserId $user
-     * @param UserId $assigneeId
-     * @return InvalidDeadline
-     */
-    public static function userIsNotAssignee(UserId $user, UserId $assigneeId)
+    public static function userIsNotAssignee(UserId $user, UserId $assigneeId): InvalidDeadline
     {
         return new self(sprintf(
             'User %s tried to add a deadline to the todo owned by %s',
@@ -35,8 +26,7 @@ final class InvalidDeadline extends \Exception
         ));
     }
 
-
-    public static function deadlineInThePast(TodoDeadline $deadline)
+    public static function deadlineInThePast(TodoDeadline $deadline): InvalidDeadline
     {
         return new self(sprintf(
             'Provided deadline %s is in the past from %s',

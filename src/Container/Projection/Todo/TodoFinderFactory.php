@@ -7,24 +7,17 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Container\Projection\Todo;
 
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 
-/**
- * Class TodoFinderFactory
- *
- * @package Prooph\ProophessorDo\Projection\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class TodoFinderFactory
+class TodoFinderFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return TodoFinder
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): TodoFinder
     {
         return new TodoFinder($container->get('doctrine.connection.default'));
     }

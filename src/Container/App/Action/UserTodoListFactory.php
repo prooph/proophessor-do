@@ -7,6 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Container\App\Action;
 
 use Interop\Container\ContainerInterface;
@@ -14,18 +17,9 @@ use Prooph\ProophessorDo\App\Action\UserTodoList;
 use Prooph\ServiceBus\QueryBus;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-/**
- * Class UserTodoListFactory
- *
- * @package Prooph\ProophessorDo\Container\App\Action
- */
-final class UserTodoListFactory
+class UserTodoListFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return UserTodoList
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): UserTodoList
     {
         return new UserTodoList(
             $container->get(TemplateRendererInterface::class),

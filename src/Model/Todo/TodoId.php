@@ -8,62 +8,42 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo;
 
 use Prooph\ProophessorDo\Model\ValueObject;
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
-/**
- * Class TodoId
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class TodoId implements ValueObject
 {
     /**
-     * @var Uuid
+     * @var UuidInterface
      */
     private $uuid;
 
-    /**
-     * @return TodoId
-     */
-    public static function generate()
+    public static function generate(): TodoId
     {
         return new self(Uuid::uuid4());
     }
 
-    /**
-     * @param $todoId
-     * @return TodoId
-     */
-    public static function fromString($todoId)
+    public static function fromString(string $todoId): TodoId
     {
         return new self(Uuid::fromString($todoId));
     }
 
-    /**
-     * @param Uuid $uuid
-     */
-    private function __construct(Uuid $uuid)
+    private function __construct(UuidInterface $uuid)
     {
         $this->uuid = $uuid;
     }
 
-    /**
-     * @return string
-     */
-    public function toString()
+    public function toString(): string
     {
         return $this->uuid->toString();
     }
 
-    /**
-     * @param ValueObject $other
-     * @return bool
-     */
-    public function sameValueAs(ValueObject $other)
+    public function sameValueAs(ValueObject $other): bool
     {
         return get_class($this) === get_class($other) && $this->uuid->equals($other->uuid);
     }

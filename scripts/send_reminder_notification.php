@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 /**
  * This script looks for todos with open reminders and reminds the assignees
  */
@@ -31,7 +33,7 @@ namespace {
 
     $todoReminder = $todoReminderFinder->findOpen();
 
-    if (!$todoReminder) {
+    if (! $todoReminder) {
         echo "Nothing to do. Exiting.\n";
         exit;
     }

@@ -8,23 +8,15 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\User\Exception;
 
 use Prooph\ProophessorDo\Model\User\UserId;
 
-/**
- * Class UserAlreadyExists
- *
- * @package Prooph\ProophessorDo\Model\User\Exception
- * @author Lucas Courot <lucas@courot.com>
- */
 final class UserAlreadyExists extends \InvalidArgumentException
 {
-    /**
-     * @param UserId $userId
-     * @return UserAlreadyExists
-     */
-    public static function withUserId(UserId $userId)
+    public static function withUserId(UserId $userId): UserAlreadyExists
     {
         return new self(sprintf('User with id %s already exists.', $userId->toString()));
     }

@@ -7,6 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Response;
 
 use Prooph\Psr7Middleware\Response\ResponseStrategy;
@@ -22,6 +25,6 @@ final class JsonResponse implements ResponseStrategy
             $json = $data;
         });
 
-        return new \Zend\Diactoros\Response\JsonResponse($json);
+        return new JsonResponse($json);
     }
 }

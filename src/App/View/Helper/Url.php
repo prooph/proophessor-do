@@ -7,37 +7,27 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\App\View\Helper;
 
 use Zend\Expressive\Router\RouterInterface;
 use Zend\View\Helper\AbstractHelper;
 
-/**
- * Class Url
- *
- * @package Prooph\ProophessorDo\App\View\Helper
- */
-final class Url extends AbstractHelper
+class Url extends AbstractHelper
 {
     /**
      * @var RouterInterface
      */
     private $router;
 
-    /**
-     * @param RouterInterface $router
-     */
     public function __construct(RouterInterface $router)
     {
         $this->router = $router;
     }
 
-    /**
-     * @param string $routeName
-     * @param array $options
-     * @return string
-     */
-    public function __invoke($routeName, $options = [])
+    public function __invoke(string $routeName, array $options = []): string
     {
         return $this->router->generateUri($routeName, $options);
     }

@@ -7,25 +7,18 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Container\Model\Todo;
 
 use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 
-/**
- * Class ReopenTodoFactory
- *
- * @package Application\Infrastructure\HandlerFactory
- * @author  Bas Kamer <bas@bushbaby.nl>
- */
-final class ReopenTodoHandlerFactory
+class ReopenTodoHandlerFactory
 {
-    /**
-     * @param ContainerInterface $container
-     * @return ReopenTodoHandlerFactory
-     */
-    public function __invoke(ContainerInterface $container)
+    public function __invoke(ContainerInterface $container): ReopenTodoHandlerFactory
     {
         return new ReopenTodoHandler(
             $container->get(TodoList::class)

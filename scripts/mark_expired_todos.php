@@ -8,10 +8,11 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 /**
  * Mark all open todos past their deadline as expired
  */
-
 namespace Prooph\ProophessorDo\Script;
 
 use Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsExpired;

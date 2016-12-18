@@ -7,6 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 /**
  * Pass a todo id to the script to get the time in milliseconds of how long the event store needs to load the todo
  * without using a snapshot adapter.

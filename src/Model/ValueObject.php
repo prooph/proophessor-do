@@ -8,14 +8,11 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model;
 
 interface ValueObject
 {
-    /**
-     * @param ValueObject $object
-     *
-     * @return bool
-     */
-    public function sameValueAs(ValueObject $object);
+    public function sameValueAs(ValueObject $object): bool;
 }

@@ -7,6 +7,9 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 /**
  * Pass a todo id to the script to take a snapshot of the todo.
  * Note: A snapshot adapter needs to be configured!
@@ -33,6 +36,7 @@ namespace {
         $todoReflected = new \ReflectionClass($todo);
         $versionProp = $todoReflected->getProperty('version');
         $versionProp->setAccessible(true);
+
         return $versionProp->getValue($todo);
     }
 
@@ -72,7 +76,7 @@ namespace {
         $todoId->toString(),
         $todo,
         get_todo_version($todo),
-        new \DateTimeImmutable("now", new \DateTimeZone('UTC'))
+        new \DateTimeImmutable('now', new \DateTimeZone('UTC'))
     );
 
     $snapshotStore->save($snapshot);

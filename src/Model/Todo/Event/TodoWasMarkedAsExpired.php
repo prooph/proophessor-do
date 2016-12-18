@@ -8,49 +8,54 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo\Event;
 
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\Model\User\UserId;
 
-/**
- * Class TodoWasMarkedAsExpired
- *
- * @package Prooph\ProophessorDo\Model\Todo\Event
- */
 final class TodoWasMarkedAsExpired extends AggregateChanged
 {
+    /**
+     * @var TodoId
+     */
     private $todoId;
 
+    /**
+     * @var TodoStatus
+     */
     private $oldStatus;
 
+    /**
+     * @var TodoStatus
+     */
     private $newStatus;
 
     /**
-     * @param TodoId $todoId
-     * @param TodoStatus $oldStatus
-     * @param TodoStatus $newStatus
-     * @return TodoWasMarkedAsExpired
+     * @var UserId
      */
-    public static function fromStatus(TodoId $todoId, TodoStatus $oldStatus, TodoStatus $newStatus)
+    private $assigneeId;
+
+    public static function fromStatus(TodoId $todoId, TodoStatus $oldStatus, TodoStatus $newStatus, UserId $assigneeId): TodoWasMarkedAsExpired
     {
         $event = self::occur($todoId->toString(), [
             'old_status' => $oldStatus->toString(),
-            'new_status' => $newStatus->toString()
+            'new_status' => $newStatus->toString(),
+            'assignee_id' => $assigneeId->toString(),
         ]);
 
-        $event->todoId    = $todoId;
+        $event->todoId = $todoId;
         $event->oldStatus = $oldStatus;
         $event->newStatus = $newStatus;
+        $event->assigneeId = $assigneeId;
 
         return $event;
     }
 
-    /**
-     * @return TodoId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
         if (null === $this->todoId) {
             $this->todoId = TodoId::fromString($this->aggregateId());
@@ -59,27 +64,30 @@ final class TodoWasMarkedAsExpired extends AggregateChanged
         return $this->todoId;
     }
 
-    /**
-     * @return TodoStatus
-     */
-    public function oldStatus()
+    public function oldStatus(): TodoStatus
     {
         if (null === $this->oldStatus) {
-            $this->oldStatus = TodoStatus::getByName($this->payload['old_status']);
+            $this->oldStatus = TodoStatus::byName($this->payload['old_status']);
         }
 
         return $this->oldStatus;
     }
 
-    /**
-     * @return TodoStatus
-     */
-    public function newStatus()
+    public function newStatus(): TodoStatus
     {
         if (null === $this->newStatus) {
-            $this->newStatus = TodoStatus::getByName($this->payload['new_status']);
+            $this->newStatus = TodoStatus::byName($this->payload['new_status']);
         }
 
         return $this->newStatus;
+    }
+
+    public function assigneeId(): UserId
+    {
+        if (null === $this->assigneeId) {
+            $this->assigneeId = UserId::fromString($this->payload['assignee_id']);
+        }
+
+        return $this->assigneeId;
     }
 }

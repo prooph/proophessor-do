@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 /**
  * Replay all events to regenerate the read model
  *
@@ -89,5 +91,5 @@ namespace {
 
     $replayWatchEvent = $stopWatch->stop('replay');
 
-    echo "Replay done in " . $replayWatchEvent->getDuration() . " ms";
+    echo 'Replay done in ' . $replayWatchEvent->getDuration() . ' ms';
 }
