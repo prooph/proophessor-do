@@ -4,7 +4,7 @@ This is the hard way. Please ensure that you not want to use Docker. ;-)
 
 ### Requirements:
  - PHP >= v7.1
- - MySql >= v5.7.8 (For JSON support)
+ - MySql >= v5.7.9 (For JSON support)
 
 ### Step 1 - Get source code
 
@@ -36,7 +36,9 @@ Copy `config/autoload/mail.local.php.dist` to `config/autoload/mail.local.php` a
    - `vendor/prooph/pdo-event-store/scripts/mysql/02_projections_table.sql`
  - Create empty stream: Run `php scripts/create_event_stream.php`
 
-### Step 4 - Start projections
+### Step 4 - Start the backend scripts
+
+#### 4.1 - Start the projetions
 
 `php bin/todo_projection.php`
 
@@ -44,7 +46,7 @@ Copy `config/autoload/mail.local.php.dist` to `config/autoload/mail.local.php` a
 
 `php bin/user_projection.php`
 
-##### 4.1 Start snapshotters (only if you decided to use 3.4)
+#### 4.2 Start snapshotters (only if you decided to use 3.4)
 
 `php bin/todo_snapshotter.php`
 
