@@ -1,8 +1,8 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -33,38 +33,38 @@ return [
         'factories' => [
             Application::class => ApplicationFactory::class,
             Helper\UrlHelper::class => Helper\UrlHelperFactory::class,
-            'doctrine.connection.default' => \Prooph\ProophessorDo\Container\Infrastructure\DoctrineDbalConnectionFactory::class,
-            \Zend\Mail\Transport\TransportInterface::class => \Prooph\ProophessorDo\Container\App\Mail\TransportFactory::class,
+            'doctrine.connection.default' => Container\Infrastructure\DoctrineDbalConnectionFactory::class,
+            \Zend\Mail\Transport\TransportInterface::class => Container\App\Mail\TransportFactory::class,
             // Action middleware
-            \Prooph\ProophessorDo\App\Action\Home::class => \Prooph\ProophessorDo\Container\App\Action\HomeFactory::class,
-            \Prooph\ProophessorDo\App\Action\UserList::class => \Prooph\ProophessorDo\Container\App\Action\UserListFactory::class,
-            \Prooph\ProophessorDo\App\Action\UserRegistration::class => \Prooph\ProophessorDo\Container\App\Action\UserRegistrationFactory::class,
-            \Prooph\ProophessorDo\App\Action\UserTodoList::class => \Prooph\ProophessorDo\Container\App\Action\UserTodoListFactory::class,
-            \Prooph\ProophessorDo\App\Action\UserTodoForm::class => \Prooph\ProophessorDo\Container\App\Action\UserTodoFormFactory::class,
+            App\Action\Home::class => Container\App\Action\HomeFactory::class,
+            App\Action\UserList::class => Container\App\Action\UserListFactory::class,
+            App\Action\UserRegistration::class => Container\App\Action\UserRegistrationFactory::class,
+            App\Action\UserTodoList::class => Container\App\Action\UserTodoListFactory::class,
+            App\Action\UserTodoForm::class => Container\App\Action\UserTodoFormFactory::class,
             // Model
-            \Prooph\ProophessorDo\Model\User\Handler\RegisterUserHandler::class => \Prooph\ProophessorDo\Container\Model\User\RegisterUserHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\User\Service\ChecksUniqueUsersEmailAddress::class => \Prooph\ProophessorDo\Container\Model\User\ChecksUniqueUsersEmailAddressFactory::class,
-            \Prooph\ProophessorDo\Model\User\UserCollection::class => [AggregateRepositoryFactory::class, 'user_collection'],
-            \Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\PostTodoHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsDoneHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\MarkTodoAsDoneHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\ReopenTodoHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\Todo\Handler\AddDeadlineToTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\AddDeadlineToTodoHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\Todo\Handler\AddReminderToTodoHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\AddReminderToTodoHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\Todo\Handler\MarkTodoAsExpiredHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\MarkTodoAsExpiredHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\Todo\Handler\RemindTodoAssigneeHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\RemindTodoAssigneeHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\Todo\TodoList::class => [AggregateRepositoryFactory::class, 'todo_list'],
+            Model\User\Handler\RegisterUserHandler::class => Container\Model\User\RegisterUserHandlerFactory::class,
+            Model\User\Service\ChecksUniqueUsersEmailAddress::class => Container\Model\User\ChecksUniqueUsersEmailAddressFactory::class,
+            Model\User\UserCollection::class => [AggregateRepositoryFactory::class, 'user_collection'],
+            Model\Todo\Handler\PostTodoHandler::class => Container\Model\Todo\PostTodoHandlerFactory::class,
+            Model\Todo\Handler\MarkTodoAsDoneHandler::class => Container\Model\Todo\MarkTodoAsDoneHandlerFactory::class,
+            Model\Todo\Handler\ReopenTodoHandler::class => Container\Model\Todo\ReopenTodoHandlerFactory::class,
+            Model\Todo\Handler\AddDeadlineToTodoHandler::class => Container\Model\Todo\AddDeadlineToTodoHandlerFactory::class,
+            Model\Todo\Handler\AddReminderToTodoHandler::class => Container\Model\Todo\AddReminderToTodoHandlerFactory::class,
+            Model\Todo\Handler\MarkTodoAsExpiredHandler::class => Container\Model\Todo\MarkTodoAsExpiredHandlerFactory::class,
+            Model\Todo\Handler\RemindTodoAssigneeHandler::class => Container\Model\Todo\RemindTodoAssigneeHandlerFactory::class,
+            Model\Todo\TodoList::class => [AggregateRepositoryFactory::class, 'todo_list'],
             // Projections
-            \Prooph\ProophessorDo\Projection\User\UserFinder::class => \Prooph\ProophessorDo\Container\Projection\User\UserFinderFactory::class,
-            \Prooph\ProophessorDo\Projection\Todo\TodoFinder::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoFinderFactory::class,
-            \Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder::class => \Prooph\ProophessorDo\Container\Projection\Todo\TodoReminderFinderFactory::class,
+            Projection\User\UserFinder::class => Container\Projection\User\UserFinderFactory::class,
+            Projection\Todo\TodoFinder::class => Container\Projection\Todo\TodoFinderFactory::class,
+            Projection\Todo\TodoReminderFinder::class => Container\Projection\Todo\TodoReminderFinderFactory::class,
             // Subscriber
-            \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager::class => \Prooph\ProophessorDo\Container\ProcessManager\SendTodoReminderMailSubscriberFactory::class,
-            \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager::class => \Prooph\ProophessorDo\Container\ProcessManager\SendTodoDeadlineExpiredMailSubscriberFactory::class,
+            ProcessManager\SendTodoReminderMailProcessManager::class => Container\ProcessManager\SendTodoReminderMailSubscriberFactory::class,
+            ProcessManager\SendTodoDeadlineExpiredMailProcessManager::class => Container\ProcessManager\SendTodoDeadlineExpiredMailSubscriberFactory::class,
             // Query
-            \Prooph\ProophessorDo\Model\User\Handler\GetAllUsersHandler::class => \Prooph\ProophessorDo\Container\Model\User\GetAllUsersHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\User\Handler\GetUserByIdHandler::class => \Prooph\ProophessorDo\Container\Model\User\GetUserByIdHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\Todo\Handler\GetTodoByIdHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
-            \Prooph\ProophessorDo\Model\Todo\Handler\GetTodosByAssigneeIdHandler::class => \Prooph\ProophessorDo\Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
+            Model\User\Handler\GetAllUsersHandler::class => Container\Model\User\GetAllUsersHandlerFactory::class,
+            Model\User\Handler\GetUserByIdHandler::class => Container\Model\User\GetUserByIdHandlerFactory::class,
+            Model\Todo\Handler\GetTodoByIdHandler::class => Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
+            Model\Todo\Handler\GetTodosByAssigneeIdHandler::class => Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
         ],
     ],
 ];
