@@ -13,11 +13,13 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo\Response;
 
 use Prooph\Psr7Middleware\Response\ResponseStrategy;
+use Psr\Http\Message\ResponseInterface;
 use React\Promise\Promise;
+use Zend\Diactoros\Response\JsonResponse as ZendJsonResponse;
 
 final class JsonResponse implements ResponseStrategy
 {
-    public function fromPromise(Promise $promise)
+    public function fromPromise(Promise $promise): ResponseInterface
     {
         $json = null;
 
@@ -25,6 +27,6 @@ final class JsonResponse implements ResponseStrategy
             $json = $data;
         });
 
-        return new JsonResponse($json);
+        return new ZendJsonResponse($json);
     }
 }
