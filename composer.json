@@ -35,7 +35,7 @@
         "aura/router" : "^2.3",
         "doctrine/dbal": "^2.5.5",
         "marc-mabe/php-enum": "^2.3.1",
-        "prooph/common" : "4.0.x-dev",
+        "prooph/common" : "^4.0.0",
         "prooph/event-sourcing" : "5.0.x-dev",
         "prooph/event-store" : "7.0.x-dev",
         "prooph/event-store-bus-bridge" : "3.0.x-dev",
