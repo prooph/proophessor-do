@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace ProophTest\ProophessorDo\Model\Todo\Command;
 
 use Prooph\ProophessorDo\Model\Todo\Command\AddReminderToTodo;
