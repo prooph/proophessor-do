@@ -30,14 +30,14 @@ return [
     // dependencies settings
     'dependencies' => [
         'factories' => [
-            \Prooph\EventStore\EventStore::class => ['Prooph\EventStore\PDO\Container\MySQLEventStoreFactory', 'default'],
+            \Prooph\EventStore\EventStore::class => ['Prooph\EventStore\Pdo\Container\MySqlEventStoreFactory', 'default'],
         ],
     ],
     // prooph settings
     'prooph' => [
         'event_store' => [
             'default' => [
-                'persistence_strategy' => 'Prooph\EventStore\PDO\PersistenceStrategy\MySQLSingleStreamStrategy',
+                'persistence_strategy' => 'Prooph\EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy',
             ]
         ]
     ],

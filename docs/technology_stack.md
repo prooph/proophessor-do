@@ -9,9 +9,8 @@
 - Separate write and read model following the [CQRS approach](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf) by Greg Young
 - Communication from and to the domain layer is handled by [prooph/service-bus](https://github.com/prooph/service-bus)
 - Event sourced write model is powered by [prooph/event-sourcing](https://github.com/prooph/event-sourcing)
-- Domain events are persisted in a [prooph/event-store](https://github.com/prooph/event-store) using one of the adapters:
+- Domain events are persisted in a [prooph/event-store](https://github.com/prooph/event-store) using the implementation:
   - [pdo-event-store](https://github.com/prooph/pdo-event-store)
-  - [mongo db adapter](https://github.com/prooph/event-store-mongodb-adapter)
 - Simple and fast implementation of enumerations: [php-enum](https://github.com/marc-mabe/php-enum)
 - Read model persistence is managed with the help of [Doctrine DBAL](https://github.com/doctrine/dbal)
 - Interop. factories using [sandrokeil/interop-config](https://github.com/sandrokeil/interop-config)

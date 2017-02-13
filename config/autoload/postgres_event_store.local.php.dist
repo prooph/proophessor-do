@@ -29,14 +29,14 @@ return [
     // dependencies settings
     'dependencies' => [
         'factories' => [
-            \Prooph\EventStore\EventStore::class => ['Prooph\EventStore\PDO\Container\PostgresEventStoreFactory', 'default'],
+            \Prooph\EventStore\EventStore::class => ['Prooph\EventStore\Pdo\Container\PostgresEventStoreFactory', 'default'],
         ],
     ],
     // prooph settings
     'prooph' => [
         'event_store' => [
             'default' => [
-                'persistence_strategy' => 'Prooph\EventStore\PDO\PersistenceStrategy\PostgresSingleStreamStrategy',
+                'persistence_strategy' => 'Prooph\EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy',
             ]
         ],
         'service_bus' => [

@@ -46,8 +46,8 @@ return [
             \Prooph\EventStoreBusBridge\EventPublisher::class => \Prooph\EventStoreBusBridge\Container\EventPublisherFactory::class,
             \Prooph\Cli\Console\Helper\ClassInfo::class => \Prooph\ProophessorDo\Container\Console\Psr4ClassInfoFactory::class,
             // persistence strategies
-            'Prooph\EventStore\PDO\PersistenceStrategy\MySQLSingleStreamStrategy' => InvokableFactory::class,
-            'Prooph\EventStore\PDO\PersistenceStrategy\PostgresSingleStreamStrategy' => InvokableFactory::class,
+            \Prooph\EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy::class => InvokableFactory::class,
+            \Prooph\EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy::class => InvokableFactory::class,
         ],
     ],
 ];
