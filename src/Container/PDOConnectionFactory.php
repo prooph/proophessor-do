@@ -15,8 +15,8 @@ namespace Prooph\ProophessorDo\Container;
 use Interop\Config\ConfigurationTrait;
 use Interop\Config\RequiresConfig;
 use Interop\Config\RequiresMandatoryOptions;
-use Interop\Container\ContainerInterface;
 use PDO;
+use Psr\Container\ContainerInterface;
 
 class PDOConnectionFactory implements RequiresConfig, RequiresMandatoryOptions
 {

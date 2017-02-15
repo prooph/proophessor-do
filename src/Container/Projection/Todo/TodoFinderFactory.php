@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\Projection\Todo;
 
-use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
+use Psr\Container\ContainerInterface;
 
 class TodoFinderFactory
 {

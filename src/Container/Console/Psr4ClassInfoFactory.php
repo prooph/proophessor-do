@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\Console;
 
-use Interop\Container\ContainerInterface;
 use Prooph\Cli\Console\Helper\Psr4Info;
+use Psr\Container\ContainerInterface;
 
 class Psr4ClassInfoFactory
 {

@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\App\View;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Zend\View\HelperPluginManager;
 
 class ViewHelperPluginManagerFactory

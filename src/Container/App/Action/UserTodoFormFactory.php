@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\App\Action;
 
-use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\App\Action\UserTodoForm;
 use Prooph\ServiceBus\QueryBus;
+use Psr\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 class UserTodoFormFactory

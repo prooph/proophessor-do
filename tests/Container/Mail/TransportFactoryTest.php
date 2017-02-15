@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace ProophTest\ProophessorDo\Container\Mail;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Prooph\ProophessorDo\Container\App\Mail\TransportFactory;
 use Zend\Mail\Transport\InMemory;

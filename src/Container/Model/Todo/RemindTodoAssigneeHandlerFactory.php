@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\Model\Todo;
 
-use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\Todo\Handler\RemindTodoAssigneeHandler;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
+use Psr\Container\ContainerInterface;
 
 class RemindTodoAssigneeHandlerFactory
 {
