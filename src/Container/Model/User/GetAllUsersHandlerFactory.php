@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\Model\User;
 
-use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\User\Handler\GetAllUsersHandler;
 use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Psr\Container\ContainerInterface;
 
 class GetAllUsersHandlerFactory
 {

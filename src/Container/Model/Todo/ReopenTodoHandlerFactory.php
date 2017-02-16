@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\Model\Todo;
 
-use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\Todo\Handler\ReopenTodoHandler;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
+use Psr\Container\ContainerInterface;
 
 class ReopenTodoHandlerFactory
 {

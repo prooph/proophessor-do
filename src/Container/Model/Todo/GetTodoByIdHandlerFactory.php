@@ -12,9 +12,9 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\Model\Todo;
 
-use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\Todo\Handler\GetTodoByIdHandler;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
+use Psr\Container\ContainerInterface;
 
 class GetTodoByIdHandlerFactory
 {

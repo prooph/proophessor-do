@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\Model\Todo;
 
-use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\Model\Todo\Handler\PostTodoHandler;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
 use Prooph\ProophessorDo\Model\User\UserCollection;
+use Psr\Container\ContainerInterface;
 
 class PostTodoHandlerFactory
 {

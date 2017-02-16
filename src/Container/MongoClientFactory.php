@@ -15,8 +15,8 @@ namespace Prooph\ProophessorDo\Container;
 use Interop\Config\ConfigurationTrait;
 use Interop\Config\ProvidesDefaultOptions;
 use Interop\Config\RequiresConfig;
-use Interop\Container\ContainerInterface;
 use MongoDB\Client;
+use Psr\Container\ContainerInterface;
 
 class MongoClientFactory implements RequiresConfig, ProvidesDefaultOptions
 {

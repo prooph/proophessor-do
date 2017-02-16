@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Container\App\Action;
 
-use Interop\Container\ContainerInterface;
 use Prooph\ProophessorDo\App\Action\UserRegistration;
+use Psr\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 class UserRegistrationFactory
