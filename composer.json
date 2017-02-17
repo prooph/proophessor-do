@@ -53,7 +53,8 @@
         "zendframework/zend-servicemanager" : "^3.1.1",
         "zendframework/zend-stdlib": "^3.1.0",
         "zendframework/zend-mail": "^2.7.1",
-        "zendframework/zend-validator": "^2.8.1"
+        "zendframework/zend-validator": "^2.8.1",
+        "psr/container": "^1.0"
     },
     "require-dev" : {
         "prooph/php-cs-fixer-config": "^0.1.1",
