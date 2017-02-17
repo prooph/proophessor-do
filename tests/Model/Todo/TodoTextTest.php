@@ -49,7 +49,7 @@ class TodoTextTest extends TestCase
         $first = TodoText::fromString('foo');
         $second = TodoText::fromString('foo');
         $third = TodoText::fromString('bar');
-        $fourth = new class implements ValueObject {
+        $fourth = new class() implements ValueObject {
             public function sameValueAs(ValueObject $object): bool
             {
                 return false;
