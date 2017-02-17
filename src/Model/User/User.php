@@ -18,6 +18,7 @@ use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\Entity;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\TodoText;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegisteredAgain;
 
@@ -74,7 +75,7 @@ final class User extends AggregateRoot implements Entity
         return $this->emailAddress;
     }
 
-    public function postTodo(string $text, TodoId $todoId): Todo
+    public function postTodo(TodoText $text, TodoId $todoId): Todo
     {
         return Todo::post($text, $this->userId(), $todoId);
     }

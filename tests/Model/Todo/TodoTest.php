@@ -29,6 +29,7 @@ use Prooph\ProophessorDo\Model\Todo\TodoId;
 use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 use Prooph\ProophessorDo\Model\Todo\TodoReminderStatus;
 use Prooph\ProophessorDo\Model\Todo\TodoStatus;
+use Prooph\ProophessorDo\Model\Todo\TodoText;
 use Prooph\ProophessorDo\Model\User\UserId;
 use ProophTest\ProophessorDo\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -42,8 +43,9 @@ class TodoTest extends TestCase
     {
         $assigneeId = UserId::generate();
         $todoId = TodoId::generate();
+        $text = TodoText::fromString('This is test todo');
 
-        $todo = Todo::post('This is test todo', $assigneeId, $todoId);
+        $todo = Todo::post($text, $assigneeId, $todoId);
 
         $this->assertInstanceOf(Todo::class, $todo);
 
@@ -54,7 +56,7 @@ class TodoTest extends TestCase
         $this->assertInstanceOf(TodoWasPosted::class, $events[0]);
 
         $expectedPayload = [
-            'text' => 'This is test todo',
+            'text' => $text->toString(),
             'assignee_id' => $assigneeId->toString(),
             'status' => 'OPEN',
         ];
@@ -68,7 +70,8 @@ class TodoTest extends TestCase
     public function it_marks_an_open_todo_as_done(): Todo
     {
         $todoId = TodoId::generate();
-        $todo = Todo::post('This is an unit test todo', UserId::generate(), $todoId);
+        $text = TodoText::fromString('This is an unit test todo');
+        $todo = Todo::post($text, UserId::generate(), $todoId);
         $todo->markAsDone();
 
         $this->assertTrue($todo->status()->is(TodoStatus::DONE()));
@@ -109,7 +112,8 @@ class TodoTest extends TestCase
         $todoId = TodoId::generate();
         $userId = UserId::generate();
         $deadline = TodoDeadline::fromString('2047-12-31 12:00:00');
-        $todo = Todo::post('Do something tomorrow', $userId, $todoId);
+        $text = TodoText::fromString('Do something tomorrow');
+        $todo = Todo::post($text, $userId, $todoId);
 
         $this->assertNull($todo->deadline());
 
@@ -200,7 +204,8 @@ class TodoTest extends TestCase
         $todoId = TodoId::generate();
         $userId = UserId::generate();
         $reminder = TodoReminder::from('2047-12-31 12:00:00', TodoReminderStatus::OPEN()->getName());
-        $todo = Todo::post('Do something tomorrow', $userId, $todoId);
+        $text = TodoText::fromString('Do something tomorrow');
+        $todo = Todo::post($text, $userId, $todoId);
         $this->popRecordedEvent($todo);
 
         $this->assertNull($todo->reminder());
@@ -355,9 +360,10 @@ class TodoTest extends TestCase
         $userId = UserId::generate();
         $todoId = TodoId::generate();
         $reminder = TodoReminder::from('2000-12-11 12:00:00', TodoReminderStatus::OPEN()->getName());
+        $text = TodoText::fromString('test');
 
         $events = [
-            TodoWasPosted::byUser($userId, 'test', $todoId, TodoStatus::OPEN()),
+            TodoWasPosted::byUser($userId, $text, $todoId, TodoStatus::OPEN()),
             ReminderWasAddedToTodo::byUserToDate($todoId, $userId, $reminder),
         ];
 
@@ -372,9 +378,10 @@ class TodoTest extends TestCase
         $todoId = TodoId::generate();
         $userId = UserId::generate();
         $deadline = TodoDeadline::fromString('yesterday');
+        $text = TodoText::fromString('Do something that will be forgotten');
 
         $events = [
-            TodoWasPosted::byUser($userId, 'Do something that will be forgotten', $todoId, TodoStatus::OPEN()),
+            TodoWasPosted::byUser($userId, $text, $todoId, TodoStatus::OPEN()),
             DeadlineWasAddedToTodo::byUserToDate($todoId, $userId, $deadline),
         ];
 
@@ -407,7 +414,8 @@ class TodoTest extends TestCase
         $todoId = TodoId::generate();
         $userId = UserId::generate();
         $deadline = TodoDeadline::fromString('2047-12-31 12:00:00');
-        $todo = Todo::post('Do something before the deadline', $userId, $todoId);
+        $text = TodoText::fromString('Do something before the deadline');
+        $todo = Todo::post($text, $userId, $todoId);
 
         $todo->addDeadline($userId, $deadline);
 
@@ -428,7 +436,8 @@ class TodoTest extends TestCase
         $todoId = TodoId::generate();
         $userId = UserId::generate();
         $deadline = TodoDeadline::fromString('2047-12-31 12:00:00');
-        $todo = Todo::post('Do something fun', $userId, $todoId);
+        $text = TodoText::fromString('Do something fun');
+        $todo = Todo::post($text, $userId, $todoId);
 
         $todo->addDeadline($userId, $deadline);
         $todo->markAsDone();

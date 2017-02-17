@@ -17,6 +17,7 @@ use Prooph\Common\Messaging\Command;
 use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\TodoText;
 use Prooph\ProophessorDo\Model\User\UserId;
 
 final class PostTodo extends Command implements PayloadConstructable
@@ -42,9 +43,9 @@ final class PostTodo extends Command implements PayloadConstructable
         return UserId::fromString($this->payload['assignee_id']);
     }
 
-    public function text(): string
+    public function text(): TodoText
     {
-        return $this->payload['text'];
+        return TodoText::fromString($this->payload['text']);
     }
 
     protected function setPayload(array $payload): void
