@@ -40,7 +40,7 @@ $projection
         UserWasRegistered::class => function ($state, UserWasRegistered $event) {
             $this->readModel()->stack('insert', [
                 'id' => $event->userId()->toString(),
-                'name' => $event->name(),
+                'name' => $event->name()->toString(),
                 'email' => $event->emailAddress()->toString(),
             ]);
         },
