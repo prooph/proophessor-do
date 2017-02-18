@@ -18,6 +18,7 @@ use Prooph\Common\Messaging\PayloadConstructable;
 use Prooph\Common\Messaging\PayloadTrait;
 use Prooph\ProophessorDo\Model\User\EmailAddress;
 use Prooph\ProophessorDo\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\UserName;
 use Zend\Validator\EmailAddress as EmailAddressValidator;
 
 final class RegisterUser extends Command implements PayloadConstructable
@@ -38,9 +39,9 @@ final class RegisterUser extends Command implements PayloadConstructable
         return UserId::fromString($this->payload['user_id']);
     }
 
-    public function name(): string
+    public function name(): UserName
     {
-        return $this->payload['name'];
+        return UserName::fromString($this->payload['name']);
     }
 
     public function emailAddress(): EmailAddress

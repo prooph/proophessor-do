@@ -15,9 +15,9 @@ namespace ProophTest\ProophessorDo\Model\User;
 use Prooph\ProophessorDo\Model\User\EmailAddress;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegisteredAgain;
-use Prooph\ProophessorDo\Model\User\Exception\InvalidName;
 use Prooph\ProophessorDo\Model\User\User;
 use Prooph\ProophessorDo\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\UserName;
 use ProophTest\ProophessorDo\TestCase;
 
 class UserTest extends TestCase
@@ -28,7 +28,7 @@ class UserTest extends TestCase
     public function it_registers_a_new_user(): User
     {
         $userId = UserId::generate();
-        $name = 'John Doe';
+        $name = UserName::fromString('John Doe');
         $emailAddress = EmailAddress::fromString('john.doe@example.com');
 
         $user = User::registerWithData($userId, $name, $emailAddress);
@@ -41,7 +41,7 @@ class UserTest extends TestCase
         $this->assertInstanceOf(UserWasRegistered::class, $events[0]);
 
         $expectedPayload = [
-            'name' => $name,
+            'name' => $name->toString(),
             'email' => $emailAddress->toString(),
         ];
 
@@ -56,7 +56,7 @@ class UserTest extends TestCase
     public function it_registers_a_new_user_again(): void
     {
         $userId = UserId::generate();
-        $name = 'John Doe';
+        $name = UserName::fromString('John Doe');
         $emailAddress = EmailAddress::fromString('john.doe@example.com');
 
         $events = [
@@ -74,35 +74,10 @@ class UserTest extends TestCase
         $this->assertInstanceOf(UserWasRegisteredAgain::class, $events[0]);
 
         $expectedPayload = [
-            'name' => $name,
+            'name' => $name->toString(),
             'email' => $emailAddress->toString(),
         ];
 
         $this->assertEquals($expectedPayload, $events[0]->payload());
-    }
-
-    /**
-     * @test
-     */
-    public function it_throws_an_exception_if_user_registers_with_invalid_name(): void
-    {
-        $this->expectException(InvalidName::class);
-
-        $name = '';
-
-        User::registerWithData(UserId::generate(), $name, EmailAddress::fromString('john.doe@example.com'));
-    }
-
-    /**
-     * @test
-     * @depends it_registers_a_new_user
-     */
-    public function it_throws_an_exception_if_user_registers_again_with_invalid_name(User $user): void
-    {
-        $this->expectException(InvalidName::class);
-
-        $name = '';
-
-        $user->registerAgain($name);
     }
 }

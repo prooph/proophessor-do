@@ -10,41 +10,41 @@
 
 declare(strict_types=1);
 
-namespace Prooph\ProophessorDo\Model\Todo;
+namespace Prooph\ProophessorDo\Model\User;
 
 use Assert\Assertion;
 use Prooph\ProophessorDo\Model\ValueObject;
 
-final class TodoText implements ValueObject
+final class UserName implements ValueObject
 {
     /**
      * @var string
      */
-    private $text;
+    private $name;
 
-    public static function fromString(string $text): self
+    public static function fromString(string $name): self
     {
-        return new self($text);
+        return new self($name);
     }
 
-    private function __construct(string $text)
+    private function __construct(string $name)
     {
         try {
-            Assertion::minLength($text, 3);
+            Assertion::notEmpty($name);
         } catch (\Exception $e) {
-            throw Exception\InvalidText::reason($e->getMessage());
+            throw Exception\InvalidName::reason($e->getMessage());
         }
 
-        $this->text = $text;
+        $this->name = $name;
     }
 
     public function toString(): string
     {
-        return $this->text;
+        return $this->name;
     }
 
     public function sameValueAs(ValueObject $object): bool
     {
-        return get_class($this) === get_class($object) && $this->text === $object->text;
+        return get_class($this) === get_class($object) && $this->name === $object->name;
     }
 }
