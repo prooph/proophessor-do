@@ -12,7 +12,6 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\Todo;
 
-use Assert\Assertion;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\Entity;
@@ -39,7 +38,7 @@ final class Todo extends AggregateRoot implements Entity
     private $assigneeId;
 
     /**
-     * @var string
+     * @var TodoText
      */
     private $text;
 
@@ -63,10 +62,9 @@ final class Todo extends AggregateRoot implements Entity
      */
     private $reminded = false;
 
-    public static function post(string $text, UserId $assigneeId, TodoId $todoId): Todo
+    public static function post(TodoText $text, UserId $assigneeId, TodoId $todoId): Todo
     {
         $self = new self();
-        $self->assertText($text);
         $self->recordThat(TodoWasPosted::byUser($assigneeId, $text, $todoId, TodoStatus::OPEN()));
 
         return $self;
@@ -222,7 +220,7 @@ final class Todo extends AggregateRoot implements Entity
         return $this->todoId;
     }
 
-    public function text(): string
+    public function text(): TodoText
     {
         return $this->text;
     }
@@ -286,18 +284,6 @@ final class Todo extends AggregateRoot implements Entity
     protected function aggregateId(): string
     {
         return $this->todoId->toString();
-    }
-
-    /**
-     * @throws Exception\InvalidText
-     */
-    private function assertText(string $text)
-    {
-        try {
-            Assertion::minLength($text, 3);
-        } catch (\Exception $e) {
-            throw Exception\InvalidText::reason($e->getMessage());
-        }
     }
 
     public function sameIdentityAs(Entity $other): bool

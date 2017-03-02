@@ -15,6 +15,7 @@ namespace Prooph\ProophessorDo\Model\User\Event;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\ProophessorDo\Model\User\EmailAddress;
 use Prooph\ProophessorDo\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\UserName;
 
 final class UserWasRegistered extends AggregateChanged
 {
@@ -24,7 +25,7 @@ final class UserWasRegistered extends AggregateChanged
     private $userId;
 
     /**
-     * @var string
+     * @var UserName
      */
     private $username;
 
@@ -33,10 +34,10 @@ final class UserWasRegistered extends AggregateChanged
      */
     private $emailAddress;
 
-    public static function withData(UserId $userId, string $name, EmailAddress $emailAddress): UserWasRegistered
+    public static function withData(UserId $userId, UserName $name, EmailAddress $emailAddress): UserWasRegistered
     {
         $event = self::occur($userId->toString(), [
-            'name' => $name,
+            'name' => $name->toString(),
             'email' => $emailAddress->toString(),
         ]);
 
@@ -56,10 +57,10 @@ final class UserWasRegistered extends AggregateChanged
         return $this->userId;
     }
 
-    public function name(): string
+    public function name(): UserName
     {
         if (null === $this->username) {
-            $this->username = $this->payload['name'];
+            $this->username = UserName::fromString($this->payload['name']);
         }
 
         return $this->username;

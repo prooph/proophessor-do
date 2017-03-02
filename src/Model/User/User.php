@@ -12,12 +12,12 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\User;
 
-use Assert\Assertion;
 use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\Entity;
 use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoId;
+use Prooph\ProophessorDo\Model\Todo\TodoText;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegisteredAgain;
 
@@ -29,7 +29,7 @@ final class User extends AggregateRoot implements Entity
     private $userId;
 
     /**
-     * @var string
+     * @var UserName
      */
     private $name;
 
@@ -40,22 +40,18 @@ final class User extends AggregateRoot implements Entity
 
     public static function registerWithData(
         UserId $userId,
-        string $name,
+        UserName $name,
         EmailAddress $emailAddress
     ): User {
         $self = new self();
-
-        $self->assertName($name);
 
         $self->recordThat(UserWasRegistered::withData($userId, $name, $emailAddress));
 
         return $self;
     }
 
-    public function registerAgain(string $name): void
+    public function registerAgain(UserName $name): void
     {
-        $this->assertName($name);
-
         $this->recordThat(UserWasRegisteredAgain::withData($this->userId, $name, $this->emailAddress));
     }
 
@@ -64,7 +60,7 @@ final class User extends AggregateRoot implements Entity
         return $this->userId;
     }
 
-    public function name(): string
+    public function name(): UserName
     {
         return $this->name;
     }
@@ -74,7 +70,7 @@ final class User extends AggregateRoot implements Entity
         return $this->emailAddress;
     }
 
-    public function postTodo(string $text, TodoId $todoId): Todo
+    public function postTodo(TodoText $text, TodoId $todoId): Todo
     {
         return Todo::post($text, $this->userId(), $todoId);
     }
@@ -93,18 +89,6 @@ final class User extends AggregateRoot implements Entity
 
     protected function whenUserWasRegisteredAgain(UserWasRegisteredAgain $event): void
     {
-    }
-
-    /**
-     * @throws Exception\InvalidName
-     */
-    private function assertName(string $name)
-    {
-        try {
-            Assertion::notEmpty($name);
-        } catch (\Exception $e) {
-            throw Exception\InvalidName::reason($e->getMessage());
-        }
     }
 
     public function sameIdentityAs(Entity $other): bool

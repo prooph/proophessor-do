@@ -42,7 +42,7 @@ $projection
             $this->readModel()->stack('insert', [
                 'id' => $event->todoId()->toString(),
                 'assignee_id' => $event->assigneeId()->toString(),
-                'text' => $event->text(),
+                'text' => $event->text()->toString(),
                 'status' => $event->todoStatus()->toString(),
             ]);
         },
