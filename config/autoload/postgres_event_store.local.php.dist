@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo;
 
+use Prooph\EventStore;
+
 /**
  * Local configuration overrides - make your adjustments here
  */
@@ -29,15 +31,23 @@ return [
     // dependencies settings
     'dependencies' => [
         'factories' => [
-            \Prooph\EventStore\EventStore::class => ['Prooph\EventStore\Pdo\Container\PostgresEventStoreFactory', 'default'],
+            EventStore\EventStore::class => [
+                EventStore\Pdo\Container\PostgresEventStoreFactory::class,
+                'default',
+            ],
         ],
     ],
     // prooph settings
     'prooph' => [
         'event_store' => [
             'default' => [
-                'persistence_strategy' => 'Prooph\EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy',
+                'persistence_strategy' => EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy::class,
             ]
+        ],
+        'projection_manager' => [
+            'default' => [
+                'connection' => 'pdo.connection',
+            ],
         ],
         'service_bus' => [
             'command_bus' => [
