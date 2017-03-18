@@ -59,7 +59,7 @@
     "require-dev" : {
         "prooph/php-cs-fixer-config": "^0.1.1",
         "filp/whoops": "^1.1",
-        "phpunit/phpunit": "^5.7.3",
+        "phpunit/phpunit": "^6.0",
         "phpspec/prophecy": "^1.7",
         "proophsoftware/prooph-cli": "^0.2.0",
         "symfony/stopwatch": "^3.2",
