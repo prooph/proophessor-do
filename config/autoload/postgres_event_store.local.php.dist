@@ -35,6 +35,10 @@ return [
                 EventStore\Pdo\Container\PostgresEventStoreFactory::class,
                 'default',
             ],
+            EventStore\Projection\ProjectionManager::class => [
+                EventStore\Pdo\Container\PostgresProjectionManagerFactory::class,
+                'default',
+            ],
         ],
     ],
     // prooph settings

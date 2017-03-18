@@ -36,7 +36,7 @@ return [
                 EventStore\Pdo\Container\MySqlEventStoreFactory::class,
                 'default',
             ],
-            EventStore\Pdo\Projection\MySqlProjectionManager::class => [
+            EventStore\Projection\ProjectionManager::class => [
                 EventStore\Pdo\Container\MySqlProjectionManagerFactory::class,
                 'default',
             ],
