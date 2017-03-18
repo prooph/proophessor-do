@@ -13,9 +13,10 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo;
 
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
-use Prooph\EventSourcing\Snapshot\SnapshotStore;
-use Prooph\EventStore\EventStore;
+use Prooph\EventStore\Projection\ProjectionManager;
+use Prooph\ProophessorDo\Model\User\User;
 use Prooph\ProophessorDo\Model\User\UserCollection;
+use Prooph\SnapshotStore\SnapshotStore;
 use Prooph\Snapshotter\SnapshotReadModel;
 use Prooph\Snapshotter\StreamSnapshotProjection;
 
@@ -25,17 +26,20 @@ require_once 'vendor/autoload.php';
 
 $container = require 'config/container.php';
 
-$eventStore = $container->get(EventStore::class);
-/* @var EventStore $eventStore */
+$projectionManager = $container->get(ProjectionManager::class);
+/* @var ProjectionManager $projectionManager */
 
 $readModel = new SnapshotReadModel(
     $container->get(UserCollection::class),
     new AggregateTranslator(),
-    $container->get(SnapshotStore::class)
+    $container->get(SnapshotStore::class),
+    [
+        User::class,
+    ]
 );
 
 $projection = new StreamSnapshotProjection(
-    $eventStore->createReadModelProjection(
+    $projectionManager->createReadModelProjection(
         'user_snapshotter',
         $readModel
     ),

@@ -18,17 +18,6 @@ use Prooph\EventStore;
  * Local configuration overrides - make your adjustments here
  */
 return [
-    'proophessor-do' => [
-        'pdo_connection' => [
-            'driver' => 'pdo_mysql',
-            'host' => '127.0.0.1',
-            'port' => '3306',
-            'user' => 'root',
-            'password' => '',
-            'dbname' => 'todo',
-            'charset' => 'utf8',
-        ],
-    ],
     // dependencies settings
     'dependencies' => [
         'factories' => [
@@ -47,7 +36,19 @@ return [
         'event_store' => [
             'default' => [
                 'persistence_strategy' => EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy::class,
+                'connection' => 'pdo.connection',
             ]
+        ],
+        'pdo_connection' => [
+            'default' => [
+                'schema' => 'mysql',
+                'host' => '127.0.0.1',
+                'port' => '3306',
+                'user' => 'root',
+                'password' => '',
+                'dbname' => 'todo',
+                'charset' => 'utf8',
+            ],
         ],
         'projection_manager' => [
             'default' => [

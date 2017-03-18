@@ -18,16 +18,6 @@ use Prooph\EventStore;
  * Local configuration overrides - make your adjustments here
  */
 return [
-    'proophessor-do' => [
-        'pdo_connection' => [
-            'driver' => 'pdo_pgsql',
-            'user' => 'postgres',
-            'password' => '',
-            'host' => '127.0.0.1',
-            'dbname' => 'todo',
-            'port' => 5432,
-        ],
-    ],
     // dependencies settings
     'dependencies' => [
         'factories' => [
@@ -46,7 +36,18 @@ return [
         'event_store' => [
             'default' => [
                 'persistence_strategy' => EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy::class,
+                'connection' => 'pdo.connection',
             ]
+        ],
+        'pdo_connection' => [
+            'default' => [
+                'schema' => 'pgsql',
+                'user' => 'postgres',
+                'password' => '',
+                'host' => '127.0.0.1',
+                'dbname' => 'todo',
+                'port' => 5432,
+            ],
         ],
         'projection_manager' => [
             'default' => [
