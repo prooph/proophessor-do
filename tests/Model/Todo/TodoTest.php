@@ -251,7 +251,7 @@ class TodoTest extends TestCase
      */
     public function it_throws_an_exception_if_reminder_is_in_the_past(Todo $todo): void
     {
-        $this->setExpectedException(InvalidReminder::class);
+        $this->expectException(InvalidReminder::class);
 
         $todo->addReminder(
             $todo->assigneeId(), TodoReminder::from('1980-12-11 12:00:00', TodoReminderStatus::OPEN()->getName())
@@ -264,7 +264,7 @@ class TodoTest extends TestCase
      */
     public function it_throws_an_exception_if_user_who_adds_reminder_is_not_the_assignee(Todo $todo): void
     {
-        $this->setExpectedException(InvalidReminder::class);
+        $this->expectException(InvalidReminder::class);
 
         $todo->addReminder(
             UserId::generate(), TodoReminder::from('2047-12-11 12:00:00', TodoReminderStatus::OPEN()->getName())
@@ -279,7 +279,7 @@ class TodoTest extends TestCase
     {
         $todo->markAsDone();
 
-        $this->setExpectedException(TodoNotOpen::class);
+        $this->expectException(TodoNotOpen::class);
 
         $todo->addReminder(
             $todo->assigneeId(), TodoReminder::from('2047-12-11 12:00:00', TodoReminderStatus::OPEN()->getName())
@@ -338,7 +338,7 @@ class TodoTest extends TestCase
         $reminder = TodoReminder::from('2046-12-11 12:00:00', TodoReminderStatus::OPEN()->getName());
         $todo->addReminder($todo->assigneeId(), $reminder);
 
-        $this->setExpectedException(InvalidReminder::class);
+        $this->expectException(InvalidReminder::class);
         $todo->remindAssignee($reminder);
     }
 
@@ -351,7 +351,7 @@ class TodoTest extends TestCase
 
         $todo->remindAssignee(TodoReminder::from('2000-12-11 12:00:00', TodoReminderStatus::OPEN()->getName()));
 
-        $this->setExpectedException(InvalidReminder::class);
+        $this->expectException(InvalidReminder::class);
         $todo->remindAssignee(TodoReminder::from('2000-12-11 12:00:00', TodoReminderStatus::OPEN()->getName()));
     }
 
@@ -419,11 +419,9 @@ class TodoTest extends TestCase
 
         $todo->addDeadline($userId, $deadline);
 
-        $this->setExpectedException(
-            TodoNotExpired::class,
-            'Tried to mark a non-expired Todo as expired.  Todo will expire after '
-            . 'the deadline 2047-12-31T12:00:00+00:00.'
-        );
+        $this->expectException(TodoNotExpired::class);
+        $this->expectExceptionMessage('Tried to mark a non-expired Todo as expired.  Todo will expire after '
+            . 'the deadline 2047-12-31T12:00:00+00:00.');
 
         $todo->markAsExpired();
     }
@@ -442,7 +440,8 @@ class TodoTest extends TestCase
         $todo->addDeadline($userId, $deadline);
         $todo->markAsDone();
 
-        $this->setExpectedException(TodoNotOpen::class, 'Tried to expire todo with status DONE.');
+        $this->expectException(TodoNotOpen::class);
+        $this->expectExceptionMessage('Tried to expire todo with status DONE.');
 
         $todo->markAsExpired();
     }

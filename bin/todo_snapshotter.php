@@ -13,9 +13,10 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo;
 
 use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
-use Prooph\EventSourcing\Snapshot\SnapshotStore;
-use Prooph\EventStore\EventStore;
+use Prooph\EventStore\Projection\ProjectionManager;
+use Prooph\ProophessorDo\Model\Todo\Todo;
 use Prooph\ProophessorDo\Model\Todo\TodoList;
+use Prooph\SnapshotStore\SnapshotStore;
 use Prooph\Snapshotter\SnapshotReadModel;
 use Prooph\Snapshotter\StreamSnapshotProjection;
 
@@ -24,18 +25,21 @@ chdir(dirname(__DIR__));
 require_once 'vendor/autoload.php';
 
 $container = require 'config/container.php';
-/* @var EventStore $eventStore */
 
-$eventStore = $container->get(EventStore::class);
+$projectionManager = $container->get(ProjectionManager::class);
+/* @var ProjectionManager $projectionManager */
 
 $readModel = new SnapshotReadModel(
     $container->get(TodoList::class),
     new AggregateTranslator(),
-    $container->get(SnapshotStore::class)
+    $container->get(SnapshotStore::class),
+    [
+        Todo::class,
+    ]
 );
 
 $projection = new StreamSnapshotProjection(
-    $eventStore->createReadModelProjection(
+    $projectionManager->createReadModelProjection(
         'todo_snapshotter',
         $readModel
     ),

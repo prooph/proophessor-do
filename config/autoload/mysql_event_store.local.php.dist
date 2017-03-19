@@ -12,33 +12,48 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo;
 
+use Prooph\EventStore;
+
 /**
  * Local configuration overrides - make your adjustments here
  */
 return [
-    'proophessor-do' => [
-        'pdo_connection' => [
-            'driver' => 'pdo_mysql',
-            'host' => '127.0.0.1',
-            'port' => '3306',
-            'user' => 'root',
-            'password' => '',
-            'dbname' => 'todo',
-            'charset' => 'utf8',
-        ],
-    ],
     // dependencies settings
     'dependencies' => [
         'factories' => [
-            \Prooph\EventStore\EventStore::class => ['Prooph\EventStore\Pdo\Container\MySqlEventStoreFactory', 'default'],
+            EventStore\EventStore::class => [
+                EventStore\Pdo\Container\MySqlEventStoreFactory::class,
+                'default',
+            ],
+            EventStore\Projection\ProjectionManager::class => [
+                EventStore\Pdo\Container\MySqlProjectionManagerFactory::class,
+                'default',
+            ],
         ],
     ],
     // prooph settings
     'prooph' => [
         'event_store' => [
             'default' => [
-                'persistence_strategy' => 'Prooph\EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy',
+                'persistence_strategy' => EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy::class,
+                'connection' => 'pdo.connection',
             ]
-        ]
+        ],
+        'pdo_connection' => [
+            'default' => [
+                'schema' => 'mysql',
+                'host' => '127.0.0.1',
+                'port' => '3306',
+                'user' => 'root',
+                'password' => '',
+                'dbname' => 'todo',
+                'charset' => 'utf8',
+            ],
+        ],
+        'projection_manager' => [
+            'default' => [
+                'connection' => 'pdo.connection',
+            ],
+        ],
     ],
 ];

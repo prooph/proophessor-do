@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo;
 
+use Prooph\SnapshotStore;
+
 /**
  * Local configuration overrides - make your adjustments here
  */
@@ -26,7 +28,10 @@ return [
     // dependencies settings
     'dependencies' => [
         'factories' => [
-            \Prooph\EventSourcing\Snapshot\SnapshotStore::class => ['Prooph\PDO\SnapshotStore\Container\PDOSnapshotStoreFactory', 'default'],
+            SnapshotStore\SnapshotStore::class => [
+                Prooph\SnapshotStore\Pdo\Container\PdoSnapshotStoreFactory::class,
+                'default',
+            ],
             'mongo_client' => Container\MongoClientFactory::class,
         ],
     ],
@@ -40,10 +45,10 @@ return [
         'event_sourcing' => [
             'aggregate_repository' => [
                 'todo_list' => [
-                    'snapshot_store' => \Prooph\EventSourcing\Snapshot\SnapshotStore::class
+                    'snapshot_store' => SnapshotStore\SnapshotStore::class
                 ],
                 'user_collection' => [
-                    'snapshot_store' => \Prooph\EventSourcing\Snapshot\SnapshotStore::class
+                    'snapshot_store' => SnapshotStore\SnapshotStore::class
                 ],
             ],
         ],

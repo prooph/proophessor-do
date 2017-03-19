@@ -12,32 +12,47 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo;
 
+use Prooph\EventStore;
+
 /**
  * Local configuration overrides - make your adjustments here
  */
 return [
-    'proophessor-do' => [
-        'pdo_connection' => [
-            'driver' => 'pdo_pgsql',
-            'user' => 'postgres',
-            'password' => '',
-            'host' => '127.0.0.1',
-            'dbname' => 'todo',
-            'port' => 5432,
-        ],
-    ],
     // dependencies settings
     'dependencies' => [
         'factories' => [
-            \Prooph\EventStore\EventStore::class => ['Prooph\EventStore\Pdo\Container\PostgresEventStoreFactory', 'default'],
+            EventStore\EventStore::class => [
+                EventStore\Pdo\Container\PostgresEventStoreFactory::class,
+                'default',
+            ],
+            EventStore\Projection\ProjectionManager::class => [
+                EventStore\Pdo\Container\PostgresProjectionManagerFactory::class,
+                'default',
+            ],
         ],
     ],
     // prooph settings
     'prooph' => [
         'event_store' => [
             'default' => [
-                'persistence_strategy' => 'Prooph\EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy',
+                'persistence_strategy' => EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy::class,
+                'connection' => 'pdo.connection',
             ]
+        ],
+        'pdo_connection' => [
+            'default' => [
+                'schema' => 'pgsql',
+                'user' => 'postgres',
+                'password' => '',
+                'host' => '127.0.0.1',
+                'dbname' => 'todo',
+                'port' => 5432,
+            ],
+        ],
+        'projection_manager' => [
+            'default' => [
+                'connection' => 'pdo.connection',
+            ],
         ],
         'service_bus' => [
             'command_bus' => [

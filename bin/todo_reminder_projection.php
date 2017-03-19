@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo;
 
-use Prooph\EventStore\EventStore;
+use Prooph\EventStore\Projection\ProjectionManager;
 use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Projection\Todo\TodoReminderReadModel;
@@ -23,12 +23,12 @@ require_once 'vendor/autoload.php';
 
 $container = require 'config/container.php';
 
-$eventStore = $container->get(EventStore::class);
-/* @var EventStore $eventStore */
+$projectionManager = $container->get(ProjectionManager::class);
+/* @var ProjectionManager $projectionManager */
 
 $readModel = new TodoReminderReadModel($container->get('doctrine.connection.default'));
 
-$projection = $eventStore->createReadModelProjection('todo_reminder', $readModel);
+$projection = $projectionManager->createReadModelProjection('todo_reminder', $readModel);
 
 $projection
     ->fromStream('event_stream')

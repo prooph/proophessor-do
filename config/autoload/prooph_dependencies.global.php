@@ -12,6 +12,7 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo;
 
+use Prooph\EventStore;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
@@ -28,7 +29,7 @@ return [
             \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class,
         ],
         'factories' => [
-            'pdo.connection' => Container\PDOConnectionFactory::class,
+            'pdo.connection' => EventStore\Pdo\Container\PdoConnectionFactory::class,
             \Prooph\Common\Messaging\NoOpMessageConverter::class => InvokableFactory::class,
             \Prooph\Common\Messaging\FQCNMessageFactory::class => InvokableFactory::class,
             \Prooph\ProophessorDo\Response\JsonResponse::class => InvokableFactory::class,
@@ -46,8 +47,8 @@ return [
             \Prooph\EventStoreBusBridge\EventPublisher::class => \Prooph\EventStoreBusBridge\Container\EventPublisherFactory::class,
             \Prooph\Cli\Console\Helper\ClassInfo::class => \Prooph\ProophessorDo\Container\Console\Psr4ClassInfoFactory::class,
             // persistence strategies
-            \Prooph\EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy::class => InvokableFactory::class,
-            \Prooph\EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy::class => InvokableFactory::class,
+            EventStore\Pdo\PersistenceStrategy\MySqlSingleStreamStrategy::class => InvokableFactory::class,
+            EventStore\Pdo\PersistenceStrategy\PostgresSingleStreamStrategy::class => InvokableFactory::class,
         ],
     ],
 ];
