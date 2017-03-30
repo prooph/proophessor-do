@@ -1,7 +1,7 @@
 # Technology Stack
 
 ## Server Side
-- PHP 5.6+
+- PHP >= 7.1
 - [PSR-7](http://www.php-fig.org/psr/psr-7/) middleware layer based on [zend-expressive](https://github.com/zendframework/zend-expressive)
   - IoC Container: [zend-servicemanager](https://github.com/zendframework/zend-servicemanager) v2.6+ with [container-interop](https://github.com/container-interop/container-interop) support
   - Routing: [Aura.Router](https://github.com/auraphp/Aura.Router)
@@ -9,11 +9,10 @@
 - Separate write and read model following the [CQRS approach](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf) by Greg Young
 - Communication from and to the domain layer is handled by [prooph/service-bus](https://github.com/prooph/service-bus)
 - Event sourced write model is powered by [prooph/event-sourcing](https://github.com/prooph/event-sourcing)
-- Domain events are persisted in a [prooph/event-store](https://github.com/prooph/event-store) using one of the adapters:
-  - [doctrine adapter](https://github.com/prooph/event-store-doctrine-adapter)
-  - [mongo db adapter](https://github.com/prooph/event-store-mongodb-adapter)
+- Domain events are persisted in a [prooph/event-store](https://github.com/prooph/event-store) using the implementation:
+  - [pdo-event-store](https://github.com/prooph/pdo-event-store)
+- Simple and fast implementation of enumerations: [php-enum](https://github.com/marc-mabe/php-enum)
 - Read model persistence is managed with the help of [Doctrine DBAL](https://github.com/doctrine/dbal)
-- Value Object implementations are graped from [nicolopignatelli/valueobjects](https://github.com/nicolopignatelli/valueobjects)
 - Interop. factories using [sandrokeil/interop-config](https://github.com/sandrokeil/interop-config)
 - [Assertions](https://github.com/beberlei/assert) - well, you know it
 

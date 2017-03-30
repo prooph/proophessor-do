@@ -1,5 +1,11 @@
 # Take Snapshots Tutorial
 
+## Configure Snapshot Store
+
+Before we actually take snapshots we need to install and configure this optional feature:
+
+ - [Install Snapshotting Feature](../installation/snapshots.md)
+
 This tutorial explains how snapshotting works with prooph components.
 You will learn how to take a snapshot manually and see the performance boost by comparing load time of an aggregate with
 and without snapshots. Furthermore, you will learn how snapshotting can be automated and finally take snapshots asynchronously
@@ -18,15 +24,6 @@ Now run `php scripts/load_todo_without_snapshot.php <todo_uuid>`. The script wil
 the todo. As this script does not use a snapshot adapter it will take some time (depending on your system)
 to replay all the 100 deadline events added earlier.
 
-## Configure Snapshot Store
-
-Before we actually take snapshots we need to install and configure the feature.
-
-### Install Dependencies
-We need one of the [available snapshot adapters](https://github.com/prooph/event-store/blob/master/README.md#available-snapshot-adapters) for prooph/event-store.
-For this tutorial we'll use the doctrine snapshot adapter. Feel free to test the other adapters once you are a snapshotting pro.
-
-Install the adapter via composer `composer require prooph/snapshot-doctrine-adapter`.
 
 ### Prepare Snapshot Table
 The newly installed package ships with a schema tool compatible with doctrine migrations. We can use it to

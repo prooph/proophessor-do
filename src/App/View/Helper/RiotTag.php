@@ -1,38 +1,37 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\App\View\Helper;
 
 use Zend\View\Helper\AbstractHelper;
 
-/**
- * Class RiotTag
- *
- * @package Application\View\Helper
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
-final class RiotTag extends AbstractHelper
+class RiotTag extends AbstractHelper
 {
+    /**
+     * @var array
+     */
     private $search = ['"', PHP_EOL];
 
-    private $replace = ['\"', ""];
+    /**
+     * @var array
+     */
+    private $replace = ['\"', ''];
 
-    public function __invoke($tagName, $template = null, $jsFunction = null)
+    public function __invoke(?string $tagName, string $template = null, string $jsFunction = null): string
     {
         if (null === $template) {
             $template = $tagName;
-            $tagName  = $this->getTagNameFromTemplate($template);
+            $tagName = $this->getTagNameFromTemplate($template);
         }
-
-        $this->assertTagName($tagName);
-        $this->assertTemplate($template);
 
         $template = $this->getView()->partial($template);
 
@@ -44,46 +43,30 @@ final class RiotTag extends AbstractHelper
         return 'riot.tag("'.$tagName.'", "' . str_replace($this->search, $this->replace, $template) . '", '.$jsFunction.');';
     }
 
-    private function getTagNameFromTemplate($template)
+    private function getTagNameFromTemplate(string $template): string
     {
-        $this->assertTemplate($template);
-
-        $parts = explode("::", $template);
+        $parts = explode('::', $template);
 
         return array_pop($parts);
     }
 
-    private function assertTagName($tagName)
-    {
-        if (!is_string($tagName)) {
-            throw new \InvalidArgumentException("Riot tag name should be a string. got " . gettype($tagName));
-        }
-    }
-
-    private function assertTemplate($template)
-    {
-        if (!is_string($template)) {
-            throw new \InvalidArgumentException("Riot template should be a string. got " . gettype($template));
-        }
-    }
-
-    private function extractJsFunction($template, $tagName)
+    private function extractJsFunction(string $template, string $tagName): string
     {
         preg_match('/<script .*type="text\/javascript"[^>]*>[\s]*(?<func>function.+\});?[\s]*<\/script>/is', $template, $matches);
 
         if (! $matches['func']) {
-            throw new \RuntimeException("Riot tag javascript function could not be found for tag name: " . $tagName);
+            throw new \RuntimeException('Riot tag javascript function could not be found for tag name: ' . $tagName);
         }
 
         return $matches['func'];
     }
 
-    private function removeJsFromTemplate($template, $tagName)
+    private function removeJsFromTemplate(string $template, string $tagName): string
     {
-        $template = preg_replace('/<script .*type="text\/javascript"[^>]*>.*<\/script>/is', "", $template);
+        $template = preg_replace('/<script .*type="text\/javascript"[^>]*>.*<\/script>/is', '', $template);
 
         if (! $template) {
-            throw new \RuntimeException("Riot tag template compilation failed for tag: " . $tagName . " with error code: " . preg_last_error());
+            throw new \RuntimeException('Riot tag template compilation failed for tag: ' . $tagName . ' with error code: ' . preg_last_error());
         }
 
         return $template;

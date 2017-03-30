@@ -1,4 +1,13 @@
-<form method="post" enctype="multipart/form-data" action="#" onsubmit="{onFormSubmit}">
+<?php
+/**
+ * This file is part of prooph/proophessor-do.
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+?><form method="post" enctype="multipart/form-data" action="#" onsubmit="{onFormSubmit}">
     <div class="{form-group: true, has-error: !todoIsValid}">
         <input class="form-control" type="text" name="todo" placeholder="Describe the Todo with a one liner and press Enter">
         <p if="{!todoIsValid}" class="help-block">Oops, that didn't make it. Typed to fast? The Todo should be at least 3 characters long. Please try again!</p>

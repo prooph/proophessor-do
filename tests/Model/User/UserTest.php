@@ -1,12 +1,14 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace ProophTest\ProophessorDo\Model\User;
 
@@ -15,24 +17,18 @@ use Prooph\ProophessorDo\Model\User\Event\UserWasRegistered;
 use Prooph\ProophessorDo\Model\User\Event\UserWasRegisteredAgain;
 use Prooph\ProophessorDo\Model\User\User;
 use Prooph\ProophessorDo\Model\User\UserId;
+use Prooph\ProophessorDo\Model\User\UserName;
 use ProophTest\ProophessorDo\TestCase;
 
-/**
- * Class UserTest
- *
- * @package ProophTest\ProophessorDo\Model\User
- * @author Lucas Courot <lucas@courot.com>
- */
-final class UserTest extends TestCase
+class UserTest extends TestCase
 {
     /**
      * @test
-     * @return User $user
      */
-    public function it_registers_a_new_user()
+    public function it_registers_a_new_user(): User
     {
         $userId = UserId::generate();
-        $name = 'John Doe';
+        $name = UserName::fromString('John Doe');
         $emailAddress = EmailAddress::fromString('john.doe@example.com');
 
         $user = User::registerWithData($userId, $name, $emailAddress);
@@ -45,8 +41,8 @@ final class UserTest extends TestCase
         $this->assertInstanceOf(UserWasRegistered::class, $events[0]);
 
         $expectedPayload = [
-            'name' => $name,
-            'email' => $emailAddress->toString()
+            'name' => $name->toString(),
+            'email' => $emailAddress->toString(),
         ];
 
         $this->assertEquals($expectedPayload, $events[0]->payload());
@@ -57,14 +53,14 @@ final class UserTest extends TestCase
     /**
      * @test
      */
-    public function it_registers_a_new_user_again()
+    public function it_registers_a_new_user_again(): void
     {
         $userId = UserId::generate();
-        $name = 'John Doe';
+        $name = UserName::fromString('John Doe');
         $emailAddress = EmailAddress::fromString('john.doe@example.com');
 
         $events = [
-            UserWasRegistered::withData($userId, $name, $emailAddress)
+            UserWasRegistered::withData($userId, $name, $emailAddress),
         ];
 
         /** @var $user User */
@@ -78,34 +74,10 @@ final class UserTest extends TestCase
         $this->assertInstanceOf(UserWasRegisteredAgain::class, $events[0]);
 
         $expectedPayload = [
-            'name' => $name,
-            'email' => $emailAddress->toString()
+            'name' => $name->toString(),
+            'email' => $emailAddress->toString(),
         ];
 
         $this->assertEquals($expectedPayload, $events[0]->payload());
-    }
-
-    /**
-     * @test
-     * @expectedException \Prooph\ProophessorDo\Model\User\Exception\InvalidName
-     */
-    public function it_throws_an_exception_if_user_registers_with_invalid_name()
-    {
-        $name = '';
-
-        User::registerWithData(UserId::generate(), $name, EmailAddress::fromString('john.doe@example.com'));
-    }
-
-    /**
-     * @test
-     * @param User $user
-     * @expectedException \Prooph\ProophessorDo\Model\User\Exception\InvalidName
-     * @depends it_registers_a_new_user
-     */
-    public function it_throws_an_exception_if_user_registers_again_with_invalid_name(User $user)
-    {
-        $name = '';
-
-        $user->registerAgain($name);
     }
 }

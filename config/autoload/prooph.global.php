@@ -1,12 +1,17 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
+namespace Prooph\ProophessorDo;
+
 return [
     'prooph' => [
         'middleware' => [
@@ -25,21 +30,27 @@ return [
                 'message_factory' => \Prooph\Common\Messaging\FQCNMessageFactory::class,
             ],
         ],
+        'event_sourcing' => [
+            'aggregate_repository' => [
+                'todo_list' => [
+                    'repository_class' => \Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList::class,
+                    'aggregate_type' => \Prooph\ProophessorDo\Model\Todo\Todo::class,
+                    'aggregate_translator' => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class,
+                    'stream_name' => 'event_stream',
+                ],
+                'user_collection' => [
+                    'repository_class' => \Prooph\ProophessorDo\Infrastructure\Repository\EventStoreUserCollection::class,
+                    'aggregate_type' => \Prooph\ProophessorDo\Model\User\User::class,
+                    'aggregate_translator' => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class,
+                    'stream_name' => 'event_stream',
+                ],
+            ],
+        ],
         'event_store' => [
-            'plugins' => [
-                \Prooph\EventStoreBusBridge\EventPublisher::class,
-                \Prooph\EventStoreBusBridge\TransactionManager::class,
-            ],
-            //Repository configuration for EventStoreTodoList
-            'todo_list' => [
-                'repository_class' => \Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList::class,
-                'aggregate_type' => \Prooph\ProophessorDo\Model\Todo\Todo::class,
-                'aggregate_translator' => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class,
-            ],
-            'user_collection' => [
-                'repository_class' => \Prooph\ProophessorDo\Infrastructure\Repository\EventStoreUserCollection::class,
-                'aggregate_type' => \Prooph\ProophessorDo\Model\User\User::class,
-                'aggregate_translator' => \Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator::class
+            'default' => [
+                'plugins' => [
+                    \Prooph\EventStoreBusBridge\EventPublisher::class,
+                ],
             ],
         ],
         'service_bus' => [
@@ -61,45 +72,15 @@ return [
             ],
             'event_bus' => [
                 'plugins' => [
-                    \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class
+                    \Prooph\ServiceBus\Plugin\InvokeStrategy\OnEventStrategy::class,
                 ],
                 'router' => [
                     'routes' => [
-                        \Prooph\ProophessorDo\Model\User\Event\UserWasRegistered::class => [
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasPosted::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsDone::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class,
-                        ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\Todo\TodoReminderProjector::class,
                             \Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager::class,
                         ],
                         \Prooph\ProophessorDo\Model\Todo\Event\TodoWasMarkedAsExpired::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
                             \Prooph\ProophessorDo\ProcessManager\SendTodoDeadlineExpiredMailProcessManager::class,
-                        ],
-                        \Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired::class => [
-                            \Prooph\ProophessorDo\Projection\Todo\TodoProjector::class,
-                            \Prooph\ProophessorDo\Projection\User\UserProjector::class,
                         ],
                     ],
                 ],

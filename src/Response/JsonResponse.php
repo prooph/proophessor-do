@@ -1,20 +1,25 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Response;
 
 use Prooph\Psr7Middleware\Response\ResponseStrategy;
+use Psr\Http\Message\ResponseInterface;
 use React\Promise\Promise;
+use Zend\Diactoros\Response\JsonResponse as ZendJsonResponse;
 
 final class JsonResponse implements ResponseStrategy
 {
-    public function fromPromise(Promise $promise)
+    public function fromPromise(Promise $promise): ResponseInterface
     {
         $json = null;
 
@@ -22,6 +27,6 @@ final class JsonResponse implements ResponseStrategy
             $json = $data;
         });
 
-        return new \Zend\Diactoros\Response\JsonResponse($json);
+        return new ZendJsonResponse($json);
     }
 }

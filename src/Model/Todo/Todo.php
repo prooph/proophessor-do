@@ -1,15 +1,18 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
+
 namespace Prooph\ProophessorDo\Model\Todo;
 
-use Assert\Assertion;
+use Prooph\EventSourcing\AggregateChanged;
 use Prooph\EventSourcing\AggregateRoot;
 use Prooph\ProophessorDo\Model\Entity;
 use Prooph\ProophessorDo\Model\Todo\Event\DeadlineWasAddedToTodo;
@@ -22,12 +25,6 @@ use Prooph\ProophessorDo\Model\Todo\Event\TodoWasReopened;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoWasUnmarkedAsExpired;
 use Prooph\ProophessorDo\Model\User\UserId;
 
-/**
- * Class Todo
- *
- * @package Prooph\ProophessorDo\Model\Todo
- * @author Alexander Miertsch <kontakt@codeliner.ws>
- */
 final class Todo extends AggregateRoot implements Entity
 {
     /**
@@ -41,7 +38,7 @@ final class Todo extends AggregateRoot implements Entity
     private $assigneeId;
 
     /**
-     * @var string
+     * @var TodoText
      */
     private $text;
 
@@ -65,16 +62,9 @@ final class Todo extends AggregateRoot implements Entity
      */
     private $reminded = false;
 
-    /**
-     * @param string $text
-     * @param UserId $assigneeId
-     * @param TodoId $todoId
-     * @return Todo
-     */
-    public static function post($text, UserId $assigneeId, TodoId $todoId)
+    public static function post(TodoText $text, UserId $assigneeId, TodoId $todoId): Todo
     {
         $self = new self();
-        $self->assertText($text);
         $self->recordThat(TodoWasPosted::byUser($assigneeId, $text, $todoId, TodoStatus::OPEN()));
 
         return $self;
@@ -83,7 +73,7 @@ final class Todo extends AggregateRoot implements Entity
     /**
      * @throws Exception\TodoNotOpen
      */
-    public function markAsDone()
+    public function markAsDone(): void
     {
         $status = TodoStatus::DONE();
 
@@ -91,19 +81,16 @@ final class Todo extends AggregateRoot implements Entity
             throw Exception\TodoNotOpen::triedStatus($status, $this);
         }
 
-        $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->todoId, $this->status, $status));
+        $this->recordThat(TodoWasMarkedAsDone::fromStatus($this->todoId, $this->status, $status, $this->assigneeId));
     }
 
     /**
-     * @param UserId $userId
-     * @param TodoDeadline $deadline
-     * @return void
      * @throws Exception\InvalidDeadline
      * @throws Exception\TodoNotOpen
      */
-    public function addDeadline(UserId $userId, TodoDeadline $deadline)
+    public function addDeadline(UserId $userId, TodoDeadline $deadline): void
     {
-        if (!$this->assigneeId()->sameValueAs($userId)) {
+        if (! $this->assigneeId()->sameValueAs($userId)) {
             throw Exception\InvalidDeadline::userIsNotAssignee($userId, $this->assigneeId());
         }
 
@@ -123,67 +110,49 @@ final class Todo extends AggregateRoot implements Entity
     }
 
     /**
-     * @return null
      * @throws Exception\TodoNotExpired
      * @throws Exception\TodoNotOpen
      */
-    public function markAsExpired()
+    public function markAsExpired(): void
     {
         $status = TodoStatus::EXPIRED();
 
         if (! $this->status->is(TodoStatus::OPEN()) || $this->status->is(TodoStatus::EXPIRED())) {
-            throw Exception\TodoNotOpen::triedToExpire($this->status, $this);
+            throw Exception\TodoNotOpen::triedToExpire($this->status);
         }
 
         if ($this->deadline->isMet()) {
             throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
         }
 
-        $this->recordThat(TodoWasMarkedAsExpired::fromStatus($this->todoId, $this->status, $status));
+        $this->recordThat(TodoWasMarkedAsExpired::fromStatus($this->todoId, $this->status, $status, $this->assigneeId));
     }
 
     /**
-     * @return null
      * @throws Exception\TodoNotExpired
      */
-    public function unmarkAsExpired()
+    public function unmarkAsExpired(): void
     {
         $status = TodoStatus::OPEN();
 
-        if (!$this->isMarkedAsExpired()) {
+        if (! $this->isMarkedAsExpired()) {
             throw Exception\TodoNotExpired::withDeadline($this->deadline, $this);
         }
 
-        $this->recordThat(TodoWasUnmarkedAsExpired::fromStatus($this->todoId, $this->status, $status));
+        $this->recordThat(TodoWasUnmarkedAsExpired::fromStatus($this->todoId, $this->status, $status, $this->assigneeId));
     }
 
-    private function isExpired()
-    {
-        if (!$this->status->isOpen() || $this->status->isExpired()) {
-            return false;
-        }
-
-        if ($this->deadline->isMet()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    private function isMarkedAsExpired()
+    private function isMarkedAsExpired(): bool
     {
         return $this->status->is(TodoStatus::EXPIRED());
     }
 
     /**
-     * @param UserId $userId
-     * @param TodoReminder $reminder
-     * @return void
      * @throws Exception\InvalidReminder
      */
-    public function addReminder(UserId $userId, TodoReminder $reminder)
+    public function addReminder(UserId $userId, TodoReminder $reminder): void
     {
-        if (!$this->assigneeId()->sameValueAs($userId)) {
+        if (! $this->assigneeId()->sameValueAs($userId)) {
             throw Exception\InvalidReminder::userIsNotAssignee($userId, $this->assigneeId());
         }
 
@@ -199,20 +168,19 @@ final class Todo extends AggregateRoot implements Entity
     }
 
     /**
-     * @param TodoReminder $reminder
      * @throws Exception\InvalidReminder
      */
-    public function remindAssignee(TodoReminder $reminder)
+    public function remindAssignee(TodoReminder $reminder): void
     {
         if ($this->status->is(TodoStatus::DONE())) {
             throw Exception\TodoNotOpen::triedToAddReminder($reminder, $this->status);
         }
 
-        if (!$this->reminder->sameValueAs($reminder)) {
+        if (! $this->reminder->sameValueAs($reminder)) {
             throw Exception\InvalidReminder::reminderNotCurrent($this->reminder, $reminder);
         }
 
-        if (!$this->reminder->isOpen()) {
+        if (! $this->reminder->isOpen()) {
             throw Exception\InvalidReminder::alreadyReminded();
         }
 
@@ -223,75 +191,51 @@ final class Todo extends AggregateRoot implements Entity
         $this->recordThat(TodoAssigneeWasReminded::forAssignee($this->todoId, $this->assigneeId, $reminder->close()));
     }
 
-    public function reopenTodo()
+    public function reopenTodo(): void
     {
-        if (!$this->status->isDone()) {
+        if (! $this->status->isDone()) {
             throw Exception\CannotReopenTodo::notMarkedDone($this);
         }
 
-        $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::OPEN()));
+        $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::OPEN(), $this->assigneeId));
     }
 
-    /**
-     * @return \DateTimeImmutable
-     */
-    public function deadline()
+    public function deadline(): ?\DateTimeImmutable
     {
         return $this->deadline;
     }
 
-    /**
-     * @return TodoReminder
-     */
-    public function reminder()
+    public function reminder(): ?TodoReminder
     {
         return $this->reminder;
     }
 
-    /**
-     * @return bool
-     */
-    public function assigneeWasReminded()
+    public function assigneeWasReminded(): bool
     {
         return $this->reminded;
     }
 
-    /**
-     * @return TodoId
-     */
-    public function todoId()
+    public function todoId(): TodoId
     {
         return $this->todoId;
     }
 
-    /**
-     * @return string
-     */
-    public function text()
+    public function text(): TodoText
     {
         return $this->text;
     }
 
-    /**
-     * @return UserId
-     */
-    public function assigneeId()
+    public function assigneeId(): UserId
     {
         return $this->assigneeId;
     }
 
-    /**
-     * @return TodoStatus
-     */
-    public function status()
+    public function status(): TodoStatus
     {
         return $this->status;
     }
 
-    /**
-     * @param TodoWasPosted $event
-     */
-    protected function whenTodoWasPosted(TodoWasPosted $event)
+    protected function whenTodoWasPosted(TodoWasPosted $event): void
     {
         $this->todoId = $event->todoId();
         $this->assigneeId = $event->assigneeId();
@@ -299,10 +243,7 @@ final class Todo extends AggregateRoot implements Entity
         $this->status = $event->todoStatus();
     }
 
-    /**
-     * @param TodoWasMarkedAsDone $event
-     */
-    protected function whenTodoWasMarkedAsDone(TodoWasMarkedAsDone $event)
+    protected function whenTodoWasMarkedAsDone(TodoWasMarkedAsDone $event): void
     {
         $this->status = $event->newStatus();
     }
@@ -315,78 +256,61 @@ final class Todo extends AggregateRoot implements Entity
         $this->status = $event->newStatus();
     }
 
-    /**
-     * @param TodoWasUnmarkedAsExpired $event
-     */
-    protected function whenTodoWasUnmarkedAsExpired(TodoWasUnmarkedAsExpired $event)
+    protected function whenTodoWasUnmarkedAsExpired(TodoWasUnmarkedAsExpired $event): void
     {
         $this->status = $event->newStatus();
     }
 
-    /**
-     * @param TodoWasReopened $event
-     */
-    protected function whenTodoWasReopened(TodoWasReopened $event)
+    protected function whenTodoWasReopened(TodoWasReopened $event): void
     {
         $this->status = $event->status();
     }
 
-    /**
-     * @param DeadlineWasAddedToTodo $event
-     * @return void
-     */
-    protected function whenDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event)
+    protected function whenDeadlineWasAddedToTodo(DeadlineWasAddedToTodo $event): void
     {
         $this->deadline = $event->deadline();
     }
 
-    /**
-     * @param ReminderWasAddedToTodo $event
-     * @return void
-     */
-    protected function whenReminderWasAddedToTodo(ReminderWasAddedToTodo $event)
+    protected function whenReminderWasAddedToTodo(ReminderWasAddedToTodo $event): void
     {
         $this->reminder = $event->reminder();
     }
 
-    /**
-     * @param TodoAssigneeWasReminded $event
-     * @return void
-     */
-    protected function whenTodoAssigneeWasReminded(TodoAssigneeWasReminded $event)
+    protected function whenTodoAssigneeWasReminded(TodoAssigneeWasReminded $event): void
     {
         $this->reminder = $event->reminder();
     }
 
-    /**
-     * @return string representation of the unique identifier of the aggregate root
-     */
-    protected function aggregateId()
+    protected function aggregateId(): string
     {
         return $this->todoId->toString();
     }
 
-    /**
-     * @param string $text
-     * @throws Exception\InvalidText
-     */
-    private function assertText($text)
+    public function sameIdentityAs(Entity $other): bool
     {
-        try {
-            Assertion::string($text);
-            Assertion::minLength($text, 3);
-        } catch (\Exception $e) {
-            throw Exception\InvalidText::reason($e->getMessage());
-        }
+        return get_class($this) === get_class($other) && $this->todoId->sameValueAs($other->todoId);
     }
 
     /**
-     * @param Entity $other
-     *
-     * @return bool
+     * Apply given event
      */
-    public function sameIdentityAs(Entity $other)
+    protected function apply(AggregateChanged $e): void
     {
-        return get_class($this) === get_class($other) && $this->todoId->sameValueAs($other->todoId);
+        $handler = $this->determineEventHandlerMethodFor($e);
+
+        if (! method_exists($this, $handler)) {
+            throw new \RuntimeException(sprintf(
+                'Missing event handler method %s for aggregate root %s',
+                $handler,
+                get_class($this)
+            ));
+        }
+
+        $this->{$handler}($e);
+    }
+
+    protected function determineEventHandlerMethodFor(AggregateChanged $e): string
+    {
+        return 'when' . implode(array_slice(explode('\\', get_class($e)), -1));
     }
 }

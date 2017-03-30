@@ -1,12 +1,14 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 /**
  * This script creates NUMBER_OF_USERS and then it performs NUMBER_OF_TODO_PER_USER
@@ -28,40 +30,39 @@ namespace {
     // Setup autoloading
     require 'vendor/autoload.php';
 
-
     function getUserName($pos)
     {
         //top 10 taken from: http://www.beliebte-vornamen.de/jahrgang/j2013/top500-2013
         static $names = [
-            'Mia','Ben','Emma','Luca','Hannah','Paul','Sofia','Jonas','Anna','Finn','Lea','Leon','Emilia',
-            'Luis','Marie','Lukas','Lena','Maximilian','Leonie','Felix',
+            'Mia', 'Ben', 'Emma', 'Luca', 'Hannah', 'Paul', 'Sofia', 'Jonas', 'Anna', 'Finn', 'Lea', 'Leon', 'Emilia',
+            'Luis', 'Marie', 'Lukas', 'Lena', 'Maximilian', 'Leonie', 'Felix',
         ];
 
         $factor = 0;
         if ($pos > 20) {
             $factor = floor($pos / 20);
             $pos = $pos - (20 * $factor);
-            if (!$pos) {
+            if (! $pos) {
                 $pos = 20;
                 $factor--;
             }
         }
 
-        $index = $pos-1;
+        $index = $pos - 1;
 
-        return $factor > 0? $names[$index].($factor+1) : $names[$index];
+        return $factor > 0 ? $names[$index].($factor + 1) : $names[$index];
     }
 
     function randTodoText()
     {
         static $texts = [
-            'Start reading a new book','Contribute to prooph','Shutdown PC and go out','Try prooph/event-store',
-            'Learn more about DDD','Work on a proophessor-do exercise','Say hello in prooph chat',
-            'Integrate prooph components in project','Try async messaging','Prepare slides for a talk',
-            'Submit idea for a new component to prooph wish list','Try prooph/service-bus','Buy some milk',
-            'Analyse infrastructure to identify bottlenecks','Thank people at prooph for the great work',
-            'Read something about CQRS','Drink a beer with a friend','Help people who need support',
-            'Tackle complex problems with DDD and event sourcing','Visit family','Tweet about playing with prooph components',
+            'Start reading a new book', 'Contribute to prooph', 'Shutdown PC and go out', 'Try prooph/event-store',
+            'Learn more about DDD', 'Work on a proophessor-do exercise', 'Say hello in prooph chat',
+            'Integrate prooph components in project', 'Try async messaging', 'Prepare slides for a talk',
+            'Submit idea for a new component to prooph wish list', 'Try prooph/service-bus', 'Buy some milk',
+            'Analyse infrastructure to identify bottlenecks', 'Thank people at prooph for the great work',
+            'Read something about CQRS', 'Drink a beer with a friend', 'Help people who need support',
+            'Tackle complex problems with DDD and event sourcing', 'Visit family', 'Tweet about playing with prooph components',
         ];
 
         $textCount = count($texts);
@@ -88,14 +89,14 @@ namespace {
 
     $stopWatch->start('generate_model');
 
-    for ($i=1;$i<=NUMBER_OF_USERS;$i++) {
+    for ($i = 1;$i <= NUMBER_OF_USERS;$i++) {
         $userId = UserId::generate();
         $username = getUserName($i);
         $email = $username . '@acme.com';
 
         $commandBus->dispatch(RegisterUser::withData($userId->toString(), $username, $email));
 
-        for ($j=0;$j<NUMBER_OF_TODO_PER_USER;$j++) {
+        for ($j = 0;$j < NUMBER_OF_TODO_PER_USER;$j++) {
             $todoId = TodoId::generate();
 
             $commandBus->dispatch(PostTodo::forUser($userId->toString(), randTodoText(), $todoId->toString()));
@@ -103,22 +104,22 @@ namespace {
             $openTodos[] = $todoId->toString();
         }
 
-        echo "User: " . $username . "(".$userId->toString().") was registered\n";
+        echo 'User: ' . $username . '('.$userId->toString().") was registered\n";
     }
 
     $generatedEvent = $stopWatch->stop('generate_model');
 
     echo "\nModel generated in: " . $generatedEvent->getDuration() . " ms\n";
-    echo "Command execution average: " . calcCommandAverage($generatedEvent->getDuration()) . " ms\n";
+    echo 'Command execution average: ' . calcCommandAverage($generatedEvent->getDuration()) . " ms\n";
     echo "\nGoing to close todo randomly now\n";
 
     foreach ($openTodos as $openTodoId) {
         $close = rand(0, 1);
 
         if ($close) {
-            $commandBus->dispatch(MarkTodoAsDone::forTodo($openTodoId));
+            $commandBus->dispatch(MarkTodoAsDone::with($openTodoId));
         }
     }
 
-    echo "Done! Check out proophessor-do";
+    echo 'Done! Check out proophessor-do';
 }

@@ -1,32 +1,23 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2016 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2016 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Model\Todo\Exception;
 
 use Prooph\ProophessorDo\Model\Todo\TodoReminder;
 use Prooph\ProophessorDo\Model\User\UserId;
 
-/**
- * Class InvalidReminder
- *
- * @package Prooph\ProophessorDo\Model\Todo\Exception
- * @author Roman Sachse <r.sachse@ipark-media.de>
- */
 final class InvalidReminder extends \Exception
 {
-    /**
-     * @param UserId $user
-     * @param UserId $assigneeId
-     * @return InvalidReminder
-     */
-    public static function userIsNotAssignee(UserId $user, UserId $assigneeId)
+    public static function userIsNotAssignee(UserId $user, UserId $assigneeId): InvalidReminder
     {
         return new self(sprintf(
             'User %s tried to add a reminder to the todo owned by %s',
@@ -35,12 +26,7 @@ final class InvalidReminder extends \Exception
         ));
     }
 
-
-    /**
-     * @param TodoReminder $reminder
-     * @return InvalidReminder
-     */
-    public static function reminderInThePast(TodoReminder $reminder)
+    public static function reminderInThePast(TodoReminder $reminder): InvalidReminder
     {
         return new self(sprintf(
             'Provided reminder %s is in the past',
@@ -48,11 +34,7 @@ final class InvalidReminder extends \Exception
         ));
     }
 
-    /**
-     * @param TodoReminder $reminder
-     * @return InvalidReminder
-     */
-    public static function reminderInTheFuture(TodoReminder $reminder)
+    public static function reminderInTheFuture(TodoReminder $reminder): InvalidReminder
     {
         return new self(sprintf(
             'Provided reminder %s is in the future',
@@ -60,20 +42,12 @@ final class InvalidReminder extends \Exception
         ));
     }
 
-    /**
-     * @return InvalidReminder
-     */
-    public static function alreadyReminded()
+    public static function alreadyReminded(): InvalidReminder
     {
         return new self('The assignee was already reminded.');
     }
 
-    /**
-     * @param TodoReminder $expected
-     * @param TodoReminder $actual
-     * @return InvalidReminder
-     */
-    public static function reminderNotCurrent(TodoReminder $expected, TodoReminder $actual)
+    public static function reminderNotCurrent(TodoReminder $expected, TodoReminder $actual): InvalidReminder
     {
         return new self(sprintf(
             'Notification for reminder %s can not be send, because %s is the current one.',
