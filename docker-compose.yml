@@ -37,6 +37,8 @@ services:
     depends_on:
       - mysql
       - mongodb
+    environment:
+      - PROOPH_ENV=development
 
   projection_todo:
     image: prooph/php:7.1-cli
