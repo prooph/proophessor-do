@@ -12,12 +12,14 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\App\Action;
 
-use Psr\Http\Message\RequestInterface;
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class UserRegistration
+class UserRegistration implements MiddlewareInterface
 {
     /**
      * @var TemplateRendererInterface
@@ -29,7 +31,7 @@ class UserRegistration
         $this->templates = $templates;
     }
 
-    public function __invoke(RequestInterface $request, ResponseInterface $response, callable $next): ResponseInterface
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
         return new HtmlResponse(
             $this->templates->render('page::user-registration')
