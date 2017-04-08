@@ -21,6 +21,7 @@ $app->get('/user-todo-list/{user_id}/new-todo', \Prooph\ProophessorDo\App\Action
     ]);
 $app->post('/api/commands/register-user', [
     \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+    \Prooph\ProophessorDo\Middleware\JsonError::class,
     \Prooph\Psr7Middleware\CommandMiddleware::class,
 ], 'command::register-user')
     ->setOptions([
@@ -30,6 +31,7 @@ $app->post('/api/commands/register-user', [
     ]);
 $app->post('/api/commands/post-todo', [
     \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+    \Prooph\ProophessorDo\Middleware\JsonError::class,
     \Prooph\Psr7Middleware\CommandMiddleware::class,
 ], 'command::post-todo')
     ->setOptions([
@@ -39,6 +41,7 @@ $app->post('/api/commands/post-todo', [
     ]);
 $app->post('/api/commands/mark-todo-as-done', [
     \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+    \Prooph\ProophessorDo\Middleware\JsonError::class,
     \Prooph\Psr7Middleware\CommandMiddleware::class,
 ], 'command::mark-todo-as-done')
     ->setOptions([
@@ -48,6 +51,7 @@ $app->post('/api/commands/mark-todo-as-done', [
     ]);
 $app->post('/api/commands/reopen-todo', [
     \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+    \Prooph\ProophessorDo\Middleware\JsonError::class,
     \Prooph\Psr7Middleware\CommandMiddleware::class,
 ], 'command::reopen-todo')
     ->setOptions([
@@ -57,6 +61,7 @@ $app->post('/api/commands/reopen-todo', [
     ]);
 $app->post('/api/commands/add-deadline-to-todo', [
     \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+    \Prooph\ProophessorDo\Middleware\JsonError::class,
     \Prooph\Psr7Middleware\CommandMiddleware::class,
 ], 'command::add-deadline-to-todo')
     ->setOptions([
@@ -66,6 +71,7 @@ $app->post('/api/commands/add-deadline-to-todo', [
     ]);
 $app->post('/api/commands/add-reminder-to-todo', [
     \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+    \Prooph\ProophessorDo\Middleware\JsonError::class,
     \Prooph\Psr7Middleware\CommandMiddleware::class,
 ], 'command::add-reminder-to-todo')
     ->setOptions([
@@ -75,6 +81,7 @@ $app->post('/api/commands/add-reminder-to-todo', [
     ]);
 $app->post('/api/commands/mark-todo-as-expired', [
     \Prooph\ProophessorDo\Middleware\JsonPayload::class,
+    \Prooph\ProophessorDo\Middleware\JsonError::class,
     \Prooph\Psr7Middleware\CommandMiddleware::class,
 ], 'command::mark-todo-as-expired')
     ->setOptions([
