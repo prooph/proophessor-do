@@ -18,7 +18,6 @@ use Zend\View;
 return [
     'dependencies' => [
         'factories' => [
-            'Zend\Expressive\FinalHandler' => Expressive\Container\TemplatedErrorHandlerFactory::class,
             Expressive\Template\TemplateRendererInterface::class => Expressive\ZendView\ZendViewRendererFactory::class,
             View\HelperPluginManager::class => Expressive\ZendView\HelperPluginManagerFactory::class,
             //Custom view plugins
