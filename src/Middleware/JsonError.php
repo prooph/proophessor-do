@@ -12,33 +12,32 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Middleware;
 
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
-use Zend\Stratigility\ErrorMiddlewareInterface;
+use Fig\Http\Message\StatusCodeInterface;
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Zend\Diactoros\Response\JsonResponse;
 
 /**
  * Error middleware to handle json requests
  */
-final class JsonError implements ErrorMiddlewareInterface
+final class JsonError implements MiddlewareInterface
 {
-    public function __invoke($error, Request $request, Response $response, callable $out = null)
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
-        $contentType = trim($request->getHeaderLine('Content-Type'));
+        try {
+            return $delegate->process($request);
+        } catch (\Throwable $e) {
+            $contentType = trim($request->getHeaderLine('Content-Type'));
 
-        if (0 === strpos($contentType, 'application/json')) {
-            $response = $response->withStatus(500);
+            if (0 === mb_strpos($contentType, 'application/json')) {
+                $data = 'development' === getenv('PROOPH_ENV')
+                    ? ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]
+                    : ['message' => 'Server Error'];
 
-            if (getenv('PROOPH_ENV') === 'development') {
-                $response->getBody()->write(json_encode(['message' => $error->getMessage(), 'trace' => $error->getTraceAsString()]));
-            } else {
-                $response->getBody()->write(json_encode(['message' => 'Server Error']));
+                return new JsonResponse($data, StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR);
             }
-
-            return $response;
-        }
-
-        if ($out) {
-            return $out($request, $response, $error);
         }
     }
 }
