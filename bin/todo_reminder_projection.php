@@ -34,7 +34,7 @@ $projection
     ->fromStream('event_stream')
     ->when([
         ReminderWasAddedToTodo::class => function ($state, ReminderWasAddedToTodo $event) {
-            $this->readModel()->stack('delete', [
+            $this->readModel()->stack('remove', [
                 'todo_id' => $event->todoId()->toString(),
             ]);
 
