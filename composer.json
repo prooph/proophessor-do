@@ -32,7 +32,7 @@
     "homepage": "http://getprooph.org/",
     "require": {
         "php": "^7.1",
-        "aura/router" : "^2.3",
+        "aura/router" : "^3.0",
         "doctrine/dbal": "^2.5.5",
         "marc-mabe/php-enum": "^2.3.1",
         "prooph/common" : "^4.1.0",
@@ -40,21 +40,22 @@
         "prooph/event-store" : "^7.0",
         "prooph/event-store-bus-bridge" : "^3.0",
         "prooph/pdo-event-store": "^1.0",
-        "prooph/psr7-middleware": "0.4.x-dev",
+        "prooph/psr7-middleware": "^0.5",
         "prooph/service-bus" : "^6.0",
         "roave/security-advisories": "dev-master",
         "sandrokeil/interop-config": "^2.0.1",
         "zendframework/zend-config": "^2.6",
-        "zendframework/zend-expressive" : "^1.0.3",
-        "zendframework/zend-expressive-aurarouter": "^1.0",
-        "zendframework/zend-expressive-helpers": "^2.1",
+        "zendframework/zend-expressive" : "^2.0",
+        "zendframework/zend-expressive-aurarouter": "^2.0",
+        "zendframework/zend-expressive-helpers": "^3.0",
         "zendframework/zend-expressive-zendviewrenderer": "^1.1.0",
         "zendframework/zend-filter": "^2.7.1",
         "zendframework/zend-servicemanager" : "^3.1.1",
         "zendframework/zend-stdlib": "^3.1.0",
         "zendframework/zend-mail": "^2.7.1",
         "zendframework/zend-validator": "^2.8.1",
-        "psr/container": "^1.0"
+        "psr/container": "^1.0",
+        "zendframework/zend-config-aggregator": "^0.2.0"
     },
     "require-dev" : {
         "prooph/php-cs-fixer-config": "^0.1.1",
@@ -80,5 +81,10 @@
         "psr-4" : {
             "ProophTest\\ProophessorDo\\": "tests/"
         }
+    },
+    "scripts": {
+        "development-disable": "zf-development-mode disable",
+        "development-enable": "zf-development-mode enable",
+        "development-status": "zf-development-mode status"
     }
 }
