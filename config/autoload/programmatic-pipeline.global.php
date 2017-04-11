@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * Expressive programmatic pipeline configuration
  */
@@ -39,6 +42,6 @@ return [
     ],
     'zend-expressive' => [
         'programmatic_pipeline' => true,
-        'raise_throwables'      => true,
+        'raise_throwables' => true,
     ],
 ];
