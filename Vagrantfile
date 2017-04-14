@@ -3,7 +3,7 @@
 
 # global configuration
 VAGRANTFILE_API_VERSION = "2"
-VAGRANT_BOX = "ubuntu/trusty64"
+VAGRANT_BOX = "ubuntu/xenial64"
 VAGRANT_BOX_MEMORY = 2048
 VIRTUAL_BOX_NAME = "proophessordo"
 
