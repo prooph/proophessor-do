@@ -20,9 +20,11 @@ return [
                 'message_factory' => \Prooph\Common\Messaging\FQCNMessageFactory::class,
             ],
             'command' => [
+                'response_strategy' => \Prooph\ProophessorDo\Response\JsonResponse::class,
                 'message_factory' => \Prooph\Common\Messaging\FQCNMessageFactory::class,
             ],
             'event' => [
+                'response_strategy' => \Prooph\ProophessorDo\Response\JsonResponse::class,
                 'message_factory' => \Prooph\Common\Messaging\FQCNMessageFactory::class,
             ],
             'message' => [

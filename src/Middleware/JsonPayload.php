@@ -12,12 +12,14 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Middleware;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class JsonPayload
+class JsonPayload implements MiddlewareInterface
 {
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next)
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
         $contentType = trim($request->getHeaderLine('Content-Type'));
 
@@ -38,6 +40,6 @@ class JsonPayload
             $request = $request->withParsedBody(null === $payload ? [] : $payload);
         }
 
-        return $next($request, $response);
+        return $delegate->process($request);
     }
 }

@@ -12,17 +12,18 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo;
 
-use Whoops;
-use Zend\Expressive;
+use Whoops\Handler\PrettyPageHandler;
+use Zend\Expressive\Container;
+use Zend\Expressive\Middleware\ErrorResponseGenerator;
 
 return [
     'dependencies' => [
         'invokables' => [
-            'Zend\Expressive\Whoops' => Whoops\Run::class,
-            'Zend\Expressive\WhoopsPageHandler' => Whoops\Handler\PrettyPageHandler::class,
+            'Zend\Expressive\WhoopsPageHandler' => PrettyPageHandler::class,
         ],
         'factories' => [
-            'Zend\Expressive\FinalHandler' => Expressive\Container\WhoopsErrorHandlerFactory::class,
+            ErrorResponseGenerator::class => Container\WhoopsErrorResponseGeneratorFactory::class,
+            'Zend\Expressive\Whoops' => Container\WhoopsFactory::class,
         ],
     ],
 

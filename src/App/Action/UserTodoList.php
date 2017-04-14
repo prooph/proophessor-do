@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\App\Action;
 
+use Interop\Http\ServerMiddleware\DelegateInterface;
+use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Prooph\ProophessorDo\Model\Todo\Query\GetTodosByAssigneeId;
 use Prooph\ProophessorDo\Model\User\Query\GetUserById;
 use Prooph\ServiceBus\QueryBus;
@@ -20,7 +22,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class UserTodoList
+class UserTodoList implements MiddlewareInterface
 {
     /**
      * @var TemplateRendererInterface
@@ -38,7 +40,7 @@ class UserTodoList
         $this->queryBus = $queryBus;
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next): ResponseInterface
+    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
     {
         $userId = $request->getAttribute('user_id');
 

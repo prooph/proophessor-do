@@ -8,4 +8,5 @@ nbproject
 .project
 .settings
 composer.lock
+config/development.config.php
 vendor
