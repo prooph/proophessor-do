@@ -47,7 +47,7 @@ class TodoFinder
         );
     }
 
-    public function findById(string $todoId): \stdClass
+    public function findById(string $todoId): ?\stdClass
     {
         $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s where id = :todo_id', Table::TODO));
         $stmt->bindValue('todo_id', $todoId);
