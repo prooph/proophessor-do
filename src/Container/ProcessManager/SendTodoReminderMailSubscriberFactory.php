@@ -13,19 +13,15 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo\Container\ProcessManager;
 
 use Prooph\ProophessorDo\ProcessManager\SendTodoReminderMailProcessManager;
-use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
-use Prooph\ProophessorDo\Projection\User\UserFinder;
+use Prooph\ServiceBus\CommandBus;
 use Psr\Container\ContainerInterface;
-use Zend\Mail\Transport\TransportInterface;
 
 class SendTodoReminderMailSubscriberFactory
 {
     public function __invoke(ContainerInterface $container): SendTodoReminderMailProcessManager
     {
         return new SendTodoReminderMailProcessManager(
-            $container->get(UserFinder::class),
-            $container->get(TodoFinder::class),
-            $container->get(TransportInterface::class)
+            $container->get(CommandBus::class)
         );
     }
 }
