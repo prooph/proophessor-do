@@ -48,7 +48,7 @@ final class Todo extends AggregateRoot implements Entity
     private $status;
 
     /**
-     * @var \DateTimeImmutable
+     * @var null|TodoDeadline
      */
     private $deadline;
 
@@ -200,7 +200,7 @@ final class Todo extends AggregateRoot implements Entity
         $this->recordThat(TodoWasReopened::withStatus($this->todoId, TodoStatus::OPEN(), $this->assigneeId));
     }
 
-    public function deadline(): ?\DateTimeImmutable
+    public function deadline(): ?TodoDeadline
     {
         return $this->deadline;
     }
