@@ -38,20 +38,15 @@ class SendTodoReminderMailHandler
 
     public function __invoke(SendTodoReminderMail $command): void
     {
-        $user = null;
-        $this->queryBus->dispatch(new GetUserById($command->userId()->toString()))
-            ->then(
-                function ($result) use (&$user) {
-                    $user = $result;
-                }
-            );
-        $todo = null;
-        $this->queryBus->dispatch(new GetTodoById($command->todoId()->toString()))
-            ->then(
-                function ($result) use (&$todo) {
-                    $todo = $result;
-                }
-            );
+        $user = $this->getUser($command->userId()->toString());
+        if (! $user) {
+            return;
+        }
+
+        $todo = $this->getTodo($command->todoId()->toString());
+        if (! $todo) {
+            return;
+        }
 
         $mail = new Mail\Message();
         $mail->setBody("Hello {$user->name}. This a reminder for '{$todo->text}'. Don't be lazy!");
@@ -60,5 +55,33 @@ class SendTodoReminderMailHandler
         $mail->setSubject('Proophessor-do Todo Reminder');
 
         $this->mailer->send($mail);
+    }
+
+    private function getUser(string $userId): ?\stdClass
+    {
+        $user = null;
+        $this->queryBus
+            ->dispatch(new GetUserById($userId))
+            ->then(
+                function (\stdClass $result = null) use (&$user) {
+                    $user = $result;
+                }
+            );
+
+        return $user;
+    }
+
+    private function getTodo(string $todoId): ?\stdClass
+    {
+        $user = null;
+        $this->queryBus
+            ->dispatch(new GetTodoById($todoId))
+            ->then(
+                function (\stdClass $result = null) use (&$todo) {
+                    $todo = $result;
+                }
+            );
+
+        return $user;
     }
 }

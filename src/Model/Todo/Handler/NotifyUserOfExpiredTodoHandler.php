@@ -41,20 +41,15 @@ class NotifyUserOfExpiredTodoHandler
 
     public function __invoke(NotifyUserOfExpiredTodo $command): void
     {
-        $todo = null;
-        $this->queryBus->dispatch(new GetTodoById($command->todoId()->toString()))
-            ->then(
-                function ($result) use (&$todo) {
-                    $todo = $result;
-                }
-            );
-        $user = null;
-        $this->queryBus->dispatch(new GetUserById($todo->assignee_id))
-            ->then(
-                function ($result) use (&$user) {
-                    $user = $result;
-                }
-            );
+        $todo = $this->getTodo($command->todoId()->toString());
+        if (! $todo) {
+            return;
+        }
+
+        $user = $this->getUser($todo->assignee_id);
+        if (! $user) {
+            return;
+        }
 
         $message = sprintf(
             'Hi %s! Just a heads up: your todo `%s` has expired on %s.',
@@ -71,5 +66,33 @@ class NotifyUserOfExpiredTodoHandler
         $mail->setSubject('Proophessor-do Todo expired');
 
         $this->mailer->send($mail);
+    }
+
+    private function getUser(string $userId): ?\stdClass
+    {
+        $user = null;
+        $this->queryBus
+            ->dispatch(new GetUserById($userId))
+            ->then(
+                function (\stdClass $result = null) use (&$user) {
+                    $user = $result;
+                }
+            );
+
+        return $user;
+    }
+
+    private function getTodo(string $todoId): ?\stdClass
+    {
+        $user = null;
+        $this->queryBus
+            ->dispatch(new GetTodoById($todoId))
+            ->then(
+                function (\stdClass $result = null) use (&$todo) {
+                    $todo = $result;
+                }
+            );
+
+        return $user;
     }
 }
