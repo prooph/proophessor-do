@@ -36,6 +36,7 @@ final class TodoWasReopened extends AggregateChanged
 
     public static function withStatus(TodoId $todoId, TodoStatus $status, UserId $assigneeId): TodoWasReopened
     {
+        /** @var self $event */
         $event = self::occur($todoId->toString(), [
             'status' => $status->toString(),
             'assignee_id' => $assigneeId->toString(),

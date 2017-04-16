@@ -36,6 +36,7 @@ final class TodoAssigneeWasReminded extends AggregateChanged
 
     public static function forAssignee(TodoId $todoId, UserId $userId, TodoReminder $reminder): TodoAssigneeWasReminded
     {
+        /** @var self $event */
         $event = self::occur($todoId->toString(), [
             'user_id' => $userId->toString(),
             'reminder' => $reminder->toString(),

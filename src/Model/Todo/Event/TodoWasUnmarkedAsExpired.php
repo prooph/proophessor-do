@@ -41,6 +41,7 @@ final class TodoWasUnmarkedAsExpired extends AggregateChanged
 
     public static function fromStatus(TodoId $todoId, TodoStatus $oldStatus, TodoStatus $newStatus, UserId $assigneeId): TodoWasUnmarkedAsExpired
     {
+        /** @var self $event */
         $event = self::occur($todoId->toString(), [
             'old_status' => $oldStatus->toString(),
             'new_status' => $newStatus->toString(),

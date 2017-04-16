@@ -37,6 +37,7 @@ final class ReminderWasAddedToTodo extends AggregateChanged
 
     public static function byUserToDate(TodoId $todoId, UserId $userId, TodoReminder $reminder): ReminderWasAddedToTodo
     {
+        /** @var self $event */
         $event = self::occur($todoId->toString(), [
             'todo_id' => $todoId->toString(),
             'user_id' => $userId->toString(),
