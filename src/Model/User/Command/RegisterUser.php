@@ -28,9 +28,9 @@ final class RegisterUser extends Command implements PayloadConstructable
     public static function withData(string $userId, string $name, string $email): RegisterUser
     {
         return new self([
-            'user_id' => (string) $userId,
-            'name' => (string) $name,
-            'email' => (string) $email,
+            'user_id' => $userId,
+            'name' => $name,
+            'email' => $email,
         ]);
     }
 
