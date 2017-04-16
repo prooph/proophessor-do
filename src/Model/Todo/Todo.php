@@ -193,7 +193,7 @@ final class Todo extends AggregateRoot implements Entity
 
     public function reopenTodo(): void
     {
-        if (! $this->status->isDone()) {
+        if (! $this->status->is(TodoStatus::DONE())) {
             throw Exception\CannotReopenTodo::notMarkedDone($this);
         }
 
