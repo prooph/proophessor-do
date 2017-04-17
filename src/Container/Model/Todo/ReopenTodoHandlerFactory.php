@@ -18,7 +18,7 @@ use Psr\Container\ContainerInterface;
 
 class ReopenTodoHandlerFactory
 {
-    public function __invoke(ContainerInterface $container): ReopenTodoHandlerFactory
+    public function __invoke(ContainerInterface $container): ReopenTodoHandler
     {
         return new ReopenTodoHandler(
             $container->get(TodoList::class)

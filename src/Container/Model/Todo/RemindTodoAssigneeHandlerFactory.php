@@ -18,7 +18,7 @@ use Psr\Container\ContainerInterface;
 
 class RemindTodoAssigneeHandlerFactory
 {
-    public function __invoke(ContainerInterface $container): RemindTodoAssigneeHandlerFactory
+    public function __invoke(ContainerInterface $container): RemindTodoAssigneeHandler
     {
         return new RemindTodoAssigneeHandler($container->get(TodoList::class));
     }

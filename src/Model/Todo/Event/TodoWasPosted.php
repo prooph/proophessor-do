@@ -37,6 +37,7 @@ final class TodoWasPosted extends AggregateChanged
 
     public static function byUser(UserId $assigneeId, TodoText $text, TodoId $todoId, TodoStatus $todoStatus): TodoWasPosted
     {
+        /** @var self $event */
         $event = self::occur($todoId->toString(), [
             'assignee_id' => $assigneeId->toString(),
             'text' => $text->toString(),
