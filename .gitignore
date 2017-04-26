@@ -7,6 +7,5 @@ nbproject
 .php_cs.cache
 .project
 .settings
-composer.lock
 config/development.config.php
 vendor
