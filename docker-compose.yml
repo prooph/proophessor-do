@@ -80,7 +80,7 @@ services:
 #    depends_on:
 #      - mysql
 #      - mongodb
-#    command: php /app/bin/todo_projection.php
+#    command: php /app/bin/todo_snapshotter.php
 #
 #  snapshotter_user:
 #    image: prooph/php:7.1-cli
@@ -90,4 +90,4 @@ services:
 #    depends_on:
 #      - mysql
 #      - mongodb
-#    command: php /app/bin/user_projection.php
+#    command: php /app/bin/user_snapshotter.php
