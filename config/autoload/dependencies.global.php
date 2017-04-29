@@ -64,7 +64,7 @@ return [
             // Query
             Model\User\Handler\GetAllUsersHandler::class => Container\Model\User\GetAllUsersHandlerFactory::class,
             Model\User\Handler\GetUserByIdHandler::class => Container\Model\User\GetUserByIdHandlerFactory::class,
-            Model\Todo\Handler\GetTodoByIdHandler::class => Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
+            Model\Todo\Handler\GetTodoByIdHandler::class => Container\Model\Todo\GetTodoByIdHandlerFactory::class,
             Model\Todo\Handler\GetTodosByAssigneeIdHandler::class => Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
         ],
     ],
