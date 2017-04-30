@@ -73,7 +73,7 @@ class SendTodoReminderMailHandler
 
     private function getTodo(string $todoId): ?\stdClass
     {
-        $user = null;
+        $todo = null;
         $this->queryBus
             ->dispatch(new GetTodoById($todoId))
             ->then(
@@ -82,6 +82,6 @@ class SendTodoReminderMailHandler
                 }
             );
 
-        return $user;
+        return $todo;
     }
 }

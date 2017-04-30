@@ -52,6 +52,7 @@ return [
             Model\Todo\Handler\AddReminderToTodoHandler::class => Container\Model\Todo\AddReminderToTodoHandlerFactory::class,
             Model\Todo\Handler\MarkTodoAsExpiredHandler::class => Container\Model\Todo\MarkTodoAsExpiredHandlerFactory::class,
             Model\Todo\Handler\RemindTodoAssigneeHandler::class => Container\Model\Todo\RemindTodoAssigneeHandlerFactory::class,
+            Model\Todo\Handler\SendTodoReminderMailHandler::class => Container\Model\Todo\SendTodoReminderMailHandlerFactory::class,
             Model\Todo\TodoList::class => [AggregateRepositoryFactory::class, 'todo_list'],
             // Projections
             Projection\User\UserFinder::class => Container\Projection\User\UserFinderFactory::class,
@@ -63,7 +64,7 @@ return [
             // Query
             Model\User\Handler\GetAllUsersHandler::class => Container\Model\User\GetAllUsersHandlerFactory::class,
             Model\User\Handler\GetUserByIdHandler::class => Container\Model\User\GetUserByIdHandlerFactory::class,
-            Model\Todo\Handler\GetTodoByIdHandler::class => Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
+            Model\Todo\Handler\GetTodoByIdHandler::class => Container\Model\Todo\GetTodoByIdHandlerFactory::class,
             Model\Todo\Handler\GetTodosByAssigneeIdHandler::class => Container\Model\Todo\GetTodosByAssigneeIdHandlerFactory::class,
         ],
     ],

@@ -48,6 +48,6 @@ final class SendTodoReminderMail extends Command implements PayloadConstructable
         Assertion::keyExists($payload, 'todo_id');
         Assertion::uuid($payload['todo_id']);
 
-        parent::setPayload($payload);
+        $this->payload = $payload;
     }
 }

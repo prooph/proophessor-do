@@ -20,6 +20,7 @@ namespace {
     use Prooph\ProophessorDo\Model\Todo\TodoReminder;
     use Prooph\ProophessorDo\Projection\Todo\TodoReminderFinder;
     use Prooph\ServiceBus\CommandBus;
+    use Prooph\ServiceBus\Exception\CommandDispatchException;
 
     chdir(dirname(__DIR__));
 
@@ -40,10 +41,20 @@ namespace {
 
     foreach ($todoReminder as $reminder) {
         echo "Send reminder for Todo with id {$reminder->todo_id}.\n";
-        $commandBus->dispatch(
-            RemindTodoAssignee::forTodo(
-                TodoId::fromString($reminder->todo_id), TodoReminder::from($reminder->reminder, $reminder->status)
-            ));
+        try {
+            $commandBus->dispatch(
+                RemindTodoAssignee::forTodo(
+                    TodoId::fromString($reminder->todo_id), TodoReminder::from($reminder->reminder, $reminder->status)
+                ));
+        } catch (\Throwable $e) {
+            if ($e instanceof CommandDispatchException) {
+                $reason = $e->getPrevious()->getMessage();
+            } else {
+                $reason = $e->getMessage();
+            }
+
+            echo "Error processing reminder for Todo with id {$reminder->todo_id}. Reason was: {$reason}\n";
+        }
     }
 
     echo "Done!\n";
