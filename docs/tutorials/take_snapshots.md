@@ -1,5 +1,8 @@
 # Take Snapshots Tutorial
 
+## Outdated
+This tutorial is outdated and refers to older prooph version. With prooph/event-store v7 things have changed and there is a very easy mechanism available that treats snapshots as projections. Please see the new [reference implementation](https://github.com/prooph/proophessor-do/blob/master/bin/user_snapshotter.php).
+
 ## Configure Snapshot Store
 
 Before we actually take snapshots we need to install and configure this optional feature:
