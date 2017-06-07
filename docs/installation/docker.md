@@ -28,9 +28,12 @@ Install PHP dependencies via Composer
 
 ```bash
 $ docker run --rm -it --volume $(pwd):/app prooph/composer:7.1 install -o --prefer-dist
+
+# respectively Windows:
+$ docker run --rm -it --volume %cd%:/app prooph/composer:7.1 install -o --prefer-dist
 ```
 
-### Step 3: Configuration
+### Step 3 - Configure
 
 #### 3.1 Email sending (mandatory):
 
@@ -38,7 +41,7 @@ Copy `config/autoload/mail.local.php.dist` to `config/autoload/mail.local.php` a
 
 #### 3.2 Read model (mandatory):
 
-Copy `config/autoload/doctrine.local.php.dist` to `config/autoload/doctrine.local.php` and use following config for the default docker set up.
+Copy `config/autoload/doctrine.local.php.dist` to `config/autoload/doctrine.local.php` and use following config for the default docker set up:
 
 ```php
 return [
@@ -47,11 +50,11 @@ return [
         'connection' => [
             'default' => [
                 'driverClass' => 'Doctrine\DBAL\Driver\PDOMySql\Driver',
-                'host' => 'mysql', // <- Name of the mysql docker contaienr
+                'host' => 'mysql', // <- Name of the mysql docker container
                 'port' => '3306',
-                'user' => 'dev', // <- User configured in docker-compose.yml
-                'password' => 'dev', // <- Pwd configured in docker-compose.yml
-                'dbname' => 'todo',
+                'user' => 'dev', // <- User configured in docker-compose.yml via MYSQL_USER
+                'password' => 'dev', // <- Pwd configured in docker-compose.yml via MYSQL_PASSWORD
+                'dbname' => 'todo', // <- Db name configured in docker-compose.yml via MYSQL_DATABASE
                 'charset' => 'utf8',
                 'driverOptions' => [
                     1002 => "SET NAMES 'UTF8'"
@@ -62,10 +65,9 @@ return [
 ];
 ```
 
-
 #### 3.3 Event Store
 
-Copy `config/autoload/mysql_event_store.local.php.dist` to `config/autoload/mysql_event_store.local.php` and ajust the `pdo_connection` config.
+Copy `config/autoload/mysql_event_store.local.php.dist` to `config/autoload/mysql_event_store.local.php` and adjust the `pdo_connection` config.
 For the default docker set up you can use the same parameters as above:
 
 ```php
@@ -76,12 +78,12 @@ return [
     //...
         'pdo_connection' => [
             'default' => [
-                'schema' => 'mysql', // <- Name of the mysql docker contaienr
+                'schema' => 'mysql', // <- Name of the mysql docker container
                 'host' => 'mysql',
                 'port' => '3306',
-                'user' => 'dev', // <- User configured in docker-compose.yml
-                'password' => 'dev', // <- Pwd configured in docker-compose.yml
-                'dbname' => 'todo',
+                'user' => 'dev', // <- User configured in docker-compose.yml via MYSQL_USER
+                'password' => 'dev', // <- Pwd configured in docker-compose.yml via MYSQL_PASSWORD
+                'dbname' => 'todo', // <- Db name configured in docker-compose.yml via MYSQL_DATABASE
                 'charset' => 'utf8',
             ],
         ],
