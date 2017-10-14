@@ -63,7 +63,7 @@ A successfully merged pull request will add you to the HALL OF FAME!
 
 ## Support
 
-- Ask questions on [prooph-users](https://groups.google.com/forum/?hl=de#!forum/prooph) mailing list.
+- Ask questions on Stack Overflow tagged with [#prooph](https://stackoverflow.com/questions/tagged/prooph).
 - File issues at [https://github.com/prooph/proophessor-do/issues](https://github.com/prooph/proophessor-do/issues).
 - Say hello in the [prooph gitter](https://gitter.im/prooph/improoph) chat.
 
