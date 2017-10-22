@@ -47,7 +47,6 @@ A successfully merged pull request will add you to the HALL OF FAME!
 - [x] [Mark a todo as expired](https://github.com/prooph/proophessor-do/issues/75) - done by [Dranzd Viper](https://github.com/dranzd)
 - [x] [Notify assignee when todo deadline is expired](https://github.com/prooph/proophessor-do/issues/82) - done by [Michał Żukowski](https://github.com/mikemix)
 - [x] [Check that email address is unique](https://github.com/prooph/proophessor-do/issues/92) - done by [Lucas Courot](https://github.com/lucascourot)
-- [ ] [Notify assignee when reminder time is reached](https://github.com/prooph/proophessor-do/issues/130) - done by [your name here]
 - [ ] [Implement a dedicated event bus](https://github.com/prooph/proophessor-do/issues/131) to replay events as reminders and deadline notifications should not be sent to users again - done by [your name here]
 - [ ] [Allow user registration and sign in with Github](https://github.com/prooph/proophessor-do/issues/129)
 - more features will follow ...
