@@ -13,10 +13,10 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo\Middleware;
 
 use Fig\Http\Message\StatusCodeInterface;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
+use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
 use Zend\Diactoros\Response\JsonResponse;
 
 use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
