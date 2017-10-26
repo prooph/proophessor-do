@@ -13,21 +13,23 @@ declare(strict_types=1);
 namespace Prooph\ProophessorDo\Middleware;
 
 use Fig\Http\Message\StatusCodeInterface;
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
+use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
 use Zend\Diactoros\Response\JsonResponse;
+
+use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
 
 /**
  * Error middleware to handle json requests
  */
 final class JsonError implements MiddlewareInterface
 {
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
     {
         try {
-            return $delegate->process($request);
+            return $handler->{HANDLER_METHOD}($request);
         } catch (\Throwable $e) {
             $contentType = trim($request->getHeaderLine('Content-Type'));
 
