@@ -32,8 +32,16 @@ Copy `config/autoload/mail.local.php.dist` to `config/autoload/mail.local.php` a
 
  - Copy `config/autoload/mysql_event_store.local.php.dist` to `config/autoload/mysql_event_store.local.php` and make your adjustments.
  - Execute the scripts located at:
-   - `vendor/prooph/pdo-event-store/scripts/mysql/01_event_streams_table.sql`
-   - `vendor/prooph/pdo-event-store/scripts/mysql/02_projections_table.sql`
+  - mariadb:
+     - `vendor/prooph/pdo-event-store/scripts/mariadb/01_event_streams_table.sql`
+     - `vendor/prooph/pdo-event-store/scripts/mariadb/02_projections_table.sql`
+  - mysql:
+     - `vendor/prooph/pdo-event-store/scripts/mysql/01_event_streams_table.sql`
+     - `vendor/prooph/pdo-event-store/scripts/mysql/02_projections_table.sql`
+  - postgres:
+     - `vendor/prooph/pdo-event-store/scripts/postgres/01_event_streams_table.sql`
+     - `vendor/prooph/pdo-event-store/scripts/postgres/02_projections_table.sql`
+   
  - Create empty stream: Run `php scripts/create_event_stream.php`
 
 ### Step 4 - Start the backend scripts
