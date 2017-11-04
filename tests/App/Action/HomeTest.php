@@ -12,13 +12,13 @@ declare(strict_types=1);
 
 namespace ProophTest\ProophessorDo\App\Action;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use PHPUnit\Framework\TestCase;
 use Prooph\ProophessorDo\App\Action\Home;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
+use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 final class HomeTest extends TestCase
@@ -43,14 +43,14 @@ final class HomeTest extends TestCase
     {
         /** @var ServerRequestInterface $request */
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();
-        /** @var DelegateInterface $delegate */
-        $delegate = $this->prophesize(DelegateInterface::class)->reveal();
+        /** @var HandlerInterface $handler */
+        $handler = $this->prophesize(HandlerInterface::class)->reveal();
         /** @var TemplateRendererInterface|ObjectProphecy $templates */
         $templates = $this->prophesize(TemplateRendererInterface::class);
         $templates->render('page::home')->willReturn('<home />');
 
         $action = new Home($templates->reveal());
-        $response = $action->process($request, $delegate);
+        $response = $action->process($request, $handler);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
         self::assertSame('<home />', (string) $response->getBody());
