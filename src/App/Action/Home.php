@@ -12,10 +12,10 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\App\Action;
 
-use Interop\Http\ServerMiddleware\DelegateInterface;
-use Interop\Http\ServerMiddleware\MiddlewareInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
+use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
@@ -31,7 +31,7 @@ class Home implements MiddlewareInterface
         $this->templates = $templates;
     }
 
-    public function process(ServerRequestInterface $request, DelegateInterface $delegate): ResponseInterface
+    public function process(ServerRequestInterface $request, HandlerInterface $delegate): ResponseInterface
     {
         return new HtmlResponse(
             $this->templates->render('page::home')
