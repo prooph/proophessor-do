@@ -37,6 +37,7 @@
         "php": "^7.1",
         "aura/router": "^3.0",
         "doctrine/dbal": "^2.5.5",
+        "fig/http-message-util": "^1.1.2",
         "http-interop/http-middleware": "^0.4.1",
         "marc-mabe/php-enum": "^2.3.1",
         "prooph/common": "^4.1.0",
