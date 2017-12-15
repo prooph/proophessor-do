@@ -71,7 +71,7 @@
         "phpunit/phpunit": "^6.0",
         "prooph/php-cs-fixer-config": "^0.2.1",
         "proophsoftware/prooph-cli": "^0.2.0",
-        "symfony/stopwatch": "^3.2",
+        "symfony/stopwatch": "^4.0",
         "zfcampus/zf-development-mode": "^3.1"
     },
     "suggest" : {
