@@ -16,13 +16,13 @@ declare(strict_types=1);
  * Note: A snapshot adapter needs to be configured!
  */
 namespace {
-    use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
     use Prooph\EventSourcing\Aggregate\AggregateType;
+    use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
     use Prooph\EventStore\EventStore;
-    use Prooph\SnapshotStore\SnapshotStore;
     use Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList;
     use Prooph\ProophessorDo\Model\Todo\Todo;
     use Prooph\ProophessorDo\Model\Todo\TodoId;
+    use Prooph\SnapshotStore\SnapshotStore;
     use Symfony\Component\Stopwatch\Stopwatch;
 
     chdir(dirname(__DIR__));

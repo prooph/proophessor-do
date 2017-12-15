@@ -16,11 +16,11 @@ declare(strict_types=1);
  */
 namespace {
     use Prooph\EventSourcing\Aggregate\AggregateType;
-    use Prooph\SnapshotStore\Snapshot;
-    use Prooph\SnapshotStore\SnapshotStore;
     use Prooph\ProophessorDo\Model\Todo\Todo;
     use Prooph\ProophessorDo\Model\Todo\TodoId;
     use Prooph\ProophessorDo\Model\Todo\TodoList;
+    use Prooph\SnapshotStore\Snapshot;
+    use Prooph\SnapshotStore\SnapshotStore;
 
     chdir(dirname(__DIR__));
 
@@ -72,7 +72,7 @@ namespace {
     $snapshotStore = $container->get(SnapshotStore::class);
 
     $snapshot = new Snapshot(
-        (string)AggregateType::fromAggregateRoot($todo),
+        (string) AggregateType::fromAggregateRoot($todo),
         $todoId->toString(),
         $todo,
         get_todo_version($todo),
