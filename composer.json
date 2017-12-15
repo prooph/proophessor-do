@@ -52,7 +52,7 @@
         "sandrokeil/interop-config": "^2.0.1",
         "webimpress/http-middleware-compatibility": "^0.1.4",
         "zendframework/zend-config": "^2.6",
-        "zendframework/zend-config-aggregator": "^0.2.0",
+        "zendframework/zend-config-aggregator": "^1.0.0",
         "zendframework/zend-expressive": "^2.0",
         "zendframework/zend-expressive-aurarouter": "^2.0",
         "zendframework/zend-expressive-helpers": "^4.0",

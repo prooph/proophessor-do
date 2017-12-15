@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cae1bb7802f93034922870b66907e2c5",
+    "content-hash": "f2e04dfa0990af13436464ee55ca6b04",
     "packages": [
         {
             "name": "aura/router",
@@ -1966,34 +1966,40 @@
         },
         {
             "name": "zendframework/zend-config-aggregator",
-            "version": "0.2.1",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-config-aggregator.git",
-                "reference": "633a0bf3030a68d2a71cb41a121ad930a52041ea"
+                "reference": "2762abefdb1df1517be7e77a6717540557dca1bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-config-aggregator/zipball/633a0bf3030a68d2a71cb41a121ad930a52041ea",
-                "reference": "633a0bf3030a68d2a71cb41a121ad930a52041ea",
+                "url": "https://api.github.com/repos/zendframework/zend-config-aggregator/zipball/2762abefdb1df1517be7e77a6717540557dca1bb",
+                "reference": "2762abefdb1df1517be7e77a6717540557dca1bb",
                 "shasum": ""
             },
             "require": {
-                "php": "^5.6 || ^7.0"
+                "php": "^5.6 || ^7.0",
+                "zendframework/zend-stdlib": "^2.7.7 || ^3.1.0"
             },
             "require-dev": {
                 "malukenho/docheader": "^0.1.5",
                 "mikey179/vfsstream": "^1.6",
-                "phpunit/phpunit": "^5.7",
+                "phpunit/phpunit": "^5.7.21 || ^6.3",
                 "zendframework/zend-coding-standard": "~1.0.0",
                 "zendframework/zend-config": "^2.6 || ^3.0",
                 "zendframework/zend-servicemanager": "^2.7.7 || ^3.1.1"
             },
             "suggest": {
-                "zendframework/zend-config": "Allows loading configuration from XML, INI, YAML, and JSON files",
-                "zendframework/zend-stdlib": "Allows removing configuration keys and globbing on Windows platform"
+                "zendframework/zend-config": "Allows loading configuration from XML, INI, YAML, and JSON files"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev",
+                    "dev-develop": "1.1-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Zend\\ConfigAggregator\\": "src/"
@@ -2010,7 +2016,7 @@
                 }
             ],
             "description": "Lightweight library for merging and caching application config",
-            "time": "2017-04-23T11:14:49+00:00"
+            "time": "2017-11-06T14:55:00+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
