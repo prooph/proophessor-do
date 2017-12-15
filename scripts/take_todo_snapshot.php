@@ -15,9 +15,9 @@ declare(strict_types=1);
  * Note: A snapshot adapter needs to be configured!
  */
 namespace {
-    use Prooph\EventStore\Aggregate\AggregateType;
-    use Prooph\EventStore\Snapshot\Snapshot;
-    use Prooph\EventStore\Snapshot\SnapshotStore;
+    use Prooph\EventSourcing\Aggregate\AggregateType;
+    use Prooph\SnapshotStore\Snapshot;
+    use Prooph\SnapshotStore\SnapshotStore;
     use Prooph\ProophessorDo\Model\Todo\Todo;
     use Prooph\ProophessorDo\Model\Todo\TodoId;
     use Prooph\ProophessorDo\Model\Todo\TodoList;
@@ -72,7 +72,7 @@ namespace {
     $snapshotStore = $container->get(SnapshotStore::class);
 
     $snapshot = new Snapshot(
-        AggregateType::fromAggregateRoot($todo),
+        (string)AggregateType::fromAggregateRoot($todo),
         $todoId->toString(),
         $todo,
         get_todo_version($todo),

@@ -17,9 +17,9 @@ declare(strict_types=1);
  */
 namespace {
     use Prooph\EventSourcing\EventStoreIntegration\AggregateTranslator;
-    use Prooph\EventStore\Aggregate\AggregateType;
+    use Prooph\EventSourcing\Aggregate\AggregateType;
     use Prooph\EventStore\EventStore;
-    use Prooph\EventStore\Snapshot\SnapshotStore;
+    use Prooph\SnapshotStore\SnapshotStore;
     use Prooph\ProophessorDo\Infrastructure\Repository\EventStoreTodoList;
     use Prooph\ProophessorDo\Model\Todo\Todo;
     use Prooph\ProophessorDo\Model\Todo\TodoId;
