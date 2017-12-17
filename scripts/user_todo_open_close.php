@@ -67,7 +67,7 @@ namespace {
 
         $textCount = count($texts);
 
-        $randIndex = rand(0, --$textCount);
+        $randIndex = random_int(0, --$textCount);
 
         return $texts[$randIndex];
     }
@@ -114,7 +114,7 @@ namespace {
     echo "\nGoing to close todo randomly now\n";
 
     foreach ($openTodos as $openTodoId) {
-        $close = rand(0, 1);
+        $close = random_int(0, 1);
 
         if ($close) {
             $commandBus->dispatch(MarkTodoAsDone::with($openTodoId));

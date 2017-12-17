@@ -38,7 +38,7 @@ namespace {
         exit(1);
     }
 
-    $randomIndex = mt_rand(0, --$numOfTodos);
+    $randomIndex = random_int(0, --$numOfTodos);
 
     $todo = $allTodos[$randomIndex];
 
