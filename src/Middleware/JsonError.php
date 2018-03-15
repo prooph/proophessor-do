@@ -1,8 +1,8 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2018 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -33,10 +33,10 @@ final class JsonError implements MiddlewareInterface
         } catch (\Throwable $e) {
             $contentType = trim($request->getHeaderLine('Content-Type'));
 
-            if($e instanceof RuntimeException) {
+            if ($e instanceof RuntimeException) {
                 $e = $e->getPrevious();
 
-                if($e instanceof MessageDispatchException) {
+                if ($e instanceof MessageDispatchException) {
                     $e = $e->getPrevious();
                 }
             }

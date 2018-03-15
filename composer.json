@@ -89,6 +89,15 @@
         }
     },
     "scripts": {
+        "check": [
+            "@cs",
+            "@test",
+            "@docheader"
+        ],
+        "cs": "php-cs-fixer fix -v --diff --dry-run",
+        "cs-fix": "php-cs-fixer fix -v --diff",
+        "test": "phpunit",
+        "docheader": "docheader check bin/ config/ migrations/ scripts/ src/ templates/ tests/",
         "development-disable": "zf-development-mode disable",
         "development-enable": "zf-development-mode enable",
         "development-status": "zf-development-mode status"

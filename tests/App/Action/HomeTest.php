@@ -1,8 +1,8 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2018 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,8 +17,7 @@ use Prooph\ProophessorDo\App\Action\Home;
 use Prophecy\Prophecy\ObjectProphecy;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
 final class HomeTest extends TestCase
@@ -33,7 +32,7 @@ final class HomeTest extends TestCase
 
         $action = new Home($templates);
 
-        self::assertInstanceOf(MiddlewareInterface::class, $action);
+        self::assertInstanceOf(RequestHandlerInterface::class, $action);
     }
 
     /**
@@ -43,14 +42,14 @@ final class HomeTest extends TestCase
     {
         /** @var ServerRequestInterface $request */
         $request = $this->prophesize(ServerRequestInterface::class)->reveal();
-        /** @var HandlerInterface $handler */
-        $handler = $this->prophesize(HandlerInterface::class)->reveal();
+        /** @var RequestHandlerInterface $handler */
+        $handler = $this->prophesize(RequestHandlerInterface::class)->reveal();
         /** @var TemplateRendererInterface|ObjectProphecy $templates */
         $templates = $this->prophesize(TemplateRendererInterface::class);
         $templates->render('page::home')->willReturn('<home />');
 
         $action = new Home($templates->reveal());
-        $response = $action->process($request, $handler);
+        $response = $action->handle($request);
 
         self::assertInstanceOf(ResponseInterface::class, $response);
         self::assertSame('<home />', (string) $response->getBody());

@@ -1,8 +1,8 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2018 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -29,7 +29,7 @@ use Zend\Stratigility\Middleware\ErrorHandler;
 /**
  * Setup middleware pipeline:
  */
-return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
+return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     // The error handler should be the first (most outer) middleware to catch
     // all Exceptions.
     $app->pipe(ErrorHandler::class);

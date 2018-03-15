@@ -1,8 +1,8 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2018 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -17,7 +17,7 @@ use Zend\Expressive\MiddlewareFactory;
 /**
  * Expressive routed middleware
  */
-return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
+return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     /** @var \Zend\Expressive\Application $app */
     $app->get('/', \Prooph\ProophessorDo\App\Action\Home::class, 'page::home');
     $app->get('/user-list', \Prooph\ProophessorDo\App\Action\UserList::class, 'page::user-list');
