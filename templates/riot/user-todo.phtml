@@ -41,9 +41,9 @@
         </div>
         <div class="col-md-1 text-right">
             <span
-                class="{glyphicon: true, glyphicon-check: status == 'done', text-success: status == 'done', glyphicon-warning-sign: status == 'expired', glyphicon-unchecked: status == 'open'}"
+                class="{glyphicon: true, glyphicon-check: status == 'DONE', text-success: status == 'DONE', glyphicon-warning-sign: status == 'EXPIRED', glyphicon-unchecked: status == 'OPEN'}"
                 onclick="{ changeTodoStatus }"
-                title="{status == 'expired' ? 'Expired' : (status == 'done' ? 'Done' : '')}"></span>
+                title="{status == 'EXPIRED' ? 'Expired' : (status == 'DONE' ? 'Done' : '')}"></span>
         </div>
     </div>
 </div>
@@ -61,16 +61,16 @@
 
         self.changeTodoStatus = function () {
 
-            if (self.status == 'open') {
+            if (self.status == 'OPEN') {
                 $.postJSON(
                     '<?php echo $this->url('command::mark-todo-as-done') ?>',
                     {
                         todo_id: self.id,
-                        status: "done"
+                        status: "DONE"
                     }
                 ).then(
                     function () {
-                        self.status = 'done';
+                        self.status = 'DONE';
                         self.update();
                     },
                     $.failNotify
@@ -83,7 +83,7 @@
                     }
                 ).then(
                     function () {
-                        self.status = 'open';
+                        self.status = 'OPEN';
                         self.update();
                     },
                     $.failNotify
@@ -93,14 +93,14 @@
 
         self.isExpired = function () {
             if (!self.deadline) return false;
-            if (self.status == 'done') return false;
+            if (self.status == 'DONE') return false;
 
             return moment().isAfter(moment(self.deadline));
         }
 
         self.hasNotMuchTime = function () {
             if (!self.deadline) return false;
-            if (self.status == 'done') return false;
+            if (self.status == 'DONE') return false;
             if (self.isExpired()) return false;
 
             return moment().add(1, "hours").isAfter(moment(self.deadline));
@@ -134,7 +134,7 @@
                 }
             ).then(function () {
                     self.deadline = newDeadline;
-                    self.status = 'open';
+                    self.status = 'OPEN';
                     self.update();
                 },
                 $.failNotify
