@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Prooph\ProophessorDo\Response;
 
-use Prooph\Psr7Middleware\Response\ResponseStrategy;
+use Prooph\HttpMiddleware\Response\ResponseStrategy;
 use Psr\Http\Message\ResponseInterface;
 use React\Promise\PromiseInterface;
 use Zend\Diactoros\Response\JsonResponse as ZendJsonResponse;

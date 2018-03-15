@@ -14,14 +14,12 @@ namespace Prooph\ProophessorDo\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
-
-use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class JsonPayload implements MiddlewareInterface
 {
-    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $contentType = trim($request->getHeaderLine('Content-Type'));
 
@@ -42,6 +40,6 @@ class JsonPayload implements MiddlewareInterface
             $request = $request->withParsedBody(null === $payload ? [] : $payload);
         }
 
-        return $handler->{HANDLER_METHOD}($request);
+        return $handler->handle($request);
     }
 }

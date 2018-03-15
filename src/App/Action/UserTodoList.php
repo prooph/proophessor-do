@@ -17,12 +17,11 @@ use Prooph\ProophessorDo\Model\User\Query\GetUserById;
 use Prooph\ServiceBus\QueryBus;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class UserTodoList implements MiddlewareInterface
+class UserTodoList implements RequestHandlerInterface
 {
     /**
      * @var TemplateRendererInterface
@@ -40,7 +39,7 @@ class UserTodoList implements MiddlewareInterface
         $this->queryBus = $queryBus;
     }
 
-    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $userId = $request->getAttribute('user_id');
 

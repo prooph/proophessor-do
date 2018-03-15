@@ -34,10 +34,10 @@ return [
             \Prooph\Common\Messaging\FQCNMessageFactory::class => InvokableFactory::class,
             \Prooph\ProophessorDo\Response\JsonResponse::class => InvokableFactory::class,
             // prooph/psr7-middleware set up
-            \Prooph\Psr7Middleware\CommandMiddleware::class => \Prooph\Psr7Middleware\Container\CommandMiddlewareFactory::class,
-            \Prooph\Psr7Middleware\EventMiddleware::class => \Prooph\Psr7Middleware\Container\EventMiddlewareFactory::class,
-            \Prooph\Psr7Middleware\QueryMiddleware::class => \Prooph\Psr7Middleware\Container\QueryMiddlewareFactory::class,
-            \Prooph\Psr7Middleware\MessageMiddleware::class => \Prooph\Psr7Middleware\Container\MessageMiddlewareFactory::class,
+            \Prooph\HttpMiddleware\CommandMiddleware::class => \Prooph\HttpMiddleware\Container\CommandMiddlewareFactory::class,
+            \Prooph\HttpMiddleware\EventMiddleware::class => \Prooph\HttpMiddleware\Container\EventMiddlewareFactory::class,
+            \Prooph\HttpMiddleware\QueryMiddleware::class => \Prooph\HttpMiddleware\Container\QueryMiddlewareFactory::class,
+            \Prooph\HttpMiddleware\MessageMiddleware::class => \Prooph\HttpMiddleware\Container\MessageMiddlewareFactory::class,
             //prooph/service-bus set up
             \Prooph\ServiceBus\CommandBus::class => \Prooph\ServiceBus\Container\CommandBusFactory::class,
             \Prooph\ServiceBus\EventBus::class => \Prooph\ServiceBus\Container\EventBusFactory::class,

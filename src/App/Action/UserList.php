@@ -16,12 +16,11 @@ use Prooph\ProophessorDo\Model\User\Query\GetAllUsers;
 use Prooph\ServiceBus\QueryBus;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 
-class UserList implements MiddlewareInterface
+class UserList implements RequestHandlerInterface
 {
     /**
      * @var TemplateRendererInterface
@@ -39,7 +38,10 @@ class UserList implements MiddlewareInterface
         $this->queryBus = $queryBus;
     }
 
-    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
+    /**
+     * Handle the request and return a response.
+     */
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $users = [];
         $this->queryBus->dispatch(new GetAllUsers())
