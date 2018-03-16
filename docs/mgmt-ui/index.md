@@ -29,9 +29,10 @@ Then press CTRL+ENTER or press the apply button.
 
 ## Adding a Watcher
 
-The management UI ships with a very neat feature called "stream watcher". You can set up watchers based on filters like
-the one shown above to get notifications in the management UI when a new event is added to a stream that matches the filter
-criteria. This can be very useful for debugging event sourced application or monitoring business errors recorded as events.
+The management UI ships with a neat feature called "stream watcher". You can set up watchers based on filters like
+the one shown above. When a new event is recorded in the application and it matches the filter of an active watcher you'll 
+get a notification in the management UI. 
+**This can be very useful for debugging event sourced application or monitoring business errors recorded as events.**
 
 Let's try it! You still have the posted TODOs filter from above? Now click on the **red eye icon** next to the plus sign.
 A pop up will ask you to provide a name for the new watcher. Just call it **Posted Todos**
