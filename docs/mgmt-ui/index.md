@@ -1,9 +1,10 @@
 # PROOPH EVENT STORE MGMT UI
 
-The proophessor-do application ships with an integrate [prooph Event Store Mgmt UI](https://github.com/prooph/event-store-mgmt-ui)
+The proophessor-do application ships with an integrate [prooph Event Store Mgmt UI](https://github.com/prooph/event-store-mgmt-ui).
+
 You can access the UI by clicking on the menu item **Management UI** in the main menu of proophessor-do.
 
-*Note: The Management UI is in an early stage. We're collecting feedback and work on some more features. You can find a roadmap [hvere](https://github.com/prooph/event-store-mgmt-ui/issues/1)*
+*Note: The Management UI is in an early stage. We're collecting feedback and work on some more features. You can find a roadmap [here](https://github.com/prooph/event-store-mgmt-ui/issues/1)*
 
 ## Inspecting The Event Stream
 
@@ -42,7 +43,7 @@ and post a new Todo. Then switch back to the managment UI tab. You should see a 
 
 ![Watcher Notification](./img/watcher_notification.png)
 
-The notification contains a **details** button. This redirects you to the watcher tab and the correct watcher so that you can
+The notification contains a **details** button. It redirects you to the watcher tab and the correct watcher so that you can
 inspect the new event.
 
 ![Watcher Tab](./img/watcher_tab.png)
@@ -54,7 +55,7 @@ The package scans your prooph based event sourcing application and analyzes the 
 The result can be visualized in the management UI.
 
 We've prepared a scan of proophessor-do for you. Download the [file](message_flow.json).
-Switch to the **Message Flow** tab that you can find in the top menu. You'll see an empty workspace.
+Switch to the **Message Flow** tab which you can find in the top menu. You'll see an empty workspace.
 
 ![Empty Analyzer](./img/empty_analyzer.png)
 
@@ -62,7 +63,7 @@ Drop the downloaded **message_flow.json** on the workspace and you'll see the me
 
 ![Message Flow](./img/message_flow_prooph_do.png)
 
-Amazing! Isn't it? But that's not all. You can combine active watchers with the message flow. Let's try it.
+**Amazing!** Isn't it? But that's not all. You can combine active watchers with the message flow. Let's try it.
 We have our **posted todos** watcher listening on new events. In the message flow menu on the right you can find
 again a **watch button with an eye icon**. Click on it. The message flow will be greyed out.
 

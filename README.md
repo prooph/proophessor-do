@@ -18,6 +18,10 @@ time has passed.
 
 [Installation Documentation](docs/installation/index.md)
 
+## Management UI (new)
+
+[Management UI Documentation](docs/mgmt-ui/index.md)
+
 ## Learning by doing!
 
 When you play around with the application you will notice missing functionality. This has a simple reason. You explore
