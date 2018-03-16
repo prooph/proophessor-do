@@ -24,19 +24,24 @@ use Prooph\EventStore\Http\Middleware\Action;
 // event store routes
 return function (Application $app, MiddlewareFactory $factory, ContainerInterface $container): void {
     $app->get(
-        '/event-store/stream/{streamname}[/{start:head|[0-9]+}[/{direction:forward|backward}[/{count:[0-9]+}]]]',
+        '/event-store/stream/{streamname}{/start,direction,count}',
         Action\LoadStream::class,
         'EventStore::load'
     )
         ->setOptions([
-            'defaults' => [
+            'tokens' => [
+                'streamname' => '[^/]+',
+                'start' => 'head|[0-9]+',
+                'direction' => 'forward|backward',
+                'count' => '[0-9]+',
+            ],
+            'values' => [
                 'start' => 1,
                 'direction' => 'forward',
                 'count' => 10,
             ],
         ]
     );
-
     $app->post(
         '/event-store/stream/{streamname}',
         [
@@ -74,7 +79,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     );
 
     $app->get(
-        '/event-store/streams[/{filter}]',
+        '/event-store/streams{/filter}',
         Action\FetchStreamNames::class,
         'EventStore::fetchStreamNames'
     );
@@ -86,7 +91,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     );
 
     $app->get(
-        '/event-store/categories[/{filter}]',
+        '/event-store/categories{/filter}',
         Action\FetchCategoryNames::class,
         'EventStore::fetchCategoryNames'
     );
@@ -100,7 +105,7 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     // projection manager routes
 
     $app->get(
-        '/event-store/projections[/{filter}]',
+        '/event-store/projections{/filter}',
         Action\FetchProjectionNames::class,
         'ProjectionManager::fetchProjectionNames'
     );
@@ -112,10 +117,14 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
     );
 
     $app->post(
-        '/event-store/projection/delete/{name}/{deleteEmittedEvents:true|false}',
+        '/event-store/projection/delete/{name}/{deleteEmittedEvents}',
         Action\DeleteProjection::class,
         'ProjectionManager::deleteProjection'
-    );
+    )->setOptions([
+        'tokens' => [
+            'deleteEmittedEvents' => 'true|false'
+        ]
+    ]);
 
     $app->post(
         '/event-store/projection/reset/{name}',
