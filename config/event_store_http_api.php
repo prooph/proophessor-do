@@ -10,10 +10,10 @@
 
 declare(strict_types=1);
 
+use Prooph\EventStore\Http\Middleware\Action;
 use Psr\Container\ContainerInterface;
 use Zend\Expressive\Application;
 use Zend\Expressive\MiddlewareFactory;
-use Prooph\EventStore\Http\Middleware\Action;
 
 /**
  * Expressive routed middleware
@@ -122,8 +122,8 @@ return function (Application $app, MiddlewareFactory $factory, ContainerInterfac
         'ProjectionManager::deleteProjection'
     )->setOptions([
         'tokens' => [
-            'deleteEmittedEvents' => 'true|false'
-        ]
+            'deleteEmittedEvents' => 'true|false',
+        ],
     ]);
 
     $app->post(

@@ -21,8 +21,8 @@ final class UrlHelperFactory
     public function __invoke(ContainerInterface $container)
     {
         $urlHelper = $container->get(ExpressiveUrlHelper::class);
-        return new class($urlHelper) implements UrlHelper {
 
+        return new class($urlHelper) implements UrlHelper {
             /**
              * @var ExpressiveUrlHelper
              */

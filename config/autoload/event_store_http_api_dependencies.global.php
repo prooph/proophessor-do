@@ -62,6 +62,6 @@ return [
             NoOpMessageConverter::class => InvokableFactory::class,
             //Url Helper
             UrlHelper::class => UrlHelperFactory::class,
-        ]
+        ],
     ],
 ];
