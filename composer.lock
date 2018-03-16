@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa174523f9a011fa1dd2d79b8afaf1f4",
+    "content-hash": "84f367dbd5068396516d63951b4864cf",
     "packages": [
         {
             "name": "aura/router",
@@ -1102,16 +1102,16 @@
         },
         {
             "name": "prooph/event-store-http-middleware",
-            "version": "dev-response_prototype_interface",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/prooph/event-store-http-middleware.git",
-                "reference": "18a80a9efdaa376644a853b6774b6e3adf07f06f"
+                "reference": "eb253a2a43ed9a034c3cc7a19694f0b4c140645f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/prooph/event-store-http-middleware/zipball/18a80a9efdaa376644a853b6774b6e3adf07f06f",
-                "reference": "18a80a9efdaa376644a853b6774b6e3adf07f06f",
+                "url": "https://api.github.com/repos/prooph/event-store-http-middleware/zipball/eb253a2a43ed9a034c3cc7a19694f0b4c140645f",
+                "reference": "eb253a2a43ed9a034c3cc7a19694f0b4c140645f",
                 "shasum": ""
             },
             "require": {
@@ -1159,7 +1159,7 @@
                 "http",
                 "prooph"
             ],
-            "time": "2018-03-15T23:35:18+00:00"
+            "time": "2018-03-16T11:00:08+00:00"
         },
         {
             "name": "prooph/http-middleware",
@@ -6252,7 +6252,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "prooph/event-store-http-middleware": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": false,
