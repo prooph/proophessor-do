@@ -1,8 +1,8 @@
 <?php
 /**
  * This file is part of prooph/proophessor-do.
- * (c) 2014-2017 prooph software GmbH <contact@prooph.de>
- * (c) 2015-2017 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
+ * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
+ * (c) 2015-2018 Sascha-Oliver Prolic <saschaprolic@googlemail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,14 +14,12 @@ namespace Prooph\ProophessorDo\Middleware;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Webimpress\HttpMiddlewareCompatibility\HandlerInterface;
-use Webimpress\HttpMiddlewareCompatibility\MiddlewareInterface;
-
-use const Webimpress\HttpMiddlewareCompatibility\HANDLER_METHOD;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 class JsonPayload implements MiddlewareInterface
 {
-    public function process(ServerRequestInterface $request, HandlerInterface $handler): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $contentType = trim($request->getHeaderLine('Content-Type'));
 
@@ -42,6 +40,6 @@ class JsonPayload implements MiddlewareInterface
             $request = $request->withParsedBody(null === $payload ? [] : $payload);
         }
 
-        return $handler->{HANDLER_METHOD}($request);
+        return $handler->handle($request);
     }
 }

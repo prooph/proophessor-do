@@ -37,31 +37,30 @@
         "php": "^7.1",
         "aura/router": "^3.0",
         "doctrine/dbal": "^2.5.5",
-        "fig/http-message-util": "^1.1.2",
-        "http-interop/http-middleware": "^0.4.1",
+        "http-interop/http-middleware": "^0.5.0",
         "marc-mabe/php-enum": "^3.0",
         "prooph/common": "^4.2.1",
         "prooph/event-sourcing": "^5.3",
         "prooph/event-store": "^7.3.1",
         "prooph/event-store-bus-bridge": "^3.1",
         "prooph/pdo-event-store": "^1.6",
-        "prooph/psr7-middleware": "^0.8",
+        "prooph/http-middleware": "^0.1",
         "prooph/service-bus": "^6.2",
         "psr/container": "^1.0",
         "roave/security-advisories": "dev-master",
         "sandrokeil/interop-config": "^2.0.1",
-        "webimpress/http-middleware-compatibility": "^0.1.4",
         "zendframework/zend-config": "^3.0",
         "zendframework/zend-config-aggregator": "^1.0.0",
-        "zendframework/zend-expressive": "^2.0",
-        "zendframework/zend-expressive-aurarouter": "^2.0",
-        "zendframework/zend-expressive-helpers": "^4.0",
-        "zendframework/zend-expressive-zendviewrenderer": "^1.4.0",
+        "zendframework/zend-diactoros": "^1.7.1",
+        "zendframework/zend-expressive": "^3.0",
+        "zendframework/zend-expressive-aurarouter": "^3.0",
+        "zendframework/zend-expressive-helpers": "^5.0",
+        "zendframework/zend-expressive-zendviewrenderer": "^2.0",
         "zendframework/zend-filter": "^2.7.1",
         "zendframework/zend-mail": "^2.7.1",
-        "zendframework/zend-servicemanager": "^3.1.1",
+        "zendframework/zend-servicemanager": "^3.3",
         "zendframework/zend-stdlib": "^3.1.0",
-        "zendframework/zend-validator": "^2.8.1"
+        "zendframework/zend-validator": "^2.10"
     },
     "require-dev" : {
         "filp/whoops": "^2.1.8",
@@ -79,9 +78,6 @@
         "prooph/pdo-snapshot-store": "^1.0 for pdo snapshot store",
         "prooph/mongodb-snapshot-store": "^1.0 for mongodb snapshot store"
     },
-    "conflict": {
-        "http-interop/http-middleware": ">=0.5"
-    },
     "autoload" : {
         "psr-4" : {
             "Prooph\\ProophessorDo\\" : "src"
@@ -93,6 +89,15 @@
         }
     },
     "scripts": {
+        "check": [
+            "@cs",
+            "@test",
+            "@docheader"
+        ],
+        "cs": "php-cs-fixer fix -v --diff --dry-run",
+        "cs-fix": "php-cs-fixer fix -v --diff",
+        "test": "phpunit",
+        "docheader": "docheader check bin/ config/ migrations/ scripts/ src/ templates/ tests/",
         "development-disable": "zf-development-mode disable",
         "development-enable": "zf-development-mode enable",
         "development-status": "zf-development-mode status"

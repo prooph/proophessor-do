@@ -26,12 +26,14 @@ chdir(dirname(__DIR__));
 require 'vendor/autoload.php';
 
 (function () {
-    /** @var \Interop\Container\ContainerInterface $container */
+    /** @var \Psr\Container\ContainerInterface $container */
     $container = require 'config/container.php';
-
     /** @var \Zend\Expressive\Application $app */
     $app = $container->get(\Zend\Expressive\Application::class);
-    require 'config/pipeline.php';
-    require 'config/routes.php';
+    $factory = $container->get(\Zend\Expressive\MiddlewareFactory::class);
+    // Execute programmatic/declarative middleware pipeline and routing
+    // configuration statements
+    (require 'config/pipeline.php')($app, $factory, $container);
+    (require 'config/routes.php')($app, $factory, $container);
     $app->run();
 })();
