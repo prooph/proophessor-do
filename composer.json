@@ -37,7 +37,6 @@
         "php": "^7.1",
         "aura/router": "^3.0",
         "doctrine/dbal": "^2.5.5",
-        "http-interop/http-middleware": "^0.5.0",
         "marc-mabe/php-enum": "^3.0",
         "prooph/common": "^4.2.1",
         "prooph/event-sourcing": "^5.3",
