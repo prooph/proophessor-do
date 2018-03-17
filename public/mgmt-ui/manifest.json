@@ -1,0 +1,8 @@
+{
+  "short_name": "React + Redux + Semantic UI Skeleton",
+  "name": "React + Redux + Semantic UI Skeleton",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

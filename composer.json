@@ -45,6 +45,7 @@
         "prooph/event-store-bus-bridge": "^3.1",
         "prooph/pdo-event-store": "^1.6",
         "prooph/http-middleware": "^0.1",
+        "prooph/event-store-http-middleware": "^0.2",
         "prooph/service-bus": "^6.2",
         "psr/container": "^1.0",
         "roave/security-advisories": "dev-master",
