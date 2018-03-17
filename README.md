@@ -22,6 +22,8 @@ time has passed.
 
 [Management UI Documentation](docs/mgmt-ui/index.md)
 
+![Model Exploration](https://github.com/prooph/proophessor/blob/master/assets/prooph_do_exploration.gif)
+
 ## Learning by doing!
 
 When you play around with the application you will notice missing functionality. This has a simple reason. You explore
