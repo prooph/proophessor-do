@@ -47,4 +47,4 @@ As a general purpose helper we use the *prooph/snapshotter* which can be install
 
 Now as you picked and configured you snapshot store, start playing with the new feature.
 
-Please jump to the [Snapshot Tutorial](../tutorial/take_snapshots.md) !
+Please jump to the [Snapshot Tutorial](../tutorials/take_snapshots.md) !
