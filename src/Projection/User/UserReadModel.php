@@ -70,7 +70,7 @@ EOT;
     {
         $tableName = Table::USER;
 
-        $sql = "TRUNCATE TABLE '$tableName';";
+        $sql = "TRUNCATE TABLE `$tableName`;";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
@@ -80,7 +80,7 @@ EOT;
     {
         $tableName = Table::USER;
 
-        $sql = "DROP TABLE $tableName;";
+        $sql = "DROP TABLE `$tableName`;";
 
         $statement = $this->connection->prepare($sql);
         $statement->execute();
