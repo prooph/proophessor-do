@@ -35,7 +35,7 @@ $readModel = new UserReadModel($container->get('doctrine.connection.default'));
 $projection = $projectionManager->createReadModelProjection('user', $readModel);
 
 $projection
-    ->fromStream('event_stream')
+    ->fromStreams('user_stream', 'todo_stream')
     ->when([
         UserWasRegistered::class => function ($state, UserWasRegistered $event) {
             $this->readModel()->stack('insert', [

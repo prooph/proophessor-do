@@ -43,7 +43,7 @@ $projection = new StreamSnapshotProjection(
         'todo_snapshotter',
         $readModel
     ),
-    'event_stream'
+    'todo_stream'
 );
 
 $projection();

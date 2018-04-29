@@ -31,7 +31,7 @@ $readModel = new TodoReminderReadModel($container->get('doctrine.connection.defa
 $projection = $projectionManager->createReadModelProjection('todo_reminder', $readModel);
 
 $projection
-    ->fromStream('event_stream')
+    ->fromStream('todo_stream')
     ->when([
         ReminderWasAddedToTodo::class => function ($state, ReminderWasAddedToTodo $event) {
             $this->readModel()->stack('remove', [

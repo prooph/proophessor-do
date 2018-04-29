@@ -23,6 +23,7 @@ $container = require 'config/container.php';
 
 $eventStore = $container->get(EventStore::class);
 
-$eventStore->create(new Stream(new StreamName('event_stream'), new ArrayIterator()));
+$eventStore->create(new Stream(new StreamName('todo_stream'), new ArrayIterator()));
+$eventStore->create(new Stream(new StreamName('user_stream'), new ArrayIterator()));
 
 echo 'done.';

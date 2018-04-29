@@ -36,7 +36,7 @@ $readModel = new TodoReadModel($container->get('doctrine.connection.default'));
 $projection = $projectionManager->createReadModelProjection('todo', $readModel);
 
 $projection
-    ->fromStream('event_stream')
+    ->fromStream('todo_stream')
     ->when([
         TodoWasPosted::class => function ($state, TodoWasPosted $event) {
             $this->readModel()->stack('insert', [
