@@ -40,5 +40,5 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision :docker_compose, yml: "/vagrant/docker-compose.yml", rebuild: false, run: "always"
     config.vm.provision "shell", inline: "cd /vagrant && docker run --rm --volume $(pwd):/app prooph/composer:7.1 install -o --prefer-dist"
     config.vm.provision "shell", inline: "cd /vagrant && docker run --rm --volume $(pwd):/app prooph/composer:7.1 require prooph/pdo-event-store -o --prefer-dist"
-    config.vm.provision "shell", inline: "cd /vagrant && docker-compose run --rm php php /var/www/scripts/create_event_stream.php"
+    config.vm.provision "shell", inline: "cd /vagrant && docker-compose run --rm php php /var/www/scripts/create_event_streams.php"
 end
