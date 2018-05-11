@@ -28,7 +28,7 @@ if (! $this->user) : ?>
             userId : '<?php echo $this->user->id;  ?>',
             TodoStore : {
                 getAll : function () {
-                    return JSON.parse('<?php echo json_encode($this->todos) ?>');
+                    return JSON.parse('<?php echo addslashes(json_encode($this->todos)) ?>');
                 }
             }
         });
