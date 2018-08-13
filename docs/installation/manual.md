@@ -42,7 +42,7 @@ Copy `config/autoload/mail.local.php.dist` to `config/autoload/mail.local.php` a
      - `vendor/prooph/pdo-event-store/scripts/postgres/01_event_streams_table.sql`
      - `vendor/prooph/pdo-event-store/scripts/postgres/02_projections_table.sql`
    
- - Create empty stream: Run `php scripts/create_event_stream.php`
+ - Create empty stream: Run `php scripts/create_event_streams.php`
 
 ### Step 4 - Start the backend scripts
 
