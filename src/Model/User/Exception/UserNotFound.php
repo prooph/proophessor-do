@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -18,6 +19,6 @@ final class UserNotFound extends \InvalidArgumentException
 {
     public static function withUserId(UserId $userId): UserNotFound
     {
-        return new self(sprintf('User with id %s cannot be found.', $userId->toString()));
+        return new self(\sprintf('User with id %s cannot be found.', $userId->toString()));
     }
 }

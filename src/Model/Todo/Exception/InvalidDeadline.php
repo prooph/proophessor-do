@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -19,7 +20,7 @@ final class InvalidDeadline extends \Exception
 {
     public static function userIsNotAssignee(UserId $user, UserId $assigneeId): InvalidDeadline
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'User %s tried to add a deadline to the todo owned by %s',
             $user->toString(),
             $assigneeId->toString()
@@ -28,7 +29,7 @@ final class InvalidDeadline extends \Exception
 
     public static function deadlineInThePast(TodoDeadline $deadline): InvalidDeadline
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Provided deadline %s is in the past from %s',
             $deadline->toString(),
             $deadline->createdOn()

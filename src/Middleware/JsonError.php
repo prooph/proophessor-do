@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -31,7 +32,7 @@ final class JsonError implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (\Throwable $e) {
-            $contentType = trim($request->getHeaderLine('Content-Type'));
+            $contentType = \trim($request->getHeaderLine('Content-Type'));
 
             if ($e instanceof RuntimeException) {
                 $e = $e->getPrevious();
@@ -41,8 +42,8 @@ final class JsonError implements MiddlewareInterface
                 }
             }
 
-            if (0 === mb_strpos($contentType, 'application/json')) {
-                $data = 'development' === getenv('PROOPH_ENV')
+            if (0 === \mb_strpos($contentType, 'application/json')) {
+                $data = 'development' === \getenv('PROOPH_ENV')
                     ? ['message' => $e->getMessage(), 'trace' => $e->getTraceAsString()]
                     : ['message' => 'Server Error'];
 

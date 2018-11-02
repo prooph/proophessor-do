@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -22,7 +23,7 @@ namespace {
     use Prooph\SnapshotStore\Snapshot;
     use Prooph\SnapshotStore\SnapshotStore;
 
-    chdir(dirname(__DIR__));
+    \chdir(\dirname(__DIR__));
 
     // Setup autoloading
     require 'vendor/autoload.php';
@@ -42,7 +43,7 @@ namespace {
 
     $container = require 'config/container.php';
 
-    array_shift($argv);
+    \array_shift($argv);
 
     if (empty($argv)) {
         echo "\033[1;31mMissing todo id parameter!\033[0m\n";

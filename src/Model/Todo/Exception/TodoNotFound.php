@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -18,6 +19,6 @@ final class TodoNotFound extends \InvalidArgumentException
 {
     public static function withTodoId(TodoId $todoId): TodoNotFound
     {
-        return new self(sprintf('Todo with id %s cannot be found.', $todoId->toString()));
+        return new self(\sprintf('Todo with id %s cannot be found.', $todoId->toString()));
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -17,9 +18,9 @@ namespace {
     use Prooph\ProophessorDo\Model\Todo\Command\AddDeadlineToTodo;
     use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 
-    define('NUMBER_OF_DEADLINES', 100);
+    \define('NUMBER_OF_DEADLINES', 100);
 
-    chdir(dirname(__DIR__));
+    \chdir(\dirname(__DIR__));
 
     // Setup autoloading
     require 'vendor/autoload.php';
@@ -31,14 +32,14 @@ namespace {
 
     $allTodos = $todoFinder->findAllOpen();
 
-    $numOfTodos = count($allTodos);
+    $numOfTodos = \count($allTodos);
 
     if ($numOfTodos === 0) {
         echo 'No open todos available in the database. Please add at least on open todo before running the script.';
         exit(1);
     }
 
-    $randomIndex = random_int(0, --$numOfTodos);
+    $randomIndex = \random_int(0, --$numOfTodos);
 
     $todo = $allTodos[$randomIndex];
 

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -40,19 +41,19 @@ class RiotTag extends AbstractHelper
             $template = $this->removeJsFromTemplate($template, $tagName);
         }
 
-        return 'riot.tag("'.$tagName.'", "' . str_replace($this->search, $this->replace, $template) . '", '.$jsFunction.');';
+        return 'riot.tag("'.$tagName.'", "' . \str_replace($this->search, $this->replace, $template) . '", '.$jsFunction.');';
     }
 
     private function getTagNameFromTemplate(string $template): string
     {
-        $parts = explode('::', $template);
+        $parts = \explode('::', $template);
 
-        return array_pop($parts);
+        return \array_pop($parts);
     }
 
     private function extractJsFunction(string $template, string $tagName): string
     {
-        preg_match('/<script .*type="text\/javascript"[^>]*>[\s]*(?<func>function.+\});?[\s]*<\/script>/is', $template, $matches);
+        \preg_match('/<script .*type="text\/javascript"[^>]*>[\s]*(?<func>function.+\});?[\s]*<\/script>/is', $template, $matches);
 
         if (! $matches['func']) {
             throw new \RuntimeException('Riot tag javascript function could not be found for tag name: ' . $tagName);
@@ -63,10 +64,10 @@ class RiotTag extends AbstractHelper
 
     private function removeJsFromTemplate(string $template, string $tagName): string
     {
-        $template = preg_replace('/<script .*type="text\/javascript"[^>]*>.*<\/script>/is', '', $template);
+        $template = \preg_replace('/<script .*type="text\/javascript"[^>]*>.*<\/script>/is', '', $template);
 
         if (! $template) {
-            throw new \RuntimeException('Riot tag template compilation failed for tag: ' . $tagName . ' with error code: ' . preg_last_error());
+            throw new \RuntimeException('Riot tag template compilation failed for tag: ' . $tagName . ' with error code: ' . \preg_last_error());
         }
 
         return $template;

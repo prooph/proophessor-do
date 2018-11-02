@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -30,12 +31,12 @@ class UserFinder
 
     public function findAll(): array
     {
-        return $this->connection->fetchAll(sprintf('SELECT * FROM %s', Table::USER));
+        return $this->connection->fetchAll(\sprintf('SELECT * FROM %s', Table::USER));
     }
 
     public function findById(string $userId): ?\stdClass
     {
-        $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s WHERE id = :user_id', Table::USER));
+        $stmt = $this->connection->prepare(\sprintf('SELECT * FROM %s WHERE id = :user_id', Table::USER));
         $stmt->bindValue('user_id', $userId);
         $stmt->execute();
 
@@ -50,7 +51,7 @@ class UserFinder
 
     public function findOneByEmailAddress(string $emailAddress): ?\stdClass
     {
-        $stmt = $this->connection->prepare(sprintf('SELECT * FROM %s WHERE email = :email LIMIT 1', Table::USER));
+        $stmt = $this->connection->prepare(\sprintf('SELECT * FROM %s WHERE email = :email LIMIT 1', Table::USER));
         $stmt->bindValue('email', $emailAddress);
         $stmt->execute();
 
@@ -65,7 +66,7 @@ class UserFinder
 
     public function findUserOfTodo(string $todoId): ?\stdClass
     {
-        $stmt = $this->connection->prepare(sprintf(
+        $stmt = $this->connection->prepare(\sprintf(
             'SELECT u.* FROM %s as u JOIN %s as t ON u.id = t.assignee_id WHERE t.id = :todo_id',
             Table::USER,
             Table::TODO

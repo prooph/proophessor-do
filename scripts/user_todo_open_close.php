@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -22,10 +23,10 @@ namespace {
     use Prooph\ProophessorDo\Model\User\UserId;
     use Symfony\Component\Stopwatch\Stopwatch;
 
-    define('NUMBER_OF_USERS', 10);
-    define('NUMBER_OF_TODO_PER_USER', 5);
+    \define('NUMBER_OF_USERS', 10);
+    \define('NUMBER_OF_TODO_PER_USER', 5);
 
-    chdir(dirname(__DIR__));
+    \chdir(\dirname(__DIR__));
 
     // Setup autoloading
     require 'vendor/autoload.php';
@@ -40,7 +41,7 @@ namespace {
 
         $factor = 0;
         if ($pos > 20) {
-            $factor = floor($pos / 20);
+            $factor = \floor($pos / 20);
             $pos = $pos - (20 * $factor);
             if (! $pos) {
                 $pos = 20;
@@ -65,9 +66,9 @@ namespace {
             'Tackle complex problems with DDD and event sourcing', 'Visit family', 'Tweet about playing with prooph components',
         ];
 
-        $textCount = count($texts);
+        $textCount = \count($texts);
 
-        $randIndex = random_int(0, --$textCount);
+        $randIndex = \random_int(0, --$textCount);
 
         return $texts[$randIndex];
     }
@@ -114,7 +115,7 @@ namespace {
     echo "\nGoing to close todo randomly now\n";
 
     foreach ($openTodos as $openTodoId) {
-        $close = random_int(0, 1);
+        $close = \random_int(0, 1);
 
         if ($close) {
             $commandBus->dispatch(MarkTodoAsDone::with($openTodoId));

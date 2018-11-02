@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -19,7 +20,7 @@ final class TodoAlreadyDone extends \RuntimeException
 {
     public static function triedStatus(TodoStatus $status, Todo $todo): TodoAlreadyDone
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Tried to change status of Todo %s to %s. But Todo is already marked as done!',
             $todo->todoId()->toString(),
             $status->toString()

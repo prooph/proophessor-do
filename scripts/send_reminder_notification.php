@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -22,7 +23,7 @@ namespace {
     use Prooph\ServiceBus\CommandBus;
     use Prooph\ServiceBus\Exception\CommandDispatchException;
 
-    chdir(dirname(__DIR__));
+    \chdir(\dirname(__DIR__));
 
     // Setup autoloading
     require 'vendor/autoload.php';

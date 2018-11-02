@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -21,6 +22,12 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
+    \Zend\Mail\ConfigProvider::class,
+    \Zend\Validator\ConfigProvider::class,
+    \Zend\Expressive\ZendView\ConfigProvider::class,
+    \Zend\HttpHandlerRunner\ConfigProvider::class,
+    \Zend\Filter\ConfigProvider::class,
+    \Zend\Expressive\Router\AuraRouter\ConfigProvider::class,
     new ArrayProvider($cacheConfig),
 
     \Zend\Expressive\Helper\ConfigProvider::class,
