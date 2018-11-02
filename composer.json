@@ -64,11 +64,10 @@
     },
     "require-dev" : {
         "filp/whoops": "^2.1.8",
-        "malukenho/docheader": "^0.1.4",
         "php-coveralls/php-coveralls": "^2.0",
         "phpspec/prophecy": "^1.7",
         "phpunit/phpunit": "^6.0",
-        "prooph/php-cs-fixer-config": "^0.2.1",
+        "prooph/php-cs-fixer-config": "^0.3",
         "proophsoftware/prooph-cli": "^0.2.0",
         "symfony/stopwatch": "^4.0",
         "zfcampus/zf-development-mode": "^3.1"
