@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -19,7 +20,7 @@ use Prooph\ProophessorDo\Model\Todo\Command\MarkTodoAsExpired;
 use Prooph\ProophessorDo\Projection\Todo\TodoFinder;
 use Prooph\ServiceBus\CommandBus;
 
-chdir(dirname(__DIR__));
+\chdir(\dirname(__DIR__));
 require 'vendor/autoload.php';
 
 markExpiredTodos();

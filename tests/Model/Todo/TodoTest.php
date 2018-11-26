@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -51,7 +52,7 @@ class TodoTest extends TestCase
 
         $events = $this->popRecordedEvent($todo);
 
-        $this->assertEquals(1, count($events));
+        $this->assertEquals(1, \count($events));
 
         $this->assertInstanceOf(TodoWasPosted::class, $events[0]);
 
@@ -78,7 +79,7 @@ class TodoTest extends TestCase
 
         $events = $this->popRecordedEvent($todo);
 
-        $this->assertEquals(2, count($events));
+        $this->assertEquals(2, \count($events));
 
         $this->assertInstanceOf(TodoWasMarkedAsDone::class, $events[1]);
 
@@ -120,7 +121,7 @@ class TodoTest extends TestCase
         $todo->addDeadline($userId, $deadline);
         $events = $this->popRecordedEvent($todo);
 
-        $this->assertEquals(2, count($events));
+        $this->assertEquals(2, \count($events));
 
         $this->assertInstanceOf(DeadlineWasAddedToTodo::class, $events[1]);
 
@@ -147,7 +148,7 @@ class TodoTest extends TestCase
         );
         $events = $this->popRecordedEvent($todo);
 
-        $this->assertEquals(1, count($events));
+        $this->assertEquals(1, \count($events));
         $this->assertInstanceOf(DeadlineWasAddedToTodo::class, $events[0]);
 
         return $todo;
@@ -391,7 +392,7 @@ class TodoTest extends TestCase
 
         $events = $this->popRecordedEvent($todo);
 
-        $this->assertEquals(1, count($events));
+        $this->assertEquals(1, \count($events));
         $this->assertInstanceOf(TodoWasMarkedAsExpired::class, $events[0]);
 
         $payload = $events[0]->payload();
@@ -471,7 +472,7 @@ class TodoTest extends TestCase
 
         $events = $this->popRecordedEvent($todo);
 
-        $this->assertEquals(2, count($events));
+        $this->assertEquals(2, \count($events));
         $this->assertInstanceOf(TodoWasUnmarkedAsExpired::class, $events[1]);
 
         return $todo;

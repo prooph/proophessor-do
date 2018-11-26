@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -17,7 +18,7 @@ use Prooph\ProophessorDo\Model\Todo\Event\ReminderWasAddedToTodo;
 use Prooph\ProophessorDo\Model\Todo\Event\TodoAssigneeWasReminded;
 use Prooph\ProophessorDo\Projection\Todo\TodoReminderReadModel;
 
-chdir(dirname(__DIR__));
+\chdir(\dirname(__DIR__));
 
 require_once 'vendor/autoload.php';
 

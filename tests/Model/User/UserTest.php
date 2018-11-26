@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -37,7 +38,7 @@ class UserTest extends TestCase
 
         $events = $this->popRecordedEvent($user);
 
-        $this->assertEquals(1, count($events));
+        $this->assertEquals(1, \count($events));
         $this->assertInstanceOf(UserWasRegistered::class, $events[0]);
 
         $expectedPayload = [
@@ -70,7 +71,7 @@ class UserTest extends TestCase
 
         $events = $this->popRecordedEvent($user);
 
-        $this->assertEquals(1, count($events));
+        $this->assertEquals(1, \count($events));
         $this->assertInstanceOf(UserWasRegisteredAgain::class, $events[0]);
 
         $expectedPayload = [

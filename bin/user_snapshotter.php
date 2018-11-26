@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -20,7 +21,7 @@ use Prooph\SnapshotStore\SnapshotStore;
 use Prooph\Snapshotter\SnapshotReadModel;
 use Prooph\Snapshotter\StreamSnapshotProjection;
 
-chdir(dirname(__DIR__));
+\chdir(\dirname(__DIR__));
 
 require_once 'vendor/autoload.php';
 

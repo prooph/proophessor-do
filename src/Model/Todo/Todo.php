@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -288,7 +289,7 @@ final class Todo extends AggregateRoot implements Entity
 
     public function sameIdentityAs(Entity $other): bool
     {
-        return get_class($this) === get_class($other) && $this->todoId->sameValueAs($other->todoId);
+        return \get_class($this) === \get_class($other) && $this->todoId->sameValueAs($other->todoId);
     }
 
     /**
@@ -298,11 +299,11 @@ final class Todo extends AggregateRoot implements Entity
     {
         $handler = $this->determineEventHandlerMethodFor($e);
 
-        if (! method_exists($this, $handler)) {
-            throw new \RuntimeException(sprintf(
+        if (! \method_exists($this, $handler)) {
+            throw new \RuntimeException(\sprintf(
                 'Missing event handler method %s for aggregate root %s',
                 $handler,
-                get_class($this)
+                \get_class($this)
             ));
         }
 
@@ -311,6 +312,6 @@ final class Todo extends AggregateRoot implements Entity
 
     protected function determineEventHandlerMethodFor(AggregateChanged $e): string
     {
-        return 'when' . implode(array_slice(explode('\\', get_class($e)), -1));
+        return 'when' . \implode(\array_slice(\explode('\\', \get_class($e)), -1));
     }
 }

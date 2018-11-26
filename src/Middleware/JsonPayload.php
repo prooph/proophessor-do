@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -21,12 +22,12 @@ class JsonPayload implements MiddlewareInterface
 {
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $contentType = trim($request->getHeaderLine('Content-Type'));
+        $contentType = \trim($request->getHeaderLine('Content-Type'));
 
-        if (0 === strpos($contentType, 'application/json')) {
-            $payload = json_decode((string) $request->getBody(), true);
+        if (0 === \strpos($contentType, 'application/json')) {
+            $payload = \json_decode((string) $request->getBody(), true);
 
-            switch (json_last_error()) {
+            switch (\json_last_error()) {
                 case JSON_ERROR_DEPTH:
                     throw new \RuntimeException('Invalid JSON, maximum stack depth exceeded.', 400);
                 case JSON_ERROR_UTF8:

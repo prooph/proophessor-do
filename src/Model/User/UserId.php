@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -45,6 +46,6 @@ final class UserId implements ValueObject
 
     public function sameValueAs(ValueObject $other): bool
     {
-        return get_class($this) === get_class($other) && $this->uuid->equals($other->uuid);
+        return \get_class($this) === \get_class($other) && $this->uuid->equals($other->uuid);
     }
 }

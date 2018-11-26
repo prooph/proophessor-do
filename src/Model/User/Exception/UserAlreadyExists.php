@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -18,6 +19,6 @@ final class UserAlreadyExists extends \InvalidArgumentException
 {
     public static function withUserId(UserId $userId): UserAlreadyExists
     {
-        return new self(sprintf('User with id %s already exists.', $userId->toString()));
+        return new self(\sprintf('User with id %s already exists.', $userId->toString()));
     }
 }

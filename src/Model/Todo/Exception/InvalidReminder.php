@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -19,7 +20,7 @@ final class InvalidReminder extends \Exception
 {
     public static function userIsNotAssignee(UserId $user, UserId $assigneeId): InvalidReminder
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'User %s tried to add a reminder to the todo owned by %s',
             $user->toString(),
             $assigneeId->toString()
@@ -28,7 +29,7 @@ final class InvalidReminder extends \Exception
 
     public static function reminderInThePast(TodoReminder $reminder): InvalidReminder
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Provided reminder %s is in the past',
             $reminder->toString()
         ));
@@ -36,7 +37,7 @@ final class InvalidReminder extends \Exception
 
     public static function reminderInTheFuture(TodoReminder $reminder): InvalidReminder
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Provided reminder %s is in the future',
             $reminder->toString()
         ));
@@ -49,7 +50,7 @@ final class InvalidReminder extends \Exception
 
     public static function reminderNotCurrent(TodoReminder $expected, TodoReminder $actual): InvalidReminder
     {
-        return new self(sprintf(
+        return new self(\sprintf(
             'Notification for reminder %s can not be send, because %s is the current one.',
             $actual->toString(),
             $expected->toString()

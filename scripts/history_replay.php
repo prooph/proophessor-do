@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -7,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 declare(strict_types=1);
 /**
  * Replay all events to regenerate the read model
@@ -16,7 +18,7 @@ namespace Prooph\ProophessorDo;
 
 use Prooph\EventStore\Projection\ProjectionManager;
 
-chdir(dirname(__DIR__));
+\chdir(\dirname(__DIR__));
 // Setup autoloading
 require __DIR__ . '/../vendor/autoload.php';
 // Retrieve the container

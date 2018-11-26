@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -59,7 +60,7 @@ final class TodoDeadline implements ValueObject
 
     public function sameValueAs(ValueObject $object): bool
     {
-        return get_class($this) === get_class($object)
+        return \get_class($this) === \get_class($object)
             && $this->deadline->format('U.u') === $object->deadline->format('U.u')
             && $this->createdOn->format('U.u') === $object->createdOn->format('U.u');
     }

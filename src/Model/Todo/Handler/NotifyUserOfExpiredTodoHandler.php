@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file is part of prooph/proophessor-do.
  * (c) 2014-2018 prooph software GmbH <contact@prooph.de>
@@ -51,7 +52,7 @@ class NotifyUserOfExpiredTodoHandler
             return;
         }
 
-        $message = sprintf(
+        $message = \sprintf(
             'Hi %s! Just a heads up: your todo `%s` has expired on %s.',
             $user->name,
             $todo->text,
