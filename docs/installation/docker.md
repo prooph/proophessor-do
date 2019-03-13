@@ -98,7 +98,7 @@ $ docker-compose up -d
 #### 3.5 Create the initial event stream with the already started container:
 
 ```bash
-$ docker exec proophessordo_php_1 php /var/www/scripts/create_event_streams.php
+$ docker exec proophessor-do_php_1 php /var/www/scripts/create_event_streams.php
 ```
 
 ### Step 4 - That's it!
